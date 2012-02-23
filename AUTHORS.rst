@@ -1,5 +1,4 @@
-Package is written and maintained by Respect31 and
-various contributors:
+Package is written and maintained by Respect31 and various contributors:
 
 Development Lead
 ----------------
