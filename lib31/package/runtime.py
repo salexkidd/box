@@ -2,14 +2,14 @@ import os
 import sys
 import hashlib
 
-class VirtualPackage(object):
+class RuntimePackage(object):
     
     def __init__(self, path):
         self._path = path
         self._register()
 
     def __repr__(self):
-        return '<VirtualPackage from {path}>'.format(
+        return '<RuntimePackage from {path}>'.format(
             path = repr(self.__path__)
         )
 
