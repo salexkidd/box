@@ -8,6 +8,11 @@ class VirtualPackage(object):
         self._path = path
         self._register()
 
+    def __repr__(self):
+        return '<VirtualPackage from {path}>'.format(
+            path = repr(self.__path__)
+        )
+
     @property
     def __name__(self):        
         return hashlib.md5(', '.join(self.__path__)).hexdigest()
@@ -17,4 +22,4 @@ class VirtualPackage(object):
         return map(os.path.abspath, self._path)
             
     def _register(self):
-        sys.modules[self.name] = self            
+        sys.modules[self.__name__] = self
