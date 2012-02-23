@@ -2,7 +2,7 @@ import os
 import imp
 from setuptools import find_packages
 
-class Package(dict):
+class ProgramPackage(dict):
     
     #Maindata
     NAME = 'run-core'
@@ -45,7 +45,7 @@ class Package(dict):
 
     def __init__(self):
         self.update([(name.lower(), getattr(self, name)) 
-                     for name in Package.__dict__
+                     for name in ProgramPackage.__dict__ #TODO: fix!!!
                      if not name.startswith('_')])    
         
     @property
