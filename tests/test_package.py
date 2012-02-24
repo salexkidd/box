@@ -1,4 +1,5 @@
 import os
+import pprint
 import unittest
 from lib31.reader import Reader
 from lib31.package import Package
@@ -22,4 +23,4 @@ class PackageTest(unittest.TestCase):
         self.package = PackageImp()
     
     def test(self):
-        print(self.package)
+        pprint.pprint(self.package)
