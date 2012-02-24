@@ -1,6 +1,6 @@
 import os
-import pprint
 import unittest
+from pprint import pprint
 from lib31.reader import Reader
 from lib31.package import Package
 from lib31.decorators.cachedproperty import cachedproperty
@@ -23,4 +23,4 @@ class PackageTest(unittest.TestCase):
         self.package = PackageImp()
     
     def test(self):
-        pprint.pprint(self.package)
+        pprint(self.package)
