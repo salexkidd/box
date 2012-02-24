@@ -1,4 +1,4 @@
-from lib31.package import ProgramPackage
+from lib31.package import Package
 
-class Package(ProgramPackage):
+class Package(Package):
     pass

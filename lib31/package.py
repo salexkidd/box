@@ -2,7 +2,7 @@ import os
 import imp
 from setuptools import find_packages
 
-class ProgramPackage(dict):
+class Package(dict):
     
     #Maindata
     NAME = 'run-core'

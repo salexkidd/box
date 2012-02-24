@@ -1,11 +1,11 @@
 import sys
 
-class Loader(object):
+class load(object):
     """
     Provides load method to load objects from module. 
     """
     
-    def load(self, pointer, direct=[type], path=[]):
+    def __new__(cls, pointer, direct=[type], path=[]):
         """
         Returns pointer if pointer type in direct,
         imports module if pointer is module name or
@@ -13,8 +13,8 @@ class Loader(object):
         
         Just for import time sys.path = path + sys.path.
         """
-        if not self._check_pointer_type_in_direct(pointer, direct):
-            return self._import_by_pointer(pointer, path)
+        if not cls._check_pointer_type_in_direct(pointer, direct):
+            return cls._import_by_pointer(pointer, path)
         else:
             return pointer
         
