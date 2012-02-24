@@ -12,11 +12,11 @@ class Package(dict):
     
     @abstractproperty
     def NAME(self):
-        pass
+        pass #pragma: no cover
     
     @abstractproperty
     def URL(self):
-        pass
+        pass #pragma: no cover
     
     def __init__(self):
         for key, attr in self._key_attr_mapping.items():
