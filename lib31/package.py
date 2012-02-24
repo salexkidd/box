@@ -20,9 +20,8 @@ class Package(dict):
     
     def __init__(self):
         self.update([(name.lower(), getattr(self, name)) 
-                     for name in Package.__dict__ #TODO: fix!!!
-                     if not name.startswith('_')])    
-  
+                     for name in self._initial_keys])    
+    
     @property
     def version(self):
         path = self._reader.path(self._main_package)
@@ -45,16 +44,41 @@ class Package(dict):
         return ('{url}/tarball/{version}'.
                 format(url=self.URL,
                        version=self.version))
+        
+    @cachedproperty
+    def license(self):
+        with open(self._reader.path('LICENSE.rst')) as f:
+            return f.readline().strip()
+    
+    @cachedproperty
+    def _initial_keys(self):
+        keys = []
+        for cls in self.__class__.__mro__:
+            if cls == dict:
+                break
+            for name in cls.__dict__:
+                if (name in keys or
+                    name.lower() in keys or
+                    name.upper() in keys or
+                    name.startswith('_')):
+                    continue
+                else:
+                    keys.append(name)
+        return keys  
     
     @cachedproperty
     def _main_package(self):
-        matched = [package for package in self.packges 
+        matched = [package for package in self.packages 
                    if '.' not in package]
         if len(matched) == 1:
             return matched[0]
         else:
-            raise Exception('Can\'t define main package from {packages}'.
-                            format(packages=repr(self.packages)))
+            raise Exception((
+                'Can\'t define main package.\n'
+                'Packages: {packages}'
+            ).format(
+                packages=repr(self.packages)
+            ))
     
     @cachedproperty
     def _reader(self):

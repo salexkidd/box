@@ -1,7 +1,7 @@
 from lib31.package import Package
 
 class Package(Package):
-    
+
     #Maindata
     NAME = 'run-core'
     ENTRY_POINTS = {
@@ -22,8 +22,7 @@ class Package(Package):
     MAINTAINER='Respect31'
     MAINTAINER_EMAIL='team@respect31.com'
     URL='https://github.com/respect31/run-core'
-    PLATFORMS=['Unix', 'POSIX']
-    LICENSE='MIT license'     
+    PLATFORMS=['Unix', 'POSIX']   
     CLASSIFIERS=[
         'Development Status :: 3 - Alpha',
         'Environment :: Console',
@@ -40,3 +39,9 @@ class Package(Package):
         'Topic :: System :: Systems Administration',
         'Topic :: Utilities',               
     ]
+    
+def test():
+    import pprint
+    p = Package()
+    pprint.pprint(p)
+    pprint.pprint(p._initial_keys)
