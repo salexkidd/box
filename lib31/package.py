@@ -22,16 +22,14 @@ class Package(dict):
         for key, attr in self._key_attr_mapping.items():
             self[key] = getattr(self, attr)   
     
-    @property
+    @cachedproperty
     def version(self):
         name = self._SETTINGS['version']
         path = self._reader.path(self._main_package)
         meta = imp.find_module(name, [path])
         module = imp.load_module(name, *meta)
         meta[0].close()
-        version = module.Version()
-        self['version'] = version
-        return version
+        return module.Version()
 
     @cachedproperty
     def packages(self):
