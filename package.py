@@ -39,9 +39,3 @@ class Package(Package):
         'Topic :: System :: Systems Administration',
         'Topic :: Utilities',               
     ]
-    
-def test():
-    import pprint
-    p = Package()
-    pprint.pprint(p)
-    pprint.pprint(p._initial_keys)

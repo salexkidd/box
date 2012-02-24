@@ -19,8 +19,8 @@ class Package(dict):
         pass
     
     def __init__(self):
-        self.update([(name.lower(), getattr(self, name)) 
-                     for name in self._initial_keys])    
+        for key, attr in self._key_attr_mapping.items():
+            self[key] = getattr(self, attr)   
     
     @property
     def version(self):
@@ -51,20 +51,18 @@ class Package(dict):
             return f.readline().strip()
     
     @cachedproperty
-    def _initial_keys(self):
-        keys = []
+    def _key_attr_mapping(self):
+        mapping = {}
         for cls in self.__class__.__mro__:
             if cls == dict:
                 break
             for name in cls.__dict__:
-                if (name in keys or
-                    name.lower() in keys or
-                    name.upper() in keys or
+                if (name in mapping.keys() or
                     name.startswith('_')):
                     continue
                 else:
-                    keys.append(name)
-        return keys  
+                    mapping[name.lower()] = name
+        return mapping
     
     @cachedproperty
     def _main_package(self):
