@@ -1,5 +1,5 @@
-Written and maintained by
--------------------------
+Written and maintained
+----------------------
 
 - Respect31 <team@respect31.com>
 
