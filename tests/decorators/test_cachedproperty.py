@@ -1,5 +1,5 @@
 import unittest
-from lib31.property import cachedproperty
+from lib31.decorators.cachedproperty import cachedproperty
 
 #Fixtures
 class Test(object):

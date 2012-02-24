@@ -1,6 +1,6 @@
 from package import Package
-from lib31.decorators import cachedproperty
 from runclasses.program import ProgramRunclass
+from lib31.decorators.cachedproperty import cachedproperty
 
 class Runclass(ProgramRunclass):
     
