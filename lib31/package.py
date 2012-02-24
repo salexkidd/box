@@ -29,7 +29,9 @@ class Package(dict):
         meta = imp.find_module(name, [path])
         module = imp.load_module(name, *meta)
         meta[0].close()
-        return module.Version()
+        version = module.Version()
+        self['version'] = version
+        return version
 
     @cachedproperty
     def packages(self):

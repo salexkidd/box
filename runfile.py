@@ -5,5 +5,5 @@ from lib31.decorators.cachedproperty import cachedproperty
 class Runclass(ProgramRunclass):
     
     @cachedproperty
-    def package(self):
+    def _package(self):
         return Package()
