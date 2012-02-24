@@ -24,20 +24,23 @@ class Package(dict):
     
     @property
     def version(self):
+        name = self._SETTINGS['version']
         path = self._reader.path(self._main_package)
-        meta = imp.find_module('version', [path])
-        module = imp.load_module('version', *meta)
+        meta = imp.find_module(name, [path])
+        module = imp.load_module(name, *meta)
         meta[0].close()
         return module.Version()
 
     @cachedproperty
     def packages(self):
+        exclude = self._SETTINGS['exclude']
         return find_packages(where=self._reader.path(),
-                             exclude=['tests*'])
+                             exclude=exclude)
     
     @cachedproperty
     def long_description(self):
-        return self._reader.read('README.rst')
+        filename = self._SOURCES['readme']
+        return self._reader.read(filename)
     
     @cachedproperty   
     def download_url(self):
@@ -47,9 +50,21 @@ class Package(dict):
         
     @cachedproperty
     def license(self):
-        with open(self._reader.path('LICENSE.rst')) as f:
+        filename = self._SOURCES['license']
+        with open(self._reader.path(filename)) as f:
             return f.readline().strip()
-    
+
+    _SETTINGS = {
+        'version': 'version',
+        'exclude': ['tests*'],             
+    }
+  
+    _SOURCES = {
+        'authors': 'AUTHORS.rst',
+        'license': 'LICENSE.rst',
+        'readme': 'README.rst',        
+    }
+        
     @cachedproperty
     def _key_attr_mapping(self):
         mapping = {}
