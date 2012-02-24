@@ -1,40 +1,62 @@
 import os
+import sys
 import imp
 from setuptools import find_packages
+from abc import ABCMeta, abstractproperty
+from .reader import Reader
+from .decorators.cachedproperty import cachedproperty
 
 class Package(dict):
-
+    
+    __metaclass__ = ABCMeta
+    
+    @abstractproperty
+    def NAME(self):
+        pass
+    
+    @abstractproperty
+    def URL(self):
+        pass
+    
     def __init__(self):
         self.update([(name.lower(), getattr(self, name)) 
                      for name in Package.__dict__ #TODO: fix!!!
                      if not name.startswith('_')])    
-        
+  
     @property
     def version(self):
-        path = os.path.join(os.path.dirname(__file__), 'run')
+        path = self._reader.path(self._main_package)
         meta = imp.find_module('version', [path])
         module = imp.load_module('version', *meta)
         meta[0].close()
         return module.Version()
-    
-    @version.setter
-    def version(self, version):
-        code = version.code
-        with open(self.version.path, 'w') as f:
-            f.write(code)
-        self['version'] = self.version
 
-    @property
+    @cachedproperty
     def packages(self):
-        return find_packages(exclude=['tests*'])
+        return find_packages(where=self._reader.path(),
+                             exclude=['tests*'])
     
-    @property
+    @cachedproperty
     def long_description(self):
-        with open('README.rst') as f: #TODO: fix!!!
-            return f.read()
+        return self._reader.read('README.rst')
     
-    @property    
+    @cachedproperty   
     def download_url(self):
         return ('{url}/tarball/{version}'.
                 format(url=self.URL,
                        version=self.version))
+    
+    @cachedproperty
+    def _main_package(self):
+        matched = [package for package in self.packges 
+                   if '.' not in package]
+        if len(matched) == 1:
+            return matched[0]
+        else:
+            raise Exception('Can\'t define main package from {packages}'.
+                            format(packages=repr(self.packages)))
+    
+    @cachedproperty
+    def _reader(self):
+        module = sys.modules[self.__module__]
+        return Reader(os.path.dirname(module.__file__))
