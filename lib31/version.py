@@ -1,3 +1,5 @@
+import sys 
+
 class Version(str):
     
     #Current
@@ -29,7 +31,8 @@ class Version(str):
     
     @property
     def path(self):
-        return __file__.replace('.pyc', '.py')
+        module = sys.modules[self.__module__]
+        return module.__file__.replace('.pyc', '.py')
     
     @property
     def code(self):
