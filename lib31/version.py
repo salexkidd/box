@@ -51,27 +51,31 @@ class Version(str):
 
     def next(self, step='minor', level='final'):
         base = self.__class__
-        name = base.__name__                 
+        name = base.__name__        
         if step == 'major':
             Version = type(name, (base,), {
                 'MAJOR': base.MAJOR+1,
                 'MINOR': 0,
                 'MICRO': 0,
                 'LEVEL': level,
+                'path': self.path,
             })
         elif step == 'minor':
-            Version = type(name, (base,), {
+            Version = type(name, (base,), {                                           
                 'MINOR': base.MINOR+1,
                 'MICRO': 0,
                 'LEVEL': level,
+                'path': self.path,                
             })
         elif step == 'micro':
-            Version = type(name, (base,), {
+            Version = type(name, (base,), {                                     
                 'MICRO': base.MICRO+1,
                 'LEVEL': level,
+                'path': self.path,                
             })
         else:
-            Version = type(name, (base,), {
+            Version = type(name, (base,), {                                           
                 'LEVEL': level,
+                'path': self.path,                
             })            
         return Version()
