@@ -1,23 +1,23 @@
 import sys 
 
 class Version(str):
+        
+    #Base
+    BASE = None    
     
     #Current
     MAJOR = 0
     MINOR = 1
     MICRO = 0
     LEVEL = 'final'
-
+    
     #Order
     ORDER = [
-        'MAJOR', 
+        'MAJOR',
         'MINOR',
-        'MICRO', 
+        'MICRO',
         'LEVEL',
     ]
-    
-    #Base
-    BASE = None
         
     def __new__(cls):
         elements = []
@@ -61,8 +61,8 @@ class Version(str):
 
     def next(self, step='minor', level='final'):
         Version = type('Version', (self.__class__,), {})                
-        Version.LEVEL = level
-        Version.BASE = self             
+        Version.BASE = self
+        Version.LEVEL = level       
         if step == 'major':
             Version.MAJOR = self.MAJOR+1
             Version.MINOR = 0
