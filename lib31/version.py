@@ -4,7 +4,7 @@ class Version(str):
     
     #Current
     MAJOR = 0
-    MINOR = 0
+    MINOR = 1
     MICRO = 0
     LEVEL = 'final'
     
