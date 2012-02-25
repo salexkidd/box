@@ -7,15 +7,18 @@ class Version(str):
     MINOR = 1
     MICRO = 0
     LEVEL = 'final'
-    
-    #Metadata
+
+    #Order
     ORDER = [
         'MAJOR', 
-        'MINOR', 
+        'MINOR',
         'MICRO', 
         'LEVEL',
     ]
     
+    #Base
+    BASE = None
+        
     def __new__(cls):
         elements = []
         for name in cls.ORDER:
@@ -31,51 +34,42 @@ class Version(str):
     
     @property
     def path(self):
-        module = sys.modules[self.__module__]
-        return module.__file__.replace('.pyc', '.py')
+        if not self.BASE:            
+            name = self.__module__
+        else:
+            name = self.BASE.__module__
+        return sys.modules[name].__file__.replace('.pyc', '.py')
     
     @property
     def code(self):
-        lines = []
         with open(self.path) as f:
-            for line in f:
-                for name in self.ORDER:
-                    if line.strip().startswith(name):
-                        line = line.replace(
-                            str(getattr(Version, name)),
-                            str(getattr(self, name))
-                        )
-                        break
-                lines.append(line)
-        return ''.join(lines)
+            if not self.BASE:
+                return f.read()
+            else:
+                lines = []
+                for line in f:
+                    for name in self.ORDER:
+                        if line.strip().startswith(name):
+                            line = line.replace(
+                                str(getattr(self.BASE, name)),
+                                str(getattr(self, name))
+                            )
+                            break
+                    lines.append(line)
+                return ''.join(lines)
+                
 
     def next(self, step='minor', level='final'):
-        base = self.__class__
-        name = base.__name__        
+        Version = type('Version', (self.__class__,), {})                
+        Version.LEVEL = level
+        Version.BASE = self             
         if step == 'major':
-            Version = type(name, (base,), {
-                'MAJOR': base.MAJOR+1,
-                'MINOR': 0,
-                'MICRO': 0,
-                'LEVEL': level,
-                'path': self.path,
-            })
+            Version.MAJOR = self.MAJOR+1
+            Version.MINOR = 0
+            Version.MICRO = 0
         elif step == 'minor':
-            Version = type(name, (base,), {                                           
-                'MINOR': base.MINOR+1,
-                'MICRO': 0,
-                'LEVEL': level,
-                'path': self.path,                
-            })
+            Version.MINOR = self.MINOR+1
+            Version.MICRO = 0
         elif step == 'micro':
-            Version = type(name, (base,), {                                     
-                'MICRO': base.MICRO+1,
-                'LEVEL': level,
-                'path': self.path,                
-            })
-        else:
-            Version = type(name, (base,), {                                           
-                'LEVEL': level,
-                'path': self.path,                
-            })            
-        return Version()
+            Version.MICRO = self.MICRO+1   
+        return Version()  
