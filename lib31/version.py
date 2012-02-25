@@ -13,7 +13,7 @@ class Version(str):
         'MAJOR', 
         'MINOR', 
         'MICRO', 
-        'LEVEL'
+        'LEVEL',
     ]
     
     def __new__(cls):
