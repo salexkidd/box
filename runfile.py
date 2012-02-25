@@ -7,3 +7,6 @@ class Runclass(ProgramRunclass):
     @cachedproperty
     def _package(self):
         return Package()
+    
+    def register(self):
+        pass
