@@ -27,11 +27,16 @@ class cachedproperty(object):
         cls._get_cache(obj)[name] = value
     
     @classmethod
-    def reset(cls, obj, name):
+    def reset(cls, obj, name=None):
         """
-        Resets object cached property with name.
-        """        
-        cls._get_cache(obj).pop(name, None)
+        Resets object cache or
+        resets object property cache if name's been passed.
+        """
+        if not name:
+            cls._get_cache(obj).clear()            
+        else:
+            cls._get_cache(obj).pop(name, None)
+            
                 
     @classmethod    
     def _get_cache(cls, obj):
