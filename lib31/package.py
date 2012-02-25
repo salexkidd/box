@@ -1,4 +1,5 @@
 import os
+import re
 import sys
 import imp
 from setuptools import find_packages
@@ -14,16 +15,18 @@ class Package(dict):
     def NAME(self):
         pass #pragma: no cover
     
-    @abstractproperty
-    def URL(self):
-        pass #pragma: no cover
-    
     def __init__(self):
-        for name in dir(self):
+        for name in set(map(str.upper, dir(self))):
             if not name.startswith('_'):
                 value = getattr(self, name)
                 if not hasattr(value, '__call__'):
                     self[name.lower()] = value   
+    
+    def __getattr__(self, name):
+        try:
+            return getattr(self, name.lower())
+        except AttributeError:
+            raise
     
     def reload(self):
         cachedproperty.reset(self)
@@ -41,20 +44,63 @@ class Package(dict):
     @cachedproperty
     def packages(self):
         where = os.path.abspath(self._reader.path())
-        exclude = self._SETTINGS['exclude']
+        exclude = self._SETTINGS['packages']['exclude']
         return find_packages(where=where,
                              exclude=exclude)
     
     @cachedproperty
+    def description(self): #TODO: improve
+        filename = self._SETTINGS['files']['readme']
+        with open(self._reader.path(filename)) as f:
+            for i, line in enumerate(f):
+                line = line.strip()
+                if i > 1 and line:
+                    return line
+                  
+    @cachedproperty
     def long_description(self):
         filename = self._SETTINGS['files']['readme']
         return self._reader.read(filename)
+                    
+    @cachedproperty
+    def author(self): #TODO: improve
+        filename = self._SETTINGS['files']['authors']
+        with open(self._reader.path(filename)) as f:
+            for i, line in enumerate(f):
+                line = line.strip()
+                if i > 1 and line:
+                    return (re.search(r'-\s+(.*)\s+<', line).
+                            group(1))
+
+    @cachedproperty
+    def author_email(self): #TODO: improve
+        filename = self._SETTINGS['files']['authors']
+        with open(self._reader.path(filename)) as f:
+            for i, line in enumerate(f):
+                line = line.strip()
+                if i > 1 and line:
+                    return (re.search(r'<(.*)>', line).
+                            group(1))
+    
+    @cachedproperty
+    def maintainer(self):
+        return self.AUTHOR 
+
+    @cachedproperty
+    def maintainer_email(self):
+        return self.AUTHOR_EMAIL
+
+    @cachedproperty
+    def url(self):
+        pattern = 'https://github.com/{author}/{name}'
+        return pattern.format(author=self.AUTHOR.lower(), 
+                              name=self.NAME.lower())
     
     @cachedproperty   
     def download_url(self):
-        return ('{url}/tarball/{version}'.
-                format(url=self.URL,
-                       version=self.version))
+        pattern = '{url}/tarball/{version}'
+        return pattern.format(url=self.URL, 
+                              version=self.VERSION)
         
     @cachedproperty
     def license(self):
@@ -63,9 +109,9 @@ class Package(dict):
             return f.readline().strip()
 
     _SETTINGS = {
-        'exclude': [
-            'tests*'
-        ],
+        'packages': {
+            'exclude': ['tests*'],
+        },
         'modules': {
             'version': 'version',
         },
@@ -74,16 +120,11 @@ class Package(dict):
             'license': 'LICENSE.rst',
             'readme': 'README.rst',        
         },
-        'patterns': {
-            'url': ('https://github.com/'
-                    '{author_lowered}/{name_lowered}'),
-            'download_url': '{url}/tarball/{version}',             
-        }
     }
     
     @cachedproperty
     def _main_package(self):
-        matched = [package for package in self.packages 
+        matched = [package for package in self.PACKAGES
                    if '.' not in package]
         if len(matched) == 1:
             return matched[0]
@@ -92,7 +133,7 @@ class Package(dict):
                 'Can\'t define main package.\n'
                 'Packages: {packages}'
             ).format(
-                packages=repr(self.packages)
+                packages=repr(self.PAKCAGES)
             ))
     
     @cachedproperty

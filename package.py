@@ -8,12 +8,6 @@ class Package(Package):
     TESTS_REQUIRE = ['nose']
     
     #Metadata
-    DESCRIPTION = 'Lib31'
-    AUTHOR = 'Respect31'
-    AUTHOR_EMAIL='team@respect31.com'
-    MAINTAINER='Respect31'
-    MAINTAINER_EMAIL='team@respect31.com'
-    URL='https://github.com/respect31/lib31'
     PLATFORMS=['Unix', 'POSIX']   
     CLASSIFIERS=[
         'Development Status :: 3 - Alpha',
