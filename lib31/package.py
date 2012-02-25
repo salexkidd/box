@@ -19,8 +19,14 @@ class Package(dict):
         pass #pragma: no cover
     
     def __init__(self):
-        for key, attr in self._key_attr_mapping.items():
-            self[key] = getattr(self, attr)   
+        for name in dir(self):
+            if not name.startswith('_'):
+                value = getattr(self, name)
+                if not hasattr(value, '__call__'):
+                    self[name] = value   
+    
+    def reload(self):
+        pass
     
     @cachedproperty
     def version(self):
@@ -71,20 +77,6 @@ class Package(dict):
             'download_url': '{url}/tarball/{version}',             
         }
     }
-        
-    @cachedproperty
-    def _key_attr_mapping(self):
-        mapping = {}
-        for cls in self.__class__.__mro__:
-            if cls == dict:
-                break
-            for name in cls.__dict__:
-                if (name in mapping.keys() or
-                    name.startswith('_')):
-                    continue
-                else:
-                    mapping[name.lower()] = name
-        return mapping
     
     @cachedproperty
     def _main_package(self):
