@@ -73,7 +73,8 @@ class Package(dict):
             'readme': 'README.rst',        
         },
         'patterns': {
-            'url': 'https://github.com/{author_lowered}/{name_lowered}',
+            'url': ('https://github.com/'
+                    '{author_lowered}/{name_lowered}'),
             'download_url': '{url}/tarball/{version}',             
         }
     }
