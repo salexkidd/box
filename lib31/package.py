@@ -23,7 +23,7 @@ class Package(dict):
             if not name.startswith('_'):
                 value = getattr(self, name)
                 if not hasattr(value, '__call__'):
-                    self[name] = value   
+                    self[name.lower()] = value   
     
     def reload(self):
         cachedproperty.reset(self)
@@ -40,8 +40,9 @@ class Package(dict):
 
     @cachedproperty
     def packages(self):
+        where = os.path.abspath(self._reader.path())
         exclude = self._SETTINGS['exclude']
-        return find_packages(where=self._reader.path(),
+        return find_packages(where=where,
                              exclude=exclude)
     
     @cachedproperty
