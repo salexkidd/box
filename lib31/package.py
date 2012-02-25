@@ -26,7 +26,8 @@ class Package(dict):
                     self[name] = value   
     
     def reload(self):
-        pass
+        cachedproperty.reset(self)
+        self.__init__()
     
     @cachedproperty
     def version(self):
