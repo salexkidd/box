@@ -24,7 +24,7 @@ class Package(dict):
     
     @cachedproperty
     def version(self):
-        name = self._SETTINGS['version']
+        name = self._SETTINGS['modules']['version']
         path = self._reader.path(self._main_package)
         meta = imp.find_module(name, [path])
         module = imp.load_module(name, *meta)
@@ -39,7 +39,7 @@ class Package(dict):
     
     @cachedproperty
     def long_description(self):
-        filename = self._SOURCES['readme']
+        filename = self._SETTINGS['files']['readme']
         return self._reader.read(filename)
     
     @cachedproperty   
@@ -50,19 +50,22 @@ class Package(dict):
         
     @cachedproperty
     def license(self):
-        filename = self._SOURCES['license']
+        filename = self._SETTINGS['files']['license']
         with open(self._reader.path(filename)) as f:
             return f.readline().strip()
 
     _SETTINGS = {
-        'version': 'version',
-        'exclude': ['tests*'],             
-    }
-  
-    _SOURCES = {
-        'authors': 'AUTHORS.rst',
-        'license': 'LICENSE.rst',
-        'readme': 'README.rst',        
+        'files': {
+            'authors': 'AUTHORS.rst',
+            'license': 'LICENSE.rst',
+            'readme': 'README.rst',        
+        },
+        'modules': {
+            'version': 'version',
+        },
+        'exclude': [
+            'tests*',
+        ]
     }
         
     @cachedproperty
