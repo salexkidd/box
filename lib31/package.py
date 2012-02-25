@@ -55,17 +55,21 @@ class Package(dict):
             return f.readline().strip()
 
     _SETTINGS = {
+        'exclude': [
+            'tests*'
+        ],
+        'modules': {
+            'version': 'version',
+        },
         'files': {
             'authors': 'AUTHORS.rst',
             'license': 'LICENSE.rst',
             'readme': 'README.rst',        
         },
-        'modules': {
-            'version': 'version',
-        },
-        'exclude': [
-            'tests*',
-        ]
+        'patterns': {
+            'url': 'https://github.com/{author_lowered}/{name_lowered}',
+            'download_url': '{url}/tarball/{version}',             
+        }
     }
         
     @cachedproperty
