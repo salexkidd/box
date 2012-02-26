@@ -1,8 +1,8 @@
 from lib31.decorators.cachedproperty import cachedproperty
-from runclasses.program import ProgramRunclass
+from runclasses.package import PackageRunclass
 from package import Package
 
-class Runclass(ProgramRunclass):
+class Runclass(PackageRunclass):
     
     def register(self):
         pass
