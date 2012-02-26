@@ -2,7 +2,7 @@ import sys
 
 class load(object):
     """
-    Provides load method to load objects from module. 
+    Imports module or object from module. 
     """
     
     def __new__(cls, pointer, direct=[type], path=[]):

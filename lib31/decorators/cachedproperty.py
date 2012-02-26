@@ -35,8 +35,7 @@ class cachedproperty(object):
         if not name:
             cls._get_cache(obj).clear()            
         else:
-            cls._get_cache(obj).pop(name, None)
-            
+            cls._get_cache(obj).pop(name, None)           
                 
     @classmethod    
     def _get_cache(cls, obj):
