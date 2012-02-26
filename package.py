@@ -1,4 +1,4 @@
-from lib31.package import Package
+from box import Package
 
 class Package(Package):
 

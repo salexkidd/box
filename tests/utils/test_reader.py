@@ -1,6 +1,6 @@
 import os
 import unittest
-from lib31.reader import Reader
+from lib31.utils.reader import Reader
 
 class ReaderTest(unittest.TestCase):
     
