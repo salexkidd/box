@@ -4,6 +4,7 @@ class Package(Package):
 
     #Maindata
     NAME = 'lib31'
+    INSTALL_REQUIRES = ['box']
     TEST_SUITE = 'nose.collector'
     TESTS_REQUIRE = ['nose']
     
