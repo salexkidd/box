@@ -1,19 +1,27 @@
 import os
-import sys
-import copy
 import unittest
 from lib31.functions.load import load
-from .path.module import obj
 
-class LoaderTest(unittest.TestCase):  
-
-    def test_load(self):
+class LoaderTest(unittest.TestCase):
+    
+    def setUp(self):
+        dirname = os.path.dirname(__file__)
+        self.path = [os.path.join(dirname, 'path')]
+    
+    def test_load_module(self):
+        self.assertEqual(load('unittest'), 
+                         load(unittest),
+                         unittest)
+        
+    def test_load_attr(self):
         self.assertEqual(load('unittest.TestCase'), 
                          load(unittest.TestCase),
                          unittest.TestCase)
         
-    def test_load_with_path(self):
-        sys_path_copy = copy.copy(sys.path)
-        path = [os.path.join(os.path.dirname(__file__), 'path')]
-        self.assertEqual(load('module.obj', path=path), obj)
-        self.assertEqual(sys.path, sys_path_copy)
+    def test_load_module_with_path(self):
+        module = load('module', path=self.path)
+        self.assertEqual(module.obj, 'obj')
+        
+    def test_load_attr_with_path(self):        
+        attr = load('module.obj', path=self.path)
+        self.assertEqual(attr, 'obj')
