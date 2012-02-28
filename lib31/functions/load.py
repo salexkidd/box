@@ -22,7 +22,7 @@ class load(object):
     
     def __new__(cls, pointer, direct=DIRECT, path=[]):
         if not cls._check_pointer_type_in_direct(pointer, direct):
-            return cls._import_by_pointer(pointer, path)
+            return cls._import_by_pointer(pointer, path=path)
         else:
             return pointer
         
