@@ -4,15 +4,21 @@ from ..types.runtime_package import RuntimePackage
 
 class load(object):
     """
-    Type: function-like class
-    Usage: load(pointer, direct=load.DIRECT, path=[])
+    Loads module or module attribute.
     
-    Returns pointer if pointer type in direct,
-    imports module if pointer is module name or
-    imports attribute from module if pointer is module.object.
-        
-    Uses path as additional path to find module 
-    without sys.path affecting (runtime package).
+    Arguments:
+      - pointer: str
+      - direct: list = load.DIRECT
+      - path: list = None, uses path instead sys.path 
+        without sys.path affecting (runtime package)
+    
+    Returns:
+      - pointer if pointer type in direct
+      - module if pointer is module name
+      - attribute from module if pointer is module.object
+    
+    Raises:
+      - ImportError if import fallen
     """
     
     DIRECT = [
@@ -20,7 +26,7 @@ class load(object):
         type,
     ]
     
-    def __new__(cls, pointer, direct=DIRECT, path=[]):
+    def __new__(cls, pointer, direct=DIRECT, path=None):
         if not cls._check_pointer_type_in_direct(pointer, direct):
             return cls._import_by_pointer(pointer, path=path)
         else:
@@ -35,7 +41,7 @@ class load(object):
             return False
         
     @classmethod
-    def _import_by_pointer(cls, pointer, path=[]):
+    def _import_by_pointer(cls, pointer, path=None):
         splited = pointer.rsplit('.', 1)
         module_name = splited.pop(0)
         module = cls._import(module_name, path=path)
@@ -47,14 +53,9 @@ class load(object):
             return module
 
     @staticmethod
-    def _import(name, path=[]):
-        try:
-            __import__(name)
-        except ImportError:
-            if path:
-                package = RuntimePackage(path)
-                name = '.'.join([package.__name__, name])
-                __import__(name)
-            else:
-                raise
+    def _import(name, path=None):
+        if path:
+            package = RuntimePackage(path)
+            name = '.'.join([package.__name__, name])
+        __import__(name)
         return sys.modules[name]

@@ -23,15 +23,19 @@ class LoaderTest(unittest.TestCase):
         )
         
     def test_load_module_with_path(self):
-        self.assertEqual(
-            load('unittest', path=self.path),
-            unittest,
+        self.assertRaises(
+            ImportError, 
+            load, 
+            'unittest', 
+            path=self.path,
         )
 
     def test_load_attr_with_path(self):
-        self.assertEqual(
-            load('unittest.TestCase', path=self.path), 
-            unittest.TestCase
+        self.assertRaises(
+            ImportError,
+            load,
+            'unittest.TestCase', 
+            path=self.path,
         )
 
     def test_load_module_from_path_with_path(self):
