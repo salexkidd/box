@@ -6,3 +6,6 @@ class Version(Version):
     MINOR = 1
     MICRO = 7
     LEVEL = 'final'
+    
+    
+version = Version()

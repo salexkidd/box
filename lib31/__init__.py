@@ -1,3 +1,1 @@
-from .version import Version
-
-__version__ = Version()
+from .version import Version, version
