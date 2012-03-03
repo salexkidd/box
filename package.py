@@ -3,14 +3,14 @@ from box import Package
 class Package(Package):
 
     #Maindata
-    NAME = 'lib31'
-    INSTALL_REQUIRES = ['box']
-    TEST_SUITE = 'nose.collector'
-    TESTS_REQUIRE = ['nose']
+    name = 'lib31'
+    install_requires = ['box>=0.3']
+    test_suite = 'nose.collector'
+    tests_require = ['nose']
     
     #Metadata
-    PLATFORMS=['Unix', 'POSIX']   
-    CLASSIFIERS=[
+    platforms=['Unix', 'POSIX']   
+    classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Console',
         'Intended Audience :: Developers',
