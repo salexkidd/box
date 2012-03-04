@@ -3,8 +3,8 @@ from box import Version
 class Version(Version):
     
     MAJOR = 0
-    MINOR = 1
-    MICRO = 8
+    MINOR = 2
+    MICRO = 0
     LEVEL = 'final'
     
     
