@@ -3,8 +3,10 @@ class Patcher(object):
     Patch scope by data. 
     """
     
-    PATTERN = ('self.patched.setdefault(key, {key})\n'
-               '{key} = value')
+    PATTERN = (
+        'self.patched.setdefault(key, {key})\n'
+        '{key} = value'
+    )
     
     def __init__(self, scope):
         """
