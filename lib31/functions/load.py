@@ -3,6 +3,9 @@ import types
 from ..types.runtime_package import RuntimePackage
 
 class Load(object):
+    """
+    Load function class.
+    """
     
     DIRECT = [
         types.ModuleType, 

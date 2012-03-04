@@ -1,4 +1,7 @@
 class Cachedproperty(object):
+    """
+    Cachedproperty decorator class.
+    """
     
     CACHE_NAME = '_property_cache'
     
