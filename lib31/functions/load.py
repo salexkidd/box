@@ -2,33 +2,33 @@ import sys
 import types
 from ..types.runtime_package import RuntimePackage
 
-class load(object):
-    """
-    Loads module or module attribute.
-    
-    Arguments:
-      - pointer: str
-      - direct: list = load.DIRECT
-      - path: list = None, uses path instead sys.path 
-        without sys.path affecting (runtime package)
-    
-    Returns:
-      - pointer if pointer type in direct
-      - module if pointer is module name
-      - attribute from module if pointer is module.object
-    
-    Raises:
-      - ImportError if import fallen
-    """
+class Load(object):
     
     DIRECT = [
         types.ModuleType, 
         type,
     ]
     
-    def __new__(cls, pointer, direct=DIRECT, path=None):
-        if not cls._check_pointer_type_in_direct(pointer, direct):
-            return cls._import_by_pointer(pointer, path=path)
+    def __call__(self, pointer, direct=DIRECT, path=None):
+        """
+        Loads module or module attribute.
+        
+        Arguments:
+          - pointer: str
+          - direct: list = load.DIRECT
+          - path: list = None, uses path instead sys.path 
+            without sys.path affecting (runtime package)
+        
+        Returns:
+          - pointer if pointer type in direct
+          - module if pointer is module name
+          - attribute from module if pointer is module.object
+        
+        Raises:
+          - ImportError if import fallen
+        """        
+        if not self._check_pointer_type_in_direct(pointer, direct):
+            return self._import_by_pointer(pointer, path=path)
         else:
             return pointer
         
@@ -39,8 +39,8 @@ class load(object):
                 return True
         else:
             return False
-        
-    @classmethod
+            
+    @classmethod    
     def _import_by_pointer(cls, pointer, path=None):
         splited = pointer.rsplit('.', 1)
         module_name = splited.pop(0)
@@ -50,7 +50,7 @@ class load(object):
             attr = getattr(module, attr_name)
             return attr          
         except IndexError:
-            return module
+            return module        
 
     @staticmethod
     def _import(name, path=None):
@@ -59,3 +59,6 @@ class load(object):
             name = '.'.join([package.__name__, name])
         __import__(name)
         return sys.modules[name]
+    
+    
+load = Load()
