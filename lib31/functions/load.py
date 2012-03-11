@@ -1,6 +1,6 @@
 import sys
 import types
-from ..types.runtime_package import RuntimePackage
+from ..types.fake_package import FakePackage
 
 class Load(object):
     """
@@ -20,7 +20,7 @@ class Load(object):
           - pointer: str
           - direct: list = load.DIRECT
           - path: list = None, uses path instead sys.path 
-            without sys.path affecting (runtime package)
+            without sys.path affecting (fake package)
         
         Returns:
           - pointer if pointer type in direct
@@ -58,7 +58,7 @@ class Load(object):
     @staticmethod
     def _import(name, path=None):
         if path:
-            package = RuntimePackage(path)
+            package = FakePackage(path)
             name = '.'.join([package.__name__, name])
         __import__(name)
         return sys.modules[name]

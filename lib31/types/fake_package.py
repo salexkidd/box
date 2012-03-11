@@ -2,14 +2,14 @@ import os
 import sys
 import hashlib
 
-class RuntimePackage(object):
+class FakePackage(object):
     
     def __init__(self, path):
         self._path = path
         self._register()
 
     def __repr__(self):
-        return '<RuntimePackage from {path}>'.format(
+        return '<FakePackage from {path}>'.format(
             path = repr(self.__path__)
         )
 
