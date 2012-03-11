@@ -3,6 +3,9 @@ import sys
 import hashlib
 
 class FakePackage(object):
+    """
+    Fake package with path list
+    """
     
     def __init__(self, path):
         self._path = path
