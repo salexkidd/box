@@ -1,7 +1,7 @@
 Lib31
 =====
 
-Common library provides cachedproperty, load, Patcher, Reader etc. 
+Common library provides cachedproperty, load, Patcher etc. 
 
 Installation
 ------------
