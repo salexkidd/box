@@ -4,7 +4,7 @@ import hashlib
 
 class FakePackage(object):
     """
-    Fake package with path list
+    Fake package with path list.
     """
     
     def __init__(self, path):
