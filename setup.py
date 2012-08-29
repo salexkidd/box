@@ -1,4 +1,3 @@
-from package import Package
+from package import package
 
-package = Package()
 package.setup()

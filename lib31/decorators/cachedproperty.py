@@ -2,9 +2,9 @@ class Cachedproperty(object):
     """
     Cachedproperty decorator class.
     """
-    
-    CACHE_NAME = '_property_cache'
-    
+
+    #Public
+
     def __call__(self, func):
         """
         Returns cached property.
@@ -36,10 +36,16 @@ class Cachedproperty(object):
             cls._get_cache(obj).clear()            
         else:
             cls._get_cache(obj).pop(name, None)           
+    
+    #Protected
                 
     @classmethod    
     def _get_cache(cls, obj):
-        return obj.__dict__.setdefault(cls.CACHE_NAME, {})       
+        return obj.__dict__.setdefault(
+            cls. _cached_properties_attribute_name, {}
+        )
+
+    _cached_properties_attribute_name = '_cached_properties'
     
     
 cachedproperty = Cachedproperty()

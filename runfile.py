@@ -1,6 +1,8 @@
 from runclasses.package import PackageRunclass
-from package import Package
+from package import package
 
 class Runclass(PackageRunclass):
     
-    PACKAGE = Package
+    #Protected
+    
+    _package = package
