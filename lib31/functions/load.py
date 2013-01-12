@@ -9,18 +9,18 @@ class Load(object):
     
     #Public
     
-    DIRECT = [
+    direct = [
         types.ModuleType, 
         type,
     ]
     
-    def __call__(self, pointer, direct=DIRECT, path=None):
+    def __call__(self, pointer, direct=direct, path=None):
         """
         Loads module or module attribute.
         
         Arguments:
           - pointer: str
-          - direct: list = load.DIRECT
+          - direct: list = load.direct
           - path: list = None, uses path instead sys.path 
             without sys.path affecting (fake package)
         
