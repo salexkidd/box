@@ -28,8 +28,11 @@ class Load(object):
           - attribute from module if pointer is module.object
         
         Raises:
+          - TypeError if path is not a list
           - ImportError if import fallen
-        """        
+        """
+        if path and not isinstance(path, list):
+            raise TypeError('Path must be a list like sys.path')        
         if not self._check_pointer_type_in_direct(pointer, direct):
             return self._import_by_pointer(pointer, path=path)
         else:
