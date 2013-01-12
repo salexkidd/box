@@ -7,6 +7,8 @@ class Load(object):
     Load function class.
     """
     
+    #Public
+    
     DIRECT = [
         types.ModuleType, 
         type,
@@ -37,6 +39,8 @@ class Load(object):
             return self._import_by_pointer(pointer, path=path)
         else:
             return pointer
+    
+    #Protected
         
     @staticmethod
     def _check_pointer_type_in_direct(pointer, direct):
