@@ -2,17 +2,19 @@ import os
 import sys
 import hashlib
 
-class FakePackage(object):
+class VirtualPackage(object):
     """
-    Fake package with path list.
+    Virtual package with path list.
     """
+    
+    #Public
     
     def __init__(self, path):
         self._path = path
         self._register()
 
     def __repr__(self):
-        return '<FakePackage from {path}>'.format(
+        return '<VirtualPackage from {path}>'.format(
             path = repr(self.__path__)
         )
 
@@ -23,6 +25,8 @@ class FakePackage(object):
     @property
     def __path__(self):
         return map(os.path.abspath, self._path)
+    
+    #Protected
             
     def _register(self):
         sys.modules[self.__name__] = self

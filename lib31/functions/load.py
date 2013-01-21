@@ -1,6 +1,6 @@
 import sys
 import types
-from ..types.fake_package import FakePackage
+from ..types.virtual_package import VirtualPackage
 
 class Load(object):
     """
@@ -65,7 +65,7 @@ class Load(object):
     @staticmethod
     def _import(name, path=None):
         if path:
-            package = FakePackage(path)
+            package = VirtualPackage(path)
             name = '.'.join([package.__name__, name])
         __import__(name)
         return sys.modules[name]
