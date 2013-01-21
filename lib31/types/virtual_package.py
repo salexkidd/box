@@ -10,6 +10,8 @@ class VirtualPackage(object):
     #Public
     
     def __init__(self, path):
+        if path and not isinstance(path, list):
+            raise TypeError('Path must be a list like sys.path')         
         self._path = path
         self._register()
 
@@ -20,7 +22,10 @@ class VirtualPackage(object):
 
     @property
     def __name__(self):        
-        return hashlib.md5(', '.join(self.__path__)).hexdigest()
+        return (
+            'virtual_packages.'+
+            hashlib.md5(', '.join(self.__path__)).hexdigest()
+        )
 
     @property
     def __path__(self):
