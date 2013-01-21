@@ -17,15 +17,14 @@ class VirtualPackage(object):
 
     def __repr__(self):
         return '<VirtualPackage from {path}>'.format(
-            path = repr(self.__path__)
+            path=repr(self.__path__)
         )
 
     @property
     def __name__(self):        
-        return '_'.join([
-            'virtual_package',
-            hashlib.md5(', '.join(self.__path__)).hexdigest()
-        ])
+        return 'virtual_package_{hash}'.format(
+            hash=hashlib.md5(', '.join(self.__path__)).hexdigest()
+        )
 
     @property
     def __path__(self):
