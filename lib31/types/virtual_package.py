@@ -22,8 +22,8 @@ class VirtualPackage(object):
 
     @property
     def __name__(self):        
-        return '.'.join([
-            'virtual_packages',
+        return '_'.join([
+            'virtual_package',
             hashlib.md5(', '.join(self.__path__)).hexdigest()
         ])
 
