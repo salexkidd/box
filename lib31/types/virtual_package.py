@@ -22,10 +22,10 @@ class VirtualPackage(object):
 
     @property
     def __name__(self):        
-        return (
-            'virtual_packages.'+
+        return '.'.join([
+            'virtual_packages',
             hashlib.md5(', '.join(self.__path__)).hexdigest()
-        )
+        ])
 
     @property
     def __path__(self):
