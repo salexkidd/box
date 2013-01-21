@@ -6,7 +6,7 @@ class LoaderTest(unittest.TestCase):
     
     def setUp(self):
         dirname = os.path.dirname(__file__)
-        self.path = [os.path.join(dirname, 'path')]
+        self.path = [os.path.join(dirname, 'package')]
     
     def test_load_module(self):
         self.assertEqual(
