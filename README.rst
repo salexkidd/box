@@ -1,7 +1,7 @@
 Lib31
 =====
 
-Common library provides cachedproperty, load, Patcher etc. 
+Common library provides cachedproperty, load etc. 
 
 Installation
 ------------
@@ -11,4 +11,4 @@ Step 1
 
 Step 2
 ``````
-- pip install run-python
+- pip install lib31
