@@ -1,7 +1,7 @@
 import os
 import sys
 import unittest
-from lib31.types.virtual_package import VirtualPackage
+from lib31.virtual_package import VirtualPackage
 
 class VirtualPackageTest(unittest.TestCase):  
     

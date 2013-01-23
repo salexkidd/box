@@ -1,6 +1,6 @@
 import os
 import unittest
-from lib31.functions.load import load
+from lib31.load import load
 
 class LoaderTest(unittest.TestCase):
     
