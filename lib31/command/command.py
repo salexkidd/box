@@ -1,5 +1,5 @@
 from copy import deepcopy
-from lib31.decorators.cachedproperty import cachedproperty
+from ..cachedproperty import cachedproperty
 from .parser import CommandArgumentParser
 
 class Command(object):
@@ -42,5 +42,5 @@ class Command(object):
         for name, data in deepcopy(self.schema['arguments']).items():
             parser.add_argument(name, **data)
         for name, data in deepcopy(self.schema['options']).items():
-            parser.add_option(*data.pop('flags'), dest=name, **data)
+            parser.add_argument(*data.pop('flags'), dest=name, **data)
         return parser
