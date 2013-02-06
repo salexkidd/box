@@ -16,3 +16,6 @@ class VirtualPackageTest(unittest.TestCase):
             self.package, 
             sys.modules[self.package.__name__]
         )
+
+    def test_file(self):
+        print(self.package.__file__)

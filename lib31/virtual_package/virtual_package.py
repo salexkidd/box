@@ -1,6 +1,7 @@
 import os
 import sys
 import hashlib
+from ..cachedproperty import cachedproperty
 
 class VirtualPackage(object):
     """
@@ -20,15 +21,19 @@ class VirtualPackage(object):
             path=repr(self.__path__)
         )
 
-    @property
+    @cachedproperty
     def __name__(self):        
         return 'virtual_package_{hash}'.format(
             hash=hashlib.md5(', '.join(self.__path__)).hexdigest()
         )
 
-    @property
+    @cachedproperty
     def __path__(self):
         return map(os.path.abspath, self._path)
+    
+    @cachedproperty
+    def __file__(self):
+        return os.path.join(self._path[0], '__init__.py')    
     
     #Protected
             
