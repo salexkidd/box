@@ -4,7 +4,7 @@ class Version(Version):
     
     MAJOR = 0
     MINOR = 3
-    MICRO = 2
+    MICRO = 3
     LEVEL = 'final'
     
     
