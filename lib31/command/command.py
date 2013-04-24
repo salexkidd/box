@@ -25,7 +25,7 @@ class Command(object):
         self.argv = argv        
         self.schema = schema or self.schema
         self.parser = parser or self.parser
-        self.parse()
+        self._parse()
         
     def __getattr__(self, name):
         return getattr(self._parsed, name)
