@@ -13,9 +13,8 @@ class Command(object):
             'add_help': False,
         },                      
         'arguments': {
-            'arguments': {
-                'nargs':'*',
-                'default': [],
+            'argument': {
+                'nargs':'?',
             },
         },
         'options': {},
@@ -24,6 +23,7 @@ class Command(object):
     def __init__(self, argv, schema=None):
         self.argv = argv        
         self.schema = schema or self.schema
+        self.parse()
         
     def __getattr__(self, name):
         return getattr(self._parsed, name)
@@ -32,9 +32,8 @@ class Command(object):
     
     _parser_class = CommandArgumentParser
 
-    @cachedproperty
-    def _parsed(self):
-        return self._parser.parse_args(self.argv[1:])
+    def _parse(self):
+        self._parsed = self._parser.parse_args(self.argv[1:])
         
     @cachedproperty
     def _parser(self):
