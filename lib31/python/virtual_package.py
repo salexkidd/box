@@ -24,7 +24,7 @@ class VirtualPackage(object):
     @cachedproperty
     def __name__(self):        
         return 'virtual_package_{hash}'.format(
-            hash=hashlib.md5(', '.join(self.__path__)).hexdigest()
+            hash=hashlib.md5(', '.join(self.__path__).encode()).hexdigest()
         )
 
     @cachedproperty

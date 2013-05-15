@@ -1,5 +1,5 @@
 import unittest
-from box.package.library.cachedproperty import cachedproperty
+from lib31.python import cachedproperty
 
 #Fixtures
 
