@@ -11,7 +11,7 @@ class VirtualPackage(object):
     #Public
     
     def __init__(self, path):         
-        self._path = path
+        self._set_path(path)
         self._register()
 
     def __repr__(self):
@@ -34,6 +34,9 @@ class VirtualPackage(object):
         return os.path.join(self._path, '__init__.py')    
     
     #Protected
-            
+    
+    def _set_path(self, path):
+        self._path = os.path.abspath(path)
+          
     def _register(self):
         sys.modules[self.__name__] = self
