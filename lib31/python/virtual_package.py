@@ -15,7 +15,7 @@ class VirtualPackage(object):
         self._register()
 
     def __repr__(self):
-        return "<module '{name}' (virtual-package: {path})>".format(
+        return "<module '{name}' (virtual-package: '{path}')>".format(
             name=self.__name__, 
             path=self._path,
         )
