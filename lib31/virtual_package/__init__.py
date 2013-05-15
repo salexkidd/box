@@ -1,1 +1,0 @@
-from .virtual_package import VirtualPackage

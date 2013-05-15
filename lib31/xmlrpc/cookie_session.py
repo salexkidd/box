@@ -1,4 +1,13 @@
-from xmlrpclib import Transport, ProtocolError
+from xmlrpc.client import ServerProxy, Transport, ProtocolError
+
+class CookieSessionServerProxy(ServerProxy):
+    
+    #Public
+    
+    def __init__(self, uri, cookie_session_key, *args, **kwargs):
+        kwargs['transport'] = CookieSessionTransport(cookie_session_key)
+        ServerProxy.__init__(self, uri, *args, **kwargs)
+        
 
 class CookieSessionTransport(Transport):
     
@@ -53,4 +62,4 @@ class CookieSessionTransport(Transport):
             k = coppia[0].strip()
             v = coppia[1].strip()
             ret[k] = v
-        return ret    
+        return ret            

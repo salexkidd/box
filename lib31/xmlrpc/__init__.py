@@ -1,2 +1,1 @@
-from .server_proxy import CookieSessionServerProxy
-from .transport import CookieSessionTransport
+from .cookie_session import CookieSessionServerProxy, CookieSessionTransport
