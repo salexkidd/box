@@ -29,7 +29,7 @@ class VirtualPackage(object):
 
     @cachedproperty
     def __path__(self):
-        return map(os.path.abspath, self._path)
+        return list(map(os.path.abspath, self._path))
     
     @cachedproperty
     def __file__(self):
