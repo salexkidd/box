@@ -16,22 +16,18 @@ class VirtualPackage(object):
 
     def __repr__(self):
         return '<VirtualPackage from {path}>'.format(
-            path=repr(self.__path__)
+            path=repr(self._path)
         )
 
     @cachedproperty
     def __name__(self):        
         return 'virtual_package_{hash}'.format(
-            hash=hashlib.md5(self.__path__.encode()).hexdigest()
+            hash=hashlib.md5(self._path.encode()).hexdigest()
         )
 
     @cachedproperty
     def __path__(self):
-        return self._path
-    
-    @cachedproperty
-    def __file__(self):
-        return None    
+        return [self._path]
     
     #Protected
     

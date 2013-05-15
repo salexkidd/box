@@ -19,11 +19,5 @@ class VirtualPackageTest(unittest.TestCase):
     def test_path(self):
         self.assertIn(
             self._path, 
-            self._package.__path__,
-        )
-
-    def test_file(self):
-        self.assertEqual(
-            self._package.__file__,
-            None,
+            self._package.__path__[0],
         )
