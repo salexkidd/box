@@ -11,7 +11,7 @@ class VirtualPackageTest(unittest.TestCase):
     def get_path(self, *paths):
         return os.path.join(os.path.dirname(__file__), *paths)
     
-    def test(self):
+    def test_object(self):
         self.assertEqual(
             self.package, 
             sys.modules[self.package.__name__]
