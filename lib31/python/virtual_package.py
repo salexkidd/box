@@ -10,9 +10,7 @@ class VirtualPackage(object):
     
     #Public
     
-    def __init__(self, path):
-        if path and not isinstance(path, list):
-            raise TypeError('Path must be a list like sys.path')         
+    def __init__(self, path):         
         self._path = path
         self._register()
 
@@ -24,16 +22,16 @@ class VirtualPackage(object):
     @cachedproperty
     def __name__(self):        
         return 'virtual_package_{hash}'.format(
-            hash=hashlib.md5(', '.join(self.__path__).encode()).hexdigest()
+            hash=hashlib.md5(self.__path__.encode()).hexdigest()
         )
 
     @cachedproperty
     def __path__(self):
-        return list(map(os.path.abspath, self._path))
+        return self._path
     
     @cachedproperty
     def __file__(self):
-        return os.path.join(self._path[0], '__init__.py')    
+        return os.path.join(self._path, '__init__.py')    
     
     #Protected
             

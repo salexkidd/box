@@ -6,7 +6,7 @@ from lib31.python import VirtualPackage
 class VirtualPackageTest(unittest.TestCase):  
     
     def setUp(self):
-        self.package = VirtualPackage([self.get_path('package')])
+        self.package = VirtualPackage(self.get_path('package'))
         
     def get_path(self, *paths):
         return os.path.join(os.path.dirname(__file__), *paths)
