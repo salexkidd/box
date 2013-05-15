@@ -15,8 +15,9 @@ class VirtualPackage(object):
         self._register()
 
     def __repr__(self):
-        return '<VirtualPackage from {path}>'.format(
-            path=repr(self._path)
+        return "<module '{name}' (virtual-package: {path})>".format(
+            name=self.__name__, 
+            path=self._path,
         )
 
     @cachedproperty
