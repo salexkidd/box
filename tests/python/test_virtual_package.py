@@ -18,4 +18,4 @@ class VirtualPackageTest(unittest.TestCase):
         )
 
     def test_file(self):
-        print(self.package.__file__)
+        self.package.__file__
