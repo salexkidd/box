@@ -1,6 +1,6 @@
 import os
 import unittest
-from lib31.load import load
+from lib31.python import import_module
 
 class LoaderTest(unittest.TestCase):
     
@@ -10,22 +10,22 @@ class LoaderTest(unittest.TestCase):
     
     def test_load_module(self):
         self.assertEqual(
-            load('unittest'), 
-            load(unittest),
+            import_module('unittest'), 
+            import_module(unittest),
             unittest,
         )
         
     def test_load_attr(self):
         self.assertEqual(
-            load('unittest.TestCase'), 
-            load(unittest.TestCase),
+            import_module('unittest.TestCase'), 
+            import_module(unittest.TestCase),
             unittest.TestCase,
         )
         
     def test_load_module_with_path(self):
         self.assertRaises(
             ImportError, 
-            load, 
+            import_module, 
             'unittest', 
             path=self.path,
         )
@@ -33,19 +33,19 @@ class LoaderTest(unittest.TestCase):
     def test_load_attr_with_path(self):
         self.assertRaises(
             ImportError,
-            load,
+            import_module,
             'unittest.TestCase', 
             path=self.path,
         )
 
     def test_load_module_from_path_with_path(self):
         self.assertEqual(
-            load('module', path=self.path).attr, 
+            import_module('module', path=self.path).attr, 
             'attr'
         )
         
     def test_load_attr_from_path_with_path(self):        
         self.assertEqual(
-            load('module.attr', path=self.path), 
+            import_module('module.attr', path=self.path), 
             'attr'
         )                

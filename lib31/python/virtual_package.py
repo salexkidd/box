@@ -1,7 +1,7 @@
 import os
 import sys
 import hashlib
-from ..cachedproperty import cachedproperty
+from .cachedproperty import cachedproperty
 
 class VirtualPackage(object):
     """

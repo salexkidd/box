@@ -1,14 +1,18 @@
 import unittest
-from lib31.cachedproperty import cachedproperty
+from box.package.library.cachedproperty import cachedproperty
 
 #Fixtures
-class Test(object):
+
+class PropertyClassFixture(object):
     
-    value = 1
+    #Public
+    
+    def __init__(self, property_value):
+        self._property_value = property_value
     
     @cachedproperty
     def property(self):
-        return self.value
+        return self._property_value
     
     @property.setter
     def property(self, value):
@@ -20,17 +24,27 @@ class Test(object):
   
     
 #Tests
+
 class CachedPropertyTest(unittest.TestCase):
     
+    #Public
+    
     def setUp(self):
-        self.test = Test()
+        self.object = PropertyClassFixture(property_value=1)
+    
+    def test_get(self):
+        self.assertEqual(self.object.property, 1)
+    
+    def test_set(self):
+        self.object.property = 0
+        self.assertEqual(self.object.property, 0)
+    
+    def test_reset_all(self):
+        self.object.property = 0
+        cachedproperty.reset(self.object)
+        self.assertEqual(self.object.property, 1)
         
-    def test(self):
-        self.assertEqual(self.test.property, 1)
-        self.test.value = 2
-        self.assertEqual(self.test.property, 1)
-        self.test.property = 2
-        self.assertEqual(self.test.property, 2)
-        del self.test.property
-        self.test.value = 3
-        self.assertEqual(self.test.property, 3)
+    def test_reset_concrete(self):
+        self.object.property = 0
+        cachedproperty.reset(self.object, 'property')
+        self.assertEqual(self.object.property, 1)             

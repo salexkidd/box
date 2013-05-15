@@ -10,7 +10,7 @@ class Cachedproperty(object):
         Returns cached property.
         """
         def get(obj, *args, **kwargs):
-            name = func.func_name
+            name = func.__name__
             cache = self._get_cache(obj)
             try:
                 return cache[name] 
@@ -38,14 +38,14 @@ class Cachedproperty(object):
             cls._get_cache(obj).pop(name, None)           
     
     #Protected
-                
+
+    _cached_properties_attribute_name = '_cached_properties'
+              
     @classmethod    
     def _get_cache(cls, obj):
         return obj.__dict__.setdefault(
             cls. _cached_properties_attribute_name, {}
         )
-
-    _cached_properties_attribute_name = '_cached_properties'
     
     
 cachedproperty = Cachedproperty()

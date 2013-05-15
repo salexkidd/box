@@ -2,7 +2,7 @@ import sys
 import types
 from .virtual_package import VirtualPackage
 
-class Load(object):
+class ImportModule(object):
     """
     Load function class.
     """
@@ -69,4 +69,4 @@ class Load(object):
         return sys.modules[name]
     
     
-load = Load()
+import_module = ImportModule()
