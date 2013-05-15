@@ -4,4 +4,4 @@ graft tests
 include *.rst
 include *.py
 
-global-exclude *.pyc
+global-exclude __pycache__/*
