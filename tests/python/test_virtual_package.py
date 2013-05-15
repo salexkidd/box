@@ -1,5 +1,6 @@
 import os
 import unittest
+import importlib
 from lib31.python import VirtualPackage
 
 class VirtualPackageTest(unittest.TestCase):  
@@ -11,6 +12,12 @@ class VirtualPackageTest(unittest.TestCase):
             os.path.join(os.path.dirname(__file__), 'package')
         )
         self._package = VirtualPackage(self._path)
+
+    def test_import(self):
+        self.assertEqual(
+            importlib.import_module(self._package.__name__), 
+            self._package,
+        )        
 
     def test_repr(self):
         self.assertRegex(
