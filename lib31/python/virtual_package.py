@@ -31,7 +31,7 @@ class VirtualPackage(object):
     
     @cachedproperty
     def __file__(self):
-        return os.path.join(self._path, '__init__.py')    
+        return None    
     
     #Protected
     
