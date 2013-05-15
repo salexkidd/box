@@ -1,6 +1,6 @@
 import sys
 import types
-from ..virtual_package import VirtualPackage
+from .virtual_package import VirtualPackage
 
 class Load(object):
     """
