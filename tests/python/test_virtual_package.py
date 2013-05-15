@@ -11,12 +11,15 @@ class VirtualPackageTest(unittest.TestCase):
         self._package = VirtualPackage(self._path)
 
     def test_name(self):
-        pass
+        self.assertIn(
+            'virtual_package_', 
+            self._package.__name__,
+        )
         
     def test_path(self):
-        self.assertEqual(
+        self.assertIn(
+            self._path, 
             self._package.__path__,
-            os.path.abspath(self._path),
         )
 
     def test_file(self):
