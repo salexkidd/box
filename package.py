@@ -1,6 +1,8 @@
-from box import Package
+from box import Package, CommonPackageMixin, ReStructuredPackageMixin
 
-class Package(Package):
+class Package(CommonPackageMixin,
+              ReStructuredPackageMixin,
+              Package):
 
     #Public
     
