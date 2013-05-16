@@ -1,51 +1,47 @@
-class Cachedproperty(object):
-    """
-    Cachedproperty decorator class.
-    """
-
+class cachedproperty(object):
+    
     #Public
+    
+    def __init__(self, fget=None, fset=None, fdel=None, doc=None):
+        self._fget = fget
+        self._fset = fset
+        self._fdel = fdel
+        self.__doc__ = doc
+               
+    def __get__(self, object, type):
+        if not hasattr(self, '_cache'):
+            if self._fget:
+                self._cache = self._fget(object)
+            else:
+                raise AttributeError('can\'t get attribute')
+        return self._cache
 
-    def __call__(self, func):
-        """
-        Returns cached property.
-        """
-        def get(obj, *args, **kwargs):
-            name = func.__name__
-            cache = self._get_cache(obj)
-            try:
-                return cache[name] 
-            except KeyError:
-                cache[name] = func(obj, *args, **kwargs)
-                return cache[name]   
-        return property(get)
-    
-    @classmethod
-    def set(cls, obj, name, value):
-        """
-        Sets value to object cached property with name.
-        """
-        cls._get_cache(obj)[name] = value
-    
-    @classmethod
-    def reset(cls, obj, name=None):
-        """
-        Resets object cache or
-        resets object property cache if name's been passed.
-        """
-        if not name:
-            cls._get_cache(obj).clear()            
+    def __set__(self, object, value):
+        if self._fset:
+            self._fset(object, value)
         else:
-            cls._get_cache(obj).pop(name, None)           
+            raise AttributeError('can\'t set attribute')
     
-    #Protected
-
-    _cached_properties_attribute_name = '_cached_properties'
-              
-    @classmethod    
-    def _get_cache(cls, obj):
-        return obj.__dict__.setdefault(
-            cls. _cached_properties_attribute_name, {}
-        )
+    def __delete__(self, object):
+        if self._fdel:
+            self._fdel(object)
+        else:
+            raise AttributeError('can\'t delete attribute')        
+        
+    def setter(self, fset):
+        self._fset = fset
+        return self
     
+    def deleter(self, fdel):
+        self._fdel = fdel
+        return self
     
-cachedproperty = Cachedproperty()
+    @staticmethod
+    def set(object, name, value):
+        property = object.__class__.__dict__[name]
+        property._cache = value
+        
+    @staticmethod
+    def reset(object, name):
+        property = object.__class__.__dict__[name]
+        del property._cache

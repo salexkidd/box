@@ -1,9 +1,31 @@
 import unittest
 from lib31.python import cachedproperty
 
-#Fixtures
+#Tests
 
-class PropertyClassFixture(object):
+class CachedpropertyTest(unittest.TestCase):
+    
+    #Public
+    
+    def setUp(self):
+        self.object = CachedpropertyConsumer(property_value=1)
+    
+    def test_get(self):
+        self.assertEqual(self.object.property, 1)
+    
+    def test_set(self):
+        self.object.property = 0
+        self.assertEqual(self.object.property, 0)
+         
+    def test_reset(self):
+        self.object.property = 0
+        cachedproperty.reset(self.object, 'property')
+        self.assertEqual(self.object.property, 1)
+        
+        
+#Objects
+
+class CachedpropertyConsumer(object):
     
     #Public
     
@@ -16,35 +38,8 @@ class PropertyClassFixture(object):
     
     @property.setter
     def property(self, value):
-        cachedproperty.set(self, 'property', value)
-        
+        cachedproperty.set(self, 'property', value)  
+         
     @property.deleter
     def property(self):
-        cachedproperty.reset(self, 'property')        
-  
-    
-#Tests
-
-class CachedPropertyTest(unittest.TestCase):
-    
-    #Public
-    
-    def setUp(self):
-        self.object = PropertyClassFixture(property_value=1)
-    
-    def test_get(self):
-        self.assertEqual(self.object.property, 1)
-    
-    def test_set(self):
-        self.object.property = 0
-        self.assertEqual(self.object.property, 0)
-    
-    def test_reset_all(self):
-        self.object.property = 0
-        cachedproperty.reset(self.object)
-        self.assertEqual(self.object.property, 1)
-        
-    def test_reset_concrete(self):
-        self.object.property = 0
-        cachedproperty.reset(self.object, 'property')
-        self.assertEqual(self.object.property, 1)             
+        cachedproperty.reset(self, 'property')              
