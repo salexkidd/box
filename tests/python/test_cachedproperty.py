@@ -39,7 +39,13 @@ class CachedpropertyConsumerTest(unittest.TestCase):
     def test_bad_property_delete(self):
         self.assertRaises(
             AttributeError, delattr, self._object, 'bad_property'
-        )                
+        )
+        
+    def test_non_existent_property_set(self):
+        self.assertRaises(
+            AttributeError, cachedproperty.set, 
+            self._object, 'non_existent_property', 1,
+        )         
         
         
 #Objects

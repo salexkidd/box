@@ -57,4 +57,6 @@ class cachedproperty(object):
         try:
             return object.__class__.__dict__[name]
         except KeyError:
-            raise AttributeError('Object '+object+' has no attribute '+name) 
+            raise AttributeError(
+                'Object '+str(object)+' has no attribute '+name
+            ) 
