@@ -44,4 +44,5 @@ class cachedproperty(object):
     @staticmethod
     def reset(object, name):
         property = object.__class__.__dict__[name]
-        del property._cache
+        if hasattr(property, '_cache'):
+            del property._cache
