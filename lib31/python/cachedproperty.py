@@ -1,4 +1,7 @@
 class cachedproperty(object):
+    """
+    Property with caching ability
+    """
     
     #Public
     
