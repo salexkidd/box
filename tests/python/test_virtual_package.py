@@ -8,9 +8,7 @@ class VirtualPackageTest(unittest.TestCase):
     #Public
     
     def setUp(self):
-        self._path = os.path.abspath(
-            os.path.join(os.path.dirname(__file__), 'package')
-        )
+        self._path = os.path.abspath('test."!path')
         self._package = VirtualPackage(self._path)
 
     def test_import(self):
