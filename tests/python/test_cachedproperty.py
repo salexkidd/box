@@ -8,37 +8,40 @@ class CachedpropertyConsumerTest(unittest.TestCase):
     #Public
     
     def setUp(self):
-        self._object = CachedpropertyConsumer(good_property_value=0)
+        self._object = CachedpropertyConsumer(property_value=0)
     
-    def test_good_property_get(self):
-        self.assertEqual(self._object.good_property, 0)
-        self._object.good_property_value = 1
-        self.assertEqual(self._object.good_property, 0)        
+    def test_property_get(self):
+        self.assertEqual(self._object.property, 0)
+        self._object.property_value = 1
+        self.assertEqual(self._object.property, 0)        
     
-    def test_good_property_set(self):
-        self.assertEqual(self._object.good_property, 0)        
-        self._object.good_property = 1
-        self.assertEqual(self._object.good_property, 1)
+    def test_property_set(self):
+        self.assertEqual(self._object.property, 0)        
+        self._object.property = 1
+        self.assertEqual(self._object.property, 1)
          
-    def test_good_property_delete(self):
-        self.assertEqual(self._object.good_property, 0)
-        self._object.good_property = 1                
-        del self._object.good_property
-        self.assertEqual(self._object.good_property, 0)
+    def test_property_delete(self):
+        self.assertEqual(self._object.property, 0)
+        self._object.property = 1                
+        del self._object.property
+        self.assertEqual(self._object.property, 0)
         
-    def test_bad_property_get(self):
+    def test_not_defined_property_get(self):
         self.assertRaises(
-            AttributeError, getattr, self._object, 'bad_property'
+            AttributeError, getattr, 
+            self._object, 'not_defined_property'
         )
     
-    def test_bad_property_set(self):
+    def test_not_defined_property_set(self):
         self.assertRaises(
-            AttributeError, setattr, self._object, 'bad_property', 1
+            AttributeError, setattr, 
+            self._object, 'not_defined_property', 1
         )
         
-    def test_bad_property_delete(self):
+    def test_not_defined_property_delete(self):
         self.assertRaises(
-            AttributeError, delattr, self._object, 'bad_property'
+            AttributeError, delattr, 
+            self._object, 'not_defined_property'
         )
         
     def test_non_existent_property_set(self):
@@ -54,19 +57,19 @@ class CachedpropertyConsumer(object):
     
     #Public
     
-    def __init__(self, good_property_value):
-        self.good_property_value = good_property_value
+    def __init__(self, property_value):
+        self.property_value = property_value
     
     @cachedproperty
-    def good_property(self):
-        return self.good_property_value
+    def property(self):
+        return self.property_value
     
-    @good_property.setter
-    def good_property(self, value):
-        cachedproperty.set(self, 'good_property', value)  
+    @property.setter
+    def property(self, value):
+        cachedproperty.set(self, 'property', value)  
          
-    @good_property.deleter
-    def good_property(self):
-        cachedproperty.reset(self, 'good_property')
+    @property.deleter
+    def property(self):
+        cachedproperty.reset(self, 'property')
         
-    bad_property = cachedproperty()             
+    not_defined_property = cachedproperty()             
