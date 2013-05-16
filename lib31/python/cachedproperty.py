@@ -36,13 +36,22 @@ class cachedproperty(object):
         self._fdel = fdel
         return self
     
-    @staticmethod
-    def set(object, name, value):
-        property = object.__class__.__dict__[name]
+    @classmethod
+    def set(cls, object, name, value):
+        property = cls._get_property(object, name) 
         property._cache = value
         
-    @staticmethod
-    def reset(object, name):
-        property = object.__class__.__dict__[name]
+    @classmethod
+    def reset(cls, object, name):
+        property = cls._get_property(object, name)
         if hasattr(property, '_cache'):
             del property._cache
+            
+    #Protected
+    
+    @staticmethod
+    def _get_property(object, name):
+        try:
+            return object.__class__.__dict__[name]
+        except KeyError:
+            raise AttributeError('Object '+object+' has no attribute '+name) 
