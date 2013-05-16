@@ -1,6 +1,7 @@
 import os
+# import re
 import sys
-import hashlib
+# import base64
 from .cachedproperty import cachedproperty
 
 class VirtualPackage(object):
@@ -15,16 +16,16 @@ class VirtualPackage(object):
         self._register()
 
     def __repr__(self):
-        return "<module '{name}' (virtual-package: '{path}')>".format(
+        return "<module '{name}' (virtual-package)>".format(
             name=self.__name__, 
-            path=self._path,
         )
 
     @cachedproperty
-    def __name__(self):        
-        return 'virtual_package_{hash}'.format(
-            hash=hashlib.md5(self._path.encode()).hexdigest()
-        )
+    def __name__(self):
+#         name = '_'.join(self._path.split(os.path.sep)).strip('_')
+#         name = '_'.join(['virtual_package_from', name])
+#         name = self._escape_string(name) 
+        return self._path           
 
     @cachedproperty
     def __path__(self):
@@ -37,3 +38,16 @@ class VirtualPackage(object):
           
     def _register(self):
         sys.modules[self.__name__] = self
+    
+#     @staticmethod    
+#     def _escape_string(string):
+#         letters = []
+#         for letter in string:
+#             if re.match('[^\w]', letter):
+#                 letter = base64.b16encode(letter.encode()).decode()
+#             letters.append(letter)
+#         return ''.join(letters)
+        
+                
+            
+        

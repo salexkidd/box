@@ -26,9 +26,9 @@ class VirtualPackageTest(unittest.TestCase):
         ) 
 
     def test_name(self):
-        self.assertRegex(
+        self.assertEqual(
             self._package.__name__, 
-            'virtual_package_[a-z0-9]{32}',
+            self._path,
         )
         
     def test_path(self):
