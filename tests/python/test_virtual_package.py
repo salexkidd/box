@@ -26,13 +26,13 @@ class VirtualPackageTest(unittest.TestCase):
         ) 
 
     def test_name(self):
-        self.assertEqual(
+        self.assertNotIn(
+            '.',                         
             self._package.__name__, 
-            self._path,
         )
         
     def test_path(self):
         self.assertEqual(
-            [self._path], 
             self._package.__path__,
+            [self._path],             
         )

@@ -1,1 +1,1 @@
-name = 'value'
+attr = 'attr'
