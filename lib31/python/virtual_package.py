@@ -20,14 +20,14 @@ class VirtualPackage(object):
             name=self.__name__, 
         )
 
-    @property
+    @cachedproperty
     def __name__(self):
         name = '_'.join(self._path.split(os.path.sep)).strip('_')
         name = '_'.join(['virtual_package_from', name])
         name = self._escape_name(name)
         return name
 
-    @property
+    @cachedproperty
     def __path__(self):
         return [self._path]
     
