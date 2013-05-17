@@ -18,3 +18,6 @@ class ImportModuleTest(unittest.TestCase):
             import_attribute('.module.attr', self._path), 
             'attr',
         )
+        
+    def test_import_attribute_bad_name(self):
+        self.assertRaises(TypeError, import_attribute, '.module')        
