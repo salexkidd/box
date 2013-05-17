@@ -1,13 +1,14 @@
 Lib31
 =====
-Common library provides cachedproperty, load etc. 
+Common library provides cachedproperty etc. 
 
 Installation
 ------------
-Step 1
-``````
-- pip install box
-
-Step 2
-``````
 - pip install lib31
+
+History
+-------
+0.4.0
+`````
+- ported to Python 3.2 without previous version support
+- updated application programing interface
