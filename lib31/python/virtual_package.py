@@ -6,7 +6,7 @@ from .cachedproperty import cachedproperty
 
 class VirtualPackage(object):
     """
-    Virtual package with path list.
+    Virtual package from any filesystem path.
     """
     
     #Public
