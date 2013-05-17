@@ -1,11 +1,7 @@
 PyPI classifiers
 ----------------------
 - Development Status :: 4 - Beta
-- Environment :: Console
 - Intended Audience :: Developers
-- Intended Audience :: System Administrators
 - License :: OSI Approved :: MIT License
 - Programming Language :: Python :: 3.2
 - Topic :: Software Development :: Libraries :: Python Modules
-- Topic :: System :: Systems Administration
-- Topic :: Utilities
