@@ -12,7 +12,7 @@ class CachedpropertyTest(unittest.TestCase):
     
     def test_get_property_name(self):
         self.assertRaises(
-            AttributeError, self._property._get_property_name, str
+            AttributeError, self._property._get_property_name, None
         )
     
 
