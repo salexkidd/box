@@ -2,7 +2,9 @@ import importlib
 from .virtual_package import VirtualPackage
 
 def import_module(name, path=None):
-    if path:
-        pass
-    else:
-        return importlib.import_module(name)
+    package = None
+    if name.startswith('.'):
+        if not path:
+            raise TypeError('Relative import requires path')
+        package = VirtualPackage(path).__name__
+    return importlib.import_module(name, package)
