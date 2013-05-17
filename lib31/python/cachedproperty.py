@@ -16,20 +16,20 @@ class cachedproperty(object):
             if self._fget:
                 self._cache = self._fget(object)
             else:
-                raise AttributeError('can\'t get attribute')
+                raise AttributeError('Can\'t get attribute')
         return self._cache
 
     def __set__(self, object, value):
         if self._fset:
             self._fset(object, value)
         else:
-            raise AttributeError('can\'t set attribute')
+            raise AttributeError('Can\'t set attribute')
     
     def __delete__(self, object):
         if self._fdel:
             self._fdel(object)
         else:
-            raise AttributeError('can\'t delete attribute')        
+            raise AttributeError('Can\'t delete attribute')        
         
     def setter(self, fset):
         self._fset = fset
