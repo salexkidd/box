@@ -3,6 +3,19 @@ from lib31.python import cachedproperty
 
 #Tests
 
+class CachedpropertyTest(unittest.TestCase):
+    
+    #Public
+    
+    def setUp(self):
+        self._property = cachedproperty()
+    
+    def test_get_property_name(self):
+        self.assertRaises(
+            AttributeError, self._property._get_property_name, str
+        )
+    
+
 class CachedpropertyConsumerTest(unittest.TestCase):
     
     #Public
@@ -42,13 +55,7 @@ class CachedpropertyConsumerTest(unittest.TestCase):
         self.assertRaises(
             AttributeError, delattr, 
             self._object, 'not_defined_property'
-        )
-        
-    def test_non_existent_property_set(self):
-        self.assertRaises(
-            AttributeError, cachedproperty.set, 
-            self._object, 'non_existent_property', 1,
-        )         
+        )       
         
         
 #Objects

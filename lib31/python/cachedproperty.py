@@ -1,6 +1,6 @@
 class cachedproperty(object):
     """
-    Property with caching ability
+    Property with values caching
     """
     
     #Public
@@ -11,23 +11,25 @@ class cachedproperty(object):
         self._fdel = fdel
         self.__doc__ = doc
                
-    def __get__(self, object, type):
-        if not hasattr(self, '_cache'):
+    def __get__(self, obj, cls):
+        cache = self._get_object_cache(obj)
+        name = self._get_property_name(obj)
+        if name not in cache:
             if self._fget:
-                self._cache = self._fget(object)
+                cache[name] = self._fget(obj)
             else:
                 raise AttributeError('Can\'t get attribute')
-        return self._cache
+        return cache[name]
 
-    def __set__(self, object, value):
+    def __set__(self, obj, value):
         if self._fset:
-            self._fset(object, value)
+            self._fset(obj, value)
         else:
             raise AttributeError('Can\'t set attribute')
     
-    def __delete__(self, object):
+    def __delete__(self, obj):
         if self._fdel:
-            self._fdel(object)
+            self._fdel(obj)
         else:
             raise AttributeError('Can\'t delete attribute')        
         
@@ -40,23 +42,32 @@ class cachedproperty(object):
         return self
     
     @classmethod
-    def set(cls, object, name, value):
-        property = cls._get_property(object, name) 
-        property._cache = value
+    def set(cls, obj, name, value):
+        cache = cls._get_object_cache(obj)
+        cache[name] = value
         
     @classmethod
-    def reset(cls, object, name):
-        property = cls._get_property(object, name)
-        if hasattr(property, '_cache'):
-            del property._cache
+    def reset(cls, obj, name):
+        cache = cls._get_object_cache(obj)
+        cache.pop(name, None)
             
     #Protected
     
-    @staticmethod
-    def _get_property(object, name):
-        try:
-            return object.__class__.__dict__[name]
-        except KeyError:
-            raise AttributeError(
-                'Object '+str(object)+' has no attribute '+name
-            ) 
+    _obj_cache_attribute_name = '_cached_properties'
+    
+    @classmethod
+    def _get_object_cache(cls, obj):
+        attr_name = cls._obj_cache_attribute_name
+        if not hasattr(obj, attr_name):
+            setattr(obj, attr_name, {})
+        return getattr(obj, attr_name)
+    
+    def _get_property_name(self, obj):
+        if not hasattr(self, '_property_name'):
+            for name, value in vars(obj.__class__).items():
+                if self is value:
+                    self._property_name = name
+                    break
+            else:
+                raise AttributeError('Can\'t determine property name')
+        return self._property_name
