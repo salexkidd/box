@@ -1,6 +1,6 @@
 class cachedproperty(object):
     """
-    Property with values caching
+    Property with caching
     """
     
     #Public
@@ -57,10 +57,8 @@ class cachedproperty(object):
     
     @classmethod
     def _get_object_cache(cls, obj):
-        attr_name = cls._obj_cache_attribute_name
-        if not hasattr(obj, attr_name):
-            setattr(obj, attr_name, {})
-        return getattr(obj, attr_name)
+        #Don't use hasattr to prevent user defined __getattr__ problems
+        return obj.__dict__.setdefault(cls._obj_cache_attribute_name, {})
     
     def _get_property_name(self, obj):
         if not hasattr(self, '_property_name'):
