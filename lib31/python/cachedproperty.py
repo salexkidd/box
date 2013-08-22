@@ -1,3 +1,4 @@
+#TODO: retest! Looks like there are some issues..
 class cachedproperty(object):
     """
     Property with caching
