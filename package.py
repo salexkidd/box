@@ -5,7 +5,7 @@ package = {
 	#Main
 
     'name': 'lib31',
-	'version': '0.4.0',
+	'version': '0.5.0',
 	'packages': find_packages('lib31'),
 	'include_package_data': True,	
     'tests_require': ['nose'],
@@ -19,7 +19,7 @@ package = {
     'maintainer_email': 'post@respect31.com',
     'license': 'MIT License',    
     'url': 'https://github.com/respect31/lib31',
-    'download_url': 'https://github.com/respect31/lib31/tarball/0.4.0',    
+    'download_url': 'https://github.com/respect31/lib31/tarball/0.5.0',    
     'classifiers': ['Development Status :: 4 - Beta', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules'],    
     'description': 'Common library provides cachedproperty etc. ',    
     'long_description': '''Lib31
