@@ -2,7 +2,7 @@ from copy import deepcopy
 from argparse import ArgumentParser
 from ..python.cachedproperty import cachedproperty
 
-class Command(object):
+class Command:
     
     #Public
     
