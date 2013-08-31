@@ -37,6 +37,7 @@ class Command:
         
     @cachedproperty
     def _parser(self):
+        #TODO: fix config work
         parser = self.parser(self.schema['config'])
         for name, data in deepcopy(self.schema['arguments']).items():
             parser.add_argument(name, **data)
