@@ -6,17 +6,14 @@ class Command:
     #Public
     
     schema = {
-        'config': {
-            'prog': 'program',
-            'add_help': False,
-        },                      
-        'arguments': {
-            'parameters': {
-                'nargs':'*',
-                'default': [],
+        'prog': 'program',
+        'add_help': False,                     
+        'arguments': [
+            {
+             'name': 'arguments',
+             'nargs':'*',
             },             
-        },
-        'options': {},        
+        ],       
     }
     
     def __init__(self, argv, schema=None):
@@ -41,10 +38,19 @@ class Command:
     #TODO: use cachedproperty        
     @property
     def _parser(self):
-        #TODO: fix config work
-        parser = self._parser_class(**self.schema['config'])
-        for name, data in deepcopy(self.schema['arguments']).items():
-            parser.add_argument(name, **data)
-        for name, data in deepcopy(self.schema['options']).items():
-            parser.add_argument(*data.pop('flags'), dest=name, **data)
+        schema = deepcopy(self.schema)
+        arguments = schema.pop('arguments')
+        parser = self._parser_class(**schema)
+        for argument in arguments:
+            #Positional argument
+            if 'name' in argument:
+                name = argument.pop('name')
+                parser.add_argument(name, **argument)
+            #Optional argument
+            elif 'flags' in argument:
+                flags = argument.pop('flags')
+                parser.add_argument(*flags, **argument)
+            #Unknown argument
+            else:
+                raise ValueError('Name or flags is required in command_schema argument')
         return parser
