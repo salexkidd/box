@@ -42,7 +42,7 @@ class Command:
     @property
     def _parser(self):
         #TODO: fix config work
-        parser = self._parser_class(self.schema['config'])
+        parser = self._parser_class(**self.schema['config'])
         for name, data in deepcopy(self.schema['arguments']).items():
             parser.add_argument(name, **data)
         for name, data in deepcopy(self.schema['options']).items():
