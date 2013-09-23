@@ -12,7 +12,7 @@ class Command:
         },                      
         'arguments': {
             'parameters': {
-                'nargs':'?',
+                'nargs':'*',
                 'default': [],
             },             
         },
