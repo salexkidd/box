@@ -14,6 +14,7 @@ class Program(metaclass=ABCMeta):
             
     #Protected
     
+    #TODO: use cachedproperty
     @property
     def _command(self):
         return Command(self._argv, schema=self._command_schema)
