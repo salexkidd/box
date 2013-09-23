@@ -6,9 +6,23 @@ class Command:
     
     #Public
     
-    def __init__(self, argv, schema):
+    schema = {
+        'config': {
+            'prog': 'program',
+            'add_help': False,
+        },                      
+        'arguments': {
+            'parameters': {
+                'nargs':'?',
+                'default': [],
+            },             
+        },
+        'options': {},        
+    }
+    
+    def __init__(self, argv, schema=None):
         self.argv = argv        
-        self.schema = schema
+        self.schema = schema or self.schema
         
     def __getattr__(self, name):
         if not name.startswith('_'):
