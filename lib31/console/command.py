@@ -1,6 +1,5 @@
 from copy import deepcopy
 from argparse import ArgumentParser
-from ..python.cachedproperty import cachedproperty
 
 class Command:
     
@@ -34,11 +33,13 @@ class Command:
     
     _parser_class = ArgumentParser
 
-    @cachedproperty
+    #TODO: use cachedproperty
+    @property
     def _parsed_args(self):
         return self._parser.parse_args(self.argv[1:])
-        
-    @cachedproperty
+       
+    #TODO: use cachedproperty        
+    @property
     def _parser(self):
         #TODO: fix config work
         parser = self._parser_class(self.schema['config'])
