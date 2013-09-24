@@ -22,7 +22,7 @@ class Command:
         
     def __getattr__(self, name):
         if not name.startswith('_'):
-            return getattr(self._parsed_args, name)
+            return getattr(self._namespace, name)
         else:
             raise AttributeError(name)
         
@@ -32,7 +32,7 @@ class Command:
 
     #TODO: use cachedproperty
     @property
-    def _parsed_args(self):
+    def _namespace(self):
         return self._parser.parse_args(self.argv[1:])
        
     #TODO: use cachedproperty        
