@@ -2,6 +2,10 @@ Lib31
 =====
 Common library provides cachedproperty etc. 
 
+Requirements
+------------
+- Python 3.3 and higher
+
 Installation
 ------------
 - pip install lib31
