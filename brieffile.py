@@ -1,7 +1,6 @@
-from brief import Brief, PackageContext, FileTemplate, FileTarget
+from brief import PackageBrief, FileInput, FileOutput
 
-class Brief(Brief):
+class Brief(PackageBrief):
        
-    context = PackageContext()
-    template = FileTemplate('package.tpl')
-    target = FileTarget('package.py')
+    input = FileInput('package.in')
+    output = FileOutput('package.py')
