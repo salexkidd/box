@@ -4,5 +4,3 @@ class Brief(PackageBrief):
        
     input = FileInput('package.in')
     output = FileOutput('package.py')
-    
-    name = 'ipclight'
