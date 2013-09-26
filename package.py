@@ -20,7 +20,7 @@ package = {
     'license': 'MIT License',    
     'url': 'https://github.com/respect31/lib31',
     'download_url': 'https://github.com/respect31/lib31/tarball/0.5.0',    
-    'classifiers': ['Development Status :: 4 - Beta', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules'],    
+    'classifiers': ['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules'],    
     'description': 'Common library provides cachedproperty etc. ',    
     'long_description': '''Lib31
 =====
