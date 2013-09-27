@@ -1,4 +1,3 @@
-#TODO: retest! Looks like there are some issues..
 class cachedproperty(object):
     """
     Property with caching
@@ -54,19 +53,22 @@ class cachedproperty(object):
             
     #Protected
     
-    _obj_cache_attribute_name = '_cached_properties'
+    _obj_cache_attribute_name = '_lib31_cached_properties'
     
     @classmethod
     def _get_object_cache(cls, obj):
-        #Don't use hasattr to prevent user defined __getattr__ problems
         return obj.__dict__.setdefault(cls._obj_cache_attribute_name, {})
     
     def _get_property_name(self, obj):
         if not hasattr(self, '_property_name'):
-            for name, value in vars(obj.__class__).items():
-                if self is value:
-                    self._property_name = name
-                    break
+            for scope in obj.__class__.__mro__:       
+                for name, value in vars(scope).items():
+                    if self is value:
+                        self._property_name = name
+                        break
+                else:
+                    continue
+                break
             else:
                 raise AttributeError('Can\'t determine property name')
         return self._property_name

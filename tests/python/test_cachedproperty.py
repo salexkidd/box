@@ -58,9 +58,9 @@ class CachedpropertyConsumerTest(unittest.TestCase):
         )       
         
         
-#Fixtures
+#Fixtures 
 
-class CachedpropertyConsumer(object):
+class BaseCachedpropertyConsumer:
     
     #Public
     
@@ -79,4 +79,11 @@ class CachedpropertyConsumer(object):
     def property(self):
         cachedproperty.reset(self, 'property')
         
-    not_defined_property = cachedproperty()             
+    not_defined_property = cachedproperty()
+    
+    
+class CachedpropertyConsumer(BaseCachedpropertyConsumer):      
+                
+    #Public
+    
+    pass
