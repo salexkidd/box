@@ -58,7 +58,7 @@ class CachedpropertyConsumerTest(unittest.TestCase):
         )       
         
         
-#Objects
+#Fixtures
 
 class CachedpropertyConsumer(object):
     
