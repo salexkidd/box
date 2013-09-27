@@ -1,5 +1,6 @@
 from copy import deepcopy
 from argparse import ArgumentParser
+from ..python.cachedproperty import cachedproperty
 
 class Command:
     
@@ -30,13 +31,11 @@ class Command:
     
     _parser_class = ArgumentParser
 
-    #TODO: use cachedproperty
-    @property
+    @cachedproperty
     def _namespace(self):
         return self._parser.parse_args(self.argv[1:])
        
-    #TODO: use cachedproperty        
-    @property
+    @cachedproperty
     def _parser(self):
         schema = deepcopy(self.schema)
         arguments = schema.pop('arguments')
