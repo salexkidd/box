@@ -1,9 +1,8 @@
-from runclasses.python_package import PythonPackageRunclass
+from runbooks import PythonPackageRun
 from package import package
     
-class Runclass(PythonPackageRunclass):
+class Run(PythonPackageRun):
         
     #Public
     
-    def __init__(self):
-        self._package = package
+    package = package
