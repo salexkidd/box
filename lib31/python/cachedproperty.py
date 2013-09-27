@@ -9,17 +9,16 @@ class cachedproperty(object):
         self._fget = fget
         self._fset = fset
         self._fdel = fdel
-        self.__doc__ = doc
+        self._doc = doc
                
     def __get__(self, obj, cls):
-        cache = self._get_object_cache(obj)
-        name = self._get_property_name(obj)
-        if name not in cache:
-            if self._fget:
-                cache[name] = self._fget(obj)
-            else:
-                raise AttributeError('Can\'t get attribute')
-        return cache[name]
+        if self._fget:
+            cache = self._get_object_cache(obj)
+            if self._name not in cache:
+                cache[self._name] = self._fget(obj)
+            return cache[self._name]
+        else:
+            raise AttributeError('Can\'t get attribute')
 
     def __set__(self, obj, value):
         if self._fset:
@@ -31,8 +30,21 @@ class cachedproperty(object):
         if self._fdel:
             self._fdel(obj)
         else:
-            raise AttributeError('Can\'t delete attribute')        
+            raise AttributeError('Can\'t delete attribute')
         
+    @property
+    def __doc__(self):
+        if self._doc:
+            return self._doc
+        elif self._fget:
+            return self._fget.__doc__
+        else:
+            return None               
+    
+    def getter(self, fget):
+        self._fget = fget
+        return self
+      
     def setter(self, fset):
         self._fset = fset
         return self
@@ -53,22 +65,12 @@ class cachedproperty(object):
             
     #Protected
     
-    _obj_cache_attribute_name = '_lib31_cached_properties'
+    _object_cache_attribute_name = '_lib31_cached_properties'
     
-    @classmethod
+    @property
+    def _name(self):
+        return self._fget.__name__
+    
+    @classmethod    
     def _get_object_cache(cls, obj):
-        return obj.__dict__.setdefault(cls._obj_cache_attribute_name, {})
-    
-    def _get_property_name(self, obj):
-        if not hasattr(self, '_property_name'):
-            for scope in obj.__class__.__mro__:       
-                for name, value in vars(scope).items():
-                    if self is value:
-                        self._property_name = name
-                        break
-                else:
-                    continue
-                break
-            else:
-                raise AttributeError('Can\'t determine property name')
-        return self._property_name
+        return obj.__dict__.setdefault(cls._object_cache_attribute_name, {})
