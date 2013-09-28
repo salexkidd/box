@@ -1,5 +1,0 @@
-xmlrpc
-python
-console
-package
-json
