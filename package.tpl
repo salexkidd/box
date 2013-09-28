@@ -1,3 +1,4 @@
+import os
 from setuptools import find_packages
 
 package = {
@@ -6,7 +7,7 @@ package = {
 
     'name': '{{ name }}',
 	'version': '{{ version }}',
-	'packages': find_packages('{{ name }}'),
+	'packages': find_packages(os.path.dirname(__file__), exclude=['tests*']),
 	'include_package_data': True,	
     'tests_require': ['nose'],
     'test_suite': 'nose.collector',

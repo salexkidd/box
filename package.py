@@ -1,3 +1,4 @@
+import os
 from setuptools import find_packages
 
 package = {
@@ -6,7 +7,7 @@ package = {
 
     'name': 'lib31',
 	'version': '0.5.0',
-	'packages': find_packages('lib31'),
+	'packages': find_packages(os.path.dirname(__file__), exclude=['tests*']),
 	'include_package_data': True,	
     'tests_require': ['nose'],
     'test_suite': 'nose.collector',
