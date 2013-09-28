@@ -1,6 +1,6 @@
 Lib31
 =====
-Common library provides cachedproperty etc. 
+Common library provides cachedproperty and others.
 
 Requirements
 ------------
