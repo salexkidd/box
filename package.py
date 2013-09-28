@@ -21,10 +21,10 @@ package = {
     'url': 'https://github.com/respect31/lib31',
     'download_url': 'https://github.com/respect31/lib31/tarball/0.5.0',    
     'classifiers': ['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules'],    
-    'description': 'Common library provides cachedproperty etc. ',    
+    'description': 'Common library provides cachedproperty and others.',    
     'long_description': '''Lib31
 =====
-Common library provides cachedproperty etc. 
+Common library provides cachedproperty and others.
 
 Requirements
 ------------
@@ -38,12 +38,7 @@ History
 -------
 0.5.0
 `````
-- switched to Python 3.3
-- added package library section
-
-0.4.0
-`````
-- ported to Python 3.2 without previous version support
+- ported to Python 3.3 without previous version support
 - updated application programing interface''',
         
 }
