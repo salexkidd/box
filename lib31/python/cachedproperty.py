@@ -1,4 +1,4 @@
-class cachedproperty(object):
+class cachedproperty:
     """
     Property with caching
     """

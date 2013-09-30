@@ -4,7 +4,7 @@ import sys
 import base64
 from .cachedproperty import cachedproperty
 
-class VirtualPackage(object):
+class VirtualPackage:
     """
     Virtual package from any filesystem path.
     """
