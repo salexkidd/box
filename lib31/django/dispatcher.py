@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import include
+from django.conf.urls import include
 from .binding import HandlerBinding, IncludeBinding
 
 class Dispatcher(object):
