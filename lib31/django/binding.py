@@ -2,7 +2,7 @@ from abc import ABCMeta, abstractproperty
 from django.conf.urls import url
 from .handler import HandlerAdapter
 
-class BaseBinding(object):
+class BaseBinding:
     
     #Public
     
