@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
-class Handler(object):
+class Handler:
     
     #Public
     
@@ -15,7 +15,7 @@ class Handler(object):
         pass #pragma: no cover
     
 
-class HandlerAdapter(object):
+class HandlerAdapter:
     
     #Public
     
