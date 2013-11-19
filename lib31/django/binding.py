@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractproperty
-from django.conf.urls.defaults import url
+from django.conf.urls import url
 from .handler import HandlerAdapter
 
 class BaseBinding(object):
