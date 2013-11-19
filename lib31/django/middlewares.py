@@ -1,4 +1,4 @@
-class DevelopmentHostMiddleware(object):
+class DevelopmentHostMiddleware:
     
     #Public
     
@@ -11,7 +11,7 @@ class DevelopmentHostMiddleware(object):
         return response
     
     
-class TestingHostMiddleware(object):
+class TestingHostMiddleware:
     
     #Public
     
