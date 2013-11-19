@@ -1,7 +1,7 @@
 from django.conf.urls import include
 from .binding import HandlerBinding, IncludeBinding
 
-class Dispatcher(object):
+class Dispatcher:
     
     #Public
     
