@@ -1,6 +1,6 @@
 import subprocess
 
-class Database(object):
+class Database:
     
     #Public
     
