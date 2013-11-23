@@ -2,11 +2,9 @@ from abc import ABCMeta, abstractproperty
 from django.conf.urls import url
 from .handler import HandlerAdapter
 
-class BaseBinding:
+class BaseBinding(metaclass=ABCMeta):
     
     #Public
-    
-    __metaclass__ = ABCMeta
     
     @property    
     def pattern(self):

@@ -1,11 +1,9 @@
 from abc import ABCMeta, abstractmethod
 
-class Handler:
+class Handler(metaclass=ABCMeta):
     
     #Public
     
-    __metaclass__ = ABCMeta
-
     @abstractmethod
     def __init__(self):
         pass #pragma: no cover
