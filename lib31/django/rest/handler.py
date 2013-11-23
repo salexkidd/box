@@ -3,7 +3,7 @@ from abc import ABCMeta
 from importlib import import_module
 from django.http import HttpResponse
 from lib31.python import cachedproperty
-from lib31.django import Handler
+from ..handler import Handler
 from .parser import RestParser
 from .responder import RestResponder
 from .formatter import RestFormatter
