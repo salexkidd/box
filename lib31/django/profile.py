@@ -1,10 +1,8 @@
 from abc import ABCMeta, abstractproperty
 
-class Configuration:
+class Profile(metaclass=ABCMeta):
     
     #Public
-    
-    __metaclass__ = ABCMeta
     
     #Root urlconf
     @abstractproperty
