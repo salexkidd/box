@@ -1,4 +1,4 @@
-class APIException(Exception):
+class RestException(Exception):
     
     #Public
     
@@ -13,7 +13,7 @@ class APIException(Exception):
         return self.__class__.__name__
     
  
-class VersionIsNotSuppported(APIException): pass
-class FormatIsNotSuppported(APIException): pass
-class ResourceIsNotSuppported(APIException): pass
-class ConstraintsAreNotSuppported(APIException):pass
+class VersionIsNotSuppported(RestException): pass
+class FormatIsNotSuppported(RestException): pass
+class ResourceIsNotSuppported(RestException): pass
+class ConstraintsAreNotSuppported(RestException):pass

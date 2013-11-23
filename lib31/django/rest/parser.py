@@ -1,6 +1,6 @@
-from .exceptions.support import ConstraintsAreNotSuppported
+from .exceptions import ConstraintsAreNotSuppported
 
-class Parser:
+class RestParser:
     
     #Public
     

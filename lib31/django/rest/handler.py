@@ -4,14 +4,12 @@ from importlib import import_module
 from django.http import HttpResponse
 from lib31.python import cachedproperty
 from lib31.django import Handler
-from .parser import Parser
-from .interfaces.responder import Responder
-from .interfaces.formatter import Formatter
-from .exceptions.api import APIException
-from .exceptions.support import (FormatIsNotSuppported, 
-                                 ResourceIsNotSuppported)
+from .parser import RestParser
+from .responder import RestResponder
+from .formatter import RestFormatter
+from .exceptions import RestException, FormatIsNotSuppported, ResourceIsNotSuppported
 
-class APIHandler(Handler):
+class RestHandler(Handler):
     
     #Public
     
@@ -27,7 +25,7 @@ class APIHandler(Handler):
         struct = {}
         try:
             struct['data'] = self._responder.process()
-        except APIException as exception:
+        except RestException as exception:
             struct['error'] = True
             struct['message'] = exception.message
         text = self._formatter.process(struct)
@@ -38,11 +36,11 @@ class APIHandler(Handler):
     _contractors = {
         'responder': {
             'package': 'responders',
-            'interface': Responder,
+            'interface': RestResponder,
         },
         'formatter': {
             'package': 'formatters',
-            'interface': Formatter,
+            'interface': RestFormatter,
         },           
     }
     
@@ -100,4 +98,4 @@ class APIHandler(Handler):
     
     @cachedproperty
     def _parser(self):
-        return Parser()
+        return RestParser()

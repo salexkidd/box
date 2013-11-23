@@ -1,8 +1,8 @@
 json = __import__('json', level=0)
 from lib31.json import DateEncoder
-from ..formatter import Formatter
+from ..formatter import RestFormatter
 
-class JSON(Formatter):
+class JSON(RestFormatter):
     
     #Public
     
