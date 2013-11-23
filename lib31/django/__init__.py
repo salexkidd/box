@@ -5,5 +5,4 @@ from .dispatcher import Dispatcher
 from .handler import Handler, HandlerAdapter
 from .middlewares import DevelopmentHostMiddleware, TestingHostMiddleware
 from .profile import Profile
-from .staticfiles_finders import (CustomAppStaticStorage, 
-                                  CustomAppDirectoriesFinder)
+from .staticfiles import CustomAppStaticStorage, CustomAppDirectoriesFinder
