@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from .exceptions import ConstraintsAreNotSuppported
 
-class RESTResponder(metaclass=ABCMeta):
+class Responder(metaclass=ABCMeta):
     
     #Public
     

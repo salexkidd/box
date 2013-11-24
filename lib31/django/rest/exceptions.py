@@ -1,4 +1,4 @@
-class RESTException(Exception):
+class BadRequest(Exception):
     
     #Public
     
@@ -13,7 +13,7 @@ class RESTException(Exception):
         return self.__class__.__name__
     
  
-class VersionIsNotSuppported(RESTException): pass
-class FormatIsNotSuppported(RESTException): pass
-class ResourceIsNotSuppported(RESTException): pass
-class ConstraintsAreNotSuppported(RESTException): pass
+class VersionIsNotSuppported(BadRequest): pass
+class FormatIsNotSuppported(BadRequest): pass
+class ResourceIsNotSuppported(BadRequest): pass
+class ConstraintsAreNotSuppported(BadRequest): pass

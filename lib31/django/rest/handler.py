@@ -4,12 +4,12 @@ from importlib import import_module
 from django.http import HttpResponse
 from lib31.python import cachedproperty
 from ..handler import Handler
-from .parser import RESTParser
-from .responder import RESTResponder
-from .formatter import RESTFormatter
-from .exceptions import RESTException, FormatIsNotSuppported, ResourceIsNotSuppported
+from .parser import Parser
+from .responder import Responder
+from .formatter import Formatter
+from .exceptions import BadRequest, FormatIsNotSuppported, ResourceIsNotSuppported
 
-class RESTHandler(Handler):
+class Handler(Handler):
     
     #Public
     
@@ -25,7 +25,7 @@ class RESTHandler(Handler):
         struct = {}
         try:
             struct['data'] = self._responder.process()
-        except RESTException as exception:
+        except BadRequest as exception:
             struct['error'] = True
             struct['message'] = exception.message
         text = self._formatter.process(struct)
@@ -36,11 +36,11 @@ class RESTHandler(Handler):
     _contractors = {
         'responder': {
             'package': 'responders',
-            'interface': RESTResponder,
+            'interface': Responder,
         },
         'formatter': {
             'package': 'formatters',
-            'interface': RESTFormatter,
+            'interface': Formatter,
         },           
     }
     
@@ -98,4 +98,4 @@ class RESTHandler(Handler):
     
     @cachedproperty
     def _parser(self):
-        return RESTParser()
+        return Parser()
