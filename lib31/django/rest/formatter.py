@@ -5,5 +5,5 @@ class RestFormatter(metaclass=ABCMeta):
     #Public
     
     @abstractmethod
-    def process(self):
+    def format(self):
         pass #pragma: no cover

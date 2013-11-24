@@ -4,7 +4,7 @@ class RestParser:
     
     #Public
     
-    def process(self, constraints):
+    def parse(self, constraints):
         result = {}
         if constraints:
             groups = constraints.split(';')
