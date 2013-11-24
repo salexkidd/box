@@ -21,7 +21,7 @@ class RestHandler(Handler):
         self.__constraints = constraints
                            
     #TODO: impl raise
-    def process(self):
+    def handle(self):
         struct = {}
         try:
             struct['data'] = self._responder.process()
