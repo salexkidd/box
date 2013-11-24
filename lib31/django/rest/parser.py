@@ -1,6 +1,6 @@
 from .exceptions import ConstraintsAreNotSuppported
 
-class RestParser:
+class RESTParser:
     
     #Public
     

@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
-class RestFormatter(metaclass=ABCMeta):
+class RESTFormatter(metaclass=ABCMeta):
     
     #Public
     

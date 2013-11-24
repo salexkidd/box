@@ -22,4 +22,4 @@ class HandlerAdapter:
     
     def handle(self, *args, **kwargs):
         handler = self.__handler(*args, **kwargs)
-        return handler.process()
+        return handler.handle()

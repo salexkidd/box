@@ -1,4 +1,4 @@
-class RestException(Exception):
+class RESTException(Exception):
     
     #Public
     
@@ -13,7 +13,7 @@ class RestException(Exception):
         return self.__class__.__name__
     
  
-class VersionIsNotSuppported(RestException): pass
-class FormatIsNotSuppported(RestException): pass
-class ResourceIsNotSuppported(RestException): pass
-class ConstraintsAreNotSuppported(RestException):pass
+class VersionIsNotSuppported(RESTException): pass
+class FormatIsNotSuppported(RESTException): pass
+class ResourceIsNotSuppported(RESTException): pass
+class ConstraintsAreNotSuppported(RESTException): pass
