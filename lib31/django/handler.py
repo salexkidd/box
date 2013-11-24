@@ -18,8 +18,8 @@ class HandlerAdapter:
     #Public
     
     def __init__(self, handler):
-        self.__handler = handler
+        self._handler = handler
     
     def handle(self, *args, **kwargs):
-        handler = self.__handler(*args, **kwargs)
+        handler = self._handler(*args, **kwargs)
         return handler.handle()
