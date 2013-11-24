@@ -9,12 +9,12 @@ class ApplicationRequestContext(RequestContext):
     def __init__(self, request, data={}, inheritance=True):
         res = self.default.copy()
         res.update(data)
-        res.update({'base': self.__get_base(inheritance)})                
+        res.update({'base': self._get_base(inheritance)})                
         super(ApplicationRequestContext, self).__init__(request, res)
     
-    #Private
+    #Protected
         
-    def __get_base(self, inheritance):
+    def _get_base(self, inheritance):
         if not inheritance:
             return Template('')
         else:
