@@ -2,12 +2,12 @@ import sys
 from abc import ABCMeta
 from importlib import import_module
 from django.http import HttpResponse
+from lib31.django import Handler
 from lib31.python import cachedproperty
-from ..handler import Handler
+from .exceptions import BadRequest, FormatIsNotSuppported, ResourceIsNotSuppported
+from .formatter import Formatter
 from .parser import Parser
 from .responder import Responder
-from .formatter import Formatter
-from .exceptions import BadRequest, FormatIsNotSuppported, ResourceIsNotSuppported
 
 class Handler(Handler):
     
