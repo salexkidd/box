@@ -9,7 +9,7 @@ class Handler(metaclass=ABCMeta):
         pass #pragma: no cover
 
     @abstractmethod
-    def process(self):
+    def handle(self):
         pass #pragma: no cover
     
 
@@ -20,6 +20,6 @@ class HandlerAdapter:
     def __init__(self, handler):
         self.__handler = handler
     
-    def process(self, *args, **kwargs):
+    def handle(self, *args, **kwargs):
         handler = self.__handler(*args, **kwargs)
         return handler.process()
