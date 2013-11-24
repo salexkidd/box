@@ -14,11 +14,11 @@ class RestHandler(Handler):
     #Public
     
     def __init__(self, request, version, format, resource, constraints=''):
-        self.__requst = request
-        self.__version = version
-        self.__format = format
-        self.__resource = resource
-        self.__constraints = constraints
+        self._requst = request
+        self._version = version
+        self._format = format
+        self._resource = resource
+        self._constraints = constraints
                            
     #TODO: impl raise
     def handle(self):
@@ -47,19 +47,19 @@ class RestHandler(Handler):
     @cachedproperty
     def _responder(self):
         responder_class = self._get_contractor_class(
-            'responder', self.__resource
+            'responder', self._resource
         )
         if not responder_class:
-            raise ResourceIsNotSuppported(self.__resource)
+            raise ResourceIsNotSuppported(self._resource)
         return responder_class(self._parsed_constraints) 
     
     @cachedproperty
     def _formatter(self):
         formatter_class = self._get_contractor_class(
-            'formatter', self.__format
+            'formatter', self._format
         )
         if not formatter_class:
-            raise FormatIsNotSuppported(self.__format) 
+            raise FormatIsNotSuppported(self._format) 
         return formatter_class()
     
     #TODO: security issue?
@@ -94,7 +94,7 @@ class RestHandler(Handler):
         
     @cachedproperty
     def _parsed_constraints(self):
-        return self._parser.process(self.__constraints)
+        return self._parser.process(self._constraints)
     
     @cachedproperty
     def _parser(self):
