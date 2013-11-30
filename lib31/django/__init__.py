@@ -5,5 +5,5 @@ from .dispatcher import Dispatcher
 from .handler import Handler, HandlerAdapter
 from .middlewares import DevelopmentHostMiddleware, TestingHostMiddleware
 from .profile import Profile
-#TODO: problem with settings
+#TODO: add when django's settings problem will be fixed
 #from .staticfiles import CustomAppStaticStorage, CustomAppDirectoriesFinder
