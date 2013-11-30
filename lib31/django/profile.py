@@ -9,7 +9,7 @@ class Profile(metaclass=ABCMeta):
             if not name.startswith('_'):
                 scope[name.upper()] = getattr(self, name)
                 
-    #Project parameters
+    #Abstract settings
     
     @property
     @abstractmethod
