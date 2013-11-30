@@ -5,4 +5,5 @@ from .dispatcher import Dispatcher
 from .handler import Handler, HandlerAdapter
 from .middlewares import DevelopmentHostMiddleware, TestingHostMiddleware
 from .profile import Profile
-from .staticfiles import CustomAppStaticStorage, CustomAppDirectoriesFinder
+#TODO: problem with settings
+#from .staticfiles import CustomAppStaticStorage, CustomAppDirectoriesFinder
