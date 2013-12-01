@@ -11,5 +11,13 @@ class Responder(metaclass=ABCMeta):
     def respond(self):
         pass #pragma: no cover 
     
+
+class ProxyResponder(Responder):
     
-#TODO: add finder class
+    #Public
+    
+    pass
+
+    #Protected
+    
+    _responder_classes = []

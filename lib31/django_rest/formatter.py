@@ -15,7 +15,15 @@ class Formatter(metaclass=ABCMeta):
         pass #pragma: no cover
 
 
-#TODO: add finder class
+class ProxyFormatter(Formatter):
+    
+    #Public
+    
+    pass
+
+    #Protected
+    
+    _formatter_classes = []
 
 
 class JSONFormatter(Formatter):
