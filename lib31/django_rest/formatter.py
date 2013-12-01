@@ -7,9 +7,15 @@ class Formatter(metaclass=ABCMeta):
     
     #Public
     
+    def __init__(self, respond):
+        self._respond = respond
+        
     @abstractmethod
     def format(self):
         pass #pragma: no cover
+
+
+#TODO: add finder class
 
 
 class JSONFormatter(Formatter):

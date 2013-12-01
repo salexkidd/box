@@ -2,6 +2,7 @@ from abc import ABCMeta, abstractmethod
 from django.http import HttpResponse
 from lib31.django import Handler
 from .exceptions import BadRequest
+from .formatter import JSONFormatter
 from .request import Request
 
 class Handler(Handler, metaclass=ABCMeta):
@@ -9,8 +10,8 @@ class Handler(Handler, metaclass=ABCMeta):
     #Public
     
     def __init__(self, http_request, version, format, resource, constraints=''):
-        self._request = Request(http_request, version, format, 
-                               resource, constraints)
+        self._request = self._request_class(http_request, version, 
+                                            format, resource, constraints)
                            
     #TODO: impl raise
     def handle(self):
@@ -26,11 +27,14 @@ class Handler(Handler, metaclass=ABCMeta):
     #Protected
     
     @property
-    @abstractmethod
-    def _responder(self):
-        pass #pragma: no cover
+    def _request_class(self):
+        return Request
     
     @property
     @abstractmethod
-    def _formatter(self):
+    def _responder_class(self):
         pass #pragma: no cover
+    
+    @property
+    def _formatter_class(self):
+        return JSONFormatter
