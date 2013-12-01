@@ -7,8 +7,8 @@ class Formatter(metaclass=ABCMeta):
     
     #Public
     
-    def __init__(self, respond):
-        self._respond = respond
+    def __init__(self, response):
+        self._response = response
         
     @abstractmethod
     def format(self):
@@ -19,8 +19,8 @@ class JSONFormatter(Formatter):
     
     #Public
     
-    def format(self, response):
-        return json.dumps(response, cls=DateEncoder)
+    def format(self):
+        return json.dumps(self._response, cls=DateEncoder)
 
 
 class ProxyFormatter(Formatter):
