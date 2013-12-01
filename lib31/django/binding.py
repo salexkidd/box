@@ -32,7 +32,7 @@ class HandlerBinding(BaseBinding):
     
     @property    
     def _handler(self):
-        return self.__handler.process
+        return self.__handler.handle
     
     
 class IncludeBinding(BaseBinding):
