@@ -1,6 +1,7 @@
 import json
 from abc import ABCMeta, abstractmethod
 from lib31.json import DateEncoder
+from .exceptions import FormatIsNotSuppported
 
 class Formatter(metaclass=ABCMeta):
     

@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from .exceptions import ConstraintsAreNotSuppported
+from .exceptions import ResourceIsNotSuppported, ConstraintsAreNotSuppported
 
 class Responder(metaclass=ABCMeta):
     
