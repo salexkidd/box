@@ -1,11 +1,11 @@
-from abc import ABCMeta, abstractmethod
 from django.http import HttpResponse
 from lib31.django import Handler
 from .exceptions import BadRequest
-from .formatter import JSONFormatter
+from .formatter import ProxyFormatter
 from .request import Request
+from .responder import ProxyResponder
 
-class Handler(Handler, metaclass=ABCMeta):
+class Handler(Handler):
     
     #Public
     
@@ -31,10 +31,9 @@ class Handler(Handler, metaclass=ABCMeta):
         return Request
     
     @property
-    @abstractmethod
     def _responder_class(self):
-        pass #pragma: no cover
+        return ProxyResponder
     
     @property
     def _formatter_class(self):
-        return JSONFormatter
+        return ProxyFormatter

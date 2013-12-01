@@ -15,20 +15,19 @@ class Formatter(metaclass=ABCMeta):
         pass #pragma: no cover
 
 
-class ProxyFormatter(Formatter):
-    
-    #Public
-    
-    pass
-
-    #Protected
-    
-    _formatter_classes = []
-
-
 class JSONFormatter(Formatter):
     
     #Public
     
     def format(self, response):
-        return json.dumps(response, cls=DateEncoder)    
+        return json.dumps(response, cls=DateEncoder)
+
+
+class ProxyFormatter(Formatter):
+
+    #Protected
+    
+    _formatter_classes = {
+        'json': JSONFormatter,
+    }
+    _formatter_packages = []    
