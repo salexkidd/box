@@ -20,4 +20,5 @@ class ProxyResponder(Responder):
 
     #Protected
     
-    _responder_classes = []
+    _responder_classes = {}
+    _responder_packages = []
