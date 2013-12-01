@@ -1,10 +1,11 @@
+from abc import ABCMeta, abstractmethod
 from django.http import HttpResponse
 from lib31.django import Handler
 from lib31.python import cachedproperty
 from .exceptions import BadRequest
 from .parser import Parser
 
-class Handler(Handler):
+class Handler(Handler, metaclass=ABCMeta):
     
     #Public
     
@@ -27,6 +28,16 @@ class Handler(Handler):
         return HttpResponse(text)
     
     #Protected
+    
+    @property
+    @abstractmethod
+    def _responder(self):
+        pass #pragma: no cover
+    
+    @property
+    @abstractmethod
+    def _formatter(self):
+        pass #pragma: no cover
         
     @cachedproperty
     def _parsed_constraints(self):
