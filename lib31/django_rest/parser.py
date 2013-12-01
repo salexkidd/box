@@ -11,15 +11,16 @@ class Parser:
             for group in groups:
                 try:
                     name, value = group.split('=')
-                    result[name] = self.__process_value(name, value)
+                    result[name] = self._process_value(name, value)
                 except ValueError:
                     raise ConstraintsAreNotSuppported(constraints)
         return result
     
-    #Private
+    #Protected
  
+    #TODO: compare with run program logic
     @staticmethod   
-    def __process_value(name, value):
+    def _process_value(name, value):
         try:
             if not value:
                 raise Exception() 
