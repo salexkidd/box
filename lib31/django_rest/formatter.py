@@ -15,5 +15,5 @@ class JSONFormatter(Formatter):
     
     #Public
     
-    def format(self, content):
-        return json.dumps(struct, cls=DateEncoder)    
+    def format(self, data):
+        return json.dumps(data, cls=DateEncoder)    
