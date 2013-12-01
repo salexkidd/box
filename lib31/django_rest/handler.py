@@ -4,17 +4,15 @@ from lib31.django import Handler
 from lib31.python import cachedproperty
 from .exceptions import BadRequest
 from .parser import Parser
+from .request import Request
 
 class Handler(Handler, metaclass=ABCMeta):
     
     #Public
     
-    def __init__(self, request, version, format, resource, constraints=''):
-        self._requst = request
-        self._version = version
-        self._format = format
-        self._resource = resource
-        self._constraints = constraints
+    def __init__(self, http_request, version, format, resource, constraints=''):
+        self._request = Request(http_request, version, format, 
+                               resource, constraints)
                            
     #TODO: impl raise
     def handle(self):
