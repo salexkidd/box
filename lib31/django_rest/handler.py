@@ -18,13 +18,13 @@ class Handler(Handler, metaclass=ABCMeta):
                            
     #TODO: impl raise
     def handle(self):
-        struct = {}
+        respond = {}
         try:
-            struct['data'] = self._responder.process()
+            respond['data'] = self._responder.respond(self._parsed_constraints)
         except BadRequest as exception:
-            struct['error'] = True
-            struct['message'] = exception.message
-        text = self._formatter.process(struct)
+            respond['error'] = True
+            respond['message'] = exception.message
+        text = self._formatter.format(respond)
         return HttpResponse(text)
     
     #Protected
