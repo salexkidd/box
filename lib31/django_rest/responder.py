@@ -13,7 +13,7 @@ class Responder(metaclass=ABCMeta):
         pass #pragma: no cover 
  
 
-class ProxyResponder(Responder):
+class MappingResponder(Responder):
     
     #Public
     

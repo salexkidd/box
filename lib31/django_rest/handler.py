@@ -1,8 +1,8 @@
 from django.http import HttpResponse
 from lib31.django import Handler
-from .formatter import ProxyFormatter
+from .formatter import MappingFormatter
 from .request import Request
-from .responder import ProxyResponder
+from .responder import MappingResponder
 
 class Handler(Handler):
     
@@ -27,8 +27,8 @@ class Handler(Handler):
     
     @property
     def _responder_class(self):
-        return ProxyResponder
+        return MappingResponder
     
     @property
     def _formatter_class(self):
-        return ProxyFormatter
+        return MappingFormatter

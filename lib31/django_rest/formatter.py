@@ -23,7 +23,7 @@ class JSONFormatter(Formatter):
         return json.dumps(self._response, cls=DateEncoder)
 
 
-class ProxyFormatter(Formatter):
+class MappingFormatter(Formatter):
 
     #Protected
     
