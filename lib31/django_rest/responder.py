@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractmethod
+from .exceptions import ResourceIsNotSuppported
 
 class Responder(metaclass=ABCMeta):
     
@@ -10,7 +11,7 @@ class Responder(metaclass=ABCMeta):
     @abstractmethod
     def respond(self):
         pass #pragma: no cover 
-    
+ 
 
 class ProxyResponder(Responder):
     

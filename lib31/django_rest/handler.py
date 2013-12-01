@@ -13,7 +13,7 @@ class Handler(Handler):
         self._request = self._request_class(http_request, version, 
                                             format, resource, constraints)
                            
-    #TODO: impl raise
+    #TODO: reimpl!!!
     def handle(self):
         respond = {}
         try:

@@ -30,4 +30,4 @@ class ProxyFormatter(Formatter):
     _formatter_classes = {
         'json': JSONFormatter,
     }
-    _formatter_packages = []    
+    _formatter_packages = []   
