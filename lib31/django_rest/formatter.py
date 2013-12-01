@@ -16,5 +16,5 @@ class JSONFormatter(Formatter):
     
     #Public
     
-    def format(self, data):
-        return json.dumps(data, cls=DateEncoder)    
+    def format(self, response):
+        return json.dumps(response, cls=DateEncoder)    
