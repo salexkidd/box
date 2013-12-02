@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from .builder import JSONBuilder
 from .parser import DefaultParser
-from .exceptions import FormatIsNotSuppported
+from .exceptions import FormatIsNotSuppported, VersionIsNotSuppported
 
 class Presenter(metaclass=ABCMeta):
     
@@ -20,11 +20,9 @@ class MappingPresenter(Presenter):
 
     #Public
 
-    @abstractmethod
     def parse(self, http_request, url_request):
         pass #pragma: no cover
     
-    @abstractmethod
     def build(self, response):
         pass #pragma: no cover
 
