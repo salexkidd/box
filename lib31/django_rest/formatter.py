@@ -32,6 +32,11 @@ class JSONFormatter(Formatter):
 
 class MappingFormatter(Formatter):
 
+    #Public
+
+    def format(self):
+        raise FormatIsNotSuppported()
+
     #Protected
     
     _formatter_classes = {

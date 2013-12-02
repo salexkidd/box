@@ -17,7 +17,8 @@ class MappingResponder(Responder):
     
     #Public
     
-    pass
+    def respond(self):
+        raise ResourceIsNotSuppported()
 
     #Protected
     
