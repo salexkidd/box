@@ -24,6 +24,7 @@ class HandlerBinding(BaseBinding):
     #Public
     
     def __init__(self, regex, handler_class, name=None, **params):
+        print(handler_class)
         self._regex = regex
         self._name = name
         self._params = params
@@ -31,7 +32,7 @@ class HandlerBinding(BaseBinding):
    
     @cachedproperty 
     def _handler(self):
-        return self._handler_class()
+        return self._handler_class().handle
     
     
 class IncludeBinding(BaseBinding):
