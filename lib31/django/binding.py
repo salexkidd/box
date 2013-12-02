@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractproperty
+from lib31.python import cachedproperty
 from django.conf.urls import url
 from .handler import Handler
 
@@ -22,11 +23,15 @@ class HandlerBinding(BaseBinding):
     
     #Public
     
-    def __init__(self, regex, handler, name=None, **params):
+    def __init__(self, regex, handler_class, name=None, **params):
         self._regex = regex
         self._name = name
         self._params = params
-        self._handler = Handler(handler)
+        self._handler_class = handler_class
+   
+    @cachedproperty 
+    def _handler(self):
+        return self._handler_class()
     
     
 class IncludeBinding(BaseBinding):
