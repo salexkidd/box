@@ -3,7 +3,7 @@ from .exceptions import (BadRequest,
                          ConstraintsAreNotSuppported, FormatIsNotSuppported, 
                          ResourceIsNotSuppported, VersionIsNotSuppported)
 from .handler import Handler
-from .parser import Parser
+from .parser import Parser, DefaultParser
 from .presenter import Presenter, MappingPresenter
 from .request import Request
 from .responder import Responder, MappingResponder

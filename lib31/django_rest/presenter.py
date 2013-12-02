@@ -1,5 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from .builder import JSONBuilder
+from .parser import DefaultParser
 from .exceptions import FormatIsNotSuppported
 
 class Presenter(metaclass=ABCMeta):
@@ -28,7 +29,7 @@ class MappingPresenter(Presenter):
         pass #pragma: no cover
 
     #Protected
-    _parser_classes = {}
+    _parser_classes = {'*': DefaultParser}
     _parser_packages = []
     _builder_classes = {'json': JSONBuilder}
     _builder_packages = []
