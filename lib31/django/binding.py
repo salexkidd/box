@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractproperty
 from django.conf.urls import url
-from .handler import HandlerAdapter
+from .handler import Handler
 
 class BaseBinding(metaclass=ABCMeta):
     
@@ -26,13 +26,7 @@ class HandlerBinding(BaseBinding):
         self._regex = regex
         self._name = name
         self._params = params
-        self.__handler = HandlerAdapter(handler)
-
-    #Protected 
-    
-    @property    
-    def _handler(self):
-        return self.__handler.handle
+        self._handler = Handler(handler)
     
     
 class IncludeBinding(BaseBinding):
