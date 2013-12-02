@@ -6,27 +6,26 @@ class Presenter(metaclass=ABCMeta):
     
     #Public
     
-    def __init__(self, response):
-        self._response = response
-        
     @abstractmethod
-    def format(self):
+    def parse(self, http_request, url_request):
         pass #pragma: no cover
     
-    #Protected
-    
-    @property
-    def _response_dict(self):
-        return {'result': self._response.result,
-                'error': self._response.error}
+    @abstractmethod
+    def build(self, response):
+        pass #pragma: no cover
     
 
 class MappingPresenter(Presenter):
 
     #Public
 
-    def format(self):
-        raise FormatIsNotSuppported()
+    @abstractmethod
+    def parse(self, http_request, url_request):
+        pass #pragma: no cover
+    
+    @abstractmethod
+    def build(self, response):
+        pass #pragma: no cover
 
     #Protected
     _parser_classes = {}

@@ -8,6 +8,11 @@ class Builder(metaclass=ABCMeta):
     def build(self, response):
         pass #pragma: no cover
         
+    @property
+    def _response_dict(self):
+        return {'result': self._response.result,
+                'error': self._response.error}
+    
 
 class JSONBuilder(Builder):
     

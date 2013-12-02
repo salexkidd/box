@@ -1,10 +1,18 @@
+from abc import ABCMeta, abstractmethod
 from .exceptions import ConstraintsAreNotSuppported
 
-class Parser:
+class Parser(metaclass=ABCMeta):
+    
+    @abstractmethod
+    def parse(self, http_request, url_request):
+        pass #pragma: no cover
+        
+
+class DefaultParser(Parser):
     
     #Public
     
-    def parse(self, constraints):
+    def parse(self, http_request, url_request):
         result = {}
         if constraints:
             groups = constraints.split(';')
@@ -17,6 +25,8 @@ class Parser:
         return result
     
     #Protected
+    
+    _pattern = '(?P<version>[^/]*)/(?P<format>[^/]*)/(?P<resource>[^/]*)(?:/(?P<constraints>[^/]*))?'
  
     #TODO: compare with run program logic
     @staticmethod   
