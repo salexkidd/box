@@ -27,7 +27,7 @@ class MappingPresenter(Presenter):
         pass #pragma: no cover
 
     #Protected
-    _parser_classes = {'*': DefaultParser}
+    _parser_classes = {'v1': DefaultParser}
     _parser_packages = []
     _builder_classes = {'json': JSONBuilder}
     _builder_packages = []
