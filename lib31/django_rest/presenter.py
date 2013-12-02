@@ -1,9 +1,8 @@
-import json
 from abc import ABCMeta, abstractmethod
-from lib31.json import DateEncoder
+from .builder import JSONBuilder
 from .exceptions import FormatIsNotSuppported
 
-class Formatter(metaclass=ABCMeta):
+class Presenter(metaclass=ABCMeta):
     
     #Public
     
@@ -22,15 +21,7 @@ class Formatter(metaclass=ABCMeta):
                 'error': self._response.error}
     
 
-class JSONFormatter(Formatter):
-    
-    #Public
-    
-    def format(self):
-        return json.dumps(self._response_dict, cls=DateEncoder)
-
-
-class MappingFormatter(Formatter):
+class MappingPresenter(Presenter):
 
     #Public
 
@@ -38,8 +29,8 @@ class MappingFormatter(Formatter):
         raise FormatIsNotSuppported()
 
     #Protected
+    _parser_classes = {}
+    _parser_packages = []
+    _builder_classes = {'json': JSONBuilder}
+    _builder_packages = []
     
-    _formatter_classes = {
-        'json': JSONFormatter,
-    }
-    _formatter_packages = []   
