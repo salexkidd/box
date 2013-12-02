@@ -43,10 +43,10 @@ class IncludeBinding(BaseBinding):
         self._regex = regex
         self._name = name
         self._params = params
-        self.__include = include
+        self._include = include
             
     #Protected   
    
     @property 
     def _handler(self):
-        return self.__include        
+        return self._include        
