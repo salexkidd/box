@@ -13,14 +13,21 @@ class Formatter(metaclass=ABCMeta):
     @abstractmethod
     def format(self):
         pass #pragma: no cover
-
+    
+    #Protected
+    
+    @property
+    def _response_dict(self):
+        return {'result': self._response.result,
+                'error': self._response.error}
+    
 
 class JSONFormatter(Formatter):
     
     #Public
     
     def format(self):
-        return json.dumps(self._response, cls=DateEncoder)
+        return json.dumps(self._response_dict, cls=DateEncoder)
 
 
 class MappingFormatter(Formatter):

@@ -33,7 +33,7 @@ class Request:
         return self._constraints
                  
     @cachedproperty
-    def parsed_constraints(self):
+    def constraints_dict(self):
         return self._parser.process(self._constraints)
     
     #Protected
