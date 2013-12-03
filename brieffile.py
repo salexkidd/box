@@ -1,9 +1,9 @@
 from brief import FileInput, FileOutput
-from briefbooks import PackageBrief
+from packgram.brief import PythonPackgramBrief
 
-class Brief(PackageBrief):
+class Brief(PythonPackgramBrief):
 
     #Public
     
-    input = FileInput('package.tpl')
-    output = FileOutput('package.py')
+    input = FileInput('setup.tpl')
+    output = FileOutput('setup.py')

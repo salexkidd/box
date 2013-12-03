@@ -1,5 +1,5 @@
 import os
-from setuptools import find_packages
+from setuptools import find_packages, setup
 
 package = {
 
@@ -26,3 +26,6 @@ package = {
     'long_description': '''{{ long_description }}''',
         
 }
+
+if __name__ = '__main__':
+    setup(**package)
