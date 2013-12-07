@@ -7,8 +7,9 @@ package = {
 
     'name': 'lib31',
 	'version': '0.5.0',
-	'packages': find_packages(os.path.dirname(__file__), exclude=['tests*']),
-	'include_package_data': True,	
+	'packages': find_packages(os.path.dirname(__file__) or '.', exclude=['tests*']),
+	'include_package_data': True,
+    'install_requires': ['packgram>=0.5'],
     'tests_require': ['nose'],
     'test_suite': 'nose.collector',
     
@@ -22,10 +23,10 @@ package = {
     'url': 'https://github.com/respect31/lib31',
     'download_url': 'https://github.com/respect31/lib31/tarball/0.5.0',    
     'classifiers': ['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules'],    
-    'description': 'Common library provides cachedproperty and others.',    
+    'description': 'Library to provide common functionality.',    
     'long_description': '''Lib31
 =====
-Common library provides cachedproperty and others.
+Library to provide common functionality.
 
 Requirements
 ------------
@@ -34,6 +35,14 @@ Requirements
 Installation
 ------------
 - pip install lib31
+
+Classifiers
+-----------
+- Development Status :: 3 - Alpha
+- Intended Audience :: Developers
+- License :: OSI Approved :: MIT License
+- Programming Language :: Python :: 3.3
+- Topic :: Software Development :: Libraries :: Python Modules
 
 History
 -------

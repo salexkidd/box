@@ -1,6 +1,6 @@
 Lib31
 =====
-Common library provides cachedproperty and others.
+Library to provide common functionality.
 
 Requirements
 ------------
@@ -9,6 +9,14 @@ Requirements
 Installation
 ------------
 - pip install lib31
+
+Classifiers
+-----------
+- Development Status :: 3 - Alpha
+- Intended Audience :: Developers
+- License :: OSI Approved :: MIT License
+- Programming Language :: Python :: 3.3
+- Topic :: Software Development :: Libraries :: Python Modules
 
 History
 -------
