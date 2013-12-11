@@ -1,6 +1,6 @@
 Lib31
 =====
-Library to provide common functionality.
+Lib31 is library to provide common functionality.
 
 Requirements
 ------------
