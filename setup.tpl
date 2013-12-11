@@ -9,7 +9,7 @@ package = {
 	'version': '{{ version }}',
 	'packages': find_packages(os.path.dirname(__file__) or '.', exclude=['tests*']),
 	'include_package_data': True,
-    'install_requires': ['packgram>=0.5'],
+    'install_requires': ['packgram>=0.6'],
     'tests_require': ['nose'],
     'test_suite': 'nose.collector',
     

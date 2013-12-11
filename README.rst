@@ -20,6 +20,11 @@ Classifiers
 
 History
 -------
+0.6.0
+`````
+- removed python imports
+- added ordered class meta
+
 0.5.0
 `````
 - ported to Python 3.3 without previous version support
