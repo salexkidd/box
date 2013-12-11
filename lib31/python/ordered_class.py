@@ -2,6 +2,8 @@ from collections import OrderedDict
 
 class OrderedClassMeta(type):
     
+    #Public
+    
     @classmethod
     def __prepare__(mcl, name, bases):
         return OrderedDict()
