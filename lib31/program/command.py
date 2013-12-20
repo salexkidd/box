@@ -57,3 +57,18 @@ class Command:
             else:
                 raise ValueError('Name or flags is required in command_schema argument')
         return parser
+    
+    
+class SilentArgumentParser(ArgumentParser):
+    
+    #Public
+    
+    def error(self, message):
+        raise SilentArgumentParserException(message)
+    
+    
+class SilentArgumentParserException(Exception):
+    
+    #Public
+    
+    pass    
