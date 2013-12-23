@@ -1,7 +1,5 @@
 class ManagedDict(dict):
-    """
-    All mutations through __setitem__ and __delitem__
-    """
+    "All mutations through __setitem__ and __delitem__"
     
     #Public
     
