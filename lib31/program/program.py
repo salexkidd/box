@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from lib31.python import cachedproperty
+from ..python import cachedproperty
 from .command import Command
 
 class Program(metaclass=ABCMeta):

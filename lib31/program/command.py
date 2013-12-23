@@ -1,6 +1,6 @@
 from copy import deepcopy
 from argparse import ArgumentParser
-from lib31.python import cachedproperty
+from ..python import cachedproperty
 
 class Command:
     
