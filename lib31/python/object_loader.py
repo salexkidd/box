@@ -16,10 +16,10 @@ class ObjectLoader:
     
     def _find_files(self, base_dir, file_pattern, recursively=False):
         files = []
-        for dir_path, _, file_names in os.walk(base_dir):
-            for file_name in file_names:
-                if re.match(file_pattern, file_name):
-                    files.append(os.path.join(dir_path, file_name))
+        for dirpath, _, filenames in os.walk(base_dir):
+            for filename in filenames:
+                if re.match(file_pattern, filename):
+                    files.append(os.path.join(dirpath, filename))
         return files
     
     def _import_modules(self, files):
