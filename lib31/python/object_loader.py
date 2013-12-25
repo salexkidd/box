@@ -6,15 +6,15 @@ class ObjectLoader:
 
     #Public
 
-    def load(self, base_dir, file_pattern):
-        files = self._find_files(base_dir, file_pattern)
+    def load(self, base_dir, file_pattern, recursively=False):
+        files = self._find_files(base_dir, file_pattern, recursively)
         modules = self._import_modules(files)
         objects = self._get_objects(modules)
         return objects
             
     #Protected
     
-    def _find_files(self, base_dir, file_pattern=''):
+    def _find_files(self, base_dir, file_pattern, recursively=False):
         files = []
         for dir_path, _, file_names in os.walk(base_dir):
             for file_name in file_names:
