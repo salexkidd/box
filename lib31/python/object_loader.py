@@ -44,5 +44,4 @@ class ObjectLoader:
     def _filter_object(self, obj, module, name):
         if name.startswith('_'):
             return False
-        else:
-            return True
+        return True
