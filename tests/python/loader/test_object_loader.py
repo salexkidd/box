@@ -9,6 +9,12 @@ class FinderTest(unittest.TestCase):
     def setUp(self):
         self.loader = ObjectLoader()
         
+    def test_load(self):
+        objects = self.loader.load(self._get_path(), 'runfile.py')
+        self.assertEqual(len(objects), 2)
+        self.assertEqual(objects[0].__name__, 'Module1')
+        self.assertEqual(objects[1].__name__, 'Module2')        
+        
     def test__find_files(self):
         files = self.loader._find_files(self._get_path(), 'runfile.py')
         self.assertEqual(len(files), 2)
@@ -26,8 +32,7 @@ class FinderTest(unittest.TestCase):
         modules = self.loader._import_modules(files)
         objects = self.loader._get_objects(modules)     
         self.assertEqual(len(objects), 2)
-        self.assertEqual(objects[0].__name__, 'Module1')
-        self.assertEqual(objects[1].__name__, 'Module2')
+        self.assertNotEqual(objects[0], objects[1])
         
     #Protected
     
