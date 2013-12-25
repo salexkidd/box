@@ -1,6 +1,5 @@
 import os
 import re
-import inspect
 import importlib.machinery
 
 class ObjectLoader:
@@ -34,12 +33,19 @@ class ObjectLoader:
             modules.append(module)
         return modules
         
-    @staticmethod        
-    def _get_objects(modules):
+    @classmethod        
+    def _get_objects(cls, modules):
         objects = []
         for module in modules:
             for name in dir(module):
-                attr = getattr(module, name)
-                if inspect.getmodule(attr) == module:
-                    objects.append(attr)
+                obj = getattr(module, name)
+                if cls._filter_object(obj, module, name):
+                    objects.append(obj)
         return objects
+    
+    @staticmethod     
+    def _filter_object(obj, module, name):
+        if name.startswith('_'):
+            return False
+        else:
+            return True
