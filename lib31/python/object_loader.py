@@ -3,7 +3,7 @@ import re
 import inspect
 import importlib.machinery
 
-class Loader:
+class ObjectLoader:
 
     #Public
 

@@ -1,13 +1,13 @@
 import os
 import unittest
-from lib31.python import Loader
+from lib31.python import ObjectLoader
 
 class FinderTest(unittest.TestCase):
 
     #Public
 
     def setUp(self):
-        self.loader = Loader()
+        self.loader = ObjectLoader()
         
     def test__find_files(self):
         files = self.loader._find_files(self._get_path(), 'runfile.py')
