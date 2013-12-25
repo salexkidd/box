@@ -9,7 +9,7 @@ class ObjectLoader:
 
     @classmethod
     def load(cls, base_dir, file_pattern):
-        files = cls._find_files(base_dir, file_pattern=file_pattern)
+        files = cls._find_files(base_dir, file_pattern)
         modules = cls._import_modules(files)
         objects = cls._get_objects(modules)
         return objects
