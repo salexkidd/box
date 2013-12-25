@@ -12,9 +12,11 @@ class Program(metaclass=ABCMeta):
     @abstractmethod
     def __call__(self):
         pass #pragma: no cover
+    
+    #Protected
       
     @cachedproperty
-    def command(self):
+    def _command(self):
         schema = dict(Command.shema)
         schema['prog'] = self.__class__.__name__.lower()
         return Command(schema=schema)
