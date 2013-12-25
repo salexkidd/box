@@ -1,5 +1,5 @@
 class cachedproperty:
-    "Property with caching"
+    """Property with caching"""
     
     #Public
     
