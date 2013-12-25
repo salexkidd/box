@@ -20,6 +20,8 @@ class ObjectLoader:
             for filename in filenames:
                 if re.match(file_pattern, filename):
                     files.append(os.path.join(dirpath, filename))
+            if not recursively and dirpath == base_dir:
+                break
         return files
     
     def _import_modules(self, files):
