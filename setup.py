@@ -47,7 +47,7 @@ History
 -------
 0.6.0
 `````
-- removed features imports
+- removed python imports
 - added ordered class meta
 
 0.5.0
