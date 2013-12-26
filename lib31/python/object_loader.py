@@ -6,21 +6,21 @@ class ObjectLoader:
 
     #Public
 
-    def load(self, base_dir, file_pattern, recursively=False):
-        for file in self._find_files(base_dir, file_pattern, recursively):
+    def load(self, path, file_pattern, recursively=False):
+        for file in self._find_files(path, file_pattern, recursively):
             for module in self._import_modules(file):
                 for obj in self._get_objects(module):
                     yield obj
             
     #Protected
     
-    def _find_files(self, base_dir, file_pattern, recursively=False):
-        for dirpath, _, filenames in os.walk(base_dir):
+    def _find_files(self, path, file_pattern, recursively=False):
+        for dirpath, _, filenames in os.walk(path):
             for filename in filenames:
                 if re.match(file_pattern, filename):
                     file = os.path.join(dirpath, filename)
                     yield file
-            if not recursively and dirpath == base_dir:
+            if not recursively and dirpath == path:
                 break
     
     def _import_modules(self, file):
