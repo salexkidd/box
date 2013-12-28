@@ -7,7 +7,7 @@ class Program(metaclass=ABCMeta):
     #Public
         
     def __init__(self, argv):
-        self.argv = argv
+        self._argv = argv
         
     @abstractmethod
     def __call__(self):
@@ -17,6 +17,6 @@ class Program(metaclass=ABCMeta):
       
     @cachedproperty
     def _command(self):
-        schema = dict(Command.shema)
-        schema['prog'] = self.__class__.__name__.lower()
-        return Command(schema=schema)
+        argparse = dict(Command.argparse)
+        argparse['prog'] = self.__class__.__name__.lower()
+        return Command(self._argv, argparse=argparse)

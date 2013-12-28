@@ -6,9 +6,9 @@ class Command:
     
     #Public
     
-    schema = {
+    argparse = {
         'prog': 'program',
-        'add_help': False,                     
+        'add_help': True,                     
         'arguments': [
             {
              'name': 'arguments',
@@ -17,9 +17,9 @@ class Command:
         ],       
     }
     
-    def __init__(self, argv, schema=None):
+    def __init__(self, argv, argparse=None):
         self.argv = argv        
-        self.schema = schema or self.schema
+        self.argparse = argparse or self.argparse
         
     def __getattr__(self, name):
         if not name.startswith('_'):
@@ -41,9 +41,9 @@ class Command:
        
     @cachedproperty
     def _parser(self):
-        schema = deepcopy(self.schema)
-        arguments = schema.pop('arguments')
-        parser = self._parser_class(**schema)
+        argparse = deepcopy(self.argparse)
+        arguments = argparse.pop('arguments')
+        parser = self._parser_class(**argparse)
         for argument in arguments:
             #Positional argument
             if 'name' in argument:
@@ -55,7 +55,8 @@ class Command:
                 parser.add_argument(*flags, **argument)
             #Unknown argument
             else:
-                raise ValueError('Name or flags is required in command_schema argument')
+                raise ValueError(
+                    'Name or flags is required in argparse argument')
         return parser
     
     
