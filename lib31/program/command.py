@@ -6,20 +6,9 @@ class Command:
     
     #Public
     
-    config = {
-        'prog': 'program',
-        'add_help': True,                     
-        'arguments': [
-            {
-             'name': 'arguments',
-             'nargs':'*',
-            },             
-        ],       
-    }
-    
     def __init__(self, argv, config=None):
-        self.argv = argv        
-        self.config = config or self.config
+        self._argv = argv        
+        self._config = config or self._default_config
         
     def __getattr__(self, name):
         if not name.startswith('_'):
@@ -33,15 +22,25 @@ class Command:
         
     #Protected
     
+    _default_config = {
+        'prog': 'program',
+        'add_help': True,                     
+        'arguments': [
+            {
+             'name': 'arguments',
+             'nargs':'*',
+            },             
+        ],       
+    }
     _parser_class = ArgumentParser
 
     @cachedproperty
     def _namespace(self):
-        return self._parser.parse_args(self.argv[1:])
+        return self._parser.parse_args(self._argv[1:])
        
     @cachedproperty
     def _parser(self):
-        config = deepcopy(self.config)
+        config = deepcopy(self._config)
         arguments = config.pop('arguments')
         parser = self._parser_class(**config)
         for argument in arguments:
