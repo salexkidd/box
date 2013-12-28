@@ -6,7 +6,7 @@ class Command:
     
     #Public
     
-    argparse = {
+    config = {
         'prog': 'program',
         'add_help': True,                     
         'arguments': [
@@ -17,9 +17,9 @@ class Command:
         ],       
     }
     
-    def __init__(self, argv, argparse=None):
+    def __init__(self, argv, config=None):
         self.argv = argv        
-        self.argparse = argparse or self.argparse
+        self.config = config or self.config
         
     def __getattr__(self, name):
         if not name.startswith('_'):
@@ -41,9 +41,9 @@ class Command:
        
     @cachedproperty
     def _parser(self):
-        argparse = deepcopy(self.argparse)
-        arguments = argparse.pop('arguments')
-        parser = self._parser_class(**argparse)
+        config = deepcopy(self.config)
+        arguments = config.pop('arguments')
+        parser = self._parser_class(**config)
         for argument in arguments:
             #Positional argument
             if 'name' in argument:
@@ -56,7 +56,7 @@ class Command:
             #Unknown argument
             else:
                 raise ValueError(
-                    'Name or flags is required in argparse argument')
+                    'Name or flags is required in config argument')
         return parser
     
     

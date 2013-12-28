@@ -17,6 +17,6 @@ class Program(metaclass=ABCMeta):
       
     @cachedproperty
     def _command(self):
-        argparse = dict(Command.argparse)
-        argparse['prog'] = self.__class__.__name__.lower()
-        return Command(self._argv, argparse=argparse)
+        config = dict(Command.config)
+        config['prog'] = self.__class__.__name__.lower()
+        return Command(self._argv, config=config)
