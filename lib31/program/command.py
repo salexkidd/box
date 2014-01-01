@@ -6,6 +6,7 @@ class Command:
     
     #Public
     
+    #TODO: use names like initial_config and move main to property
     def __init__(self, argv, config=None):
         self._argv = argv        
         self._config = config or self._default_config
