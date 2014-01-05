@@ -18,7 +18,7 @@ class ManagedDict(dict):
             del self[key]
             return (key, value)
         else:
-            return super(ManagedDict, self).popitem()
+            return super().popitem()
     
     def setdefault(self, key, default=None):
         value = self.get(key, default)
