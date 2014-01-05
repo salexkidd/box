@@ -4,7 +4,7 @@ class ManagedDict(dict):
     #Public
     
     def clear(self):
-        for key in list(self.keys()):
+        for key in self.keys():
             del self[key]
     
     def pop(self, key, default=None):
