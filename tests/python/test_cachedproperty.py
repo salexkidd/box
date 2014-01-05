@@ -11,17 +11,17 @@ class CachedpropertyConsumerTest(unittest.TestCase):
         self._consumer = CachedpropertyConsumer()
         self._consumer.default_property_value = 0
         
-    def test_property___get__(self):
+    def test___get__(self):
         self.assertEqual(self._consumer.property, 0)
         self._consumer.default_property_value = 1
         self.assertEqual(self._consumer.property, 0)        
     
-    def test_property___set__(self):
+    def test___set__(self):
         self.assertEqual(self._consumer.property, 0)        
         self._consumer.property = 1
         self.assertEqual(self._consumer.property, 1)
          
-    def test_property___delete__(self):
+    def test___delete__(self):
         self.assertEqual(self._consumer.property, 0)
         self._consumer.property = 1                
         del self._consumer.property
