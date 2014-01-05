@@ -33,12 +33,9 @@ class ObjectLoader:
         
     def _get_objects(self, module):
         for name in dir(module):
-            try:
-                obj = getattr(module, name)
-                if self._filter_object(obj, module, name):
-                    yield obj
-            except Exception:
-                pass
+            obj = getattr(module, name)
+            if self._filter_object(obj, module, name):
+                yield obj
     
     def _filter_object(self, obj, module, name):
         if name.startswith('_'):
