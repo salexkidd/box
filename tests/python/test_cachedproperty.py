@@ -11,35 +11,35 @@ class CachedpropertyConsumerTest(unittest.TestCase):
         self._consumer = CachedpropertyConsumer()
         self._consumer.default_property_value = 0
         
-    def test_property_get(self):
+    def test_property___get__(self):
         self.assertEqual(self._consumer.property, 0)
         self._consumer.default_property_value = 1
         self.assertEqual(self._consumer.property, 0)        
     
-    def test_property_set(self):
+    def test_property___set__(self):
         self.assertEqual(self._consumer.property, 0)        
         self._consumer.property = 1
         self.assertEqual(self._consumer.property, 1)
          
-    def test_property_delete(self):
+    def test_property___delete__(self):
         self.assertEqual(self._consumer.property, 0)
         self._consumer.property = 1                
         del self._consumer.property
         self.assertEqual(self._consumer.property, 0)
     
-    def test_notdefined_property_get(self):
+    def test___get___with_notdefined_property(self):
         self.assertRaises(
             AttributeError, getattr, 
             self._consumer, 'notdefined_property'
         )
         
-    def test_notdefined_property_set(self):
+    def test___set___with_notdefined_property(self):
         self.assertRaises(
             AttributeError, setattr, 
             self._consumer, 'notdefined_property', 1
         )
         
-    def test_notdefined_property_delete(self):
+    def test___delete___with_notdefined_property(self):
         self.assertRaises(
             AttributeError, delattr, 
             self._consumer, 'notdefined_property'
