@@ -22,15 +22,18 @@ class ManagedDict(dict):
     
     def setdefault(self, key, default=None):
         value = self.get(key, default)
-        self[key] = value
+        if key not in self:
+            self[key] = value
         return value
     
-    def update(self, other, **kwargs):
-        if hasattr(other, 'keys'):
-            for key in other:
-                self[key] = other[key]
+    def update(self, other=None, **kwargs):
+        if other != None:
+            if hasattr(other, 'keys'):
+                for key in other:
+                    self[key] = other[key]
+            else:
+                for key, value in other:
+                    self[key] = value
         else:
-            for key, value in other:
-                self[key] = value
-        for key in kwargs:
-            self[key] = kwargs[key]
+            for key in kwargs:
+                self[key] = kwargs[key]
