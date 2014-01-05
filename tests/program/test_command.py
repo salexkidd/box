@@ -1,5 +1,6 @@
 import unittest
-from lib31.program import SilentArgumentParser, SilentArgumentParserException
+from lib31.program.command import (SilentArgumentParser, 
+                                   SilentArgumentParserException)
 
 class SilentParserTest(unittest.TestCase):
 
