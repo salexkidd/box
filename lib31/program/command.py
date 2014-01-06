@@ -14,7 +14,7 @@ class Command:
         if not name.startswith('_'):
             return getattr(self._namespace, name)
         else:
-            raise AttributeError(name) from None
+            raise AttributeError(name)
         
     @cachedproperty    
     def program_help(self):
@@ -41,7 +41,7 @@ class Command:
     @cachedproperty
     def _parser(self):
         config = copy.deepcopy(self._config)
-        arguments = config.pop('arguments')
+        arguments = config.pop('arguments', [])
         parser = self._parser_class(**config)
         for argument in arguments:
             #Positional argument
@@ -61,7 +61,7 @@ class Command:
     
     @property
     def _config(self):
-        if self._init_config:
+        if self._init_config != None:
             return self._init_config
         else:
             return self._default_config
