@@ -5,5 +5,5 @@ class DateEncoderTest(unittest.TestCase):
 
     #Public
 
-    def test(self):
-        pass
+    def setUp(self):
+        self.encoder = DateEncoder()

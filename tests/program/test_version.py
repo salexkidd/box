@@ -5,5 +5,5 @@ class VersionTest(unittest.TestCase):
 
     #Public
 
-    def test(self):
-        pass
+    def setUp(self):
+        self.version = Version()

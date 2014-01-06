@@ -1,1 +1,2 @@
-Syntax error
+#Error
+1/0

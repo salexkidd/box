@@ -5,5 +5,5 @@ class SettingsTest(unittest.TestCase):
 
     #Public
 
-    def test(self):
-        pass
+    def setUp(self):
+        self.settings = Settings()
