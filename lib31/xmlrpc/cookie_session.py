@@ -14,7 +14,7 @@ class CookieSessionTransport(Transport):
     #Public
     
     def __init__(self, cookie_session_key):
-        Transport.__init__(self)
+        super().__init__()
         self.mycookies = None
         self.mysessid = None
         self.cookie_session_key = cookie_session_key
