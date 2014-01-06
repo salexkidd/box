@@ -9,8 +9,8 @@ class Version(str):
                 value = getattr(cls, name)
             except AttributeError:
                 raise NotImplementedError(
-                    'You have to implement all of version'
-                    ' _elements: '+str(cls._elements)
+                    'You have to implement all of version '
+                    'elements: '+str(cls._elements)
                 )
             substrings.append(cls._build_substring(name, value))
         return str.__new__(cls, cls._build_string(substrings))       
