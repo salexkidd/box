@@ -56,7 +56,8 @@ class Command:
             #Unknown argument
             else:
                 raise ValueError(
-                    'Name or flags is required in config argument')
+                    'Bad argparse argument "{argument}"'.
+                    format(argument=argument))
         return parser
     
     
