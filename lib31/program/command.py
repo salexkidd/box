@@ -16,7 +16,7 @@ class Command:
         else:
             raise AttributeError(name)
         
-    @cachedproperty    
+    @property    
     def program_help(self):
         return self._parser.format_help().strip()
         
@@ -40,24 +40,31 @@ class Command:
        
     @cachedproperty
     def _parser(self):
-        config = copy.deepcopy(self._config)
-        arguments = config.pop('arguments', [])
-        parser = self._parser_class(**config)
-        for argument in arguments:
-            #Positional argument
-            if 'name' in argument:
-                name = argument.pop('name')
-                parser.add_argument(name, **argument)
-            #Optional argument
-            elif 'flags' in argument:
-                flags = argument.pop('flags')
-                parser.add_argument(*flags, **argument)
-            #Unknown argument
-            else:
+        parser = self._parser_class(**self._parser_config)
+        for argument in self._parser_arguments:
+            argument = copy.copy(argument)
+            try:
+                try:
+                    args = [argument.pop('name'),]
+                except KeyError:
+                    args = argument.pop('flags')
+                parser.add_argument(*args, **argument)   
+            except:
                 raise ValueError(
                     'Bad argparse argument "{argument}"'.
                     format(argument=argument))
         return parser
+    
+    @property
+    def _parser_arguments(self):
+        arguments = self._config.get('arguments', [])
+        return arguments    
+    
+    @property
+    def _parser_config(self):
+        config = copy.copy(self._config)
+        config.pop('arguments', [])
+        return config
     
     @property
     def _config(self):

@@ -1,6 +1,6 @@
 import unittest
 from functools import partial
-from unittest.mock import Mock
+from unittest.mock import Mock, call
 from lib31.program.command import (Command, SilentArgumentParser, 
                                    SilentArgumentParserException)
 
@@ -11,19 +11,46 @@ class CommandTest(unittest.TestCase):
     def setUp(self):
         self.MockCommand = self._make_mock_command_class()
         self.argv = ['prog', 'argument']
-        self.config = {}
+        self.config = {
+            'prog': 'prog', 
+            'arguments': [
+                {'name': 'name', 'kwarg': 'kwarg'},
+                {'flags': ['flag'], 'kwarg': 'kwarg'}]}
         self.command_constructor = partial(self.MockCommand, 
             self.argv, config=self.config)
+        self.command = self.command_constructor()
+        
+    def test___getattr__(self):
+        self.assertEqual(self.command.strip, 'namespace'.strip)
+        
+    def test___getattr___underscore_attribute(self):
+        self.assertRaises(AttributeError, 
+            getattr, self.command, '_underscore_attribute')        
+    
+    def test_program_help(self):
+        self.assertEqual(self.command.program_help, 'program_help')
     
     def test__namespace(self):
-        command = self.command_constructor()
-        self.assertEqual(command._namespace, 'namespace')
-        command._parser_class.return_value.parse_args(['argument'])
-        
+        self.assertEqual(self.command._namespace, 'namespace')
+        self.command._parser_class.return_value.parse_args(['argument'])
+    
     def test__parser(self):
-        command = self.command_constructor()
-        self.assertEqual(command._parser, command._parser_class.return_value)
-        command._parser_class.assert_called_with(**self.config)
+        self.assertEqual(self.command._parser,
+                         self.command._parser_class.return_value)
+        self.command._parser_class.return_value.add_argument.assert_has_calls([
+            call('name', kwarg='kwarg'),
+            call('flag', kwarg='kwarg')])
+        
+    def test__parser_bad_argument(self):
+        command = self.command_constructor(config={'arguments': [{}]})
+        self.assertRaises(ValueError, getattr, command, '_parser')          
+    
+    def test__parser_arguments(self):
+        self.assertEqual(self.command._parser_arguments, 
+                         self.config['arguments'])
+        
+    def test__parser_config(self):
+        self.assertEqual(self.command._parser_config, {'prog': 'prog'})
           
     def test__config_default(self):
         command = self.command_constructor(config=None)
@@ -36,7 +63,10 @@ class CommandTest(unittest.TestCase):
             #Protected
             _default_config = 'default_config'
             _parser_class = Mock(return_value=Mock(
-                parse_args=Mock(return_value='namespace')))
+                add_argument=Mock(),
+                parse_args=Mock(return_value='namespace'),
+                format_help=Mock(return_value=Mock(
+                    strip=Mock(return_value='program_help')))))
         return MockCommand
     
 
