@@ -14,7 +14,7 @@ class Settings(dict):
         super().__delattr__(name)
         type(self).__init__(self)
                     
-    #Protected        
+    #Protected
     
     @property
     def _as_dict(self):
