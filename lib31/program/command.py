@@ -1,4 +1,4 @@
-from copy import deepcopy
+import copy
 from argparse import ArgumentParser
 from lib31.python import cachedproperty
 
@@ -6,16 +6,15 @@ class Command:
     
     #Public
     
-    #TODO: use names like initial_config and move main to property
     def __init__(self, argv, config=None):
         self._argv = argv        
-        self._config = config or self._default_config
+        self._init_config = config
         
     def __getattr__(self, name):
         if not name.startswith('_'):
             return getattr(self._namespace, name)
         else:
-            raise AttributeError(name)
+            raise AttributeError(name) from None
         
     @cachedproperty    
     def program_help(self):
@@ -41,7 +40,7 @@ class Command:
        
     @cachedproperty
     def _parser(self):
-        config = deepcopy(self._config)
+        config = copy.deepcopy(self._config)
         arguments = config.pop('arguments')
         parser = self._parser_class(**config)
         for argument in arguments:
@@ -60,6 +59,13 @@ class Command:
                     format(argument=argument))
         return parser
     
+    @property
+    def _config(self):
+        if self._init_config:
+            return self._init_config
+        else:
+            return self._default_config
+            
     
 class SilentArgumentParser(ArgumentParser):
     
