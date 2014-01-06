@@ -6,7 +6,7 @@ class CookieSessionServerProxy(ServerProxy):
     
     def __init__(self, uri, cookie_session_key, *args, **kwargs):
         kwargs['transport'] = CookieSessionTransport(cookie_session_key)
-        ServerProxy.__init__(self, uri, *args, **kwargs)
+        super().__init__(uri, *args, **kwargs)
         
 
 class CookieSessionTransport(Transport):
