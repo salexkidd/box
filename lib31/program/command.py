@@ -68,8 +68,4 @@ class SilentArgumentParser(ArgumentParser):
         raise SilentArgumentParserException(message)
     
     
-class SilentArgumentParserException(Exception):
-    
-    #Public
-    
-    pass    
+class SilentArgumentParserException(Exception): pass    
