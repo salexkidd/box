@@ -1,3 +1,4 @@
+import copy
 from abc import ABCMeta, abstractmethod
 from lib31.python import cachedproperty
 from .command import Command
@@ -14,9 +15,11 @@ class Program(metaclass=ABCMeta):
         pass #pragma: no cover
     
     #Protected
+    
+    _command_class = Command
       
     @cachedproperty
     def _command(self):
-        config = dict(Command.config)
-        config['prog'] = self.__class__.__name__.lower()
-        return Command(self._argv, config=config)
+        config = copy.copy(self._command_class.config)
+        config['prog'] = type(self).__name__.lower()
+        return self._command_class(self._argv, config=config)
