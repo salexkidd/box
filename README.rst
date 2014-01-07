@@ -9,7 +9,7 @@ Lib31
     :alt: Latest Version
 
 .. image:: https://pypip.in/d/lib31/badge.png
-    :target: https://pypi.python.org/pypi//lib31/
+    :target: https://pypi.python.org/pypi/lib31/
     :alt: Downloads
     
 .. image:: https://pypip.in/license/lib31/badge.png
