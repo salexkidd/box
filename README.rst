@@ -1,6 +1,5 @@
 Lib31
 =====
-Lib31 is library to provide common functionality.
 
 .. image:: https://secure.travis-ci.org/respect31/lib31.png
         :target: https://travis-ci.org/respect31/lib31
@@ -17,6 +16,8 @@ Lib31 is library to provide common functionality.
     :target: https://pypi.python.org/pypi/lib31/
     :alt: License
     
+Lib31 is library to provide common functionality.
+
 Requirements
 ------------
 - Python 3.3 and higher
