@@ -2,18 +2,15 @@ Lib31
 =====
 Lib31 is library to provide common functionality.
 
-.. image:: https://pypip.in/v/lib31/badge.png 
-     :target: https://pypi.python.org/pypi/lib31/ 
-     :alt: version
+.. image:: https://badge.fury.io/py/lib31.png
+     :target: http://badge.fury.io/py/lib31
+     :alt: index
 .. image:: https://secure.travis-ci.org/respect31/lib31.png?branch=master 
      :target: https://travis-ci.org/respect31/lib31 
      :alt: build
 .. image:: https://coveralls.io/repos/respect31/lib31/badge.png?branch=master 
      :target: https://coveralls.io/r/respect31/lib31  
-     :alt: coverage 
-.. image:: https://pypip.in/license/lib31/badge.png 
-     :target: https://github.com/respect31/lib31/blob/master/LICENSE.rst 
-     :alt: license
+     :alt: coverage
 
 Requirements
 ------------
