@@ -38,8 +38,3 @@ History
 0.6.0
 `````
 - removed python.import_*
-
-0.5.0
-`````
-- ported to Python 3.3 without previous version support
-- updated application programing interface
