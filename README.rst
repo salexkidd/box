@@ -1,8 +1,17 @@
 Lib31
 =====
 
-.. image:: https://badge.fury.io/py/lib31.png
-    :target: http://badge.fury.io/py/lib31
+.. image:: https://pypip.in/v/lib31/badge.png
+    :target: https://pypi.python.org/pypi/lib31/
+    :alt: Latest Version
+
+.. image:: https://pypip.in/d/lib31/badge.png
+    :target: https://pypi.python.org/pypi//lib31/
+    :alt: Downloads
+    
+.. image:: https://pypip.in/license/lib31/badge.png
+    :target: https://pypi.python.org/pypi/lib31/
+    :alt: License
     
 Lib31 is library to provide common functionality.
 
