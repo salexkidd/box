@@ -45,5 +45,5 @@ History
                  :target: https://pypi.python.org/pypi/lib31/ 
                  :alt: Downloads
 .. |licence| image:: https://pypip.in/license/lib31/badge.png 
-   :target: https://pypi.python.org/pypi/lib31/ 
-   :alt: License
+               :target: https://pypi.python.org/pypi/lib31/ 
+               :alt: License
