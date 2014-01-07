@@ -24,8 +24,12 @@ History
 -------
 0.6.0
 `````
-- removed python imports
-- added ordered class meta
+- removed xmlrpc
+- added python.ObjectLoader
+
+0.6.0
+`````
+- removed python.import_*
 
 0.5.0
 `````
