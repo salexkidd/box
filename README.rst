@@ -10,10 +10,7 @@ Lib31 is library to provide common functionality.
      :alt: build
 .. image:: https://coveralls.io/repos/respect31/lib31/badge.png?branch=master 
      :target: https://coveralls.io/r/respect31/lib31  
-     :alt: coverage 
-.. image:: https://pypip.in/license/lib31/badge.png 
-     :target: https://pypi.python.org/pypi/lib31/ 
-     :alt: license
+     :alt: coverage
 
 Requirements
 ------------
