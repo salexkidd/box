@@ -1,8 +1,8 @@
 Lib31
 =====
 
-.. image:: https://secure.travis-ci.org/respect31/lib31.png?branch=develop
-        :target: https://travis-ci.org/respect31/lib31.png
+.. image:: https://secure.travis-ci.org/respect31/lib31.png
+        :target: https://travis-ci.org/respect31/lib31
 
 .. image:: https://pypip.in/v/lib31/badge.png
     :target: https://pypi.python.org/pypi/lib31/
