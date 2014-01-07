@@ -1,5 +1,9 @@
 Lib31
 =====
+
+.. image:: https://badge.fury.io/py/lib31.png
+    :target: http://badge.fury.io/py/lib31
+    
 Lib31 is library to provide common functionality.
 
 Requirements
