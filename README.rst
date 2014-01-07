@@ -12,7 +12,7 @@ Lib31 is library to provide common functionality.
      :target: https://coveralls.io/r/respect31/lib31  
      :alt: coverage 
 .. image:: https://pypip.in/license/lib31/badge.png 
-     :target: https://pypi.python.org/pypi/lib31/ 
+     :target: https://github.com/respect31/lib31/blob/master/LICENSE.rst 
      :alt: license
 
 Requirements
