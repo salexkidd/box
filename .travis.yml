@@ -4,6 +4,6 @@ python:
 install:
   - pip install coveralls
 script:
-  - nosetests --with-coverage --cover-package=lib31
+  - coverage run --source=lib31 nosetests
 after_success:
   - coveralls
