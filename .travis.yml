@@ -1,6 +1,6 @@
 language: python
 python:
-  - "3.3"
+  - '3.3'
 install:
   - pip install coveralls
 script:
@@ -10,7 +10,7 @@ after_success:
 notifications:
   email:
     - roll@respect31.com
-#deploy:
+deploy:
   provider: pypi
   user: roll
   password:
