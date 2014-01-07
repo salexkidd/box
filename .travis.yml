@@ -1,16 +1,15 @@
-language: 
-- python
+language: python
 python:
-- '3.3'
+  - '3.3'
 install:
-- pip install coveralls
+  - pip install coveralls
 script:
-- coverage run --source=lib31 setup.py test
+  - coverage run --source=lib31 setup.py test
 after_success:
-- coveralls
+  - coveralls
 notifications:
   email:
-  - roll@respect31.com
+    - roll@respect31.com
 deploy:
   provider: pypi
   user: roll
