@@ -14,4 +14,4 @@ deploy:
   provider: pypi
   user: roll
   password:
-    secure: FKpWoIZXYzwqLjBycRS980UFnwyqp77W+IfjIo42tDr5UaN5TqBaPx/BqsRo1kN7vQZN8y00xAlJmTWpqzfIHL+pHFke4xju8AaslquR4G0zByDR3buY7E/0q5D9GOTCbkyhxK/L4kb+cTTpMlGG/4rE7dER4rJDqSngl6w/ikc=
+    secure: jFRWJAyhP5RA9j8CEpJzwJhwZmbfcxW1HpRO43mMu2/Nh3FW7GdisUovCLOS/khygJvh86vfe6m69+GEVuH/VgUEw8GcdZ41Zcla0ZnBhQrH0PTQel5Fou85foD7yXf42toVY3DV7C/JPk8PK3swSlIJ26n4dVreI7y1xvRmVHk=
