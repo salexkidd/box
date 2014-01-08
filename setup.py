@@ -6,7 +6,7 @@ setup(
 	#Main
 	
     name='lib31',
-	version='0.7.1',
+	version='0.7.2',
 	packages=find_packages(os.path.dirname(__file__) or '.', exclude=['tests*']),
 	include_package_data=True,
     tests_require=['nose'],
@@ -20,7 +20,7 @@ setup(
     maintainer_email='post@respect31.com',
     license='MIT License',    
     url='https://github.com/respect31/lib31',
-    download_url='https://github.com/respect31/lib31/tarball/0.7.1',    
+    download_url='https://github.com/respect31/lib31/tarball/0.7.2',    
     classifiers=['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules'],    
     description='Lib31 is library to provide common functionality.',    
     long_description='''Lib31
@@ -62,11 +62,6 @@ History
 
 0.6.0
 `````
-- removed python.import_*
-
-0.5.0
-`````
-- ported to Python 3.3 without previous version support
-- updated application programing interface''',
+- removed python.import_*''',
         
 )
