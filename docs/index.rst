@@ -6,6 +6,15 @@
 Welcome to lib31's documentation!
 =================================
 
+.. automodule:: lib31.python
+   :members:
+   :undoc-members:
+   
+.. automodule:: lib31.program
+   :members:
+   :undoc-members:  
+   :imported-members:
+
 Contents:
 
 .. toctree::
