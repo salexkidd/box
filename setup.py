@@ -1,5 +1,3 @@
-#Builded for lib31 0.7.4 from data/setup.tpl
-
 import os
 from setuptools import find_packages, setup
 
