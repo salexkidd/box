@@ -1,3 +1,6 @@
+#Source: data/MANIFEST.in
+#Target: MANIFEST.in
+
 graft lib31
 graft tests
 

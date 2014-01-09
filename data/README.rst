@@ -1,3 +1,6 @@
+#Source: data/README.rst
+#Target: README.rst
+
 Lib31
 =====
 Lib31 is library to provide common functionality.

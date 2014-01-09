@@ -1,3 +1,6 @@
+#Source: data/setup.tpl
+#Target: setup.py
+
 import os
 from setuptools import find_packages, setup
 
