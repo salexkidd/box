@@ -1,5 +1,4 @@
-#Source: data/travis.yml
-#Target: travis.yml
+#Generated for {{ name }} {{ version }} from data/.travis.yml
 
 language: python
 python:

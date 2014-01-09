@@ -1,2 +1,1 @@
-#Source: data/requirments.txt
-#Target: requirments.txt
+#Generated for {{ name }} {{ version }} from data/requirements.txt

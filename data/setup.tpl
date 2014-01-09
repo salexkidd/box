@@ -1,5 +1,4 @@
-#Source: data/setup.tpl
-#Target: setup.py
+#Generated for {{ name }} {{ version }} from data/setup.tpl
 
 import os
 from setuptools import find_packages, setup

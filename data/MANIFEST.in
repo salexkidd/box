@@ -1,5 +1,4 @@
-#Source: data/MANIFEST.in
-#Target: MANIFEST.in
+#Generated for {{ name }} {{ version }} from data/MANIFEST.in
 
 graft lib31
 graft tests

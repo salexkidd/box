@@ -1,5 +1,4 @@
-#Source: data/README.rst
-#Target: README.rst
+#Generated for {{ name }} {{ version }} from data/README.rst
 
 Lib31
 =====
