@@ -1,4 +1,4 @@
-#Generated for lib31 0.7.4 from data/README.rst
+#Builded for lib31 0.7.4 from data/README.rst
 
 Lib31
 =====================

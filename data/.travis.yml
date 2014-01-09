@@ -1,4 +1,4 @@
-#Generated for {{ name }} {{ version }} from data/.travis.yml
+#Builded for {{ name }} {{ version }} from data/.travis.yml
 
 language: python
 python:

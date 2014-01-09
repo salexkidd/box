@@ -1,4 +1,4 @@
-#Generated for {{ name }} {{ version }} from data/setup.tpl
+#Builded for {{ name }} {{ version }} from data/setup.tpl
 
 import os
 from setuptools import find_packages, setup

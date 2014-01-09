@@ -1,4 +1,4 @@
-#Generated for {{ name }} {{ version }} from data/MANIFEST.in
+#Builded for {{ name }} {{ version }} from data/MANIFEST.in
 
 graft data
 graft docs
