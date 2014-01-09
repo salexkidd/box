@@ -6,6 +6,7 @@ class ObjectLoader:
 
     #Public
 
+    #TODO: add name_pattern?
     def load(self, basedir, file_pattern, recursively=False):
         for file in self._find_files(basedir, file_pattern, recursively):
             for module in self._import_modules(file):
