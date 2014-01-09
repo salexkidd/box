@@ -1,8 +1,8 @@
-#Builded for lib31 0.7.4 from data/MANIFEST.in
+#Builded for {{ name }} {{ version }} from data/MANIFEST.in
 
 graft data
 graft docs
-graft lib31
+graft {{ name }}
 graft tests
 
 include *.rst

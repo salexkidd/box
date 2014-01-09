@@ -1,17 +1,17 @@
-#Builded for lib31 0.7.4 from data/README.rst
+#Builded for {{ name }} {{ version }} from data/README.rst
 
-Lib31
+{{ name|capitalize }}
 =====================
-Lib31 is library to provide common functionality.
+{{ name|capitalize }} is library to provide common functionality.
 
-.. image:: https://secure.travis-ci.org/respect31/lib31.png?branch=master 
-     :target: https://travis-ci.org/respect31/lib31 
+.. image:: https://secure.travis-ci.org/{{ author|lower }}/{{ name }}.png?branch=master 
+     :target: https://travis-ci.org/{{ author|lower }}/{{ name }} 
      :alt: build
-.. image:: https://coveralls.io/repos/respect31/lib31/badge.png?branch=master 
-     :target: https://coveralls.io/r/respect31/lib31  
+.. image:: https://coveralls.io/repos/{{ author|lower }}/{{ name }}/badge.png?branch=master 
+     :target: https://coveralls.io/r/{{ author|lower }}/{{ name }}  
      :alt: coverage
-.. image:: https://badge.fury.io/py/lib31.png
-     :target: http://badge.fury.io/py/lib31
+.. image:: https://badge.fury.io/py/{{ pypi_name }}.png
+     :target: http://badge.fury.io/py/{{ pypi_name }}
      :alt: index     
 
 Requirements
@@ -20,16 +20,24 @@ Requirements
 
 Installation
 ------------
-- pip install lib31
+- pip install {{ pypi_name }}
 
 Authors
 -------
 - Respect31 <post@respect31.com>
 - roll <roll@respect31.com>
 
+Classifiers
+-----------
+- Development Status :: 3 - Alpha
+- Intended Audience :: Developers
+- License :: OSI Approved :: MIT License
+- Programming Language :: Python :: 3.3
+- Topic :: Software Development :: Libraries :: Python Modules
+
 License
 -------
-MIT License
+{{ license }}
 `````````````
 Copyright (c) 2014 Respect31 <post@respect31.com>
 
