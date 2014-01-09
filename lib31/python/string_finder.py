@@ -1,3 +1,6 @@
+import os
+import re
+
 class StringFinder:
     
     #Public
