@@ -1,0 +1,7 @@
+graft lib31
+graft tests
+
+include *.rst
+include *.py
+
+global-exclude __pycache__/*
