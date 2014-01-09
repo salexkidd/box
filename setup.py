@@ -7,7 +7,10 @@ package = {
 	
     'name':'lib31',
 	'version': '0.7.4',
-	'packages': find_packages(os.path.dirname(__file__) or '.', exclude=['tests*']),
+	'packages': find_packages(
+		os.path.dirname(__file__) or '.', 
+		exclude=['tests*']
+	),
 	'include_package_data': True,
     'tests_require': ['nose'],
     'test_suite': 'nose.collector',
@@ -21,11 +24,15 @@ package = {
     'license': 'MIT License',    
     'url': 'https://github.com/respect31/lib31',
     'download_url': 'https://github.com/respect31/lib31/tarball/0.7.4',    
-    'classifiers': ['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules'],    
+    'classifiers': [
+		'Development Status :: 3 - Alpha', 
+		'Intended Audience :: Developers', 
+		'License :: OSI Approved :: MIT License', 
+		'Programming Language :: Python :: 3.3', 
+		'Topic :: Software Development :: Libraries :: Python Modules'
+	],    
     'description': 'Lib31 is library to provide common functionality.',    
-    'long_description': '''#Builded for lib31 0.7.4 from data/README.rst
-
-Lib31
+    'long_description': '''Lib31
 =====================
 Lib31 is library to provide common functionality.
 
