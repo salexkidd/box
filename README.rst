@@ -25,14 +25,6 @@ Authors
 - Respect31 <post@respect31.com>
 - roll <roll@respect31.com>
 
-Classifiers
------------
-- Development Status :: 3 - Alpha
-- Intended Audience :: Developers
-- License :: OSI Approved :: MIT License
-- Programming Language :: Python :: 3.3
-- Topic :: Software Development :: Libraries :: Python Modules
-
 License
 -------
 MIT License
