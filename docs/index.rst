@@ -4,7 +4,7 @@ Contents
 .. toctree::
    :maxdepth: 2
 
-   readme
+   lib31
    api
 
 Indices and tables
