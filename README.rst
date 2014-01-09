@@ -35,7 +35,6 @@ Classifiers
 
 License
 -------
-
 MIT License
 ```````````
 Copyright (c) 2014 Respect31 <post@respect31.com>
