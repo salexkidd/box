@@ -6,7 +6,7 @@ package = {
 	#Main
 	
     'name':'box',
-	'version': '0.7.4',
+	'version': '0.8.0',
 	'packages': find_packages(
 		os.path.dirname(__file__) or '.', 
 		exclude=['tests*']
