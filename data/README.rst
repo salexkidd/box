@@ -1,17 +1,17 @@
 #Generated for {{ name }} {{ version }} from data/README.rst
 
-Lib31
-=====
-Lib31 is library to provide common functionality.
+{{ name|capitalize }}
+=====================
+{{ name|capitalize }} is library to provide common functionality.
 
-.. image:: https://secure.travis-ci.org/respect31/lib31.png?branch=master 
-     :target: https://travis-ci.org/respect31/lib31 
+.. image:: https://secure.travis-ci.org/{{ author|lower }}/{{ name }}.png?branch=master 
+     :target: https://travis-ci.org/{{ author|lower }}/{{ name }} 
      :alt: build
-.. image:: https://coveralls.io/repos/respect31/lib31/badge.png?branch=master 
-     :target: https://coveralls.io/r/respect31/lib31  
+.. image:: https://coveralls.io/repos/{{ author|lower }}/{{ name }}/badge.png?branch=master 
+     :target: https://coveralls.io/r/{{ author|lower }}/{{ name }}  
      :alt: coverage
-.. image:: https://badge.fury.io/py/lib31.png
-     :target: http://badge.fury.io/py/lib31
+.. image:: https://badge.fury.io/py/{{ pypi_name }}.png
+     :target: http://badge.fury.io/py/{{ pypi_name }}
      :alt: index     
 
 Requirements
@@ -20,7 +20,7 @@ Requirements
 
 Installation
 ------------
-- pip install lib31
+- pip install {{ pypi_name }}
 
 Authors
 -------
@@ -37,8 +37,8 @@ Classifiers
 
 License
 -------
-MIT License
-```````````
+{{ license }}
+`````````````
 Copyright (c) 2014 Respect31 <post@respect31.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

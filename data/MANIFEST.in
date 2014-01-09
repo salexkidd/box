@@ -1,6 +1,8 @@
 #Generated for {{ name }} {{ version }} from data/MANIFEST.in
 
-graft lib31
+graft data
+graft docs
+graft {{ name }}
 graft tests
 
 include *.rst

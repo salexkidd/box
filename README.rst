@@ -1,7 +1,7 @@
 #Generated for lib31 0.7.4 from data/README.rst
 
 Lib31
-=====
+=====================
 Lib31 is library to provide common functionality.
 
 .. image:: https://secure.travis-ci.org/respect31/lib31.png?branch=master 
@@ -38,7 +38,7 @@ Classifiers
 License
 -------
 MIT License
-```````````
+`````````````
 Copyright (c) 2014 Respect31 <post@respect31.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

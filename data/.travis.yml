@@ -6,14 +6,14 @@ python:
 install:
   - pip install coveralls
 script:
-  - coverage run --source=lib31 setup.py test
+  - coverage run --source={{ name }} setup.py test
 after_success:
   - coveralls
 notifications:
   email:
-    - roll@respect31.com
+    - {{ author_email }}
 deploy:
   provider: pypi
-  user: roll
+  user: {{ pypi_user }}
   password:
-    secure: jFRWJAyhP5RA9j8CEpJzwJhwZmbfcxW1HpRO43mMu2/Nh3FW7GdisUovCLOS/khygJvh86vfe6m69+GEVuH/VgUEw8GcdZ41Zcla0ZnBhQrH0PTQel5Fou85foD7yXf42toVY3DV7C/JPk8PK3swSlIJ26n4dVreI7y1xvRmVHk=
+    secure: {{ pypi_password_secure }}

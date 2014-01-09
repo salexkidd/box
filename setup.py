@@ -23,12 +23,12 @@ package = {
     'license': 'MIT License',    
     'url': 'https://github.com/respect31/lib31',
     'download_url': 'https://github.com/respect31/lib31/tarball/0.7.4',    
-    'classifiers': (['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules'],),    
+    'classifiers': ['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules'],    
     'description': 'Lib31 is library to provide common functionality.',    
     'long_description': '''#Generated for lib31 0.7.4 from data/README.rst
 
 Lib31
-=====
+=====================
 Lib31 is library to provide common functionality.
 
 .. image:: https://secure.travis-ci.org/respect31/lib31.png?branch=master 
@@ -65,7 +65,7 @@ Classifiers
 License
 -------
 MIT License
-```````````
+`````````````
 Copyright (c) 2014 Respect31 <post@respect31.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
