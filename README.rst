@@ -1,15 +1,15 @@
-Lib31
+Box
 =====================
-Lib31 is library to provide common functionality.
+Box is library to provide common functionality.
 
-.. image:: https://secure.travis-ci.org/respect31/lib31.png?branch=master 
-     :target: https://travis-ci.org/respect31/lib31 
+.. image:: https://secure.travis-ci.org/respect31/box.png?branch=master 
+     :target: https://travis-ci.org/respect31/box 
      :alt: build
-.. image:: https://coveralls.io/repos/respect31/lib31/badge.png?branch=master 
-     :target: https://coveralls.io/r/respect31/lib31  
+.. image:: https://coveralls.io/repos/respect31/box/badge.png?branch=master 
+     :target: https://coveralls.io/r/respect31/box  
      :alt: coverage
-.. image:: https://badge.fury.io/py/lib31.png
-     :target: http://badge.fury.io/py/lib31
+.. image:: https://badge.fury.io/py/box.png
+     :target: http://badge.fury.io/py/box
      :alt: index     
 
 Requirements
@@ -18,7 +18,7 @@ Requirements
 
 Installation
 ------------
-- pip install lib31
+- pip install box
 
 Authors
 -------
@@ -48,14 +48,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-
-History
--------
-0.7.0
-`````
-- removed xmlrpc
-- added python.ObjectLoader
-
-0.6.0
-`````
-- removed python.import_*

@@ -5,7 +5,7 @@ package = {
 
 	#Main
 	
-    'name':'lib31',
+    'name':'box',
 	'version': '0.7.4',
 	'packages': find_packages(
 		os.path.dirname(__file__) or '.', 
@@ -22,8 +22,8 @@ package = {
     'maintainer': 'Respect31',
     'maintainer_email': 'post@respect31.com',
     'license': 'MIT License',    
-    'url': 'https://github.com/respect31/lib31',
-    'download_url': 'https://github.com/respect31/lib31/tarball/0.7.4',    
+    'url': 'https://github.com/respect31/box',
+    'download_url': 'https://github.com/respect31/box/tarball/0.7.4',    
     'classifiers': [
 		'Development Status :: 3 - Alpha', 
 		'Intended Audience :: Developers', 
@@ -31,19 +31,19 @@ package = {
 		'Programming Language :: Python :: 3.3', 
 		'Topic :: Software Development :: Libraries :: Python Modules'
 	],    
-    'description': 'Lib31 is library to provide common functionality.',    
-    'long_description': '''Lib31
+    'description': 'Box is library to provide common functionality.',    
+    'long_description': '''Box
 =====================
-Lib31 is library to provide common functionality.
+Box is library to provide common functionality.
 
-.. image:: https://secure.travis-ci.org/respect31/lib31.png?branch=master 
-     :target: https://travis-ci.org/respect31/lib31 
+.. image:: https://secure.travis-ci.org/respect31/box.png?branch=master 
+     :target: https://travis-ci.org/respect31/box 
      :alt: build
-.. image:: https://coveralls.io/repos/respect31/lib31/badge.png?branch=master 
-     :target: https://coveralls.io/r/respect31/lib31  
+.. image:: https://coveralls.io/repos/respect31/box/badge.png?branch=master 
+     :target: https://coveralls.io/r/respect31/box  
      :alt: coverage
-.. image:: https://badge.fury.io/py/lib31.png
-     :target: http://badge.fury.io/py/lib31
+.. image:: https://badge.fury.io/py/box.png
+     :target: http://badge.fury.io/py/box
      :alt: index     
 
 Requirements
@@ -52,7 +52,7 @@ Requirements
 
 Installation
 ------------
-- pip install lib31
+- pip install box
 
 Authors
 -------

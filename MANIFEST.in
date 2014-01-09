@@ -1,6 +1,6 @@
 graft data
 graft docs
-graft lib31
+graft box
 graft tests
 
 include *.rst

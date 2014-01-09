@@ -1,5 +1,5 @@
 import unittest
-from lib31.program.settings import Settings
+from box.program.settings import Settings
 
 class SettingsTest(unittest.TestCase):
 

@@ -1,7 +1,7 @@
 import unittest
 from functools import partial
 from unittest.mock import Mock, call
-from lib31.program.command import (Command, SilentArgumentParser, 
+from box.program.command import (Command, SilentArgumentParser, 
                                    SilentArgumentParserException)
 
 class CommandTest(unittest.TestCase):

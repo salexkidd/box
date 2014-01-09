@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock
-from lib31.python.cachedproperty import cachedproperty
+from box.python.cachedproperty import cachedproperty
 
 class cachedpropertyTest(unittest.TestCase):
     

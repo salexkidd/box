@@ -1,7 +1,7 @@
 import os
 import unittest
-from lib31 import version
-from lib31.python import ObjectLoader
+from box import version
+from box.python import ObjectLoader
 
 class SetupTest(unittest.TestCase):
 
@@ -15,7 +15,7 @@ class SetupTest(unittest.TestCase):
 
     def test(self):
         package = self.objects[0]
-        self.assertEqual(package['name'], 'lib31')
+        self.assertEqual(package['name'], 'box')
         self.assertEqual(package['version'], version)
         
     #Protected

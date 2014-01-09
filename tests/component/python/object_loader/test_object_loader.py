@@ -1,6 +1,6 @@
 import os
 import unittest
-from lib31.python.object_loader import ObjectLoader
+from box.python.object_loader import ObjectLoader
 
 class FinderTest(unittest.TestCase):
 

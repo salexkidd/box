@@ -1,6 +1,6 @@
 import copy
 from abc import ABCMeta, abstractmethod
-from lib31.python import cachedproperty
+from box.python import cachedproperty
 from .command import Command
 
 class Program(metaclass=ABCMeta):

@@ -4,7 +4,7 @@ class MainModule(PythonPackgramModule):
         
     #Public
     
-    name = 'lib31'
+    name = 'box'
     version='0.7.4'
     pypi_name = name
     pypi_user = 'roll'
@@ -14,7 +14,7 @@ class MainModule(PythonPackgramModule):
     maintainer = 'Respect31'
     maintainer_email = 'post@respect31.com'
     license = 'MIT License'
-    description = 'Lib31 is library to provide common functionality.'
+    description = 'Box is library to provide common functionality.'
     classifiers=[
         'Development Status :: 3 - Alpha', 
         'Intended Audience :: Developers', 

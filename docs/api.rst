@@ -1,27 +1,27 @@
 API
 ===
-Lib31's application programming interface.
+Box's application programming interface.
    
-lib31.json
+box.json
 ----------
 
-.. automodule:: lib31.json
+.. automodule:: box.json
    :members:
    :undoc-members:
    :imported-members:
    
-lib31.program
+box.program
 -------------
    
-.. automodule:: lib31.program
+.. automodule:: box.program
    :members:
    :undoc-members:
    :imported-members:
    
-lib31.python
+box.python
 -------------
    
-.. automodule:: lib31.python
+.. automodule:: box.python
    :members:
    :undoc-members:
    :imported-members:   

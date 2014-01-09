@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock
-from lib31.program.program import Program
+from box.program.program import Program
 
 class ProgramTest(unittest.TestCase):
 
