@@ -1,5 +1,3 @@
-#Builded for lib31 0.7.4 from data/README.rst
-
 Lib31
 =====================
 Lib31 is library to provide common functionality.
