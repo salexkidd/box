@@ -1,0 +1,5 @@
+class StringFinder:
+    
+    #Public
+    
+    pass

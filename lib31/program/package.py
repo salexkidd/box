@@ -1,0 +1,5 @@
+class Package:
+
+    #Public
+
+    pass
