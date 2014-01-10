@@ -3,29 +3,32 @@
 import os
 from setuptools import find_packages, setup
 
-setup(
+package = {
 
 	#Main
 
-    name='box',
-	version='None',
-	packages=find_packages(os.path.dirname(__file__) or '.', exclude=['tests*']),
-	include_package_data=True,
-    tests_require=['nose'],
-    test_suite='nose.collector',
+    'name': 'box',
+	'version':'None',
+	'packages': find_packages(
+        os.path.dirname(__file__) or '.', 
+        exclude=['tests*']
+    ),
+	'include_package_data': True,
+    'tests_require': ['nose'],
+    'test_suite': 'nose.collector',
     
     #Description
     
-    author='roll',
-    author_email='roll@respect31.com',
-    maintainer='roll',
-    maintainer_email='roll@respect31.com',
-    license='MIT License',    
-    url='https://github.com/respect31/box',
-    download_url='https://github.com/respect31/box/tarball/None',    
-    classifiers=['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],    
-    description='Box is library to provide common functionality.',    
-    long_description='''#Builded for box None from _templates/README.rst
+    'author': 'roll',
+    'author_email': 'roll@respect31.com',
+    'maintainer': 'roll',
+    'maintainer_email': 'roll@respect31.com',
+    'license': 'MIT License',    
+    'url': 'https://github.com/respect31/box',
+    'download_url':'https://github.com/respect31/box/tarball/None',    
+    'classifiers': ['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],    
+    'description': 'Box is library to provide common functionality.',    
+    'long_description': '''#Builded for box None from _templates/README.rst
 
 Box
 =====================
@@ -80,5 +83,8 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.''',
-        
-)
+    
+}
+
+if __name__ == '__main__':
+    setup(**package)
