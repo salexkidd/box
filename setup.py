@@ -1,3 +1,5 @@
+#Builded for box None from _templates/setup.tpl
+
 import os
 from setuptools import find_packages, setup
 
@@ -14,16 +16,18 @@ setup(
     
     #Description
     
-    author='None',
-    author_email='None',
-    maintainer='None',
-    maintainer_email='None',
-    license='None',    
-    url='https://github.com/none/box',
-    download_url='https://github.com/none/box/tarball/none',    
-    classifiers=[],    
+    author='roll',
+    author_email='roll@respect31.com',
+    maintainer='roll',
+    maintainer_email='roll@respect31.com',
+    license='MIT License',    
+    url='https://github.com/respect31/box',
+    download_url='https://github.com/respect31/box/tarball/None',    
+    classifiers=['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],    
     description='Box is library to provide common functionality.',    
-    long_description='''Box
+    long_description='''#Builded for box None from _templates/README.rst
+
+Box
 =====================
 Box is library to provide common functionality.
 
@@ -35,7 +39,7 @@ Box is library to provide common functionality.
      :alt: coverage
 .. image:: https://badge.fury.io/py/box.png
      :target: http://badge.fury.io/py/box
-     :alt: index     
+     :alt: index
 
 Requirements
 ------------
@@ -47,8 +51,11 @@ Installation
 
 Authors
 -------
-- Respect31 <post@respect31.com>
-- roll <roll@respect31.com>
+- roll roll@respect31.com
+
+Maintainers
+-----------
+- roll roll@respect31.com
 
 License
 -------

@@ -1,8 +1,8 @@
-#Builded for box None from _templates/MANIFEST.in
+#Builded for {{ name }} {{ version }} from _templates/MANIFEST.in
 
 graft data
 graft docs
-graft box
+graft {{ name }}
 graft tests
 
 include *.rst

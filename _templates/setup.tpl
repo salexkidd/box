@@ -1,3 +1,5 @@
+#Builded for {{ name }} {{ version }} from _templates/setup.tpl
+
 import os
 from setuptools import find_packages, setup
 
@@ -5,7 +7,7 @@ setup(
 
 	#Main
 
-    name='{{ name }}',
+    name='{{ pypi_name }}',
 	version='{{ version }}',
 	packages=find_packages(os.path.dirname(__file__) or '.', exclude=['tests*']),
 	include_package_data=True,
@@ -19,8 +21,8 @@ setup(
     maintainer='{{ maintainer }}',
     maintainer_email='{{ maintainer_email }}',
     license='{{ license }}',    
-    url='https://github.com/{{ author|lower }}/{{ name|lower }}',
-    download_url='https://github.com/{{ author|lower }}/{{ name|lower }}/tarball/{{ version|lower }}',    
+    url='https://github.com/{{ github_user }}/{{ name }}',
+    download_url='https://github.com/{{ github_user }}/{{ name }}/tarball/{{ version }}',    
     classifiers={{ classifiers }},    
     description='{{ description }}',    
     long_description='''{{ long_description }}''',
