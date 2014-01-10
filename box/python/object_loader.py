@@ -29,6 +29,7 @@ class ObjectLoader:
             loader = importlib.machinery.SourceFileLoader(file, file)
             module = loader.load_module(file)
             yield module
+        #TODO: why we pass exceptions?!
         except Exception:
             pass
         
