@@ -11,7 +11,7 @@ after_success:
   - coveralls
 notifications:
   email:
-    - post@respect31.com
+    - roll@respect31.com
 deploy:
   provider: pypi
   user: roll

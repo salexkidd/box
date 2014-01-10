@@ -11,7 +11,7 @@ after_success:
   - coveralls
 notifications:
   email:
-    - post@respect31.com
+    - {{ author_email }}
 deploy:
   provider: pypi
   user: {{ pypi_user }}

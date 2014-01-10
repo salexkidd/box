@@ -24,11 +24,11 @@ Installation
 
 Authors
 -------
-- {{ author }} {{ author_email }}
+- {{ author }} <{{ author_email }}>
 
 Maintainers
 -----------
-- {{ maintainer }} {{ maintainer_email }}
+- {{ maintainer }} <{{ maintainer_email }}>
 
 License
 -------

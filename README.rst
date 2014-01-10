@@ -24,11 +24,11 @@ Installation
 
 Authors
 -------
-- roll roll@respect31.com
+- roll <roll@respect31.com>
 
 Maintainers
 -----------
-- roll roll@respect31.com
+- roll <roll@respect31.com>
 
 License
 -------
