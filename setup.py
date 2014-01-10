@@ -1,38 +1,29 @@
 import os
 from setuptools import find_packages, setup
 
-package = {
+setup(
 
 	#Main
-	
-    'name':'box',
-	'version': '0.8.0',
-	'packages': find_packages(
-		os.path.dirname(__file__) or '.', 
-		exclude=['tests*']
-	),
-	'include_package_data': True,
-    'tests_require': ['nose'],
-    'test_suite': 'nose.collector',
+
+    name='box',
+	version='None',
+	packages=find_packages(os.path.dirname(__file__) or '.', exclude=['tests*']),
+	include_package_data=True,
+    tests_require=['nose'],
+    test_suite='nose.collector',
     
     #Description
     
-    'author': 'Respect31',
-    'author_email': 'post@respect31.com',
-    'maintainer': 'Respect31',
-    'maintainer_email': 'post@respect31.com',
-    'license': 'MIT License',    
-    'url': 'https://github.com/respect31/box',
-    'download_url': 'https://github.com/respect31/box/tarball/0.7.4',    
-    'classifiers': [
-		'Development Status :: 3 - Alpha', 
-		'Intended Audience :: Developers', 
-		'License :: OSI Approved :: MIT License', 
-		'Programming Language :: Python :: 3.3', 
-		'Topic :: Software Development :: Libraries :: Python Modules'
-	],    
-    'description': 'Box is library to provide common functionality.',    
-    'long_description': '''Box
+    author='None',
+    author_email='None',
+    maintainer='None',
+    maintainer_email='None',
+    license='None',    
+    url='https://github.com/none/box',
+    download_url='https://github.com/none/box/tarball/none',    
+    classifiers=[],    
+    description='Box is library to provide common functionality.',    
+    long_description='''Box
 =====================
 Box is library to provide common functionality.
 
@@ -59,14 +50,6 @@ Authors
 - Respect31 <post@respect31.com>
 - roll <roll@respect31.com>
 
-Classifiers
------------
-- Development Status :: 3 - Alpha
-- Intended Audience :: Developers
-- License :: OSI Approved :: MIT License
-- Programming Language :: Python :: 3.3
-- Topic :: Software Development :: Libraries :: Python Modules
-
 License
 -------
 MIT License
@@ -89,20 +72,6 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
-History
--------
-0.7.0
-`````
-- removed xmlrpc
-- added python.ObjectLoader
-
-0.6.0
-`````
-- removed python.import_*''',
-    
-}
-
-if __name__ == '__main__':
-    setup(**package)
+THE SOFTWARE.''',
+        
+)
