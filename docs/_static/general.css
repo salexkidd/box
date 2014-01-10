@@ -1,0 +1,24 @@
+body {
+    font-size: 15px;    
+}
+
+.navbar-form {
+    display: none;    
+}
+
+.bs-sidenav {
+    width: 213px;
+    position: fixed;
+    top: 40px;      
+}
+
+.bs-sidenav.affix {
+    top: 40px;    
+}
+
+.footer {
+    margin-top: 10px;
+    background-color: #f7f5fa;
+    color: #716b7a;    
+    opacity: 0.7;
+}
