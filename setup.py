@@ -1,4 +1,4 @@
-#Builded for box None from _templates/setup.tpl
+#Builded for box 0.8.0 from _templates/setup.tpl
 
 import os
 from setuptools import find_packages, setup
@@ -8,7 +8,7 @@ package = {
 	#Main
 
     'name': 'box',
-	'version':'None',
+	'version':'0.8.0',
 	'packages': find_packages(
         os.path.dirname(__file__) or '.', 
         exclude=['tests*']
@@ -25,10 +25,10 @@ package = {
     'maintainer_email': 'roll@respect31.com',
     'license': 'MIT License',    
     'url': 'https://github.com/respect31/box',
-    'download_url':'https://github.com/respect31/box/tarball/None',    
+    'download_url':'https://github.com/respect31/box/tarball/0.8.0',    
     'classifiers': ['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],    
     'description': 'Box is library to provide common functionality.',    
-    'long_description': '''#Builded for box None from _templates/README.rst
+    'long_description': '''#Builded for box 0.8.0 from _templates/README.rst
 
 Box
 =====================
