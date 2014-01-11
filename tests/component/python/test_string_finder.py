@@ -12,10 +12,13 @@ class StringFinderTest(unittest.TestCase):
         self.finder = MockStringFinder()
         
     def test_find(self):
-        strings = list(self.finder.find('(da|ta)'))
+        strings = list(self.finder.find('(da|ta)', 
+            'filename', 'basedir', 'maxdepth'))
         self.assertEqual(strings, ['da', 'ta', 'da', 'ta'])
-        self.finder._open_operator.assert_has_calls([
-            call('file1'), call('file2')], any_order=True)
+        (self.finder._file_finder_class.return_value.find.
+            assert_called_with('filename', 'basedir', 'maxdepth'))        
+        (self.finder._open_operator.
+            assert_has_calls([call('file1'), call('file2')], any_order=True))
         
     def test_find_with_processor(self):
         processor = lambda string, file: file+':'+string
