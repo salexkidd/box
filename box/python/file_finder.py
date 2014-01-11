@@ -69,11 +69,11 @@ class FileFinderNameFilter:
         
     def __call__(self, file):
         if self._name:
-            filtered_name = os.path.basename(file)
+            name = os.path.basename(file)
             if isinstance(self._name, RegexCompiledPatternType):
-                if not re.match(self._name, filtered_name):
+                if not re.match(self._name, name):
                     return False
             else:
-                if not fnmatch.fnmatch(filtered_name, self._name):
+                if not fnmatch.fnmatch(name, self._name):
                     return False
         return True

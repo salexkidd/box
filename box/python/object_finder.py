@@ -1,4 +1,3 @@
-import re
 from importlib.machinery import SourceFileLoader
 from .file_finder import FileFinder
 from .map_reduce import MapReduce
@@ -50,9 +49,10 @@ class ObjectFinderNameFilter:
         
     def __call__(self, obj, name, module):
         if self._name:
-            pattern = self._name
-            if not isinstance(pattern, RegexCompiledPatternType):
-                pattern = re.compile(pattern)
-            if not pattern.match(name):
-                return False
+            if isinstance(self._name, RegexCompiledPatternType):
+                if not self._name.match(name):
+                    return False
+            else:
+                if name != self._name:
+                    return False
         return True        
