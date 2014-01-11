@@ -9,10 +9,10 @@ class FileFinder:
     #Public
 
     #TODO: add ignore_errors flag
-    def find(self, filename=None, basedir='.', max_depth=0, 
+    def find(self, name=None, basedir='.', max_depth=0, 
              breakers=[], filters=[], processors=[], reducers=[]):
-        breakers = [MaxDepthFileFinderBreaker(basedir, max_depth)]+breakers
-        filters = [FilenameFileFinderFilter(filename)]+filters
+        breakers = [self._max_depth_breaker_class(basedir, max_depth)]+breakers
+        filters = [self._name_filter_class(name)]+filters
         files = self._get_files(basedir)
         map_reduce = MapReduce(breakers, filters, processors, reducers)
         map_reduced_files = map_reduce(files)
@@ -20,6 +20,8 @@ class FileFinder:
             
     #Protected
     
+    _max_depth_breaker_class = property(lambda self: FileFinderMaxDepthBreaker)
+    _name_filter_class = property(lambda self: FileFinderNameFilter)
     _walk_operator = staticmethod(os.walk)
     
     def _get_files(self, basedir):
@@ -29,7 +31,7 @@ class FileFinder:
                 yield (file,) 
       
       
-class MaxDepthFileFinderBreaker:
+class FileFinderMaxDepthBreaker:
     
     #Public
     
@@ -58,20 +60,20 @@ class MaxDepthFileFinderBreaker:
         return depth
 
     
-class FilenameFileFinderFilter:
+class FileFinderNameFilter:
     
     #Public
     
-    def __init__(self, filename):
-        self._filename = filename
+    def __init__(self, name):
+        self._name = name
         
     def __call__(self, file):
-        if self._filename:
-            filename = os.path.basename(file)
-            if isinstance(self._filename, RegexCompiledPatternType):
-                if not re.match(self._filename, filename):
+        if self._name:
+            filtered_name = os.path.basename(file)
+            if isinstance(self._name, RegexCompiledPatternType):
+                if not re.match(self._name, filtered_name):
                     return False
             else:
-                if not fnmatch.fnmatch(filename, self._filename):
+                if not fnmatch.fnmatch(filtered_name, self._name):
                     return False
-        return True 
+        return True

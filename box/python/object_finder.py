@@ -1,51 +1,58 @@
 import re
+from importlib.machinery import SourceFileLoader
 from .file_finder import FileFinder
 from .map_reduce import MapReduce
+from .regex_types import RegexCompiledPatternType
 
 class ObjectFinder:
     
     #Public
     
     #TODO: add ignore_errors flag
-    def find(self, attrname=None, filename=None, basedir='.', max_depth=0, 
+    def find(self, name=None, filename=None, basedir='.', max_depth=0, 
              breakers=[], filters=[], processors=[], reducers=[]):
-        strings = self._get_strings(attrname, filename, basedir, max_depth)
+        filters = [self._name_filter_class(name)]+filters
+        objects = self._get_objects(name, filename, basedir, max_depth)
         map_reduce = MapReduce(breakers, filters, processors, reducers)
-        map_reduced_strings = map_reduce(strings)
-        return map_reduced_strings
+        map_reduced_objects = map_reduce(objects)
+        return map_reduced_objects
     
     #Protected
     
-    _open_operator = staticmethod(open)
+    _name_filter_class = property(lambda self: ObjectFinderNameFilter)
+    _source_file_loader_class = SourceFileLoader
     _file_finder_class = FileFinder    
     
-    def _get_strings(self, pattern, filename, basedir, max_depth):
-        for file in self._get_files(filename, basedir, max_depth):
-            with self._open_operator(file) as file_object:
-                if not self._is_object_regexp_compiled_pattern(pattern):
-                    pattern = re.compile(pattern)
-                strings = pattern.findall(file_object.read())
-                for string in strings:
-                    yield (string, file)
+    def _get_objects(self, pattern, filename, basedir, max_depth):
+        for module in self._get_modules(filename, basedir, max_depth):
+            for name in dir(module):
+                obj = getattr(module, dir)
+                yield (obj, name, module)
+                    
+    def _get_modules(self, filename, basedir, max_depth):
+        for file in self._get_files(filename, basedir, max_depth): 
+            loader = self._source_file_loader_class(file, file)
+            module = loader.load_module(file)
+            yield module   
                     
     def _get_files(self, filename, basedir, max_depth):
         file_finder = self._file_finder_class()
         files = file_finder.find(filename, basedir, max_depth)
         return files
     
-    def _is_object_regexp_compiled_pattern(self, obj):
-        return isinstance(obj, type(re.compile('')))
-    
         
-class AttrnameObjectFinderFilter:
+class ObjectFinderNameFilter:
     
     #Public
     
-    def __init__(self, attrname):
-        self._attrname = attrname
+    def __init__(self, name):
+        self._name = name
         
-    def __call__(self, file):
-        depth = self._calculate_depth(file)
-        if depth > self._max_depth:
-            return True 
-        return False       
+    def __call__(self, obj, name, module):
+        if self._name:
+            pattern = self._name
+            if not isinstance(pattern, RegexCompiledPatternType):
+                pattern = re.compile(pattern)
+            if not pattern.match(name):
+                return False
+        return True        
