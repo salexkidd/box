@@ -1,3 +1,4 @@
+import re
 import unittest
 from unittest.mock import Mock, mock_open, call
 from box.python.string_finder import StringFinder
@@ -12,8 +13,8 @@ class StringFinderTest(unittest.TestCase):
         self.finder = MockStringFinder()
         
     def test_find(self):
-        strings = list(self.finder.find('(da|ta)', 
-            'filename', 'basedir', 'maxdepth'))
+        strings = list(self.finder.find(
+            re.compile('(da|ta)'), 'filename', 'basedir', 'maxdepth'))
         self.assertEqual(strings, ['da', 'ta', 'da', 'ta'])
         (self.finder._file_finder_class.return_value.find.
             assert_called_with('filename', 'basedir', 'maxdepth'))        
@@ -22,7 +23,8 @@ class StringFinderTest(unittest.TestCase):
         
     def test_find_with_processor(self):
         processor = lambda string, file: file+':'+string
-        strings = list(self.finder.find('(da|ta)', processors=[processor]))
+        strings = list(self.finder.find(
+            re.compile('(da|ta)'), processors=[processor]))
         self.assertEqual(
             strings, ['file1:da', 'file1:ta', 'file2:da', 'file2:ta'])       
     

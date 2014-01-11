@@ -1,4 +1,5 @@
 import os
+import re
 import unittest
 from box.python.string_finder import StringFinder
 
@@ -11,12 +12,13 @@ class StringFinderTest(unittest.TestCase):
         self.finder = StringFinder()
 
     def test_find(self):
-        strings = list(self.finder.find('string\d', 'file1', self.basedir))
+        strings = list(self.finder.find(
+            re.compile('string\d'), 'file1', self.basedir))
         self.assertEqual(strings, ['string1'])
 
     def test_find_with_max_depth_is_1(self):
         files = list(self.finder.find(
-            'string\d', 'file1', self.basedir, max_depth=1))
+            re.compile('string\d'), 'file1', self.basedir, max_depth=1))
         self.assertEqual(files, ['string1', 'string3'])
         
     #Protected    
