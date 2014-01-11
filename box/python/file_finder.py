@@ -7,10 +7,11 @@ class FileFinder:
 
     #Public
 
+    #TODO: add ignore_errors flag
     def find(self, filename=None, basedir='.', max_depth=0, 
              breakers=[], filters=[], processors=[], reducers=[]):
-        breakers = [FileFinderMaxDepthBreaker(basedir, max_depth)]+breakers
-        filters = [FileFinderFilenameFilter(filename)]+filters
+        breakers = [MaxDepthFileFinderBreaker(basedir, max_depth)]+breakers
+        filters = [FilenameFileFinderFilter(filename)]+filters
         files = self._get_files(basedir)
         map_reduce = MapReduce(breakers, filters, processors, reducers)
         map_reduced_files = map_reduce(files)
@@ -27,7 +28,7 @@ class FileFinder:
                 yield (file,) 
       
       
-class FileFinderMaxDepthBreaker:
+class MaxDepthFileFinderBreaker:
     
     #Public
     
@@ -56,7 +57,7 @@ class FileFinderMaxDepthBreaker:
         return depth
 
     
-class FileFinderFilenameFilter:
+class FilenameFileFinderFilter:
     
     #Public
     

@@ -33,24 +33,24 @@ class FileFinderTest(unittest.TestCase):
         files = list(self.finder.find(regexp))
         self.assertEqual(files, ['file1'])     
         
-    def test_find_with_breakers(self):
-        breakers = [lambda file: True]
-        files = list(self.finder.find('file1', breakers=breakers))
+    def test_find_with_breaker(self):
+        breaker = lambda file: True
+        files = list(self.finder.find('file1', breakers=[breaker]))
         self.assertEqual(files, [])
         
-    def test_find_with_filters(self):
-        filters = [lambda file: False]
-        files = list(self.finder.find('file1', filters=filters))
+    def test_find_with_filter(self):
+        fltr = lambda file: False
+        files = list(self.finder.find('file1', filters=[fltr]))
         self.assertEqual(files, [])
         
-    def test_find_with_processors(self):
-        processors = [lambda file: 'processed_'+file]
-        files = list(self.finder.find('file1', processors=processors))
+    def test_find_with_processor(self):
+        processor = lambda file: 'processed_'+file
+        files = list(self.finder.find('file1', processors=[processor]))
         self.assertEqual(files, [ 'processed_file1'])             
           
-    def test_find_with_reducers(self):
-        reducers=[lambda files: list(files)[0]]
-        files = self.finder.find('file1', reducers=reducers)
+    def test_find_with_reducer(self):
+        reducer=lambda files: list(files)[0]
+        files = self.finder.find('file1', reducers=[reducer])
         self.assertEqual(files, 'file1')               
     
     #Protected
