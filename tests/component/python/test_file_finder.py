@@ -32,15 +32,15 @@ class FileFinderTest(unittest.TestCase):
         regexp = re.compile('file1+')
         files = list(self.finder.find(regexp))
         self.assertEqual(files, ['file1'])     
-    
+        
+    def test_find_with_breakers(self):
+        breakers = [lambda file: True]
+        files = list(self.finder.find('file1', breakers=breakers))
+        self.assertEqual(files, [])
+        
     def test_find_with_filters(self):
         filters = [lambda file: False]
         files = list(self.finder.find('file1', filters=filters))
-        self.assertEqual(files, [])
-        
-    def test_find_with_iterators(self):
-        iterators = [lambda file: False]
-        files = list(self.finder.find('file1', iterators=iterators))
         self.assertEqual(files, [])
         
     def test_find_with_processors(self):
