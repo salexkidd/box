@@ -26,7 +26,7 @@ class ObjectFinder:
     def _get_objects(self, pattern, filename, basedir, max_depth):
         for module in self._get_modules(filename, basedir, max_depth):
             for name in dir(module):
-                obj = getattr(module, dir)
+                obj = getattr(module, name)
                 yield (obj, name, module)
                     
     def _get_modules(self, filename, basedir, max_depth):
