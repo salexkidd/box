@@ -2,6 +2,7 @@ import os
 import re
 import fnmatch
 from .map_reduce import MapReduce
+from .regex_types import RegexCompiledPatternType
 
 class FileFinder:
 
@@ -67,15 +68,10 @@ class FilenameFileFinderFilter:
     def __call__(self, file):
         if self._filename:
             filename = os.path.basename(file)
-            if self._is_object_regexp_compiled_pattern(self._filename):
+            if isinstance(self._filename, RegexCompiledPatternType):
                 if not re.match(self._filename, filename):
                     return False
             else:
                 if not fnmatch.fnmatch(filename, self._filename):
                     return False
-        return True
-    
-    #Protected
-    
-    def _is_object_regexp_compiled_pattern(self, obj):
-        return isinstance(obj, type(re.compile('')))    
+        return True 
