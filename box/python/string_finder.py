@@ -22,15 +22,15 @@ class StringFinder:
     def _get_strings(self, string, filename, basedir, max_depth):
         for file in self._get_files(filename, basedir, max_depth):
             with self._open_operator(file) as file_object:
-                #TODO: read line by line someway!?
-                #TODO: finditer?
                 file_content = file_object.read()
                 if isinstance(string, RegexCompiledPatternType):
-                    strings = string.findall(file_content)
+                    for match in string.finditer(file_content):
+                        has_groups = bool(match.groups())
+                        yield (match.group(has_groups), file)
                 else:
-                    strings = string*file_content.count(string)
-                for strng in strings:
-                    yield (strng, file)
+                    matches = file_content.count(string)
+                    for _ in range(matches+1):
+                        yield (string, file)
                     
     def _get_files(self, filename, basedir, max_depth):
         file_finder = self._file_finder_class()
