@@ -12,7 +12,7 @@ class ObjectFinder:
     def find(self, name=None, filename=None, basedir='.', max_depth=0, 
              breakers=[], filters=[], processors=[], reducers=[]):
         filters = [self._name_filter_class(name)]+filters
-        objects = self._get_objects(name, filename, basedir, max_depth)
+        objects = self._get_objects(filename, basedir, max_depth)
         map_reduce = MapReduce(breakers, filters, processors, reducers)
         map_reduced_objects = map_reduce(objects)
         return map_reduced_objects
@@ -23,7 +23,7 @@ class ObjectFinder:
     _source_file_loader_class = SourceFileLoader
     _file_finder_class = FileFinder    
     
-    def _get_objects(self, pattern, filename, basedir, max_depth):
+    def _get_objects(self, filename, basedir, max_depth):
         for module in self._get_modules(filename, basedir, max_depth):
             for name in dir(module):
                 obj = getattr(module, name)
