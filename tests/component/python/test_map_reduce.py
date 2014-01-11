@@ -31,6 +31,11 @@ class MapReduceTest(unittest.TestCase):
         self.assertEqual(list(map_reduce(self.iterable)), [])
         breaker.assert_called_with('element', 'arg1', 'arg2')
         
+    def test___call___with_breaker_after(self):
+        breaker = Mock(return_value=MapReduce.BREAK_AFTER)
+        map_reduce = MapReduce(breakers=[breaker])
+        self.assertEqual(list(map_reduce(self.iterable)), ['element'])
+        
     def test___call___with_reducer(self):
         reducer = Mock(return_value='reduced')
         map_reduce = MapReduce(reducers=[reducer])

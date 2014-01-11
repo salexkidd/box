@@ -30,8 +30,9 @@ class MapReduce:
     
     def _break(self, element, *args):
         for breaker in self._breakers:
-            if breaker(element, *args):
-                return True
+            is_break = breaker(element, *args)
+            if is_break:
+                return is_break
         return False 
     
     def _filter(self, element, *args):
