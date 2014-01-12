@@ -43,6 +43,11 @@ Box is library to provide common functionality.
 .. image:: https://badge.fury.io/py/box.png
      :target: http://badge.fury.io/py/box
      :alt: index
+     
+Quick Links
+-----------
+- `Source code (GitHub) <https://github.com/respect31/box>`_
+- `Documentation (ReadTheDocs) <http://box.readthedocs.org/en/latest/>`_
 
 Requirements
 ------------

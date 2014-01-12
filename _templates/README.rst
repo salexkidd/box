@@ -13,6 +13,11 @@
 .. image:: https://badge.fury.io/py/{{ pypi_name }}.png
      :target: http://badge.fury.io/py/{{ pypi_name }}
      :alt: index
+     
+Quick Links
+-----------
+- `Source code (GitHub) <https://github.com/{{ github_user }}/{{ name }}>`_
+- `Documentation (ReadTheDocs) <http://{{ name }}.readthedocs.org/en/latest/>`_
 
 Requirements
 ------------
