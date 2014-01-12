@@ -16,20 +16,20 @@ class FindFilesTest(unittest.TestCase):
         self.find = self._make_mock_find_files_function(walk_items)
 
     def test_find(self):
-        files = list(self.find('file1'))
+        files = list(self.find('file1', max_depth=1))
         self.assertEqual(files, ['file1'])
         
     def test_find_with_max_depth_is_1(self):
-        files = list(self.find('file1', max_depth=1))
+        files = list(self.find('file1', max_depth=2))
         self.assertEqual(files, ['file1', 'folder/file1'])
         
     def test_find_with_max_depth_is_2(self):
-        files = list(self.find('file3', max_depth=2))
+        files = list(self.find('file3', max_depth=3))
         self.assertEqual(files, ['folder/subfolder/file3'])        
         
     def test_find_with_regexp(self):
         regexp = re.compile('file1+')
-        files = list(self.find(regexp))
+        files = list(self.find(regexp, max_depth=1))
         self.assertEqual(files, ['file1'])     
         
     def test_find_with_breaker(self):
@@ -44,12 +44,12 @@ class FindFilesTest(unittest.TestCase):
         
     def test_find_with_processor(self):
         processor = lambda file: 'processed_'+file
-        files = list(self.find('file1', processors=[processor]))
+        files = list(self.find('file1', max_depth=1, processors=[processor]))
         self.assertEqual(files, [ 'processed_file1'])             
           
     def test_find_with_reducer(self):
         reducer=lambda files: list(files)[0]
-        files = self.find('file1', reducers=[reducer])
+        files = self.find('file1', max_depth=1, reducers=[reducer])
         self.assertEqual(files, 'file1')               
     
     #Protected

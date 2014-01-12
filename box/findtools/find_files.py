@@ -9,7 +9,7 @@ class FindFiles:
     #Public
 
     #TODO: add ignore_errors flag
-    def __call__(self, name=None, basedir='.', max_depth=0, 
+    def __call__(self, name=None, basedir='', max_depth=None, 
              breakers=[], filters=[], processors=[], reducers=[]):
         breakers = [self._max_depth_breaker_class(basedir, max_depth)]+breakers
         filters = [self._name_filter_class(name)]+filters
@@ -40,9 +40,10 @@ class FindFilesMaxDepthBreaker:
         self._max_depth = max_depth
         
     def __call__(self, file):
-        depth = self._calculate_depth(file)
-        if depth > self._max_depth:
-            return True 
+        if self._max_depth:
+            depth = self._calculate_depth(file)
+            if depth > self._max_depth:
+                return True 
         return False
     
     #Protected
@@ -51,12 +52,12 @@ class FindFilesMaxDepthBreaker:
         basedir = os.path.normpath(self._basedir)
         filedir = os.path.normpath(os.path.dirname(file))
         if basedir == filedir:
-            depth = 0
-        elif os.path.sep not in filedir:
             depth = 1
+        elif os.path.sep not in filedir:
+            depth = 2
         else:
             subpath = filedir.replace(basedir+os.path.sep, '', 1)
-            depth = subpath.count(os.path.sep)+1
+            depth = subpath.count(os.path.sep)+2
         return depth
 
     

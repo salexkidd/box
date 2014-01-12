@@ -7,7 +7,7 @@ class FindStrings:
     #Public
     
     #TODO: add ignore_errors flag
-    def __call__(self, string, filename=None, basedir='.', max_depth=0, 
+    def __call__(self, string, filename=None, basedir='', max_depth=None, 
              breakers=[], filters=[], processors=[], reducers=[]):
         strings = self._get_strings(string, filename, basedir, max_depth)
         map_reduced_strings = map_reduce(
