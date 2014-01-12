@@ -41,15 +41,14 @@ Box is library to provide common functionality.
 .. image:: https://coveralls.io/repos/respect31/box/badge.png?branch=master 
      :target: https://coveralls.io/r/respect31/box  
      :alt: coverage
-.. image:: http://b.repl.ca/v1/docs-latest-brightgreen.png
+.. image:: http://b.repl.ca/v1/documentation-online-brightgreen.png
      :target: http://box.readthedocs.org/en/latest/
-     :alt: docs
+     :alt: documentation
      
 Quick Links
 -----------
-- `Package index (PyPi) <https://pypi.python.org/pypi?:action=display&name=box>`_
 - `Source code (GitHub) <https://github.com/respect31/box>`_
-- `Documentation (ReadTheDocs) <http://box.readthedocs.org/en/latest/>`_
+- `Package index (PyPi) <https://pypi.python.org/pypi?:action=display&name=box>`_
 
 Requirements
 ------------
