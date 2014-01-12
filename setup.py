@@ -25,6 +25,10 @@ package = {
     'description': 'Box is library to provide common functionality.',
     'download_url':'https://github.com/respect31/box/tarball/0.8.0',
     'license': 'MIT License',
+    'maintainer': 'roll',
+    'maintainer_email': 'roll@respect31.com',
+    'platforms': ['Unix'],
+    'url': 'https://github.com/respect31/box',
     'long_description': '''.. Builded for box 0.8.0 from _templates/README.rst
 
 Box
@@ -83,10 +87,6 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.''',        
-    'maintainer': 'roll',
-    'maintainer_email': 'roll@respect31.com',
-    'platforms': ['Unix'],
-    'url': 'https://github.com/respect31/box',        
     
 }
 

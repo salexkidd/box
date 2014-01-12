@@ -25,11 +25,11 @@ package = {
     'description': '{{ description }}',
     'download_url':'https://github.com/{{ github_user }}/{{ name }}/tarball/{{ version }}',
     'license': '{{ license }}',
-    'long_description': '''{{ long_description }}''',        
     'maintainer': '{{ maintainer }}',
     'maintainer_email': '{{ maintainer_email }}',
     'platforms': ['Unix'],
-    'url': 'https://github.com/{{ github_user }}/{{ name }}',        
+    'url': 'https://github.com/{{ github_user }}/{{ name }}',
+    'long_description': '''{{ long_description }}''',        
     
 }
 
