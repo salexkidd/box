@@ -40,12 +40,10 @@ Box is library to provide common functionality.
 .. image:: https://coveralls.io/repos/respect31/box/badge.png?branch=master 
      :target: https://coveralls.io/r/respect31/box  
      :alt: coverage
-.. image:: https://badge.fury.io/py/box.png
-     :target: http://badge.fury.io/py/box
-     :alt: index
      
 Quick Links
 -----------
+- `Package index (PyPi) <https://pypi.python.org/pypi?:action=display&name=box>`_
 - `Source code (GitHub) <https://github.com/respect31/box>`_
 - `Documentation (ReadTheDocs) <http://box.readthedocs.org/en/latest/>`_
 
