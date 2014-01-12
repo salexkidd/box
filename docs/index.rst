@@ -1,10 +1,11 @@
-Pages
-=====
+.. include:: ../README.rst
+
+Contents
+--------
 
 .. toctree::
    :maxdepth: 2
 
-   box
    api
 
 Indices and tables

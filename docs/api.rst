@@ -1,5 +1,5 @@
-API
-===
+API Reference
+=============
 Box's application programming interface.
    
 box
