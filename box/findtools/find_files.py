@@ -7,6 +7,9 @@ from ..types import RegexCompiledPatternType
 class FindFiles:
 
     #Public
+    
+    BREAK_BEFORE = map_reduce.BREAK_BEFORE
+    BREAK_AFTER = map_reduce.BREAK_AFTER
 
     #TODO: add ignore_errors flag
     def __call__(self, name=None, basedir='.', max_depth=None, 
