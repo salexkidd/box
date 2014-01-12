@@ -41,7 +41,7 @@ Box is library to provide common functionality.
 .. image:: https://coveralls.io/repos/respect31/box/badge.png?branch=master 
      :target: https://coveralls.io/r/respect31/box  
      :alt: coverage
-.. image:: http://b.repl.ca/v1/documentation-online-brightgreen.png
+.. image:: http://b.repl.ca/v1/documentation-online-green.png
      :target: http://box.readthedocs.org/en/latest/
      :alt: documentation
      
