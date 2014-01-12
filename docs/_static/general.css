@@ -2,6 +2,14 @@ body {
     font-size: 15px;    
 }
 
+dd {
+    margin-left: 20px;
+}
+
+em {
+    font-weight: normal;    
+}
+
 .navbar-form {
     display: none;    
 }
