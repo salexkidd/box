@@ -10,12 +10,14 @@ Box is library to provide common functionality.
 .. image:: https://coveralls.io/repos/respect31/box/badge.png?branch=master 
      :target: https://coveralls.io/r/respect31/box  
      :alt: coverage
+.. image:: http://b.repl.ca/v1/documentation-online-brightgreen.png
+     :target: http://box.readthedocs.org/en/latest/
+     :alt: documentation
      
 Quick Links
 -----------
 - `Source code (GitHub) <https://github.com/respect31/box>`_
 - `Package index (PyPi) <https://pypi.python.org/pypi?:action=display&name=box>`_
-- `Documentation (ReadTheDocs) <http://box.readthedocs.org/en/latest/>`_
 
 Requirements
 ------------
