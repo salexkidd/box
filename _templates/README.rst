@@ -10,7 +10,7 @@
 .. image:: https://coveralls.io/repos/{{ github_user }}/{{ name }}/badge.png?branch=master 
      :target: https://coveralls.io/r/{{ github_user }}/{{ name }}  
      :alt: coverage
-.. image:: http://b.repl.ca/v1/documentation-online-brightgreen.png
+.. image:: http://b.repl.ca/v1/documentation-online-green.png
      :target: http://{{ name }}.readthedocs.org/en/latest/
      :alt: documentation
      
