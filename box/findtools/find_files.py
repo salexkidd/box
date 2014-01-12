@@ -25,6 +25,7 @@ class FindFiles:
     _walk_operator = staticmethod(os.walk)
     
     def _get_files(self, basedir):
+        #TODO: os.walk swallow exception if onerror=None
         for dirpath, _, filenames in self._walk_operator(basedir):       
             for filename in filenames:
                 file = os.path.join(dirpath, filename)
