@@ -8,7 +8,7 @@ class FindObjects:
     #Public
     
     #TODO: add ignore_errors flag
-    def __call__(self, name=None, filename=None, basedir='', max_depth=None, 
+    def __call__(self, name=None, filename=None, basedir='.', max_depth=None, 
              breakers=[], filters=[], processors=[], reducers=[]):
         filters = [self._name_filter_class(name)]+filters
         objects = self._get_objects(filename, basedir, max_depth)

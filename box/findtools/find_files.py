@@ -9,7 +9,7 @@ class FindFiles:
     #Public
 
     #TODO: add ignore_errors flag
-    def __call__(self, name=None, basedir='', max_depth=None, 
+    def __call__(self, name=None, basedir='.', max_depth=None, 
              breakers=[], filters=[], processors=[], reducers=[]):
         breakers = [self._max_depth_breaker_class(basedir, max_depth)]+breakers
         filters = [self._name_filter_class(name)]+filters
