@@ -11,8 +11,10 @@ class FindObjects:
     BREAK_AFTER = map_reduce.BREAK_AFTER    
     
     #TODO: add ignore_errors flag
-    def __call__(self, name=None, filename=None, basedir='.', max_depth=None, 
+    def __call__(self, name=None, filename=None, basedir=None, max_depth=None, 
              breakers=[], filters=[], processors=[], reducers=[]):
+        if not basedir:
+            basedir = self._default_basedir        
         filters = [self._name_filter_class(name)]+filters
         objects = self._get_objects(filename, basedir, max_depth)
         map_reduced_objects = map_reduce(
@@ -21,6 +23,7 @@ class FindObjects:
     
     #Protected
     
+    _default_basedir = '.'    
     _name_filter_class = property(lambda self: FindObjectsNameFilter)
     _source_file_loader_class = SourceFileLoader
     _find_files_function = staticmethod(find_files)    

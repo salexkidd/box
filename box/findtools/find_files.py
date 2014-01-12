@@ -12,8 +12,10 @@ class FindFiles:
     BREAK_AFTER = map_reduce.BREAK_AFTER
 
     #TODO: add ignore_errors flag
-    def __call__(self, name=None, basedir='.', max_depth=None, 
+    def __call__(self, name=None, basedir=None, max_depth=None, 
              breakers=[], filters=[], processors=[], reducers=[]):
+        if not basedir:
+            basedir = self._default_basedir        
         breakers = [self._max_depth_breaker_class(basedir, max_depth)]+breakers
         filters = [self._name_filter_class(name)]+filters
         files = self._get_files(basedir)
@@ -23,6 +25,7 @@ class FindFiles:
             
     #Protected
     
+    _default_basedir = '.'
     _max_depth_breaker_class = property(lambda self: FindFilesMaxDepthBreaker)
     _name_filter_class = property(lambda self: FindFilesNameFilter)
     _walk_operator = staticmethod(os.walk)

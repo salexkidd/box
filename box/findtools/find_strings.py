@@ -10,8 +10,10 @@ class FindStrings:
     BREAK_AFTER = map_reduce.BREAK_AFTER
     
     #TODO: add ignore_errors flag
-    def __call__(self, string, filename=None, basedir='.', max_depth=None, 
+    def __call__(self, string, filename=None, basedir=None, max_depth=None, 
              breakers=[], filters=[], processors=[], reducers=[]):
+        if not basedir:
+            basedir = self._default_basedir
         strings = self._get_strings(string, filename, basedir, max_depth)
         map_reduced_strings = map_reduce(
             strings, breakers, filters, processors, reducers)
@@ -19,6 +21,7 @@ class FindStrings:
     
     #Protected
     
+    _default_basedir = '.'    
     _open_function = staticmethod(open)
     _find_files_function = staticmethod(find_files)
     
