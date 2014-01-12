@@ -21,14 +21,15 @@ package = {
     
     'author': '{{ author }}',
     'author_email': '{{ author_email }}',
+    'classifiers': {{ classifiers }},       
+    'description': '{{ description }}',
+    'download_url':'https://github.com/{{ github_user }}/{{ name }}/tarball/{{ version }}',
+    'license': '{{ license }}',
+    'long_description': '''{{ long_description }}''',        
     'maintainer': '{{ maintainer }}',
     'maintainer_email': '{{ maintainer_email }}',
-    'license': '{{ license }}',    
-    'url': 'https://github.com/{{ github_user }}/{{ name }}',
-    'download_url':'https://github.com/{{ github_user }}/{{ name }}/tarball/{{ version }}',    
-    'classifiers': {{ classifiers }},    
-    'description': '{{ description }}',    
-    'long_description': '''{{ long_description }}''',
+    'platforms': ['Unix'],
+    'url': 'https://github.com/{{ github_user }}/{{ name }}',        
     
 }
 

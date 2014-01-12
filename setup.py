@@ -21,13 +21,10 @@ package = {
     
     'author': 'roll',
     'author_email': 'roll@respect31.com',
-    'maintainer': 'roll',
-    'maintainer_email': 'roll@respect31.com',
-    'license': 'MIT License',    
-    'url': 'https://github.com/respect31/box',
-    'download_url':'https://github.com/respect31/box/tarball/0.8.0',    
-    'classifiers': ['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],    
-    'description': 'Box is library to provide common functionality.',    
+    'classifiers': ['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],       
+    'description': 'Box is library to provide common functionality.',
+    'download_url':'https://github.com/respect31/box/tarball/0.8.0',
+    'license': 'MIT License',
     'long_description': '''.. Builded for box 0.8.0 from _templates/README.rst
 
 Box
@@ -85,7 +82,11 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.''',
+THE SOFTWARE.''',        
+    'maintainer': 'roll',
+    'maintainer_email': 'roll@respect31.com',
+    'platforms': ['Unix'],
+    'url': 'https://github.com/respect31/box',        
     
 }
 
