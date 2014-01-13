@@ -1,4 +1,4 @@
-#Builded for box 0.8.0 from _templates/setup.tpl
+#Builded for box 0.9.0 from _templates/setup.tpl
 
 import os
 from setuptools import find_packages, setup
@@ -8,7 +8,7 @@ package = {
 	#Main
 
     'name': 'box',
-	'version':'0.8.0',
+	'version':'0.9.0',
 	'packages': find_packages(
         os.path.dirname(__file__) or '.', 
         exclude=['tests*']
@@ -23,13 +23,13 @@ package = {
     'author_email': 'roll@respect31.com',
     'classifiers': ['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],       
     'description': 'Box is library to provide common functionality.',
-    'download_url':'https://github.com/respect31/box/tarball/0.8.0',
+    'download_url':'https://github.com/respect31/box/tarball/0.9.0',
     'license': 'MIT License',
     'maintainer': 'roll',
     'maintainer_email': 'roll@respect31.com',
     'platforms': ['Unix'],
     'url': 'https://github.com/respect31/box',
-    'long_description': '''.. Builded for box 0.8.0 from _templates/README.rst
+    'long_description': '''.. Builded for box 0.9.0 from _templates/README.rst
 
 Box
 =====================

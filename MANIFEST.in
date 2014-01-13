@@ -1,4 +1,4 @@
-#Builded for box 0.8.0 from _templates/MANIFEST.in
+#Builded for box 0.9.0 from _templates/MANIFEST.in
 
 graft data
 graft docs
