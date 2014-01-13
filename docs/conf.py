@@ -17,11 +17,5 @@ class Settings(Settings):
     copyright = '2014, Respect31'
     version = box.version
     
-    #HTML
-    
-    html_sidebars = {'*': [
-        'globaltoc.html', 'relations.html', 
-        'sourcelink.html', 'searchbox.html']}
-    
     
 locals().update(Settings())
