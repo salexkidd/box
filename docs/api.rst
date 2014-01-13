@@ -59,6 +59,14 @@ box.json
    :undoc-members:
    :imported-members:
    
+box.sphinx
+----------
+
+.. automodule:: box.sphinx
+   :members:
+   :undoc-members:
+   :imported-members:   
+   
 box.types
 ---------
 
