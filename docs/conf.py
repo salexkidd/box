@@ -23,4 +23,5 @@ class Settings(Settings):
         'globaltoc.html', 'relations.html', 
         'sourcelink.html', 'searchbox.html']}
     
+    
 locals().update(Settings())
