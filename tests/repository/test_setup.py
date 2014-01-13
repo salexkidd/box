@@ -12,8 +12,8 @@ class SetupTest(unittest.TestCase):
         self.basedir = self._get_repository_path()
 
     def test(self):
-        package = find_objects(
-            'package', 'setup.py', self.basedir, max_depth=1,
+        package = find_objects('package', 'setup.py', 
+            self.basedir, max_depth=1,
             reducers=[list, itemgetter(0)])
         self.assertEqual(package['name'], 'box')
         self.assertEqual(package['version'], version)
