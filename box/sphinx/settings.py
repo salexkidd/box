@@ -1,4 +1,3 @@
-from sphinx.config import Config 
 from ..functools import cachedproperty
 from ..settings import Settings
 
@@ -49,4 +48,5 @@ class Settings(Settings):
     
     @cachedproperty
     def _defaults(self):
+        from sphinx.config import Config 
         return Config(None, None, {}, None)       
