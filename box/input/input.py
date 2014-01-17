@@ -96,3 +96,6 @@ class Input:
     def _template_class(self):
         from jinja2 import Template
         return Template
+    
+    
+locals().update({'input': Input()}) 
