@@ -1,20 +1,10 @@
 class Input:
     
     #Public
-    
-    def __init__(self, prompt, default='', options=[], attempts=None,
+        
+    def __call__(self, prompt, default='', options=[], attempts=None,
                  input_operator=None, print_operator=None, 
                  prompt_template=None, error_template=None):
-        self._input_prompt = prompt
-        self._default = default
-        self._options = options
-        self._input_attempts = attempts
-        self._input_input_operator = input_operator
-        self._input_print_operator = print_operator
-        self._input_prompt_template = prompt_template
-        self._input_error_template = error_template
-        
-    def __call__(self):
         for _ in range(0, self._attempts):
             result = self._input_operator(self._prompt)
             if not result:
