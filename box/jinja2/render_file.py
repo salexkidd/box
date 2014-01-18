@@ -27,7 +27,7 @@ class RenderFile:
         return os.path.dirname(path)
     
     def _get_filename(self, path):
-        return os.path.basenmae(path)
+        return os.path.basename(path)
     
     def _get_loader(self, dirpath):
         return self._file_system_loader_class(dirpath)

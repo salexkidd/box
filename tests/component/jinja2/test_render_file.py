@@ -2,39 +2,32 @@ import unittest
 from unittest.mock import Mock, mock_open
 from box.jinja2.render_file import RenderFile
 
-class RenderFileTaskTest(unittest.TestCase):
+class RenderFileTest(unittest.TestCase):
 
     #Public
 
     def setUp(self):
         self.template = Mock(render=Mock(return_value='text'))
-        self.render_file = self._make_mock_render_file_function(self.template)
-        self.source = '/source'
-        self.target = '/target'
+        self.render = self._make_mock_render_file_function(self.template)
         
-    def test_complete(self):
-        self.render_file(self.source, self.target)
-        self.render_file._open_function.assert_called_with(self.target, 'w')
-        self.render_file._open_function().write.assert_called_with('text')
+    def test___call__(self):
+        self.assertEqual(self.render('/dirpath/filename'), 'text')
+        self.render._file_system_loader_class.assert_called_with('/dirpath')
+        self.render._environment_class.assert_called_with(loader='loader')
+        (self.render._environment_class.return_value.get_template.
+            assert_called_with('filename'))
+        self.template.render.assert_called_with({})
+    
+    def test___call___with_target(self):
+        self.assertEqual(self.render('/path', target='/target'), 'text')
+        self.render._open_function.assert_called_with('/target', 'w')
+        self.render._open_function().write.assert_called_with('text')
         
-    def test__get_template(self):
-        self.assertEqual(self.render_file._get_template(self.source), self.template)
-        self.render_file._file_system_loader_class.assert_called_with('/')
-        self.render_file._environment_class.assert_called_with(loader='loader')
-        self.assertEqual(
-            self.render_file._environment_class.return_value.template_class,
-            self.render_file._module_template_class)
-        (self.render_file._environment_class.return_value.get_template.
-            assert_called_with('source'))
-        
-    def test__get_context_from_dict(self):
-        context = dict()
-        self.assertEqual(self.render_file._get_context(context), context)
-        
-    def test__get_context_from_object(self):
+    def test___call___with_context_is_object(self):
         context = object()
-        self.assertEqual(self.render_file._get_context(context), 'context')
-        self.render_file._object_context_class.assert_called_with(context)   
+        self.assertEqual(self.render('/path', context), 'text')
+        self.render._object_context_class.assert_called_with(context)
+        self.template.render.assert_called_with('object_context')   
     
     #Protected
     
@@ -43,7 +36,7 @@ class RenderFileTaskTest(unittest.TestCase):
             #Public
             meta_module = 'module'
             #Protected
-            _object_context_class = Mock(return_value='context')
+            _object_context_class = Mock(return_value='object_context')
             _open_function = mock_open()
             _environment_class = Mock(return_value=Mock(
                 get_template=Mock(return_value=template)))
