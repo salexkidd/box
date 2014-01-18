@@ -1,5 +1,4 @@
 import os
-from box.functools import cachedproperty
 from .object_context import ObjectContext
 from .object_template import ObjectTemplateMixin
 
@@ -7,12 +6,15 @@ class RenderFile:
     
     #Public
     
-    def __call__(self, context, source, target):
+    def __call__(self, context, source, target=None):
         template = self._get_template(source)
         context = self._get_context(context)
         text = template.render(context)
-        with self._open_function(target, 'w') as file:
-            file.write(text)
+        if target:
+            with self._open_function(target, 'w') as file:
+                file.write(text)
+        else:
+            return text
             
     #Protected
     
@@ -31,18 +33,15 @@ class RenderFile:
         context = self._module_context_class(self.meta_module)
         return context
     
-    @property
-    def _environment_class(self):
+    def _get_environment_class(self):
         from jinja2 import Environment
         return Environment
     
-    @property
-    def _file_system_loader_class(self):
+    def _get_file_system_loader_class(self):
         from jinja2 import FileSystemLoader
         return FileSystemLoader    
     
-    @cachedproperty
-    def _object_template_class(self):
+    def _get_object_template_class(self):
         from jinja2 import Template
         class ObjectTemplate(ObjectTemplateMixin, Template): pass
         return ObjectTemplate
