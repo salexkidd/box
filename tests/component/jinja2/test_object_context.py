@@ -7,8 +7,8 @@ class ObjectContextTest(unittest.TestCase):
     #Public
     
     def setUp(self):
-        self.module = Mock(key='value', spec=['key'])
-        self.context = ObjectContext(self.module)
+        self.object = Mock(key='value', spec=['key'])
+        self.context = ObjectContext(self.object)
         
     def test___contains__(self):
         self.assertTrue('key' in self.context)
