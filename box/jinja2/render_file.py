@@ -6,49 +6,59 @@ class RenderFile:
     
     #Public
     
-    def __call__(self, path, context={}, target=None):
-        dirpath = self._get_dirname(path)
-        filename = self._get_filename(path)
-        loader = self._get_loader(dirpath)
-        environment = self._get_environment(loader, context)
-        template = self._get_template(environment, filename)
-        context = self._get_context(context)
-        text = template.render(context)
-        if target:
-            self._write_text(text, target)
-        return text
+    def __call__(self, *args, **kwargs):
+        call = self._call_class(*args, **kwargs)
+        result = call.execute()
+        return result
+    
+    #Protected
+    
+    _call_class = property(lambda self: RenderFileCall)
+        
+
+class RenderFileCall:
+    
+    #Public
+    
+    def __init__(self, path, context={}, target=None):
+        self._path = path
+        self._initial_context = context
+        self._target = target
+    
+    def execute(self):
+        content = self._render()
+        self._write(content)
+        return content
             
     #Protected
     
     _object_context_class = ObjectContext
     _open_function = staticmethod(open)
     
-    def _get_dirname(self, path):
-        return os.path.dirname(path)
+    def _render(self):
+        return self._template.render(self._context)
     
-    def _get_filename(self, path):
-        return os.path.basename(path)
-    
-    def _get_loader(self, dirpath):
-        return self._file_system_loader_class(dirpath)
-    
-    def _get_environment(self, loader, context):
+    def _write(self, content):
+        if self._target:
+            with self._open_function(self._target, 'w') as file:
+                file.write(content)
+                
+    @property
+    def _template(self):
+        dirpath, filename = os.path.split(self._path)
+        loader = self._file_system_loader_class(dirpath)
         environment = self._environment_class(loader=loader)
-        if not self._is_object_jinja2_context(context):        
+        if not self._is_object_jinja2_context(self._context):        
             environment.template_class = self._object_template_class
-        return environment
+        template = environment.get_template(filename)    
+        return template
     
-    def _get_template(self, environment, filename):
-        return environment.get_template(filename)
-    
-    def _get_context(self, context):
+    @property    
+    def _context(self):
+        context = self._initial_context
         if not self._is_object_jinja2_context(context):
             context = self._object_context_class(context)
         return context
-    
-    def _write_text(self, text, target):
-        with self._open_function(target, 'w') as file:
-            file.write(text)        
     
     def _is_object_jinja2_context(self, obj):
         if hasattr(obj, '__contains__') and hasattr(obj, '__getitem__'):

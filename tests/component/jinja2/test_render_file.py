@@ -1,38 +1,43 @@
 import unittest
+from functools import partial
 from unittest.mock import Mock, mock_open
-from box.jinja2.render_file import RenderFile
+from box.jinja2.render_file import RenderFileCall
 
-class RenderFileTest(unittest.TestCase):
+class RenderFileCallTest(unittest.TestCase):
 
     #Public
 
     def setUp(self):
         self.template = Mock(render=Mock(return_value='text'))
-        self.render = self._make_mock_render_file_function(self.template)
+        MockCall = (self._make_mock_call_class(self.template))
+        self.partial_call = partial(MockCall, '/dirpath/filename')
         
-    def test___call__(self):
-        self.assertEqual(self.render('/dirpath/filename'), 'text')
-        self.render._file_system_loader_class.assert_called_with('/dirpath')
-        self.render._environment_class.assert_called_with(loader='loader')
-        (self.render._environment_class.return_value.get_template.
+    def test_execute(self):
+        call = self.partial_call()
+        self.assertEqual(call.execute(), 'text')
+        call._file_system_loader_class.assert_called_with('/dirpath')
+        call._environment_class.assert_called_with(loader='loader')
+        (call._environment_class.return_value.get_template.
             assert_called_with('filename'))
         self.template.render.assert_called_with({})
     
-    def test___call___with_target(self):
-        self.assertEqual(self.render('/path', target='/target'), 'text')
-        self.render._open_function.assert_called_with('/target', 'w')
-        self.render._open_function().write.assert_called_with('text')
+    def test_execute_with_target(self):
+        call = self.partial_call(target='/target')
+        self.assertEqual(call.execute(), 'text')
+        call._open_function.assert_called_with('/target', 'w')
+        call._open_function().write.assert_called_with('text')
         
-    def test___call___with_context_is_object(self):
+    def test_execute_with_context_is_object(self):
         context = object()
-        self.assertEqual(self.render('/path', context), 'text')
-        self.render._object_context_class.assert_called_with(context)
+        call = self.partial_call(context) 
+        self.assertEqual(call.execute(), 'text')
+        call._object_context_class.assert_called_with(context)
         self.template.render.assert_called_with('object_context')   
     
     #Protected
     
-    def _make_mock_render_file_function(self, template):
-        class MockRenderFile(RenderFile):
+    def _make_mock_call_class(self, template):
+        class MockCall(RenderFileCall):
             #Public
             meta_module = 'module'
             #Protected
@@ -42,5 +47,4 @@ class RenderFileTest(unittest.TestCase):
                 get_template=Mock(return_value=template)))
             _file_system_loader_class = Mock(return_value='loader')
             _object_template_class = Mock()
-        mock_render_file = MockRenderFile()
-        return mock_render_file
+        return MockCall

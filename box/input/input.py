@@ -3,12 +3,13 @@ class Input:
     #Public
         
     def __call__(self, *args, **kwargs):
-        input_call = self._input_call_class(*args, **kwargs)
-        return input_call()
+        call = self._call_class(*args, **kwargs)
+        result = call.execute()
+        return result
     
     #Protected
     
-    _input_call_class = property(lambda self: InputCall)
+    _call_class = property(lambda self: InputCall)
     
 
 class InputCall:
@@ -26,7 +27,7 @@ class InputCall:
         self._initial_input_function = input_function
         self._initial_print_function = print_function
             
-    def __call__(self):
+    def execute(self):
         for _ in range(0, self._attempts):
             result = self._input_function(self._prompt)
             if not result:

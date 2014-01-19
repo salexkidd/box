@@ -13,14 +13,14 @@ class InputCallTest(unittest.TestCase):
     def test___call__(self):
         input_function = Mock(return_value='input')
         call = self.call_constructor(input_function=input_function)
-        self.assertEqual(call(), 'input')
+        self.assertEqual(call.execute(), 'input')
         input_function.assert_called_with('prompt')
         
     def test___call___with_default(self):
         input_function = Mock(return_value='')
         call = self.call_constructor(
             default='default', input_function=input_function)
-        self.assertEqual(call(), 'default')
+        self.assertEqual(call.execute(), 'default')
     
     def test___call___with_options(self):
         input_function = Mock(return_value='')
@@ -28,5 +28,5 @@ class InputCallTest(unittest.TestCase):
         call = self.call_constructor(options=['option'], 
             input_function=input_function,
             print_function=print_function)
-        self.assertRaises(ValueError, call)
+        self.assertRaises(ValueError, call.execute)
         print_function.assert_called_with('Try again..')
