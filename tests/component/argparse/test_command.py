@@ -16,9 +16,9 @@ class CommandTest(unittest.TestCase):
             'arguments': [
                 {'name': 'name', 'kwarg': 'kwarg'},
                 {'flags': ['flag'], 'kwarg': 'kwarg'}]}
-        self.command_constructor = partial(self.MockCommand, 
+        self.partial_command = partial(self.MockCommand, 
             self.argv, config=self.config)
-        self.command = self.command_constructor()
+        self.command = self.partial_command()
         
     def test___getattr__(self):
         self.assertEqual(self.command.strip, 'namespace'.strip)
@@ -42,7 +42,7 @@ class CommandTest(unittest.TestCase):
             call('flag', kwarg='kwarg')])
         
     def test__parser_bad_argument(self):
-        command = self.command_constructor(config={'arguments': [{}]})
+        command = self.partial_command(config={'arguments': [{}]})
         self.assertRaises(ValueError, getattr, command, '_parser')          
     
     def test__parser_arguments(self):
@@ -53,7 +53,7 @@ class CommandTest(unittest.TestCase):
         self.assertEqual(self.command._parser_config, {'prog': 'prog'})
           
     def test__config_default(self):
-        command = self.command_constructor(config=None)
+        command = self.partial_command(config=None)
         self.assertEqual(command._config, 'default_config')        
     
     #Protected
