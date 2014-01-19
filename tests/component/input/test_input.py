@@ -1,31 +1,32 @@
 import unittest
 from functools import partial
 from unittest.mock import Mock
-from run.modules.input import InputVar
+from box.input.input import InputCall
 
-class InputVarTest(unittest.TestCase):
+class InputCallTest(unittest.TestCase):
     
     #Public
     
     def setUp(self):
-        self.var_draft = partial(InputVar, 'prompt', module=None)
+        self.call_constructor = partial(InputCall, 'prompt')
     
-    def test_retireve(self):
-        input_operator = Mock(return_value='input')
-        var = self.var_draft(input_operator=input_operator)
-        self.assertEqual(var.retrieve(), 'input')
-        input_operator.assert_called_with('prompt')
+    def test___call__(self):
+        input_function = Mock(return_value='input')
+        call = self.call_constructor(input_function=input_function)
+        self.assertEqual(call(), 'input')
+        input_function.assert_called_with('prompt')
         
-    def test_retireve_with_default(self):
-        input_operator = Mock(return_value='')
-        var = self.var_draft(default='default', input_operator=input_operator)
-        self.assertEqual(var.retrieve(), 'default')
+    def test___call___with_default(self):
+        input_function = Mock(return_value='')
+        call = self.call_constructor(
+            default='default', input_function=input_function)
+        self.assertEqual(call(), 'default')
     
-    def test_retireve_with_options(self):
-        input_operator = Mock(return_value='')
-        print_operator = Mock()
-        var = self.var_draft(options=['option'], 
-            input_operator=input_operator,
-            print_operator=print_operator)
-        self.assertRaises(ValueError, var.retrieve)
-        print_operator.assert_called_with('Try again..')
+    def test___call___with_options(self):
+        input_function = Mock(return_value='')
+        print_function = Mock()
+        call = self.call_constructor(options=['option'], 
+            input_function=input_function,
+            print_function=print_function)
+        self.assertRaises(ValueError, call)
+        print_function.assert_called_with('Try again..')
