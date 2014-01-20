@@ -29,12 +29,12 @@ class InputCall:
         
     def execute(self):
         for _ in range(0, self._attempts):
-            result = self._input_function(self._prompt)
+            result = self._input_function(self._rendered_prompt)
             if not result:
                 result = self._default
             if self._options:
                 if result not in self._options:
-                    self._print_function(self._error)
+                    self._print_function(self._rendered_error)
                     continue 
             return result
         else:
@@ -53,15 +53,15 @@ class InputCall:
     
     @property
     def _rendered_prompt(self):
-        template = self._template_class(self._prompt_template)
-        prompt = template.render(self._context)
-        return prompt
+        template = self._template_class(self._prompt)
+        rendered_prompt = template.render(self._context)
+        return rendered_prompt
 
     @property
     def _rendered_error(self):
-        template = self._template_class(self._error_template)
-        error = template.render(self._context)
-        return error
+        template = self._template_class(self._error)
+        rendered_error = template.render(self._context)
+        return rendered_error
     
     @property
     def _context(self):
