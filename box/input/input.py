@@ -16,17 +16,17 @@ class InputCall:
     
     #Public
     
-    def __init__(self, prompt=None, error=None, 
+    def __init__(self, prompt, error=None, 
                  default=None, options=None, attempts=None,
                  input_function=None, print_function=None):
         self._prompt = prompt
-        self._error = error
+        self._error = error or self._default_error
         self._default = default
         self._options = options
-        self._initial_attempts = attempts
-        self._initial_input_function = input_function
-        self._initial_print_function = print_function
-            
+        self._attempts = attempts or self._default_attempts
+        self._input_function = input_function or self._default_input_function
+        self._print_function = print_function or self._default_print_function
+        
     def execute(self):
         for _ in range(0, self._attempts):
             result = self._input_function(self._prompt)
@@ -42,11 +42,10 @@ class InputCall:
                 'Input error in all of {attempts} attempts '
                 'where options are "{options}"'.format(
                     attempts=self._attempts,
-                    options=self._options))        
+                    options=self._options))       
     
     #Protected
     
-    _default_prompt = '{{ prompt }}'
     _default_error = 'Try again..'    
     _default_attempts = 3    
     _default_input_function = staticmethod(input)
@@ -66,30 +65,9 @@ class InputCall:
     
     @property
     def _context(self):
-        return {'prompt': self._input_prompt,
-                'default': self._default,
-                'options': self._options,}
-    
-    @property
-    def _attempts(self):
-        if self._initial_attempts:
-            return self._initial_attempts
-        else:
-            return self._default_attempts
-        
-    @property        
-    def _input_function(self):
-        if self._initial_input_function:
-            return self._initial_input_function
-        else:
-            return self._default_input_function
-        
-    @property
-    def _print_function(self):
-        if self._initial_print_function:
-            return self._initial_print_function
-        else:
-            return self._default_print_function
+        return {'default': self._default,
+                'options': self._options,
+                'attempts': self._attempts}
         
     @property
     def _template_class(self):
