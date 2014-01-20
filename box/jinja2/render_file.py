@@ -22,7 +22,7 @@ class RenderFileCall:
     
     def __init__(self, path, context={}, target=None):
         self._path = path
-        self._initial_context = context
+        self._context = context
         self._target = target
     
     def execute(self):
@@ -36,7 +36,7 @@ class RenderFileCall:
     _open_function = staticmethod(open)
     
     def _render(self):
-        return self._template.render(self._context)
+        return self._template.render(self._prepared_context)
     
     def _write(self, content):
         if self._target:
@@ -54,11 +54,11 @@ class RenderFileCall:
         return template
     
     @property    
-    def _context(self):
-        context = self._initial_context
-        if not self._is_object_jinja2_context(context):
-            context = self._object_context_class(context)
-        return context
+    def _prepared_context(self):
+        prepared_context = self._context
+        if not self._is_object_jinja2_context(prepared_context):
+            prepared_context = self._object_context_class(prepared_context)
+        return prepared_context
     
     def _is_object_jinja2_context(self, obj):
         if hasattr(obj, '__contains__') and hasattr(obj, '__getitem__'):
