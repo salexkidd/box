@@ -12,14 +12,16 @@ class InputCallTest(unittest.TestCase):
     
     def test___call__(self):
         input_function = Mock(return_value='input')
-        call = self.partial_call(input_function=input_function)
+        call = self.partial_call(
+            input_function=input_function)
         self.assertEqual(call.execute(), 'input')
         input_function.assert_called_with('prompt')
         
     def test___call___with_default(self):
         input_function = Mock(return_value='')
         call = self.partial_call(
-            default='default', input_function=input_function)
+            default='default', 
+            input_function=input_function)
         self.assertEqual(call.execute(), 'default')
     
     def test___call___with_options(self):
