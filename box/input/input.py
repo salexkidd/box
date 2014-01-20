@@ -47,11 +47,31 @@ class InputCall:
                     attempts=self._attempts,
                     options=self._options))       
     
-    def format_prompt(self):
+    def format_prompt(self, brackets='[]', separator='/', on_default=str.upper):
         return self._prompt+':'  
 
     def format_error(self):
         return self._error
+    
+    @property
+    def prompt(self):
+        return self._prompt
+    
+    @property
+    def error(self):
+        return self._error
+        
+    @property
+    def default(self):
+        return self._default
+
+    @property
+    def options(self):
+        return self._options
+    
+    @property
+    def attempts(self):
+        return self._attempts    
     
     #Protected
 
