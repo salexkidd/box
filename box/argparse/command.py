@@ -8,7 +8,7 @@ class Command:
     
     def __init__(self, argv, config=None):
         self._argv = argv        
-        self._init_config = config
+        self._config = config or self._default_config
         
     def __getattr__(self, name):
         if not name.startswith('_'):
@@ -65,13 +65,6 @@ class Command:
         config = copy.copy(self._config)
         config.pop('arguments', [])
         return config
-    
-    @property
-    def _config(self):
-        if self._init_config != None:
-            return self._init_config
-        else:
-            return self._default_config
             
     
 class SilentArgumentParser(ArgumentParser):
