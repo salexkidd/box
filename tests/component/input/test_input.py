@@ -15,7 +15,7 @@ class InputCallTest(unittest.TestCase):
         call = self.partial_call(
             input_function=input_function)
         self.assertEqual(call.execute(), 'input')
-        input_function.assert_called_with('prompt')
+        input_function.assert_called_with('prompt:')
         
     def test___call___with_default(self):
         input_function = Mock(return_value='')

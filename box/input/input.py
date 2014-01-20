@@ -51,11 +51,20 @@ class InputCall:
     
     _default_error = 'Try again..'
     _default_attempts = 3
-    _default_prompt_template = '{{ prompt }}'
+    _default_prompt_template = '''{{ prompt }}
+        {%- if options -%}
+          [{% for option in options %}
+            {%- if option == default %}
+              {{ option|upper }}/
+            {% else %}
+              {{ option }}/
+            {% endif %}
+          {% endfor %}]
+        {%- endif %}:'''
     _default_error_template = '{{ error }}'       
     _default_input_function = staticmethod(input)
     _default_print_function = staticmethod(print)
-    
+        
     @property
     def _rendered_prompt(self):
         template = self._template_class(self._prompt_template)
