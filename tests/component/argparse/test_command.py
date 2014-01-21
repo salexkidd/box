@@ -60,8 +60,9 @@ class CommandTest(unittest.TestCase):
     
     def _make_mock_command_class(self):
         class MockCommand(Command):
+            #Public
+            default_config = 'default_config'
             #Protected
-            _default_config = 'default_config'
             _parser_class = Mock(return_value=Mock(
                 add_argument=Mock(),
                 parse_args=Mock(return_value='namespace'),

@@ -6,9 +6,22 @@ class Command:
     
     #Public
     
+    default_config = {
+        'prog': 'program',
+        'add_help': True,                     
+        'arguments': [
+            {
+             'name': 'arguments',
+             'nargs':'*',
+            },             
+        ],       
+    }
+    
     def __init__(self, argv, config=None):
-        self._argv = argv        
-        self._config = config or self._default_config
+        self._argv = argv
+        self._config = config
+        if self._config == None: 
+            self._config = self.default_config
         
     def __getattr__(self, name):
         if not name.startswith('_'):
@@ -22,16 +35,6 @@ class Command:
         
     #Protected
     
-    _default_config = {
-        'prog': 'program',
-        'add_help': True,                     
-        'arguments': [
-            {
-             'name': 'arguments',
-             'nargs':'*',
-            },             
-        ],       
-    }
     _parser_class = ArgumentParser
 
     @cachedproperty
