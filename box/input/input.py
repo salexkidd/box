@@ -24,7 +24,7 @@ class InputCall:
     brackets = '[]'
     separator = '/'
     colon = ':'
-    on_default = str.upper
+    on_default = staticmethod(str.upper)
     input_function = staticmethod(input)
     print_function = staticmethod(print)
     
@@ -62,21 +62,31 @@ class InputCall:
     @property
     def templated_prompt(self):                                 
         if self.options:
-            return ('{self.prompt} {self.left_bracket}'
-                    '{self.options}{self.right_bracket}{self.colon}')
+            return '{prompt} {left_bracket}{formatted_options}{right_bracket}{colon}'
         elif self.default:
-            return ('{self.prompt} {self.left_bracket}'
-                    '{self.default}{self.right_bracket}{self.colon}')
+            return '{prompt} {left_bracket}{formatted_default}{right_bracket}{colon}'
         else:
-            return '{self.prompt}{self.colon}'
+            return '{prompt}{colon}'
 
     @property
     def templated_error(self):
-        return '{self.error}'
+        return '{error}'
     
     @property
     def context(self):
-        return {'self': self}
+        context = {}
+        for name in dir(self):
+            if name.startswith('rendered'):
+                continue
+            if name.startswith('templated'):
+                continue
+            if name.startswith('context'):
+                continue            
+            attr = getattr(self, name)
+            if callable(attr):
+                continue
+            context[name] = attr
+        return context
     
     @property
     def formatted_options(self):
@@ -87,7 +97,7 @@ class InputCall:
                 if option == self.default:
                     option = self.on_default(option)
                 elements.append(option)
-            options = self.separator.join(self.elements)
+            options = self.separator.join(elements)
         return options
     
     @property
