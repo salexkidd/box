@@ -10,14 +10,14 @@ class inputTest(unittest.TestCase):
     def setUp(self):
         self.partial_input = partial(input, 'prompt')
     
-    def test_input(self):
+    def test(self):
         input_function = Mock(return_value='input')
         result = self.partial_input(
             input_function=input_function)
         self.assertEqual(result, 'input')
         input_function.assert_called_with('prompt:')
         
-    def test_input_with_default(self):
+    def test_with_default(self):
         input_function = Mock(return_value='')
         result = self.partial_input(
             default='default', 
@@ -25,7 +25,7 @@ class inputTest(unittest.TestCase):
         self.assertEqual(result, 'default')
         input_function.assert_called_with('prompt [default]:')
     
-    def test_input_with_options(self):
+    def test_with_options(self):
         input_function = Mock(return_value='')
         print_function = Mock()
         self.assertRaises(ValueError, 
@@ -36,7 +36,7 @@ class inputTest(unittest.TestCase):
         input_function.assert_called_with('prompt [y/n]:')
         print_function.assert_called_with('Try again..')
         
-    def test_input_with_default_and_options(self):
+    def test_with_default_and_options(self):
         input_function = Mock(return_value='')
         result = self.partial_input(
             default='y',
