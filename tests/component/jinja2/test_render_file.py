@@ -9,17 +9,17 @@ class render_file_Test(unittest.TestCase):
 
     def setUp(self):
         self.template = Mock(render=Mock(return_value='text'))
-        self.mock_render = self._make_mock_render_function(self.template)
-        self.partial_render = partial(self.mock_render, '/dirpath/filename')
+        self.render = self._make_mock_render_function(self.template)
+        self.partial_render = partial(self.render, '/dirpath/filename')
         
     def test(self):
         result = self.partial_render()
         self.assertEqual(result, 'text')
-        (self.mock_render._call_class._file_system_loader_class.
+        (self.render._call_class._file_system_loader_class.
             assert_called_with('/dirpath'))
-        (self.mock_render._call_class._environment_class.
+        (self.render._call_class._environment_class.
             assert_called_with(loader='loader'))
-        (self.mock_render._call_class._environment_class.
+        (self.render._call_class._environment_class.
          return_value.get_template.
             assert_called_with('filename'))
         self.template.render.assert_called_with({})
@@ -27,16 +27,16 @@ class render_file_Test(unittest.TestCase):
     def test_with_target(self):
         result = self.partial_render(target='/target')
         self.assertEqual(result, 'text')
-        (self.mock_render._call_class._open_function.
+        (self.render._call_class._open_function.
             assert_called_with('/target', 'w'))
-        (self.mock_render._call_class._open_function().write.
+        (self.render._call_class._open_function().write.
             assert_called_with('text'))
         
     def test_with_context_is_object(self):
         context = object()
         result = self.partial_render(context)
         self.assertEqual(result, 'text')
-        (self.mock_render._call_class._object_context_class.
+        (self.render._call_class._object_context_class.
             assert_called_with(context))
         self.template.render.assert_called_with('object_context')   
     
