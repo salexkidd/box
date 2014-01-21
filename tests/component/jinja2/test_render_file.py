@@ -3,7 +3,7 @@ from functools import partial
 from unittest.mock import Mock, mock_open
 from box.jinja2.render_file import render_file
 
-class render_fileTest(unittest.TestCase):
+class render_file_Test(unittest.TestCase):
 
     #Public
 

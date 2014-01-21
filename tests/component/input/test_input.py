@@ -3,7 +3,7 @@ from functools import partial
 from unittest.mock import Mock
 from box.input.input import input
 
-class inputTest(unittest.TestCase):
+class input_Test(unittest.TestCase):
     
     #Public
     
