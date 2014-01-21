@@ -31,19 +31,19 @@ class InputCall:
                  formatted_prompt=None, formatted_error=None,
                  brackets=None, separator=None, colon=None, on_default=None,
                  input_function=None, print_function=None):
-        self._prompt = prompt or self._default_prompt
-        self._error = error or self._default_error
+        self._prompt = prompt or self.default_prompt
+        self._error = error or self.default_error
         self._default = default
         self._options = options
-        self._attempts = attempts or self._default_attempts
+        self._attempts = attempts or self.default_attempts
         self._formatted_prompt = formatted_prompt
         self._formatted_error = formatted_error
-        self._brackets = brackets if brackets != None else self._default_brackets
-        self._separator = separator if separator != None else self._default_separator
-        self._colon = colon if colon != None else self._default_colon
-        self._on_default = on_default if on_default != None else self._default_on_default
-        self._input_function = input_function or self._default_input_function
-        self._print_function = print_function or self._default_print_function
+        self._brackets = brackets if brackets != None else self.default_brackets
+        self._separator = separator if separator != None else self.default_separator
+        self._colon = colon if colon != None else self.default_colon
+        self._on_default = on_default if on_default != None else self.default_on_default
+        self._input_function = input_function or self.default_input_function
+        self._print_function = print_function or self.default_print_function
         
     def execute(self):
         for _ in range(0, self._attempts):
