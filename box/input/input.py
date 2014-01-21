@@ -57,7 +57,7 @@ class InputCall:
     
     @property
     def rendered_error(self):
-        return self.formatted_error.format(self.error)
+        return self.formatted_error.format(self.context)
     
     @property
     def formatted_prompt(self):                                 
@@ -69,6 +69,8 @@ class InputCall:
                     option = self.on_default(option)
                 options.append(option)
             options = self.separator.join(self.options)
+        elif self.default:
+            prompt = prompt+self.default
         prompt = prompt+self.colon 
         return prompt  
 
