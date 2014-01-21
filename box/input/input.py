@@ -53,38 +53,57 @@ class InputCall:
     
     @property
     def rendered_prompt(self):
-        return self.formatted_prompt.format(self.context)
+        return self.templated_prompt.format(**self.context)
     
     @property
     def rendered_error(self):
-        return self.formatted_error.format(self.context)
+        return self.templated_error.format(**self.context)
     
     @property
-    def formatted_prompt(self):                                 
-        prompt = self.prompt
+    def templated_prompt(self):                                 
         if self.options:
-            options = []
-            for option in self.options:
-                if option == self.default:
-                    option = self.on_default(option)
-                options.append(option)
-            options = self.separator.join(self.options)
+            return ('{self.prompt} {self.left_bracket}'
+                    '{self.options}{self.right_bracket}{self.colon}')
         elif self.default:
-            prompt = prompt+self.default
-        prompt = prompt+self.colon 
-        return prompt  
+            return ('{self.prompt} {self.left_bracket}'
+                    '{self.default}{self.right_bracket}{self.colon}')
+        else:
+            return '{self.prompt}{self.colon}'
 
     @property
-    def formatted_error(self):
-        return self.error
+    def templated_error(self):
+        return '{self.error}'
     
     @property
     def context(self):
-        return {'prompt': self.prompt,
-                'error': self.error,
-                'default': self.default,
-                'options': self.options,
-                'attempts': self.attempts}      
+        return {'self': self}
+    
+    @property
+    def formatted_options(self):
+        options = ''
+        if self.options:
+            elements = []
+            for option in self.options:
+                if option == self.default:
+                    option = self.on_default(option)
+                elements.append(option)
+            options = self.separator.join(self.elements)
+        return options
+    
+    @property
+    def formatted_default(self):
+        default = ''
+        if self.default:
+            default = self.default
+        return default
+    
+    @property    
+    def left_bracket(self):
+        return self.brackets[:int(len(self.brackets)/2)]
+    
+    @property    
+    def right_bracket(self):
+        return self.brackets[int(len(self.brackets)/2):]    
     
     
 locals().update({'input': Input()}) 
