@@ -21,6 +21,6 @@ class Program(metaclass=ABCMeta):
       
     @cachedproperty
     def _command(self):
-        config = copy.copy(self._command_class.config)
+        config = copy.copy(self._command_class.default_config)
         config['prog'] = type(self).__name__.lower()
         return self._command_class(self._argv, config=config)

@@ -25,6 +25,6 @@ class ProgramTest(unittest.TestCase):
             __call__ = Mock()
             #Protected
             _command_class = Mock(
-                config={'kwarg': 'kwarg'},
+                default_config={'kwarg': 'kwarg'},
                 return_value='command')
         return ProgramMock
