@@ -22,8 +22,8 @@ class InputCall:
     options = None
     attempts = 3 
     brackets = '[]'
-    separator = '/'
     colon = ':'
+    separator = '/'    
     on_default = staticmethod(str.upper)
     input_function = staticmethod(input)
     print_function = staticmethod(print)
