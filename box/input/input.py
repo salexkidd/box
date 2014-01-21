@@ -21,6 +21,7 @@ class InputCall:
     default = None
     options = None
     attempts = 3 
+    space = ' '
     brackets = '[]'
     colon = ':'
     separator = '/'    
@@ -30,7 +31,7 @@ class InputCall:
     
     def __init__(self, prompt=None, **kwargs):
         if prompt != None:
-            kwargs['prompt'] = prompt
+            self.prompt = prompt
         for key, value in kwargs.items():
             setattr(self, key, value)
         
@@ -60,13 +61,13 @@ class InputCall:
         return self.templated_error.format(**self.context)
     
     @property
-    def templated_prompt(self):                                 
+    def templated_prompt(self):
+        hint = ''
         if self.options:
-            return '{prompt} {left_bracket}{formatted_options}{right_bracket}{colon}'
+            hint = '{space}{left_bracket}{formatted_options}{right_bracket}'
         elif self.default:
-            return '{prompt} {left_bracket}{formatted_default}{right_bracket}{colon}'
-        else:
-            return '{prompt}{colon}'
+            hint = '{space}{left_bracket}{formatted_default}{right_bracket}'
+        return '{prompt}'+hint+'{colon}'
 
     @property
     def templated_error(self):
@@ -76,11 +77,9 @@ class InputCall:
     def context(self):
         context = {}
         for name in dir(self):
-            if name.startswith('rendered'):
-                continue
-            if name.startswith('templated'):
-                continue
-            if name.startswith('context'):
+            if (name.startswith('rendered') or
+                name.startswith('templated') or
+                name.startswith('context')):
                 continue            
             attr = getattr(self, name)
             if callable(attr):
