@@ -89,6 +89,7 @@ class InputCall:
     def _formatted_error(self):
         return self._error
     
+    @property
     def _context(self):
         return {'prompt': self._prompt,
                 'error': self._error,
