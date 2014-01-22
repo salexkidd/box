@@ -50,4 +50,30 @@ class MapReduce:
         return result
     
 
+class MapEmitter:
+
+    #Public
+
+    def __init__(self, **kwargs):
+        for key, value in kwargs:
+            setattr(self, key, value)
+        self._emitted = []
+        self._stopped = False
+            
+    def emit(self, value):
+        self._emitted.append(value)
+        
+    def stop(self):
+        self._stopped = True
+        
+    @property
+    def emitted(self):
+        return self._emitted
+    
+    @property
+    def stopped(self):
+        return self._stopped    
+
+
+
 map_reduce = MapReduce()
