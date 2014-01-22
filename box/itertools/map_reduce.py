@@ -16,8 +16,8 @@ class MapReduce:
                 mapper(emitter)
             if emitter.skipped:
                 continue
-            for value in emitter.emitted:
-                yield value
+            if emitter.emitted:
+                yield from emitter.emitted
             else:
                 yield emitter.get_value()
             if emitter.stopped:
