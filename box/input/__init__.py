@@ -1,1 +1,1 @@
-from .input import Input, input
+from .input import Input, InputCall, input
