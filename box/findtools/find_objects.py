@@ -9,7 +9,6 @@ class FindObjects:
     
     default_basedir = '.' 
     
-    #TODO: add ignore_errors flag
     def __call__(self, name=None, filename=None, basedir=None, max_depth=None, 
              breakers=[], filters=[], processors=[], reducers=[]):
         if not basedir:
