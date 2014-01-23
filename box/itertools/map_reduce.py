@@ -50,21 +50,17 @@ class MapEmmiter:
     def get_value(self):
         return self._value               
     
-    def set_value(self, value, condition=None):
-        if condition == None or condition:
-            self._value = value
+    def set_value(self, value):
+        self._value = value
                 
-    def emit(self, value, condition=None):
-        if condition == None or condition:
-            self._emitted.append(value)
+    def emit(self, value):
+        self._emitted.append(value)
             
-    def skip(self, condition=None):
-        if condition == None or condition:
-            self._skipped = True
+    def skip(self):
+        self._skipped = True
            
-    def stop(self, condition=None):
-        if condition == None or condition:
-            self._stopped = True
+    def stop(self):
+        self._stopped = True
     
     @property
     def emitted(self):
