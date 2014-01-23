@@ -1,3 +1,6 @@
+from operator import and_
+from functools import reduce
+
 class MapReduce:
     """MapReduce function-class"""
     
@@ -50,20 +53,24 @@ class MapEmmiter:
     def get_value(self):
         return self._value               
     
-    def set_value(self, value):
-        self._value = value
+    def set_value(self, value, *conditions):
+        if reduce(and_, conditions, True):
+            self._value = value
         return self
                 
-    def emit(self, value):
-        self._emitted.append(value)
+    def emit(self, value, *conditions):
+        if reduce(and_, conditions, True):
+            self._emitted.append(value)
         return self
             
-    def skip(self):
-        self._skipped = True
+    def skip(self, *conditions):
+        if reduce(and_, conditions, True):
+            self._skipped = True
         return self
            
-    def stop(self):
-        self._stopped = True
+    def stop(self, *conditions):
+        if reduce(and_, conditions, True):
+            self._stopped = True
         return self
     
     @property
