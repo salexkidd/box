@@ -34,7 +34,7 @@ class FindObjectsCall:
         if not self._basedir:
             self._basedir = self.default_basedir
     
-    def __call__(self):
+    def execute(self):
         objects = self._get_objects()
         mappers = self._builtin_mappers+self._mappers
         result = map_reduce(objects, mappers, self._reducers)
@@ -62,6 +62,7 @@ class FindObjectsCall:
             self._filename, self._basedir, self._max_depth)
         return files
     
+    @property
     def _builtin_mappers(self):
         return [FindObjectsNameMapper(self._name)]
     
