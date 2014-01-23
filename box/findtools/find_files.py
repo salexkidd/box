@@ -1,51 +1,63 @@
 import os
 import re
 import fnmatch
-from ..itertools import map_reduce
+from ..itertools import map_reduce, MapEmmiter
 from ..types import RegexCompiledPatternType
 
 class FindFiles:
 
     #Public
+        
+    def __call__(self, *args, **kwargs):
+        call = self._call_class(*args, **kwargs)
+        result = call.execute()
+        return result
     
-    BREAK_BEFORE = map_reduce.BREAK_BEFORE
-    BREAK_AFTER = map_reduce.BREAK_AFTER
-    
-    default_basedir = '.'
-
-    def __call__(self, name=None, basedir=None, max_depth=None, 
-             breakers=[], filters=[], processors=[], reducers=[]):
-        if not basedir:
-            basedir = self.default_basedir        
-        breakers = [self._max_depth_breaker_class(basedir, max_depth)]+breakers
-        filters = [self._name_filter_class(name)]+filters
-        files = self._get_files(basedir)
-        map_reduced_files = map_reduce(
-            files, breakers, filters, processors, reducers)
-        return map_reduced_files
-            
     #Protected
     
-    _max_depth_breaker_class = property(lambda self: FindFilesMaxDepthBreaker)
-    _name_filter_class = property(lambda self: FindFilesNameFilter)
-    _walk_operator = staticmethod(os.walk)
-    
-    def _get_files(self, basedir):
-        #TODO: os.walk swallow exception if onerror=None
-        for dirpath, _, filenames in self._walk_operator(basedir):       
-            for filename in filenames:
-                file = os.path.join(dirpath, filename)
-                yield (file,) 
+    _call_class = property(lambda self: FindFilesCall)
 
 
 class FindFilesCall:
 
     #Public
+    
+    default_basedir = '.'
 
-    pass
+    def __init__(self, name=None, basedir=None, max_depth=None, 
+             mappers=[], reducers=[]):
+        self._name = name
+        self._basedir = basedir
+        self._max_depth = max_depth
+        self._mappers = mappers
+        self._reducers = reducers
+        if not self._basedir:
+            self._basedir = self.default_basedir
+            
+    def execute(self):
+        mappers = self._builtin_mappers+self._mappers
+        files = self._get_files(self._basedir)
+        values = map_reduce(files, mappers, self._reducers)
+        return values            
+            
+    #Protected
+            
+    _walk_function = staticmethod(os.walk)
+    
+    def _get_files(self):
+        #TODO: os.walk swallow exception if onerror=None
+        for dirpath, _, filenames in self._walk_function(self._basedir):       
+            for filename in filenames:
+                file = os.path.join(dirpath, filename)
+                yield MapEmmiter(file, file=file) 
+        
+    @property        
+    def _builtin_mappers(self):
+        return [FindFilesMaxDepthMapper(self._basedir, self._max_depth),
+                FindFilesNameMapper(self._name)]          
 
 
-class FindFilesMaxDepthBreaker:
+class FindFilesMaxDepthMapper:
     
     #Public
     
@@ -53,9 +65,9 @@ class FindFilesMaxDepthBreaker:
         self._basedir = basedir
         self._max_depth = max_depth
         
-    def __call__(self, file):
+    def __call__(self, emitter):
         if self._max_depth:
-            depth = self._calculate_depth(file)
+            depth = self._calculate_depth(emitter.file)
             if depth > self._max_depth:
                 return True 
         return False
@@ -75,16 +87,16 @@ class FindFilesMaxDepthBreaker:
         return depth
 
     
-class FindFilesNameFilter:
+class FindFilesNameMapper:
     
     #Public
     
     def __init__(self, name):
         self._name = name
         
-    def __call__(self, file):
+    def __call__(self, emitter):
         if self._name:
-            name = os.path.basename(file)
+            name = os.path.basename(emitter.file)
             if isinstance(self._name, RegexCompiledPatternType):
                 if not re.match(self._name, name):
                     return False
