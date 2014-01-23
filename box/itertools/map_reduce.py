@@ -1,3 +1,5 @@
+from ..functools import DEFAULT
+
 class MapReduce:
     """MapReduce function-class"""
     
@@ -47,8 +49,8 @@ class MapEmmiter:
         except KeyError:
             raise AttributeError(name)
     
-    def value(self, value=None, condition=None):
-        if value == None:
+    def value(self, value=DEFAULT, condition=None):
+        if value == DEFAULT:
             return self._value
         else:
             if condition == None or condition:
