@@ -38,6 +38,13 @@ class FindFiles:
                 yield (file,) 
 
 
+class FindFilesCall:
+
+    #Public
+
+    pass
+
+
 class FindFilesMaxDepthBreaker:
     
     #Public
