@@ -5,10 +5,7 @@ from .find_files import find_files
 
 class FindObjects:
     
-    #Public
-    
-    BREAK_BEFORE = map_reduce.BREAK_BEFORE
-    BREAK_AFTER = map_reduce.BREAK_AFTER    
+    #Public  
     
     default_basedir = '.' 
     

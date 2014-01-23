@@ -6,9 +6,6 @@ class FindStrings:
     
     #Public
     
-    BREAK_BEFORE = map_reduce.BREAK_BEFORE
-    BREAK_AFTER = map_reduce.BREAK_AFTER
-    
     default_basedir = '.'
     
     #TODO: add ignore_errors flag
