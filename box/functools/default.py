@@ -1,0 +1,1 @@
+DEFAULT = 'box.functools.DEFAULT'
