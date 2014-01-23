@@ -1,9 +1,9 @@
 import re
 import unittest
 from unittest.mock import Mock
-from box.findtools.find_files import FindFiles
+from box.findtools.find_files import find_files
 
-class FindFilesTest(unittest.TestCase):
+class find_files_Test(unittest.TestCase):
 
     #Public
     
@@ -13,7 +13,7 @@ class FindFilesTest(unittest.TestCase):
             ['folder', [], ['file1', 'file2']],
             ['folder/subfolder', [], ['file3']],
         ]
-        self.find = self._make_mock_find_files_function(walk_items)
+        self.find = self._make_mock_find_function(walk_items)
 
     def test_find(self):
         files = list(self.find('file1', max_depth=1))
@@ -54,9 +54,12 @@ class FindFilesTest(unittest.TestCase):
     
     #Protected
     
-    def _make_mock_find_files_function(self, walk_items):
-        class MockFindFiles(FindFiles):
+    def _make_mock_find_function(self, walk_items):
+        class MockFindCall(type(find_files)._call_class):
             #Protected
             _walk_operator = Mock(return_value=walk_items)
-        mock_find_files = MockFindFiles()
-        return mock_find_files
+        class MockFind(type(find_files)):
+            #Protected
+            _call_class = MockFindCall
+        mock_find = MockFind()
+        return mock_find
