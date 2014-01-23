@@ -52,15 +52,19 @@ class MapEmmiter:
     
     def set_value(self, value):
         self._value = value
+        return self
                 
     def emit(self, value):
         self._emitted.append(value)
+        return self
             
     def skip(self):
         self._skipped = True
+        return self
            
     def stop(self):
         self._stopped = True
+        return self
     
     @property
     def emitted(self):
