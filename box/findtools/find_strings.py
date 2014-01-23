@@ -41,4 +41,11 @@ class FindStrings:
         return files  
     
     
+class FindStringsCall:
+
+    #Public
+
+    pass
+    
+    
 find_strings = FindStrings()               
