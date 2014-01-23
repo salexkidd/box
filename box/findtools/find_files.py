@@ -35,8 +35,8 @@ class FindFilesCall:
             self._basedir = self.default_basedir
             
     def execute(self):
+        files = self._get_files()        
         mappers = self._builtin_mappers+self._mappers
-        files = self._get_files(self._basedir)
         values = map_reduce(files, mappers, self._reducers)
         return values            
             
@@ -69,7 +69,8 @@ class FindFilesMaxDepthMapper:
         if self._max_depth:
             depth = self._calculate_depth(emitter.file)
             if depth > self._max_depth:
-                return True 
+                emitter.skip()
+                emitter.stop() 
         return False
     
     #Protected
@@ -99,10 +100,10 @@ class FindFilesNameMapper:
             name = os.path.basename(emitter.file)
             if isinstance(self._name, RegexCompiledPatternType):
                 if not re.match(self._name, name):
-                    return False
+                    emitter.skip()
             else:
                 if not fnmatch.fnmatch(name, self._name):
-                    return False
+                    emitter.skip()
         return True
     
     

@@ -15,39 +15,29 @@ class find_files_Test(unittest.TestCase):
         ]
         self.find = self._make_mock_find_function(walk_items)
 
-    def test_find(self):
+    def test(self):
         files = list(self.find('file1', max_depth=1))
         self.assertEqual(files, ['file1'])
         
-    def test_find_with_max_depth_is_1(self):
+    def test_with_max_depth_is_1(self):
         files = list(self.find('file1', max_depth=2))
         self.assertEqual(files, ['file1', 'folder/file1'])
         
-    def test_find_with_max_depth_is_2(self):
+    def test_with_max_depth_is_2(self):
         files = list(self.find('file3', max_depth=3))
         self.assertEqual(files, ['folder/subfolder/file3'])        
         
-    def test_find_with_regexp(self):
+    def test_with_regexp(self):
         regexp = re.compile('file1+')
         files = list(self.find(regexp, max_depth=1))
         self.assertEqual(files, ['file1'])     
         
-    def test_find_with_breaker(self):
-        breaker = lambda file: True
-        files = list(self.find('file1', breakers=[breaker]))
-        self.assertEqual(files, [])
-        
-    def test_find_with_filter(self):
-        fltr = lambda file: False
-        files = list(self.find('file1', filters=[fltr]))
-        self.assertEqual(files, [])
-        
-    def test_find_with_processor(self):
-        processor = lambda file: 'processed_'+file
-        files = list(self.find('file1', max_depth=1, processors=[processor]))
-        self.assertEqual(files, [ 'processed_file1'])             
+    def test_with_mapper(self):
+        mapper = lambda emitter: emitter.set_value(emitter.get_value()+'!')
+        files = list(self.find('file1', mappers=[mapper]))
+        self.assertEqual(files, ['file1!', 'folder/file1!'])         
           
-    def test_find_with_reducer(self):
+    def test_with_reducer(self):
         reducer=lambda files: list(files)[0]
         files = self.find('file1', max_depth=1, reducers=[reducer])
         self.assertEqual(files, 'file1')               
@@ -55,9 +45,9 @@ class find_files_Test(unittest.TestCase):
     #Protected
     
     def _make_mock_find_function(self, walk_items):
-        class MockFindCall(type(find_files)._call_class):
+        class MockFindCall(find_files._call_class):
             #Protected
-            _walk_operator = Mock(return_value=walk_items)
+            _walk_function = Mock(return_value=walk_items)
         class MockFind(type(find_files)):
             #Protected
             _call_class = MockFindCall
