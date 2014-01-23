@@ -19,7 +19,7 @@ class MapReduce:
             if emitter.emitted:
                 yield from emitter.emitted
             else:
-                yield emitter.get_value()
+                yield emitter.value()
             if emitter.stopped:
                 break
     
@@ -46,14 +46,14 @@ class MapEmmiter:
             return self._context[name]
         except KeyError:
             raise AttributeError(name)
-            
-    def get_value(self):
-        return self._value               
     
-    def set_value(self, value, condition=None):
-        if condition == None or condition:
-            self._value = value
-        return self
+    def value(self, value=None, condition=None):
+        if value == None:
+            return self._value
+        else:
+            if condition == None or condition:
+                self._value = value
+            return self
                 
     def emit(self, value, condition=None):
         if condition == None or condition:

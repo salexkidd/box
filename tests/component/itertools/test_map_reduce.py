@@ -13,14 +13,14 @@ class map_reduce_Test(unittest.TestCase):
         self.assertEqual(values, ['value1', 'value2'])
         
     def test_with_mapper_using_set_and_get_value(self):
-        mapper = lambda emitter: emitter.set_value(emitter.get_value()+'!')
+        mapper = lambda emitter: emitter.value(emitter.value()+'!')
         values = list(map_reduce(self.iterable, mappers=[mapper]))
         self.assertEqual(values, ['value1!', 'value2!'])
     
     def test_with_mapper_using_emit_with_condition(self):
         mapper1 = lambda emitter: emitter.emit('emitted1')
         mapper2 = (lambda emitter: 
-            emitter.emit('emitted2', emitter.get_value() == 'value1'))
+            emitter.emit('emitted2', emitter.value() == 'value1'))
         values = list(map_reduce(self.iterable, mappers=[mapper1, mapper2]))
         self.assertEqual(values, ['emitted1', 'emitted2', 'emitted1'])
            

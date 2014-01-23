@@ -33,7 +33,7 @@ class find_files_Test(unittest.TestCase):
         self.assertEqual(files, ['file1'])     
         
     def test_with_mapper(self):
-        mapper = lambda emitter: emitter.set_value(emitter.get_value()+'!')
+        mapper = lambda emitter: emitter.value(emitter.value()+'!')
         files = list(self.find('file1', mappers=[mapper]))
         self.assertEqual(files, ['file1!', 'folder/file1!'])         
           

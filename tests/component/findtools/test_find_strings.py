@@ -21,8 +21,7 @@ class find_strings_Test(unittest.TestCase):
             assert_has_calls([call('file1'), call('file2')], any_order=True))
         
     def test_find_with_mapper(self):
-        mapper = (lambda emitter: 
-            emitter.set_value(emitter.file+':'+emitter.get_value()))
+        mapper = lambda emitter: emitter.value(emitter.file+':'+emitter.value())
         strings = list(self.find(
             re.compile('(da|ta)'), mappers=[mapper]))
         self.assertEqual(
