@@ -1,62 +1,86 @@
 from importlib.machinery import SourceFileLoader
-from ..itertools import map_reduce
+from ..itertools import map_reduce, MapEmmiter
 from ..types import RegexCompiledPatternType
 from .find_files import find_files
 
 class FindObjects:
+
+    #Public
+        
+    def __call__(self, *args, **kwargs):
+        call = self._call_class(*args, **kwargs)
+        result = call.execute()
+        return result
+    
+    #Protected
+    
+    _call_class = property(lambda self: FindObjectsCall)
+    
+    
+class FindObjectsCall:
     
     #Public  
     
     default_basedir = '.' 
+   
+    def __init__(self, name=None, filename=None, basedir=None, max_depth=None, 
+             mappers=[], reducers=[]):
+        self._name = name
+        self._filename = filename
+        self._basedir = basedir
+        self._max_depth = max_depth
+        self._mappers = mappers
+        self._reducers = reducers
+        if not self._basedir:
+            self._basedir = self.default_basedir
     
-    def __call__(self, name=None, filename=None, basedir=None, max_depth=None, 
-             breakers=[], filters=[], processors=[], reducers=[]):
-        if not basedir:
-            basedir = self.default_basedir        
-        filters = [self._name_filter_class(name)]+filters
-        objects = self._get_objects(filename, basedir, max_depth)
-        map_reduced_objects = map_reduce(
-            objects, breakers, filters, processors, reducers)
-        return map_reduced_objects
+    def __call__(self):
+        objects = self._get_objects()
+        mappers = self._builtin_mappers+self._mappers
+        result = map_reduce(objects, mappers, self._reducers)
+        return result
     
     #Protected
     
-    _name_filter_class = property(lambda self: FindObjectsNameFilter)
     _source_file_loader_class = SourceFileLoader
     _find_files_function = staticmethod(find_files)    
     
-    def _get_objects(self, filename, basedir, max_depth):
-        for module in self._get_modules(filename, basedir, max_depth):
+    def _get_objects(self):
+        for module in self._get_modules():
             for name in dir(module):
                 obj = getattr(module, name)
-                yield (obj, name, module)
+                yield MapEmmiter(obj, object=obj, name=name, module=module)
                     
-    def _get_modules(self, filename, basedir, max_depth):
-        for file in self._get_files(filename, basedir, max_depth): 
+    def _get_modules(self):
+        for file in self._get_files(): 
             loader = self._source_file_loader_class(file, file)
             module = loader.load_module(file)
             yield module   
                     
-    def _get_files(self, filename, basedir, max_depth):
-        files = self._find_files_function(filename, basedir, max_depth)
+    def _get_files(self):
+        files = self._find_files_function(
+            self._filename, self._basedir, self._max_depth)
         return files
     
+    def _builtin_mappers(self):
+        return [FindObjectsNameMapper(self._name)]
+    
         
-class FindObjectsNameFilter:
+class FindObjectsNameMapper:
     
     #Public
     
     def __init__(self, name):
         self._name = name
         
-    def __call__(self, obj, name, module):
+    def __call__(self, emitter):
         if self._name:
             if isinstance(self._name, RegexCompiledPatternType):
-                if not self._name.match(name):
-                    return False
+                if not self._name.match(emitter.name):
+                    emitter.skip()
             else:
-                if name != self._name:
-                    return False
+                if emitter.name != self._name:
+                    emitter.skip()
         return True
     
 
