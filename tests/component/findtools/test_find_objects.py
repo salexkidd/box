@@ -1,14 +1,14 @@
 import unittest
 from unittest.mock import Mock, call
-from box.findtools.find_objects import FindObjects
+from box.findtools.find_objects import find_objects
 
-class FindObjectsTest(unittest.TestCase):
+class find_objects_Test(unittest.TestCase):
     
     #Public
     
     def setUp(self):
         files = ['file1', 'file2']
-        self.find = self._make_mock_find_objects_function(files)
+        self.find = self._make_mock_find_function(files)
         
     def test_find(self):
         objects = list(self.find('call', 
@@ -21,18 +21,21 @@ class FindObjectsTest(unittest.TestCase):
         (self.find._source_file_loader_class.return_value.load_module.
             assert_has_calls([call('file1'), call('file2')]))
         
-    def test_find_with_processor(self):
-        processor = lambda obj, name, module: name
-        objects = list(self.find('call', processors=[processor]))
+    def test_find_with_mapper(self):
+        mapper = lambda emitter: emitter.emit(emitter.name)
+        objects = list(self.find('call', mappers=[mapper]))
         self.assertEqual(objects, ['call', 'call'])               
     
     #Protected
 
-    def _make_mock_find_objects_function(self, files):
-        class MockFindObjects(FindObjects):
+    def _make_mock_find_function(self, files):
+        class MockFindCall(find_objects._call_class):
             #Protected
             _source_file_loader_class = Mock(return_value=Mock(
                 load_module=Mock(return_value=unittest.mock)))
             _find_files_function = Mock(return_value=files)
-        mock_find_object = MockFindObjects()
-        return mock_find_object
+        class MockFind(type(find_objects)):
+            #Protected
+            _call_class = MockFindCall
+        mock_find = MockFind()
+        return mock_find
