@@ -1,7 +1,6 @@
 #Builded for box 0.10.0 from _templates/MANIFEST.in
 
 graft data
-graft docs
 graft box
 graft tests
 
