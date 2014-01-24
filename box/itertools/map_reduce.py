@@ -16,6 +16,8 @@ class MapReduce:
                 emitter = MapEmmiter(emitter)
             for mapper in mappers:
                 mapper(emitter)
+                if emitter.skipped:
+                    break
             if emitter.skipped:
                 continue
             if emitter.emitted:
