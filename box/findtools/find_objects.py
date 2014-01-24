@@ -82,7 +82,6 @@ class FindObjectsNameMapper:
             else:
                 if emitter.name != self._name:
                     emitter.skip()
-        return True
     
 
 find_objects = FindObjects()

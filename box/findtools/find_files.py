@@ -70,8 +70,7 @@ class FindFilesMaxDepthMapper:
             depth = self._calculate_depth(emitter.file)
             if depth > self._max_depth:
                 emitter.skip()
-                emitter.stop() 
-        return False
+                emitter.stop()
     
     #Protected
     
@@ -104,7 +103,6 @@ class FindFilesNameMapper:
             else:
                 if not fnmatch.fnmatch(name, self._name):
                     emitter.skip()
-        return True
     
     
 find_files = FindFiles()
