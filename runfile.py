@@ -15,7 +15,7 @@ class MainModule(PythonPackgramModule):
         'Topic :: System :: Systems Administration', 
     ]
     github_user = 'respect31'
-    description = 'Box is library to provide common functionality.'
+    description = 'Box is a library to provide common functionality.'
     license = 'MIT License'  
     maintainer = 'roll'
     maintainer_email = 'roll@respect31.com'

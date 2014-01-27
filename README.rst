@@ -2,7 +2,7 @@
 
 Box
 =====================
-Box is library to provide common functionality.
+Box is a library to provide common functionality.
 
 .. image:: https://secure.travis-ci.org/respect31/box.png?branch=master 
      :target: https://travis-ci.org/respect31/box 
