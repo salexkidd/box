@@ -1,18 +1,6 @@
-class Input:
-    
-    #Public
-        
-    def __call__(self, *args, **kwargs):
-        call = self._call_class(*args, **kwargs)
-        result = call.execute()
-        return result
-    
-    #Protected
-    
-    _call_class = property(lambda self: InputCall)
-    
+from ..functools import FunctionCall
 
-class InputCall:
+class InputCall(FunctionCall):
     
     #Public
     
@@ -35,7 +23,7 @@ class InputCall:
         for key, value in kwargs.items():
             setattr(self, key, value)
         
-    def execute(self):
+    def __call__(self):
         for _ in range(0, self.attempts):
             result = self.input_function(self.rendered_prompt)
             if not result:
@@ -115,4 +103,4 @@ class InputCall:
         return self.brackets[int(len(self.brackets)/2):]    
     
     
-locals().update({'input': Input()}) 
+locals().update({'input': InputCall}) 
