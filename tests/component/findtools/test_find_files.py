@@ -45,11 +45,7 @@ class find_files_Test(unittest.TestCase):
     #Protected
     
     def _make_mock_find_function(self, walk_items):
-        class MockFindCall(find_files._call_class):
+        class mock_find(find_files):
             #Protected
             _walk_function = Mock(return_value=walk_items)
-        class MockFind(type(find_files)):
-            #Protected
-            _call_class = MockFindCall
-        mock_find = MockFind()
         return mock_find

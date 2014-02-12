@@ -1,24 +1,11 @@
 import os
 import re
 import fnmatch
+from ..functools import Function
 from ..itertools import map_reduce, MapEmmiter
 from ..types import RegexCompiledPatternType
 
-class FindFiles:
-
-    #Public
-        
-    def __call__(self, *args, **kwargs):
-        call = self._call_class(*args, **kwargs)
-        result = call.execute()
-        return result
-    
-    #Protected
-    
-    _call_class = property(lambda self: FindFilesCall)
-
-
-class FindFilesCall:
+class find_files(Function):
 
     #Public
     
@@ -34,7 +21,7 @@ class FindFilesCall:
         if not self._basedir:
             self._basedir = self.default_basedir
             
-    def execute(self):
+    def __call__(self):
         files = self._get_files()        
         mappers = self._builtin_mappers+self._mappers
         values = map_reduce(files, mappers, self._reducers)
@@ -103,6 +90,3 @@ class FindFilesNameMapper:
             else:
                 if not fnmatch.fnmatch(name, self._name):
                     emitter.skip()
-    
-    
-find_files = FindFiles()
