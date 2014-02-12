@@ -1,22 +1,9 @@
 import os
+from ..functools import FunctionCall
 from .object_context import ObjectContext
-from .object_template import ObjectTemplateMixin
+from .object_template import ObjectTemplateMixin        
 
-class RenderFile:
-    
-    #Public
-    
-    def __call__(self, *args, **kwargs):
-        call = self._call_class(*args, **kwargs)
-        result = call.execute()
-        return result
-    
-    #Protected
-    
-    _call_class = property(lambda self: RenderFileCall)
-        
-
-class RenderFileCall:
+class render_file(FunctionCall):
     
     #Public
     
@@ -25,7 +12,7 @@ class RenderFileCall:
         self._context = context
         self._target = target
     
-    def execute(self):
+    def __call__(self):
         content = self._render()
         self._write(content)
         return content
@@ -81,6 +68,3 @@ class RenderFileCall:
         from jinja2 import Template
         class ObjectTemplate(ObjectTemplateMixin, Template): pass
         return ObjectTemplate
-    
-    
-render_file = RenderFile()
