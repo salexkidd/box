@@ -5,15 +5,16 @@ class FunctionMetaclass(ABCMeta):
     #Public
     
     def __call__(self, *args, **kwargs):
-        function = super().__call__(*args, **kwargs)
-        result = function.invoke()
+        function = object.__new__(self)
+        function.__init__(*args, **kwargs)
+        result = function.__call__()
         return result
 
 
-class FunctionCall(metaclass=FunctionMetaclass):
+class Function(metaclass=FunctionMetaclass):
 
     #Public
     
     @abstractmethod    
-    def invoke(self):
+    def __call__(self):
         pass #pragma: no cover
