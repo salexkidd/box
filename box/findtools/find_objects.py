@@ -1,23 +1,10 @@
 from importlib.machinery import SourceFileLoader
+from ..functools import ClassFunction
 from ..itertools import map_reduce, MapEmmiter
 from ..types import RegexCompiledPatternType
-from .find_files import find_files
-
-class FindObjects:
-
-    #Public
-        
-    def __call__(self, *args, **kwargs):
-        call = self._call_class(*args, **kwargs)
-        result = call.execute()
-        return result
+from .find_files import find_files   
     
-    #Protected
-    
-    _call_class = property(lambda self: FindObjectsCall)
-    
-    
-class FindObjectsCall:
+class find_objects(ClassFunction):
     
     #Public  
     
@@ -34,7 +21,7 @@ class FindObjectsCall:
         if not self._basedir:
             self._basedir = self.default_basedir
     
-    def execute(self):
+    def __call__(self):
         objects = self._get_objects()
         mappers = self._builtin_mappers+self._mappers
         result = map_reduce(objects, mappers, self._reducers)
@@ -82,6 +69,3 @@ class FindObjectsNameMapper:
             else:
                 if emitter.name != self._name:
                     emitter.skip()
-    
-
-find_objects = FindObjects()
