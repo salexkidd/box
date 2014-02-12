@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
-class FunctionMetaclass(ABCMeta):
+class ClassFunctionMetaclass(ABCMeta):
     
     #Public
     
@@ -11,7 +11,7 @@ class FunctionMetaclass(ABCMeta):
         return result
 
 
-class Function(metaclass=FunctionMetaclass):
+class ClassFunction(metaclass=ClassFunctionMetaclass):
 
     #Public
     

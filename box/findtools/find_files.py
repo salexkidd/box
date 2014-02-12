@@ -1,11 +1,11 @@
 import os
 import re
 import fnmatch
-from ..functools import Function
+from ..functools import ClassFunction
 from ..itertools import map_reduce, MapEmmiter
 from ..types import RegexCompiledPatternType
 
-class find_files(Function):
+class find_files(ClassFunction):
 
     #Public
     
