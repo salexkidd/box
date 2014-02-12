@@ -1,3 +1,3 @@
 from .cachedproperty import cachedproperty
-from .class_function import ClassFunction, ClassFunctionMetaclass
+from .call import FunctionCall, FunctionCallMetaclass
 from .default import DEFAULT

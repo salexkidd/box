@@ -1,10 +1,10 @@
 from importlib.machinery import SourceFileLoader
-from ..functools import ClassFunction
+from ..functools import FunctionCall
 from ..itertools import map_reduce, MapEmmiter
 from ..types import RegexCompiledPatternType
 from .find_files import find_files   
     
-class find_objects(ClassFunction):
+class find_objects(FunctionCall):
     
     #Public  
     
