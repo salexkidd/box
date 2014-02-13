@@ -11,9 +11,9 @@ class find_files(FunctionCall):
     
     default_basedir = '.'
 
-    def __init__(self, name=None, basedir=None, max_depth=None, 
+    def __init__(self, filename=None, basedir=None, max_depth=None, 
                  mappers=[], reducers=[]):
-        self._name = name
+        self._filename = filename
         self._basedir = basedir
         self._max_depth = max_depth
         self._mappers = mappers
@@ -41,7 +41,7 @@ class find_files(FunctionCall):
     @property        
     def _builtin_mappers(self):
         return [FindFilesMaxDepthMapper(self._basedir, self._max_depth),
-                FindFilesNameMapper(self._name)]          
+                FindFilesFilenameMapper(self._filename)]          
 
 
 class FindFilesMaxDepthMapper:
@@ -74,19 +74,19 @@ class FindFilesMaxDepthMapper:
         return depth
 
     
-class FindFilesNameMapper:
+class FindFilesFilenameMapper:
     
     #Public
     
-    def __init__(self, name):
-        self._name = name
+    def __init__(self, filename):
+        self._filename = filename
         
     def __call__(self, emitter):
-        if self._name:
-            name = os.path.basename(emitter.file)
-            if isinstance(self._name, RegexCompiledPatternType):
-                if not re.match(self._name, name):
+        if self._filename:
+            filename = os.path.basename(emitter.file)
+            if isinstance(self._filename, RegexCompiledPatternType):
+                if not re.match(self._filename, filename):
                     emitter.skip()
             else:
-                if not fnmatch.fnmatch(name, self._name):
+                if not fnmatch.fnmatch(filename, self._filename):
                     emitter.skip()
