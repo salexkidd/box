@@ -10,9 +10,9 @@ class find_objects(FunctionCall):
     
     default_basedir = '.' 
    
-    def __init__(self, name=None, filename=None, basedir=None, max_depth=None, 
+    def __init__(self, attrname=None, filename=None, basedir=None, max_depth=None, 
                  mappers=[], reducers=[]):
-        self._name = name
+        self._attrname = attrname
         self._filename = filename
         self._basedir = basedir
         self._max_depth = max_depth
@@ -34,9 +34,9 @@ class find_objects(FunctionCall):
     
     def _get_objects(self):
         for module in self._get_modules():
-            for name in dir(module):
-                obj = getattr(module, name)
-                yield MapEmmiter(obj, object=obj, name=name, module=module)
+            for attrname in dir(module):
+                obj = getattr(module, attrname)
+                yield MapEmmiter(obj, object=obj, attrname=attrname, module=module)
                     
     def _get_modules(self):
         for file in self._get_files(): 
@@ -51,21 +51,21 @@ class find_objects(FunctionCall):
     
     @property
     def _builtin_mappers(self):
-        return [FindObjectsNameMapper(self._name)]
+        return [FindObjectsAttrnameMapper(self._attrname)]
     
         
-class FindObjectsNameMapper:
+class FindObjectsAttrnameMapper:
     
     #Public
     
-    def __init__(self, name):
-        self._name = name
+    def __init__(self, attrname):
+        self._attrname = attrname
         
     def __call__(self, emitter):
-        if self._name:
-            if isinstance(self._name, RegexCompiledPatternType):
-                if not self._name.match(emitter.name):
+        if self._attrname:
+            if isinstance(self._attrname, RegexCompiledPatternType):
+                if not self._attrname.match(emitter.attrname):
                     emitter.skip()
             else:
-                if emitter.name != self._name:
+                if emitter.attrname != self._attrname:
                     emitter.skip()
