@@ -11,8 +11,8 @@ class find_files(FunctionCall):
     
     default_basedir = '.'
 
-    def __init__(self, filename=None, basedir=None, max_depth=None, 
-                 mappers=[], reducers=[]):
+    def __init__(self, filename=None, basedir=None, 
+                 max_depth=None, mappers=[], reducers=[]):
         self._filename = filename
         self._basedir = basedir
         self._max_depth = max_depth
