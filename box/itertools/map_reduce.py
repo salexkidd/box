@@ -1,20 +1,24 @@
-from ..functools import DEFAULT
+from ..functools import FunctionCall, DEFAULT
 
-class MapReduce:
-    """MapReduce function-class"""
+class map_reduce(FunctionCall):
     
-    def __call__(self, iterable, mappers=[], reducers=[]):
-        values = self._map(iterable, mappers)
-        reduced_values = self._reduce(values, reducers)
+    def __init__(self, iterable, mappers=[], reducers=[]):
+        self._iterable = iterable
+        self._mappers = mappers
+        self._reducers = reducers
+    
+    def __call__(self):
+        values = self._map()
+        reduced_values = self._reduce(values)
         return reduced_values
 
     #Protected
     
-    def _map(self, iterable, mappers):
-        for emitter in iterable:
+    def _map(self):
+        for emitter in self._iterable:
             if not isinstance(emitter, MapEmmiter):
                 emitter = MapEmmiter(emitter)
-            for mapper in mappers:
+            for mapper in self._mappers:
                 mapper(emitter)
                 if emitter.skipped:
                     break
@@ -27,9 +31,9 @@ class MapReduce:
             if emitter.stopped:
                 break
     
-    def _reduce(self, values, reducers):
+    def _reduce(self, values):
         result = values
-        for reducer in reducers:
+        for reducer in self._reducers:
             result = reducer(result)
         return result
     
@@ -85,6 +89,3 @@ class MapEmmiter:
     @property
     def stopped(self):
         return self._stopped
-
-
-map_reduce = MapReduce()
