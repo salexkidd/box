@@ -10,7 +10,8 @@ class find_strings(FunctionCall):
     default_basedir = '.'
     
     def __init__(self, string=None, *, 
-                 file=None, filename=None, basedir=None, max_depth=None, 
+                 file=None, filename=None, 
+                 basedir=None, max_depth=None, 
                  mappers=[], reducers=[]):
         self._string = string
         self._file = file        
