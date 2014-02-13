@@ -9,7 +9,7 @@ class find_strings(FunctionCall):
     
     default_basedir = '.'
     
-    def __init__(self, string, filename=None, basedir=None, max_depth=None, 
+    def __init__(self, string=None, filename=None, basedir=None, max_depth=None, 
                  mappers=[], reducers=[]):
         self._string = string
         self._filename = filename
@@ -38,10 +38,12 @@ class find_strings(FunctionCall):
                     for match in self._string.finditer(file_content):
                         has_groups = bool(match.groups())
                         yield MapEmmiter(match.group(has_groups), file=file)
-                else:
+                elif self._string:
                     matches = file_content.count(self._string)
                     for _ in range(matches+1):
                         yield MapEmmiter(self._string, file=file)
+                else:
+                    yield MapEmmiter(file_content, file=file)
                     
     def _get_files(self):
         files = self._find_files_function(

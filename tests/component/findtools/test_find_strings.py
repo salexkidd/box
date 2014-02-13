@@ -13,18 +13,25 @@ class find_strings_Test(unittest.TestCase):
         
     def test_find(self):
         strings = list(self.find(
-            re.compile('(da|ta)'), 'filename', 'basedir', 'maxdepth'))
-        self.assertEqual(strings, ['da', 'ta', 'da', 'ta'])
+            filename='filename', 
+            basedir='basedir', 
+            max_depth='max_depth'))
+        self.assertEqual(strings, ['data', 'data'])
         self.find._find_files_function.assert_called_with(
-            'filename', 'basedir', 'maxdepth')    
+            'filename', 'basedir', 'max_depth')    
         self.find._open_function.assert_has_calls(
             [call('file1'), call('file2')], any_order=True)
         
+    def test_find_with_string(self):
+        strings = list(self.find(re.compile('(da|ta)')))
+        self.assertEqual(strings, ['da', 'ta', 'da', 'ta'])       
+        
     def test_find_with_mapper(self):
-        mapper = lambda emitter: emitter.value(emitter.file+':'+emitter.value())
+        mapper = (lambda emitter: 
+            emitter.value(emitter.file+':'+emitter.value()))
         strings = list(self.find(re.compile('(da|ta)'), mappers=[mapper]))
-        self.assertEqual(
-            strings, ['file1:da', 'file1:ta', 'file2:da', 'file2:ta'])       
+        self.assertEqual(strings, 
+            ['file1:da', 'file1:ta', 'file2:da', 'file2:ta'])       
     
     #Protected
 
