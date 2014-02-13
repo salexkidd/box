@@ -28,7 +28,7 @@ class find_objects_Test(unittest.TestCase):
             assert_has_calls([call('file1'), call('file2')]))
         
     def test_find_with_mapper(self):
-        mapper = lambda emitter: emitter.emit(emitter.attrname)
+        mapper = lambda emitter: emitter.emit(emitter.objectname)
         objects = list(self.find('call', mappers=[mapper]))
         self.assertEqual(objects, ['call', 'call'])               
     

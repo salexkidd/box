@@ -10,10 +10,10 @@ class find_objects(FunctionCall):
     
     default_basedir = '.' 
    
-    def __init__(self, attrname=None, *, 
+    def __init__(self, objectname=None, *, 
                  file=None, filename=None, basedir=None, max_depth=None, 
                  mappers=[], reducers=[]):
-        self._attrname = attrname
+        self._objectname = objectname
         self._file = file        
         self._filename = filename
         self._basedir = basedir
@@ -32,13 +32,16 @@ class find_objects(FunctionCall):
     #Protected
     
     _source_file_loader_class = SourceFileLoader
-    _find_files_function = staticmethod(find_files)    
+    _find_files_function = staticmethod(find_files)
     
     def _get_objects(self):
         for module in self._get_modules():
-            for attrname in dir(module):
-                obj = getattr(module, attrname)
-                yield MapEmmiter(obj, object=obj, attrname=attrname, module=module)
+            for objectname in dir(module):
+                obj = getattr(module, objectname)
+                yield MapEmmiter(obj,
+                    object=obj, 
+                    objectname=objectname, 
+                    module=module)
                     
     def _get_modules(self):
         for file in self._get_files(): 
@@ -56,21 +59,21 @@ class find_objects(FunctionCall):
     
     @property
     def _builtin_mappers(self):
-        return [FindObjectsAttrnameMapper(self._attrname)]
+        return [FindObjectsObjectnameMapper(self._objectname)]
     
         
-class FindObjectsAttrnameMapper:
+class FindObjectsObjectnameMapper:
     
     #Public
     
-    def __init__(self, attrname):
-        self._attrname = attrname
+    def __init__(self, objectname):
+        self._objectname = objectname
         
     def __call__(self, emitter):
-        if self._attrname:
-            if isinstance(self._attrname, RegexCompiledPatternType):
-                if not self._attrname.match(emitter.attrname):
+        if self._objectname:
+            if isinstance(self._objectname, RegexCompiledPatternType):
+                if not self._objectname.match(emitter.objectname):
                     emitter.skip()
             else:
-                if emitter.attrname != self._attrname:
+                if emitter.objectname != self._objectname:
                     emitter.skip()
