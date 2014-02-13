@@ -12,7 +12,8 @@ class SetupTest(unittest.TestCase):
         self.basedir = self._get_repository_path()
 
     def test(self):
-        package = find_objects('package', 
+        package = find_objects(
+            objectname='package', 
             filename='setup.py', 
             basedir=self.basedir, 
             max_depth=1,

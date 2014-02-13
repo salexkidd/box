@@ -11,17 +11,17 @@ class find_objects_Test(unittest.TestCase):
         self.find = self._make_mock_find_function(files)
         
     def test_find(self):
-        objects = list(self.find('call', 
+        objects = list(self.find(
+            objectname='call', 
             filename='filename', 
             basedir='basedir', 
             max_depth='max_depth'))
         self.assertEqual(objects, [call, call])
-        (self.find._find_files_function.
-            assert_called_with(
-                file=None,
-                filename='filename', 
-                basedir='basedir', 
-                max_depth='max_depth'))
+        self.find._find_files_function.assert_called_with(
+            file=None,
+            filename='filename', 
+            basedir='basedir', 
+            max_depth='max_depth')
         (self.find._source_file_loader_class.
             assert_has_calls([call('file1', 'file1'), call('file2', 'file2')]))
         (self.find._source_file_loader_class.return_value.load_module.
@@ -29,7 +29,7 @@ class find_objects_Test(unittest.TestCase):
         
     def test_find_with_mapper(self):
         mapper = lambda emitter: emitter.emit(emitter.objectname)
-        objects = list(self.find('call', mappers=[mapper]))
+        objects = list(self.find(objectname='call', mappers=[mapper]))
         self.assertEqual(objects, ['call', 'call'])               
     
     #Protected
