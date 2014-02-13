@@ -16,30 +16,30 @@ class find_files_Test(unittest.TestCase):
         self.find = self._make_mock_find_function(walk_items)
         
     def test(self):
-        files = list(self.find('file3'))
+        files = list(self.find(filename='file3'))
         self.assertEqual(files, ['folder/subfolder/file3']) 
         
     def test_max_depth_is_1(self):
-        files = list(self.find('file1', max_depth=1))
+        files = list(self.find(filename='file1', max_depth=1))
         self.assertEqual(files, ['file1'])
         
     def test_with_max_depth_is_2(self):
-        files = list(self.find('file1', max_depth=2))
+        files = list(self.find(filename='file1', max_depth=2))
         self.assertEqual(files, ['file1', 'folder/file1'])
         
     def test_with_regexp(self):
         regexp = re.compile('file1+')
-        files = list(self.find(regexp, max_depth=1))
+        files = list(self.find(filename=regexp, max_depth=1))
         self.assertEqual(files, ['file1'])     
         
     def test_with_mapper(self):
         mapper = lambda emitter: emitter.value(emitter.value()+'!')
-        files = list(self.find('file1', mappers=[mapper]))
+        files = list(self.find(filename='file1', mappers=[mapper]))
         self.assertEqual(files, ['file1!', 'folder/file1!'])         
           
     def test_with_reducer(self):
         reducer=lambda files: list(files)[0]
-        files = self.find('file1', max_depth=1, reducers=[reducer])
+        files = self.find(filename='file1', max_depth=1, reducers=[reducer])
         self.assertEqual(files, 'file1')               
     
     #Protected

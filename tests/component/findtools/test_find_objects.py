@@ -12,10 +12,16 @@ class find_objects_Test(unittest.TestCase):
         
     def test_find(self):
         objects = list(self.find('call', 
-            'filename', 'basedir', 'maxdepth'))
+            filename='filename', 
+            basedir='basedir', 
+            max_depth='max_depth'))
         self.assertEqual(objects, [call, call])
         (self.find._find_files_function.
-            assert_called_with('filename', 'basedir', 'maxdepth'))
+            assert_called_with(
+                file=None,
+                filename='filename', 
+                basedir='basedir', 
+                max_depth='max_depth'))
         (self.find._source_file_loader_class.
             assert_has_calls([call('file1', 'file1'), call('file2', 'file2')]))
         (self.find._source_file_loader_class.return_value.load_module.

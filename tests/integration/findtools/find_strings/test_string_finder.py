@@ -11,13 +11,13 @@ class StringFinderTest(unittest.TestCase):
         self.basedir = self._get_fixtures_path() 
 
     def test_find(self):
-        strings = list(find_strings(
-            re.compile('string\d'), 'file1', self.basedir, max_depth=1))
+        strings = list(find_strings(re.compile('string\d'), 
+            filename='file1', basedir=self.basedir, max_depth=1))
         self.assertEqual(strings, ['string1'])
 
     def test_find_with_max_depth_is_1(self):
-        files = list(find_strings(
-            re.compile('string\d'), 'file1', self.basedir))
+        files = list(find_strings(re.compile('string\d'), 
+            filename='file1', basedir=self.basedir))
         self.assertEqual(files, ['string1', 'string3'])
         
     #Protected    

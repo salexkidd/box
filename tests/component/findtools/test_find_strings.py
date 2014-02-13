@@ -18,7 +18,10 @@ class find_strings_Test(unittest.TestCase):
             max_depth='max_depth'))
         self.assertEqual(strings, ['data', 'data'])
         self.find._find_files_function.assert_called_with(
-            'filename', 'basedir', 'max_depth')    
+            file=None,
+            filename='filename', 
+            basedir='basedir', 
+            max_depth='max_depth')    
         self.find._open_function.assert_has_calls(
             [call('file1'), call('file2')], any_order=True)
         
