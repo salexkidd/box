@@ -11,7 +11,7 @@ class find_objects(FunctionCall):
     default_basedir = '.' 
    
     def __init__(self, name=None, filename=None, basedir=None, max_depth=None, 
-             mappers=[], reducers=[]):
+                 mappers=[], reducers=[]):
         self._name = name
         self._filename = filename
         self._basedir = basedir
