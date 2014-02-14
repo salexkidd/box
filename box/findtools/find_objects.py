@@ -10,8 +10,8 @@ class find_objects(FunctionCall):
     
     default_basedir = '.' 
    
-    def __init__(self, *, 
-                 objname=None, file=None, filename=None, 
+    def __init__(self, objname=None, *, 
+                 file=None, filename=None, 
                  basedir=None, maxdepth=None, 
                  mappers=[], reducers=[]):
         self._objname = objname
