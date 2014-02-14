@@ -60,10 +60,10 @@ class find_objects(FunctionCall):
     
     @property
     def _builtin_mappers(self):
-        return [FindObjectsObjectnameMapper(self._objname)]
+        return [FindObjectsObjnameMapper(self._objname)]
     
         
-class FindObjectsObjectnameMapper:
+class FindObjectsObjnameMapper:
     
     #Public
     
