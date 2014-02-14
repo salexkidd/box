@@ -42,11 +42,11 @@ class find_files(FunctionCall):
         
     @property        
     def _builtin_mappers(self):
-        return [FindFilesMaxDepthMapper(self._basedir, self._maxdepth),
+        return [FindFilesMaxdepthMapper(self._basedir, self._maxdepth),
                 FindFilesFilenameMapper(self._filename)]          
 
 
-class FindFilesMaxDepthMapper:
+class FindFilesMaxdepthMapper:
     
     #Public
     
