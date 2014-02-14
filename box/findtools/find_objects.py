@@ -11,10 +11,10 @@ class find_objects(FunctionCall):
     default_basedir = '.' 
    
     def __init__(self, *, 
-                 objectname=None, file=None, filename=None, 
+                 objname=None, file=None, filename=None, 
                  basedir=None, max_depth=None, 
                  mappers=[], reducers=[]):
-        self._objectname = objectname
+        self._objname = objname
         self._file = file        
         self._filename = filename
         self._basedir = basedir
@@ -37,11 +37,11 @@ class find_objects(FunctionCall):
     
     def _get_objects(self):
         for module in self._get_modules():
-            for objectname in dir(module):
-                obj = getattr(module, objectname)
+            for objname in dir(module):
+                obj = getattr(module, objname)
                 yield MapEmmiter(obj,
                     object=obj, 
-                    objectname=objectname, 
+                    objname=objname, 
                     module=module)
                     
     def _get_modules(self):
@@ -60,21 +60,21 @@ class find_objects(FunctionCall):
     
     @property
     def _builtin_mappers(self):
-        return [FindObjectsObjectnameMapper(self._objectname)]
+        return [FindObjectsObjectnameMapper(self._objname)]
     
         
 class FindObjectsObjectnameMapper:
     
     #Public
     
-    def __init__(self, objectname):
-        self._objectname = objectname
+    def __init__(self, objname):
+        self._objname = objname
         
     def __call__(self, emitter):
-        if self._objectname:
-            if isinstance(self._objectname, RegexCompiledPatternType):
-                if not self._objectname.match(emitter.objectname):
+        if self._objname:
+            if isinstance(self._objname, RegexCompiledPatternType):
+                if not self._objname.match(emitter.objname):
                     emitter.skip()
             else:
-                if emitter.objectname != self._objectname:
+                if emitter.objname != self._objname:
                     emitter.skip()

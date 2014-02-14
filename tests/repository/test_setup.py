@@ -13,7 +13,7 @@ class SetupTest(unittest.TestCase):
 
     def test(self):
         package = find_objects(
-            objectname='package', 
+            objname='package', 
             filename='setup.py', 
             basedir=self.basedir, 
             max_depth=1,

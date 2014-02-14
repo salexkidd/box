@@ -12,7 +12,7 @@ class StringFinderTest(unittest.TestCase):
 
     def test_find(self):
         objects = list(find_objects(
-            objectname=re.compile('attr\d'), 
+            objname=re.compile('attr\d'), 
             filename='module1.py', 
             basedir=self.basedir, 
             max_depth=1))
@@ -20,7 +20,7 @@ class StringFinderTest(unittest.TestCase):
 
     def test_find_with_max_depth_is_1(self):
         objects = list(find_objects(
-            objectname=re.compile('attr\d'), 
+            objname=re.compile('attr\d'), 
             filename='module1.py', 
             basedir=self.basedir))
         self.assertEqual(objects, ['attr1', 'attr3'])
