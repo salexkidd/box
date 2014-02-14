@@ -92,7 +92,7 @@ class FindObjectsObjtypeMapper:
     def __call__(self, emitter):
         if self._objtype:
             types = self._objtype
-            if isinstance(types, str):
+            if isinstance(types, type):
                 types = [types]
             if not isinstance(emitter.object, tuple(types)):
                 emitter.skip()   

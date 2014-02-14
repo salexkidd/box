@@ -12,12 +12,11 @@ class find_objects_Test(unittest.TestCase):
         
     def test_find(self):
         objects = list(self.find(
-            objname='call', 
             filename='filename', 
             filepath='filepath',             
             basedir='basedir', 
             maxdepth='maxdepth'))
-        self.assertEqual(objects, [call, call])
+        self.assertTrue(objects)
         self.find._find_files_function.assert_called_with(
             filename='filename',
             filepath='filepath',              
@@ -27,6 +26,18 @@ class find_objects_Test(unittest.TestCase):
             assert_has_calls([call('file1', 'file1'), call('file2', 'file2')]))
         (self.find._source_file_loader_class.return_value.load_module.
             assert_has_calls([call('file1'), call('file2')]))
+        
+    def test_find_with_objname(self):
+        objects = list(self.find(objname='call'))
+        self.assertEqual(objects, [call, call])
+        
+    def test_find_with_objtype(self):
+        objects = list(self.find(objtype=type(call)))
+        self.assertEqual(objects, [call, call])
+        
+    def test_find_with_objtype_list(self):
+        objects = list(self.find(objtype=[type(call)]))
+        self.assertEqual(objects, [call, call])             
         
     def test_find_with_mapper(self):
         mapper = lambda emitter: emitter.emit(emitter.objname)
