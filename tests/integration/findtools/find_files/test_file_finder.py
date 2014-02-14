@@ -11,11 +11,11 @@ class FileFinderTest(unittest.TestCase):
 
     def test_find(self):
         files = list(find_files(
-            filename='file1', basedir=self.basedir, max_depth=1))
+            filename='file1', basedir=self.basedir, maxdepth=1))
         self.assertEqual(files, [
             self._get_fixtures_path('file1')])
 
-    def test_find_with_max_depth_is_1(self):
+    def test_find_with_maxdepth_is_1(self):
         files = list(find_files(
             filename='file1', basedir=self.basedir))
         self.assertEqual(files, [

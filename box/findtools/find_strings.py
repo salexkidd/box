@@ -11,13 +11,13 @@ class find_strings(FunctionCall):
     
     def __init__(self, string=None, *, 
                  file=None, filename=None, 
-                 basedir=None, max_depth=None, 
+                 basedir=None, maxdepth=None, 
                  mappers=[], reducers=[]):
         self._string = string
         self._file = file        
         self._filename = filename
         self._basedir = basedir
-        self._max_depth = max_depth
+        self._maxdepth = maxdepth
         self._mappers = mappers
         self._reducers = reducers
         if not self._basedir:
@@ -53,5 +53,5 @@ class find_strings(FunctionCall):
             file=self._file, 
             filename=self._filename, 
             basedir=self._basedir, 
-            max_depth=self._max_depth)
+            maxdepth=self._maxdepth)
         return files             

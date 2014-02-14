@@ -16,7 +16,7 @@ class SetupTest(unittest.TestCase):
             objname='package', 
             filename='setup.py', 
             basedir=self.basedir, 
-            max_depth=1,
+            maxdepth=1,
             reducers=[list, itemgetter(0)])
         self.assertEqual(package['name'], 'box')
         self.assertEqual(package['version'], version)

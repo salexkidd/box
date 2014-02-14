@@ -19,17 +19,17 @@ class find_files_Test(unittest.TestCase):
         files = list(self.find(filename='file3'))
         self.assertEqual(files, ['folder/subfolder/file3']) 
         
-    def test_max_depth_is_1(self):
-        files = list(self.find(filename='file1', max_depth=1))
+    def test_maxdepth_is_1(self):
+        files = list(self.find(filename='file1', maxdepth=1))
         self.assertEqual(files, ['file1'])
         
-    def test_with_max_depth_is_2(self):
-        files = list(self.find(filename='file1', max_depth=2))
+    def test_with_maxdepth_is_2(self):
+        files = list(self.find(filename='file1', maxdepth=2))
         self.assertEqual(files, ['file1', 'folder/file1'])
         
     def test_with_regexp(self):
         regexp = re.compile('file1+')
-        files = list(self.find(filename=regexp, max_depth=1))
+        files = list(self.find(filename=regexp, maxdepth=1))
         self.assertEqual(files, ['file1'])     
         
     def test_with_mapper(self):
@@ -39,7 +39,7 @@ class find_files_Test(unittest.TestCase):
           
     def test_with_reducer(self):
         reducer=lambda files: list(files)[0]
-        files = self.find(filename='file1', max_depth=1, reducers=[reducer])
+        files = self.find(filename='file1', maxdepth=1, reducers=[reducer])
         self.assertEqual(files, 'file1')               
     
     #Protected

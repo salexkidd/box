@@ -15,13 +15,13 @@ class find_strings_Test(unittest.TestCase):
         strings = list(self.find(
             filename='filename', 
             basedir='basedir', 
-            max_depth='max_depth'))
+            maxdepth='maxdepth'))
         self.assertEqual(strings, ['data', 'data'])
         self.find._find_files_function.assert_called_with(
             file=None,
             filename='filename', 
             basedir='basedir', 
-            max_depth='max_depth')    
+            maxdepth='maxdepth')    
         self.find._open_function.assert_has_calls(
             [call('file1'), call('file2')], any_order=True)
         

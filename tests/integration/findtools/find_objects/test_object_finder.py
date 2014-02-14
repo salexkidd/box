@@ -15,10 +15,10 @@ class StringFinderTest(unittest.TestCase):
             objname=re.compile('attr\d'), 
             filename='module1.py', 
             basedir=self.basedir, 
-            max_depth=1))
+            maxdepth=1))
         self.assertEqual(objects, ['attr1'])
 
-    def test_find_with_max_depth_is_1(self):
+    def test_find_with_maxdepth_is_1(self):
         objects = list(find_objects(
             objname=re.compile('attr\d'), 
             filename='module1.py', 
