@@ -14,12 +14,13 @@ class find_objects_Test(unittest.TestCase):
         objects = list(self.find(
             objname='call', 
             filename='filename', 
+            filepath='filepath',             
             basedir='basedir', 
             maxdepth='maxdepth'))
         self.assertEqual(objects, [call, call])
         self.find._find_files_function.assert_called_with(
             filename='filename',
-            filepath=None,             
+            filepath='filepath',              
             basedir='basedir', 
             maxdepth='maxdepth')
         (self.find._source_file_loader_class.
