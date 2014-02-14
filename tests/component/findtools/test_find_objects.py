@@ -18,8 +18,8 @@ class find_objects_Test(unittest.TestCase):
             maxdepth='maxdepth'))
         self.assertEqual(objects, [call, call])
         self.find._find_files_function.assert_called_with(
-            file=None,
-            filename='filename', 
+            filename='filename',
+            filepath=None,             
             basedir='basedir', 
             maxdepth='maxdepth')
         (self.find._source_file_loader_class.

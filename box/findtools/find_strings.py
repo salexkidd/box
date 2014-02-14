@@ -9,13 +9,13 @@ class find_strings(FunctionCall):
     
     default_basedir = '.'
     
-    def __init__(self, string=None, *, 
-                 file=None, filename=None, 
+    def __init__(self, string=None, *,
+                 filename=None, filepath=None,  
                  basedir=None, maxdepth=None, 
                  mappers=[], reducers=[]):
         self._string = string
-        self._file = file        
         self._filename = filename
+        self._filepath = filepath        
         self._basedir = basedir
         self._maxdepth = maxdepth
         self._mappers = mappers
@@ -34,24 +34,25 @@ class find_strings(FunctionCall):
     _find_files_function = staticmethod(find_files)
     
     def _get_strings(self):
-        for file in self._get_files():
-            with self._open_function(file) as file_object:
-                file_content = file_object.read()
+        for filepath in self._get_files():
+            with self._open_function(filepath) as fileobj:
+                filetext = fileobj.read()
                 if isinstance(self._string, RegexCompiledPatternType):
-                    for match in self._string.finditer(file_content):
+                    for match in self._string.finditer(filetext):
                         has_groups = bool(match.groups())
-                        yield MapEmmiter(match.group(has_groups), file=file)
+                        yield MapEmmiter(
+                            match.group(has_groups), filepath=filepath)
                 elif self._string:
-                    matches = file_content.count(self._string)
+                    matches = filetext.count(self._string)
                     for _ in range(matches+1):
-                        yield MapEmmiter(self._string, file=file)
+                        yield MapEmmiter(self._string, filepath=filepath)
                 else:
-                    yield MapEmmiter(file_content, file=file)
+                    yield MapEmmiter(filetext, filepath=filepath)
                     
     def _get_files(self):
         files = self._find_files_function(
-            file=self._file, 
-            filename=self._filename, 
+            filename=self._filename,
+            filepath=self._filepath,
             basedir=self._basedir, 
             maxdepth=self._maxdepth)
         return files             

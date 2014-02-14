@@ -11,12 +11,12 @@ class find_objects(FunctionCall):
     default_basedir = '.' 
    
     def __init__(self, objname=None, *, 
-                 file=None, filename=None, 
+                 filename=None, filepath=None,  
                  basedir=None, maxdepth=None, 
                  mappers=[], reducers=[]):
         self._objname = objname
-        self._file = file        
-        self._filename = filename
+        self._filename = filename        
+        self._filepath = filepath        
         self._basedir = basedir
         self._maxdepth = maxdepth
         self._mappers = mappers
@@ -52,8 +52,8 @@ class find_objects(FunctionCall):
                     
     def _get_files(self):
         files = self._find_files_function(
-            file=self._file, 
-            filename=self._filename, 
+            filename=self._filename,
+            filepath=self._filepath,             
             basedir=self._basedir, 
             maxdepth=self._maxdepth)
         return files

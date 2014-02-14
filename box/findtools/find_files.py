@@ -11,12 +11,11 @@ class find_files(FunctionCall):
     
     default_basedir = '.'
 
-    def __init__(self, file=None, *,
-                 filename=None, 
+    def __init__(self, filename=None, filepath=None, *,
                  basedir=None, maxdepth=None, 
                  mappers=[], reducers=[]):
-        self._file = file
         self._filename = filename
+        self._filepath = filepath
         self._basedir = basedir
         self._maxdepth = maxdepth
         self._mappers = mappers
@@ -38,8 +37,8 @@ class find_files(FunctionCall):
         #TODO: os.walk swallow exception if onerror=None
         for dirpath, _, filenames in self._walk_function(self._basedir):       
             for filename in filenames:
-                file = os.path.join(dirpath, filename)
-                yield MapEmmiter(file, file=file) 
+                filepath = os.path.join(dirpath, filename)
+                yield MapEmmiter(filepath, filepath=filepath) 
         
     @property        
     def _builtin_mappers(self):
@@ -57,22 +56,22 @@ class FindFilesMaxDepthMapper:
         
     def __call__(self, emitter):
         if self._maxdepth:
-            depth = self._calculate_depth(emitter.file)
+            depth = self._calculate_depth(emitter.filepath)
             if depth > self._maxdepth:
                 emitter.skip()
                 emitter.stop()
     
     #Protected
     
-    def _calculate_depth(self, file):
+    def _calculate_depth(self, filepath):
         basedir = os.path.normpath(self._basedir)
-        filedir = os.path.normpath(os.path.dirname(file))
-        if basedir == filedir:
+        dirpath = os.path.normpath(os.path.dirname(filepath))
+        if basedir == dirpath:
             depth = 1
-        elif os.path.sep not in filedir:
+        elif os.path.sep not in dirpath:
             depth = 2
         else:
-            subpath = filedir.replace(basedir+os.path.sep, '', 1)
+            subpath = dirpath.replace(basedir+os.path.sep, '', 1)
             depth = subpath.count(os.path.sep)+2
         return depth
 
@@ -86,7 +85,7 @@ class FindFilesFilenameMapper:
         
     def __call__(self, emitter):
         if self._filename:
-            filename = os.path.basename(emitter.file)
+            filename = os.path.basename(emitter.filepath)
             if isinstance(self._filename, RegexCompiledPatternType):
                 if not re.match(self._filename, filename):
                     emitter.skip()
