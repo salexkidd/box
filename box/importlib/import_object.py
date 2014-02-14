@@ -5,7 +5,7 @@ def import_object(name, package=None):
         try:
             module_name, attribute_name = name.rsplit('.', 1)
         except ValueError:
-            raise ValueError('Name format is [.]module.attr')
+            raise ValueError('Name format not is [.]module.attr')
         module = importlib.import_module(module_name, package)
         attribute = getattr(module, attribute_name)
     else:
