@@ -40,8 +40,8 @@ class find_strings(FunctionCall):
                 if isinstance(self._string, RegexCompiledPatternType):
                     for match in self._string.finditer(filetext):
                         has_groups = bool(match.groups())
-                        yield MapEmmiter(
-                            match.group(has_groups), filepath=filepath)
+                        matched_string = match.group(has_groups)
+                        yield MapEmmiter(matched_string, filepath=filepath)
                 elif self._string:
                     matches = filetext.count(self._string)
                     for _ in range(matches+1):
