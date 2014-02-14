@@ -5,7 +5,8 @@ class map_reduce(FunctionCall):
     default_emitter = 'box.itertools.MapEmitter'
     
     def __init__(self, iterable, *, 
-                 mappers=[], reducers=[], emitter=None):
+                 mappers=[], reducers=[], 
+                 emitter=None):
         self._iterable = iterable
         self._mappers = mappers
         self._reducers = reducers

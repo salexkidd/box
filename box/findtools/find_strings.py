@@ -1,18 +1,27 @@
 from ..functools import FunctionCall
-from ..itertools import map_reduce, MapEmitter
+from ..itertools import map_reduce
 from ..types import RegexCompiledPatternType
-from .find_files import find_files    
+from .find_files import find_files, FindFilesMapEmitter
+  
+class FindStringsMapEmitter(FindFilesMapEmitter): 
+    
+    #Public
+    
+    pass
+    
     
 class find_strings(FunctionCall):
 
     #Public
     
     default_basedir = '.'
+    default_emitter = FindStringsMapEmitter  
     
     def __init__(self, string=None, *,
                  filename=None, filepath=None,  
                  basedir=None, maxdepth=None, 
-                 mappers=[], reducers=[]):
+                 mappers=[], reducers=[], 
+                 emitter=None):
         self._string = string
         self._filename = filename
         self._filepath = filepath        
@@ -20,8 +29,11 @@ class find_strings(FunctionCall):
         self._maxdepth = maxdepth
         self._mappers = mappers
         self._reducers = reducers
+        self._emitter = emitter
         if not self._basedir:
             self._basedir = self.default_basedir
+        if not self._emitter:
+            self._emitter = self.default_emitter
             
     def __call__(self):
         strings = self._get_strings()
@@ -43,13 +55,13 @@ class find_strings(FunctionCall):
                     for match in self._string.finditer(filetext):
                         has_groups = bool(match.groups())
                         matched_string = match.group(has_groups)
-                        yield MapEmitter(matched_string, filepath=filepath)
+                        yield self._emitter(matched_string, filepath=filepath)
                 elif self._string:
                     matches = filetext.count(self._string)
                     for _ in range(matches):
-                        yield MapEmitter(self._string, filepath=filepath)
+                        yield self._emitter(self._string, filepath=filepath)
                 else:
-                    yield MapEmitter(filetext, filepath=filepath)
+                    yield self._emitter(filetext, filepath=filepath)
                     
     def _get_files(self):
         files = self._find_files_function(
@@ -57,4 +69,4 @@ class find_strings(FunctionCall):
             filepath=self._filepath,
             basedir=self._basedir, 
             maxdepth=self._maxdepth)
-        return files             
+        return files
