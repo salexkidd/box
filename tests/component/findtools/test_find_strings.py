@@ -11,7 +11,7 @@ class find_strings_Test(unittest.TestCase):
         files = ['file1', 'file2']
         self.find = self._make_mock_find_function(files)
         
-    def test_find(self):
+    def test(self):
         strings = list(self.find(
             filename='filename',
             filepath='filepath',
@@ -26,15 +26,15 @@ class find_strings_Test(unittest.TestCase):
         self.find._open_function.assert_has_calls(
             [call('file1'), call('file2')], any_order=True)
     
-    def test_find_with_string(self):
+    def test_with_string(self):
         strings = list(self.find('data'))
         self.assertEqual(strings, ['data', 'data'])
         
-    def test_find_with_string_regex(self):
+    def test_with_string_regex(self):
         strings = list(self.find(re.compile('(da|ta)')))
         self.assertEqual(strings, ['da', 'ta', 'da', 'ta'])       
         
-    def test_find_with_mapper(self):
+    def test_with_mapper(self):
         mapper = (lambda emitter: 
             emitter.value(emitter.filepath+':'+emitter.value()))
         strings = list(self.find(re.compile('(da|ta)'), mappers=[mapper]))
