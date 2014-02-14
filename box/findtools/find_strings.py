@@ -44,7 +44,7 @@ class find_strings(FunctionCall):
                         yield MapEmmiter(matched_string, filepath=filepath)
                 elif self._string:
                     matches = filetext.count(self._string)
-                    for _ in range(matches+1):
+                    for _ in range(matches):
                         yield MapEmmiter(self._string, filepath=filepath)
                 else:
                     yield MapEmmiter(filetext, filepath=filepath)

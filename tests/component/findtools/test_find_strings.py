@@ -25,8 +25,12 @@ class find_strings_Test(unittest.TestCase):
             maxdepth='maxdepth')    
         self.find._open_function.assert_has_calls(
             [call('file1'), call('file2')], any_order=True)
-        
+    
     def test_find_with_string(self):
+        strings = list(self.find('data'))
+        self.assertEqual(strings, ['data', 'data'])
+        
+    def test_find_with_string_regex(self):
         strings = list(self.find(re.compile('(da|ta)')))
         self.assertEqual(strings, ['da', 'ta', 'da', 'ta'])       
         

@@ -27,7 +27,7 @@ class find_files_Test(unittest.TestCase):
         files = list(self.find(filename='file3'))
         self.assertEqual(files, ['folder/subfolder/file3'])        
         
-    def test_with_filename_regexp(self):
+    def test_with_filename_regex(self):
         filename = re.compile('file1+')
         files = list(self.find(filename=filename, maxdepth=1))
         self.assertEqual(files, ['file1'])     
@@ -36,7 +36,7 @@ class find_files_Test(unittest.TestCase):
         files = list(self.find(filepath='folder/file*'))
         self.assertEqual(files, ['folder/file1', 'folder/file2'])
         
-    def test_with_filepath_regexp(self):
+    def test_with_filepath_regex(self):
         filepath = re.compile('.*2$')
         files = list(self.find(filepath=filepath))
         self.assertEqual(files, ['file2', 'folder/file2'])        
