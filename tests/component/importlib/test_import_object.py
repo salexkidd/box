@@ -6,12 +6,16 @@ class import_object_Test(unittest.TestCase):
 
     #Public
 
-    def test(self):
+    def test_with_name(self):
         self.assertIs(import_object('unittest.mock.Mock'), Mock)
+    
+    def test_with_name_in_bad_format(self):
+        self.assertRaises(ValueError, 
+            import_object, 'unittest')
         
-    def test_forwarding(self):
-        self.assertIs(Mock, Mock)        
-        
-    def test_no_object(self):
+    def test_with_name_for_no_object(self):
         self.assertRaises(AttributeError, 
-            import_object, 'unittest.mock.no_object')        
+            import_object, 'unittest.mock.no_object')
+        
+    def test_with_name_is_object(self):
+        self.assertIs(import_object(Mock), Mock)         
