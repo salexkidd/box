@@ -8,7 +8,7 @@ class find_strings(FunctionCall):
     #Public
     
     default_basedir = '.'
-    default_emitter = 'box.findtools.FindStringsMapEmitter'  
+    default_emitter = 'deferred:FindStringsMapEmitter'  
     
     def __init__(self, string=None, *,
                  filename=None, filepath=None,  

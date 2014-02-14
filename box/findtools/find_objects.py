@@ -10,7 +10,7 @@ class find_objects(FunctionCall):
     #Public  
     
     default_basedir = '.'
-    default_emitter = 'box.findtools.FindObjectsMapEmitter'
+    default_emitter = 'deferred:FindObjectsMapEmitter'
        
     def __init__(self, objname=None, objtype=None, *, 
                  filename=None, filepath=None,  
