@@ -2,7 +2,7 @@ import os
 import re
 import fnmatch
 from ..functools import FunctionCall
-from ..itertools import map_reduce, MapEmmiter
+from ..itertools import map_reduce, MapEmitter
 from ..types import RegexCompiledPatternType
 
 class find_files(FunctionCall):
@@ -40,7 +40,7 @@ class find_files(FunctionCall):
         for dirpath, _, filenames in self._walk_function(self._basedir):       
             for filename in filenames:
                 filepath = os.path.join(dirpath, filename)
-                yield MapEmmiter(filepath, filepath=filepath) 
+                yield MapEmitter(filepath, filepath=filepath) 
         
     @property        
     def _builtin_mappers(self):

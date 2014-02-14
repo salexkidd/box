@@ -1,6 +1,6 @@
 from importlib.machinery import SourceFileLoader
 from ..functools import FunctionCall
-from ..itertools import map_reduce, MapEmmiter
+from ..itertools import map_reduce, MapEmitter
 from ..types import RegexCompiledPatternType
 from .find_files import find_files   
     
@@ -42,7 +42,7 @@ class find_objects(FunctionCall):
         for module in self._get_modules():
             for objname in dir(module):
                 obj = getattr(module, objname)
-                yield MapEmmiter(obj,
+                yield MapEmitter(obj,
                     object=obj, 
                     objname=objname, 
                     module=module)

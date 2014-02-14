@@ -1,5 +1,5 @@
 from ..functools import FunctionCall
-from ..itertools import map_reduce, MapEmmiter
+from ..itertools import map_reduce, MapEmitter
 from ..types import RegexCompiledPatternType
 from .find_files import find_files    
     
@@ -43,13 +43,13 @@ class find_strings(FunctionCall):
                     for match in self._string.finditer(filetext):
                         has_groups = bool(match.groups())
                         matched_string = match.group(has_groups)
-                        yield MapEmmiter(matched_string, filepath=filepath)
+                        yield MapEmitter(matched_string, filepath=filepath)
                 elif self._string:
                     matches = filetext.count(self._string)
                     for _ in range(matches):
-                        yield MapEmmiter(self._string, filepath=filepath)
+                        yield MapEmitter(self._string, filepath=filepath)
                 else:
-                    yield MapEmmiter(filetext, filepath=filepath)
+                    yield MapEmitter(filetext, filepath=filepath)
                     
     def _get_files(self):
         files = self._find_files_function(
