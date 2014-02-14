@@ -35,7 +35,7 @@ class find_objects_Test(unittest.TestCase):
         objects = list(self.find(objtype=type(call)))
         self.assertEqual(objects, [call, call])
         
-    def test_with_objtype_list(self):
+    def test_with_objtype_is_list(self):
         objects = list(self.find(objtype=[type(call)]))
         self.assertEqual(objects, [call, call])             
         

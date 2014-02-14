@@ -14,6 +14,11 @@ class find_files_Test(unittest.TestCase):
             ['folder/subfolder', [], ['file3']],
         ]
         self.find = self._make_mock_find_function(walk_items)
+   
+    def test(self):
+        files = list(self.find(basedir='basedir'))
+        self.assertEqual(len(files), 5)
+        self.find._walk_function.assert_called_with('basedir')      
         
     def test_with_maxdepth_is_1(self):
         files = list(self.find(filename='file1', maxdepth=1))
@@ -27,7 +32,7 @@ class find_files_Test(unittest.TestCase):
         files = list(self.find(filename='file3'))
         self.assertEqual(files, ['folder/subfolder/file3'])        
         
-    def test_with_filename_regex(self):
+    def test_with_filename_is_regex(self):
         filename = re.compile('file1+')
         files = list(self.find(filename=filename, maxdepth=1))
         self.assertEqual(files, ['file1'])     
@@ -36,7 +41,7 @@ class find_files_Test(unittest.TestCase):
         files = list(self.find(filepath='folder/file*'))
         self.assertEqual(files, ['folder/file1', 'folder/file2'])
         
-    def test_with_filepath_regex(self):
+    def test_with_filepath_is_regex(self):
         filepath = re.compile('.*2$')
         files = list(self.find(filepath=filepath))
         self.assertEqual(files, ['file2', 'folder/file2'])        

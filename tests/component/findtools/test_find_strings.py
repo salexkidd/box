@@ -30,7 +30,7 @@ class find_strings_Test(unittest.TestCase):
         strings = list(self.find('data'))
         self.assertEqual(strings, ['data', 'data'])
         
-    def test_with_string_regex(self):
+    def test_with_string_is_regex(self):
         strings = list(self.find(re.compile('(da|ta)')))
         self.assertEqual(strings, ['da', 'ta', 'da', 'ta'])       
         
