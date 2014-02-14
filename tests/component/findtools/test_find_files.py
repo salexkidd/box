@@ -15,11 +15,7 @@ class find_files_Test(unittest.TestCase):
         ]
         self.find = self._make_mock_find_function(walk_items)
         
-    def test(self):
-        files = list(self.find(filename='file3'))
-        self.assertEqual(files, ['folder/subfolder/file3']) 
-        
-    def test_maxdepth_is_1(self):
+    def test_with_maxdepth_is_1(self):
         files = list(self.find(filename='file1', maxdepth=1))
         self.assertEqual(files, ['file1'])
         
@@ -27,7 +23,11 @@ class find_files_Test(unittest.TestCase):
         files = list(self.find(filename='file1', maxdepth=2))
         self.assertEqual(files, ['file1', 'folder/file1'])
         
-    def test_with_regexp(self):
+    def test_with_filename(self):
+        files = list(self.find(filename='file3'))
+        self.assertEqual(files, ['folder/subfolder/file3'])        
+        
+    def test_with_filename_regexp(self):
         regexp = re.compile('file1+')
         files = list(self.find(filename=regexp, maxdepth=1))
         self.assertEqual(files, ['file1'])     
