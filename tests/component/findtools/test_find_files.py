@@ -28,9 +28,18 @@ class find_files_Test(unittest.TestCase):
         self.assertEqual(files, ['folder/subfolder/file3'])        
         
     def test_with_filename_regexp(self):
-        regexp = re.compile('file1+')
-        files = list(self.find(filename=regexp, maxdepth=1))
+        filename = re.compile('file1+')
+        files = list(self.find(filename=filename, maxdepth=1))
         self.assertEqual(files, ['file1'])     
+        
+    def test_with_filepath(self):
+        files = list(self.find(filepath='folder/file*'))
+        self.assertEqual(files, ['folder/file1', 'folder/file2'])
+        
+    def test_with_filepath_regexp(self):
+        filepath = re.compile('.*2$')
+        files = list(self.find(filepath=filepath))
+        self.assertEqual(files, ['file2', 'folder/file2'])        
         
     def test_with_mapper(self):
         mapper = lambda emitter: emitter.value(emitter.value()+'!')
