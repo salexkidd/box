@@ -25,7 +25,9 @@ class find_strings(FunctionCall):
             
     def __call__(self):
         strings = self._get_strings()
-        values = map_reduce(strings, self._mappers, self._reducers)
+        values = map_reduce(strings, 
+            mappers=self._mappers, 
+            reducers=self._reducers)
         return values
     
     #Protected

@@ -26,7 +26,9 @@ class find_files(FunctionCall):
     def __call__(self):
         files = self._get_files()        
         mappers = self._builtin_mappers+self._mappers
-        values = map_reduce(files, mappers, self._reducers)
+        values = map_reduce(files, 
+            mappers=mappers, 
+            reducers=self._reducers)
         return values            
             
     #Protected

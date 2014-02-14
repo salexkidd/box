@@ -28,7 +28,9 @@ class find_objects(FunctionCall):
     def __call__(self):
         objects = self._get_objects()
         mappers = self._builtin_mappers+self._mappers
-        result = map_reduce(objects, mappers, self._reducers)
+        result = map_reduce(objects, 
+            mappers=mappers, 
+            reducers=self._reducers)
         return result
     
     #Protected
