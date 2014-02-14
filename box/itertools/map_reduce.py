@@ -2,7 +2,7 @@ from ..functools import FunctionCall,  DEFAULT
 
 class map_reduce(FunctionCall):
     
-    default_emitter = 'box.itertools.MapEmitter'
+    default_emitter = 'deferred:MapEmitter'
     
     def __init__(self, iterable, *, 
                  mappers=[], reducers=[], 
