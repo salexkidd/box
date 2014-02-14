@@ -5,6 +5,55 @@ from ..functools import FunctionCall
 from ..itertools import map_reduce, MapEmitter
 from ..types import RegexCompiledPatternType
 
+class find_files(FunctionCall):
+
+    #Public
+    
+    default_basedir = '.'
+    default_emitter = 'box.findtools.FindFilesMapEmitter'
+
+    def __init__(self, filename=None, filepath=None, *,
+                 basedir=None, maxdepth=None, 
+                 mappers=[], reducers=[], 
+                 emitter=None):
+        self._filename = filename
+        self._filepath = filepath
+        self._basedir = basedir
+        self._maxdepth = maxdepth
+        self._mappers = mappers
+        self._reducers = reducers
+        self._emitter = emitter
+        if not self._basedir:
+            self._basedir = self.default_basedir
+        if not self._emitter:
+            self._emitter = self.default_emitter           
+            
+    def __call__(self):
+        files = self._get_files()        
+        mappers = self._builtin_mappers+self._mappers
+        values = map_reduce(files, 
+            mappers=mappers, 
+            reducers=self._reducers)
+        return values            
+            
+    #Protected
+            
+    _walk_function = staticmethod(os.walk)
+    
+    def _get_files(self):
+        #TODO: os.walk swallow exception if onerror=None
+        for dirpath, _, filenames in self._walk_function(self._basedir):       
+            for filename in filenames:
+                filepath = os.path.join(dirpath, filename)
+                yield self._emitter(filepath, filepath=filepath) 
+        
+    @property        
+    def _builtin_mappers(self):
+        return [FindFilesMaxdepthMapper(self._basedir, self._maxdepth),
+                FindFilesFilenameMapper(self._filename),
+                FindFilesFilepathMapper(self._filepath)]
+        
+
 class FindFilesMapEmitter(MapEmitter):
 
     #Public
@@ -78,50 +127,4 @@ class FindFilesFilepathMapper:
                     emitter.skip()
                     
                     
-class find_files(FunctionCall):
-
-    #Public
-    
-    default_basedir = '.'
-    default_emitter = FindFilesMapEmitter
-
-    def __init__(self, filename=None, filepath=None, *,
-                 basedir=None, maxdepth=None, 
-                 mappers=[], reducers=[], 
-                 emitter=None):
-        self._filename = filename
-        self._filepath = filepath
-        self._basedir = basedir
-        self._maxdepth = maxdepth
-        self._mappers = mappers
-        self._reducers = reducers
-        self._emitter = emitter
-        if not self._basedir:
-            self._basedir = self.default_basedir
-        if not self._emitter:
-            self._emitter = self.default_emitter           
-            
-    def __call__(self):
-        files = self._get_files()        
-        mappers = self._builtin_mappers+self._mappers
-        values = map_reduce(files, 
-            mappers=mappers, 
-            reducers=self._reducers)
-        return values            
-            
-    #Protected
-            
-    _walk_function = staticmethod(os.walk)
-    
-    def _get_files(self):
-        #TODO: os.walk swallow exception if onerror=None
-        for dirpath, _, filenames in self._walk_function(self._basedir):       
-            for filename in filenames:
-                filepath = os.path.join(dirpath, filename)
-                yield self._emitter(filepath, filepath=filepath) 
-        
-    @property        
-    def _builtin_mappers(self):
-        return [FindFilesMaxdepthMapper(self._basedir, self._maxdepth),
-                FindFilesFilenameMapper(self._filename),
-                FindFilesFilepathMapper(self._filepath)]              
+find_files.default_emitter = FindFilesMapEmitter                          

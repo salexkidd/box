@@ -3,19 +3,12 @@ from ..itertools import map_reduce
 from ..types import RegexCompiledPatternType
 from .find_files import find_files, FindFilesMapEmitter
   
-class FindStringsMapEmitter(FindFilesMapEmitter): 
-    
-    #Public
-    
-    pass
-    
-    
 class find_strings(FunctionCall):
 
     #Public
     
     default_basedir = '.'
-    default_emitter = FindStringsMapEmitter  
+    default_emitter = 'box.findtools.FindStringsMapEmitter'  
     
     def __init__(self, string=None, *,
                  filename=None, filepath=None,  
@@ -69,4 +62,8 @@ class find_strings(FunctionCall):
             filepath=self._filepath,
             basedir=self._basedir, 
             maxdepth=self._maxdepth)
-        return files
+        return files  
+  
+
+class FindStringsMapEmitter(FindFilesMapEmitter): pass
+find_strings.default_emitter = FindStringsMapEmitter 

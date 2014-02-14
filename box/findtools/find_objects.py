@@ -4,56 +4,14 @@ from ..functools import FunctionCall
 from ..itertools import map_reduce
 from ..types import RegexCompiledPatternType
 from .find_files import find_files, FindFilesMapEmitter
-    
-class FindObjectsMapEmitter(FindFilesMapEmitter):
-
-    #Public
-
-    @property
-    def filepath(self):
-        return inspect.getfile(self.module)
-   
-        
-class FindObjectsObjnameMapper:
-    
-    #Public
-    
-    def __init__(self, objname):
-        self._objname = objname
-        
-    def __call__(self, emitter):
-        if self._objname:
-            if isinstance(self._objname, RegexCompiledPatternType):
-                if not self._objname.match(emitter.objname):
-                    emitter.skip()
-            else:
-                if emitter.objname != self._objname:
-                    emitter.skip()
-                    
-
-class FindObjectsObjtypeMapper:
-    
-    #Public
-    
-    def __init__(self, objtype):
-        self._objtype = objtype
-        
-    def __call__(self, emitter):
-        if self._objtype:
-            types = self._objtype
-            if isinstance(types, type):
-                types = [types]
-            if not isinstance(emitter.object, tuple(types)):
-                emitter.skip()
-                
-                
+ 
 class find_objects(FunctionCall):
     
     #Public  
     
     default_basedir = '.'
-    default_emitter = FindObjectsMapEmitter
-   
+    default_emitter = 'box.findtools.FindObjectsMapEmitter'
+       
     def __init__(self, objname=None, objtype=None, *, 
                  filename=None, filepath=None,  
                  basedir=None, maxdepth=None, 
@@ -112,4 +70,49 @@ class find_objects(FunctionCall):
     @property
     def _builtin_mappers(self):
         return [FindObjectsObjnameMapper(self._objname),
-                FindObjectsObjtypeMapper(self._objtype)]               
+                FindObjectsObjtypeMapper(self._objtype)]
+         
+    
+class FindObjectsMapEmitter(FindFilesMapEmitter):
+
+    #Public
+
+    @property
+    def filepath(self):
+        return inspect.getfile(self.module)
+   
+        
+class FindObjectsObjnameMapper:
+    
+    #Public
+    
+    def __init__(self, objname):
+        self._objname = objname
+        
+    def __call__(self, emitter):
+        if self._objname:
+            if isinstance(self._objname, RegexCompiledPatternType):
+                if not self._objname.match(emitter.objname):
+                    emitter.skip()
+            else:
+                if emitter.objname != self._objname:
+                    emitter.skip()
+                    
+
+class FindObjectsObjtypeMapper:
+    
+    #Public
+    
+    def __init__(self, objtype):
+        self._objtype = objtype
+        
+    def __call__(self, emitter):
+        if self._objtype:
+            types = self._objtype
+            if isinstance(types, type):
+                types = [types]
+            if not isinstance(emitter.object, tuple(types)):
+                emitter.skip()
+                
+                
+find_objects.default_emitter = FindObjectsMapEmitter                 
