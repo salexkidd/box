@@ -14,8 +14,8 @@ class find_files(FunctionCall):
 
     def __init__(self, filename=None, filepath=None, *,
                  basedir=None, maxdepth=None, 
-                 mappers=[], reducers=[], 
-                 emitter=None):
+                 mappers=[], reducers=[], emitter=None, 
+                 onwalkerror=None, followlinks=False):
         self._filename = filename
         self._filepath = filepath
         self._basedir = basedir
@@ -23,6 +23,8 @@ class find_files(FunctionCall):
         self._mappers = mappers
         self._reducers = reducers
         self._emitter = emitter
+        self._onwalkerror = onwalkerror
+        self._followlinks = followlinks
         if not self._basedir:
             self._basedir = self.default_basedir
         if not self._emitter:
@@ -41,8 +43,11 @@ class find_files(FunctionCall):
     _walk_function = staticmethod(os.walk)
     
     def _get_files(self):
-        #TODO: os.walk swallow exception if onerror=None
-        for dirpath, _, filenames in self._walk_function(self._basedir):       
+        generator = self._walk_function(
+            self._basedir, 
+            onerror=self._onwalkerror,
+            followlinks=self._followlinks)
+        for dirpath, _, filenames in generator:       
             for filename in filenames:
                 filepath = os.path.join(dirpath, filename)
                 yield self._emitter(filepath, filepath=filepath) 

@@ -16,9 +16,15 @@ class find_files_Test(unittest.TestCase):
         self.find = self._make_mock_find_function(walk_items)
    
     def test(self):
-        files = list(self.find(basedir='basedir'))
+        files = list(self.find(
+            basedir='basedir',
+            onwalkerror='onwalkerror',
+            followlinks='followlinks'))
         self.assertEqual(len(files), 5)
-        self.find._walk_function.assert_called_with('basedir')      
+        self.find._walk_function.assert_called_with(
+            'basedir',
+            onerror='onwalkerror',
+            followlinks='followlinks')      
         
     def test_with_maxdepth_is_1(self):
         files = list(self.find(filename='file1', maxdepth=1))
