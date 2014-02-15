@@ -9,7 +9,7 @@ class InputCall(FunctionCall):
     default = None
     options = None
     attempts = 3 
-    delimiter = ' '
+    binding = ' '
     brackets = '[]'
     end = ':'
     separator = '/'    
@@ -52,10 +52,10 @@ class InputCall(FunctionCall):
     def templated_prompt(self):
         hint = ''
         if self.options:
-            hint = ('{delimiter}{left_bracket}'
+            hint = ('{binding}{left_bracket}'
                     '{formatted_options}{right_bracket}')
         elif self.default:
-            hint = ('{delimiter}{left_bracket}'
+            hint = ('{binding}{left_bracket}'
                     '{formatted_default}{right_bracket}')
         return '{prompt}'+hint+'{end}'
 
