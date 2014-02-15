@@ -7,8 +7,8 @@ class render_file(FunctionCall):
     
     #Public
     
-    def __init__(self, path, context={}, target=None):
-        self._path = path
+    def __init__(self, source, context={}, target=None):
+        self._source = source
         self._context = context
         self._target = target
     
@@ -32,7 +32,7 @@ class render_file(FunctionCall):
                 
     @property
     def _template(self):
-        dirpath, filename = os.path.split(self._path)
+        dirpath, filename = os.path.split(self._source)
         loader = self._file_system_loader_class(dirpath)
         environment = self._environment_class(loader=loader)
         if not self._is_object_jinja2_context(self._context):        
