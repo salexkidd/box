@@ -43,11 +43,11 @@ class find_files(FunctionCall):
     _walk_function = staticmethod(os.walk)
     
     def _get_files(self):
-        generator = self._walk_function(
+        walk = self._walk_function(
             self._basedir, 
             onerror=self._onwalkerror,
             followlinks=self._followlinks)
-        for dirpath, _, filenames in generator:       
+        for dirpath, _, filenames in walk:       
             for filename in filenames:
                 filepath = os.path.join(dirpath, filename)
                 yield self._emitter(filepath, filepath=filepath) 
