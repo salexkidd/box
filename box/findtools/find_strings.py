@@ -13,8 +13,8 @@ class find_strings(FunctionCall):
     def __init__(self, string=None, *,
                  filename=None, filepath=None,  
                  basedir=None, maxdepth=None, 
-                 mappers=[], reducers=[], 
-                 emitter=None):
+                 mappers=[], reducers=[], emitter=None, 
+                 onwalkerror=None, followlinks=False):
         self._string = string
         self._filename = filename
         self._filepath = filepath        
@@ -23,6 +23,8 @@ class find_strings(FunctionCall):
         self._mappers = mappers
         self._reducers = reducers
         self._emitter = emitter
+        self._onwalkerror = onwalkerror
+        self._followlinks = followlinks        
         if not self._basedir:
             self._basedir = self.default_basedir
         if not self._emitter:
@@ -61,7 +63,9 @@ class find_strings(FunctionCall):
             filename=self._filename,
             filepath=self._filepath,
             basedir=self._basedir, 
-            maxdepth=self._maxdepth)
+            maxdepth=self._maxdepth,
+            onwalkerror = self._onwalkerror,
+            followlinks = self._followlinks)
         return files  
   
 
