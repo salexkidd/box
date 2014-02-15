@@ -11,7 +11,7 @@ class InputCall(FunctionCall):
     attempts = 3 
     space = ' '
     brackets = '[]'
-    colon = ':'
+    end = ':'
     separator = '/'    
     on_default = staticmethod(str.upper)
     input_function = staticmethod(input)
@@ -55,7 +55,7 @@ class InputCall(FunctionCall):
             hint = '{space}{left_bracket}{formatted_options}{right_bracket}'
         elif self.default:
             hint = '{space}{left_bracket}{formatted_default}{right_bracket}'
-        return '{prompt}'+hint+'{colon}'
+        return '{prompt}'+hint+'{end}'
 
     @property
     def templated_error(self):
