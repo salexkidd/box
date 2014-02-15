@@ -15,13 +15,17 @@ class find_objects_Test(unittest.TestCase):
             filename='filename', 
             filepath='filepath',             
             basedir='basedir', 
-            maxdepth='maxdepth'))
+            maxdepth='maxdepth',
+            onwalkerror='onwalkerror',
+            followlinks='followlinks'))
         self.assertTrue(objects)
         self.find._find_files_function.assert_called_with(
             filename='filename',
             filepath='filepath',              
             basedir='basedir', 
-            maxdepth='maxdepth')
+            maxdepth='maxdepth',
+            onwalkerror='onwalkerror',
+            followlinks='followlinks')
         (self.find._source_file_loader_class.
             assert_has_calls([call('file1', 'file1'), call('file2', 'file2')]))
         (self.find._source_file_loader_class.return_value.load_module.
