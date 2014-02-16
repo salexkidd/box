@@ -7,8 +7,7 @@ class map_reduce(FunctionCall):
     
     def __init__(self, values=[], *args, 
                  mappers=[], reducers=[], 
-                 emitter=None, fallback=None, 
-                 **kwargs):
+                 emitter=None, fallback=None, **kwargs):
         self._user_values = values
         self._user_mappers = mappers
         self._user_reducers = reducers

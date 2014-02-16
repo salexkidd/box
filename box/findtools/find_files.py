@@ -1,10 +1,10 @@
 import os
 import re
 import fnmatch
-from ..itertools import MapReduceCall, MapEmitter
+from ..itertools import map_reduce, MapEmitter
 from ..types import RegexCompiledPatternType
 
-class find_files(MapReduceCall):
+class find_files(map_reduce):
 
     #Public
     
@@ -19,23 +19,22 @@ class find_files(MapReduceCall):
         self._filepath = filepath
         self._basedir = basedir
         self._maxdepth = maxdepth
-        self._user_mappers = mappers
-        self._user_reducers = reducers
-        self._emitter = emitter
-        self._fallback = fallback
         self._onwalkerror = onwalkerror
         self._followlinks = followlinks
         if not self._basedir:
             self._basedir = self.default_basedir
-        if not self._emitter:
-            self._emitter = self.default_emitter
+        super().__init__(
+            mappers=mappers,
+            reducers=reducers,
+            emitter=emitter,
+            fallback=fallback)
             
     #Protected
             
     _walk_function = staticmethod(os.walk)
     
     @property
-    def _iterable(self):
+    def _builtin_values(self):
         walk = self._walk_function(
             self._basedir,
             onerror=self._onwalkerror,
