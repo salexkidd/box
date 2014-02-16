@@ -1,1 +1,3 @@
-class NotFound(Exception): pass
+from ..itertools import NotEmitted
+
+class NotFound(NotEmitted): pass
