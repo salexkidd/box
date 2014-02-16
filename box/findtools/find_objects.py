@@ -1,11 +1,10 @@
 import inspect
 from importlib.machinery import SourceFileLoader
-from ..functools import FunctionCall
-from ..itertools import map_reduce
 from ..types import RegexCompiledPatternType
 from .find_files import find_files, FindFilesMapEmitter
+from .find import find
  
-class find_objects(FunctionCall):
+class find_objects(find):
     
     #Public  
     
@@ -34,35 +33,30 @@ class find_objects(FunctionCall):
         if not self._emitter:
             self._emitter = self.default_emitter
     
-    def __call__(self):
-        objects = self._get_objects()
-        result = map_reduce(objects, 
-            mappers=self._effective_mappers, 
-            reducers=self._effective_reducers,
-            fallback=self._fallback)
-        return result
-    
     #Protected
     
     _source_file_loader_class = SourceFileLoader
     _find_files_function = staticmethod(find_files)
     
-    def _get_objects(self):
-        for module in self._get_modules():
+    @property
+    def _iterable(self):
+        for module in self._modules:
             for objname in dir(module):
                 obj = getattr(module, objname)
                 yield self._emitter(obj,
                     object=obj, 
                     objname=objname, 
                     module=module)
-                    
-    def _get_modules(self):
-        for file in self._get_files(): 
+    
+    @property              
+    def _modules(self):
+        for file in self._files: 
             loader = self._source_file_loader_class(file, file)
             module = loader.load_module(file)
             yield module   
-                    
-    def _get_files(self):
+     
+    @property             
+    def _files(self):
         files = self._find_files_function(
             filename=self._filename,
             filepath=self._filepath,             
@@ -71,23 +65,11 @@ class find_objects(FunctionCall):
             onwalkerror = self._onwalkerror,
             followlinks = self._followlinks)
         return files
-    
-    @property        
-    def _effective_mappers(self):
-        return self._builtin_mappers+self._mappers    
-    
-    @property        
-    def _effective_reducers(self):
-        return self._builtin_reducers+self._reducers
-    
+
     @property
     def _builtin_mappers(self):
         return [FindObjectsObjnameMapper(self._objname),
-                FindObjectsObjtypeMapper(self._objtype)]
-
-    @property        
-    def _builtin_reducers(self):
-        return [] 
+                FindObjectsObjtypeMapper(self._objtype)] 
          
     
 class FindObjectsMapEmitter(FindFilesMapEmitter):

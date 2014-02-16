@@ -1,11 +1,11 @@
 import os
 import re
 import fnmatch
-from ..functools import FunctionCall
-from ..itertools import map_reduce, MapEmitter
+from ..itertools import MapEmitter
 from ..types import RegexCompiledPatternType
+from .find import find
 
-class find_files(FunctionCall):
+class find_files(find):
 
     #Public
     
@@ -29,21 +29,14 @@ class find_files(FunctionCall):
         if not self._basedir:
             self._basedir = self.default_basedir
         if not self._emitter:
-            self._emitter = self.default_emitter           
-            
-    def __call__(self):
-        files = self._get_files()        
-        result = map_reduce(files, 
-            mappers=self._effective_mappers, 
-            reducers=self._effective_reducers,
-            fallback=self._fallback)
-        return result
+            self._emitter = self.default_emitter
             
     #Protected
             
     _walk_function = staticmethod(os.walk)
     
-    def _get_files(self):
+    @property
+    def _iterable(self):
         walk = self._walk_function(
             self._basedir,
             onerror=self._onwalkerror,
@@ -52,24 +45,12 @@ class find_files(FunctionCall):
             for filename in filenames:
                 filepath = os.path.join(dirpath, filename)
                 yield self._emitter(filepath, filepath=filepath) 
-    
-    @property        
-    def _effective_mappers(self):
-        return self._builtin_mappers+self._mappers    
-    
-    @property        
-    def _effective_reducers(self):
-        return self._builtin_reducers+self._reducers
-       
+
     @property        
     def _builtin_mappers(self):
         return [FindFilesMaxdepthMapper(self._basedir, self._maxdepth),
                 FindFilesFilenameMapper(self._filename),
                 FindFilesFilepathMapper(self._filepath)]
-
-    @property        
-    def _builtin_reducers(self):
-        return []
         
 
 class FindFilesMapEmitter(MapEmitter):

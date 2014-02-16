@@ -1,9 +1,8 @@
-from ..functools import FunctionCall
-from ..itertools import map_reduce
 from ..types import RegexCompiledPatternType
 from .find_files import find_files, FindFilesMapEmitter
+from .find import find
   
-class find_strings(FunctionCall):
+class find_strings(find):
 
     #Public
     
@@ -30,22 +29,15 @@ class find_strings(FunctionCall):
             self._basedir = self.default_basedir
         if not self._emitter:
             self._emitter = self.default_emitter
-            
-    def __call__(self):
-        strings = self._get_strings()
-        result = map_reduce(strings, 
-            mappers=self._effective_mappers, 
-            reducers=self._effective_reducers,
-            fallback=self._fallback)
-        return result
     
     #Protected
         
     _open_function = staticmethod(open)
     _find_files_function = staticmethod(find_files)
     
-    def _get_strings(self):
-        for filepath in self._get_files():
+    @property
+    def _iterable(self):
+        for filepath in self._files:
             with self._open_function(filepath) as fileobj:
                 filetext = fileobj.read()
                 if isinstance(self._string, RegexCompiledPatternType):
@@ -60,7 +52,8 @@ class find_strings(FunctionCall):
                 else:
                     yield self._emitter(filetext, filepath=filepath)
                     
-    def _get_files(self):
+    @property
+    def _files(self):
         files = self._find_files_function(
             filename=self._filename,
             filepath=self._filepath,
@@ -68,23 +61,7 @@ class find_strings(FunctionCall):
             maxdepth=self._maxdepth,
             onwalkerror = self._onwalkerror,
             followlinks = self._followlinks)
-        return files
-    
-    @property        
-    def _effective_mappers(self):
-        return self._builtin_mappers+self._mappers    
-    
-    @property        
-    def _effective_reducers(self):
-        return self._builtin_reducers+self._reducers
-    
-    @property        
-    def _builtin_mappers(self):
-        return []
-
-    @property        
-    def _builtin_reducers(self):
-        return []     
+        return files 
   
 
 class FindStringsMapEmitter(FindFilesMapEmitter): pass
