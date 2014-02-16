@@ -1,8 +1,8 @@
+from ..itertools import MapReduceCall
 from ..types import RegexCompiledPatternType
 from .find_files import find_files, FindFilesMapEmitter
-from .find import find
   
-class find_strings(find):
+class find_strings(MapReduceCall):
 
     #Public
     

@@ -1,11 +1,10 @@
 import os
 import re
 import fnmatch
-from ..itertools import MapEmitter
+from ..itertools import MapReduceCall, MapEmitter
 from ..types import RegexCompiledPatternType
-from .find import find
 
-class find_files(find):
+class find_files(MapReduceCall):
 
     #Public
     

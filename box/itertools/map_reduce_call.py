@@ -1,8 +1,8 @@
 from abc import ABCMeta, abstractmethod
 from ..functools import FunctionCall
-from ..itertools import map_reduce, MapEmitter
+from .map_reduce import map_reduce, MapEmitter
 
-class find(FunctionCall, metaclass=ABCMeta):
+class MapReduceCall(FunctionCall, metaclass=ABCMeta):
 
     #Public
             

@@ -1,10 +1,10 @@
 import inspect
 from importlib.machinery import SourceFileLoader
+from ..itertools import MapReduceCall
 from ..types import RegexCompiledPatternType
 from .find_files import find_files, FindFilesMapEmitter
-from .find import find
  
-class find_objects(find):
+class find_objects(MapReduceCall):
     
     #Public  
     
