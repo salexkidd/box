@@ -9,8 +9,8 @@ class find(FunctionCall, metaclass=ABCMeta):
     def __call__(self):
         result = map_reduce(
             self._iterable, 
-            mappers=self._effective_mappers, 
-            reducers=self._effective_reducers,
+            mappers=self._mappers, 
+            reducers=self._reducers,
             fallback=self._fallback)
         return result
             
@@ -18,6 +18,8 @@ class find(FunctionCall, metaclass=ABCMeta):
            
     _builtin_mappers = []
     _builtin_reducers = []
+    _user_mappers = []
+    _user_reducers = []
     _fallback = None
     
     @property
@@ -26,9 +28,9 @@ class find(FunctionCall, metaclass=ABCMeta):
         pass #pragma: no cover 
     
     @property        
-    def _effective_mappers(self):
-        return self._builtin_mappers+self._mappers    
+    def _mappers(self):
+        return self._builtin_mappers+self._user_mappers    
     
     @property        
-    def _effective_reducers(self):
-        return self._builtin_reducers+self._reducers
+    def _reducers(self):
+        return self._builtin_reducers+self._user_reducers

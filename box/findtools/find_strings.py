@@ -19,8 +19,8 @@ class find_strings(find):
         self._filepath = filepath        
         self._basedir = basedir
         self._maxdepth = maxdepth
-        self._mappers = mappers
-        self._reducers = reducers
+        self._user_mappers = mappers
+        self._user_reducers = reducers
         self._emitter = emitter
         self._fallback = fallback        
         self._onwalkerror = onwalkerror
