@@ -7,3 +7,4 @@ from .find_strings import find_strings, FindStringsMapEmitter
 from .find_object import find_object
 from .find_objects import (find_objects, FindObjectsMapEmitter,
                            FindObjectsObjnameMapper, FindObjectsObjtypeMapper)
+from .not_found import NotFound
