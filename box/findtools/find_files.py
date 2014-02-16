@@ -25,8 +25,10 @@ class find_files(map_reduce):
         if not self._basedir:
             self._basedir = self.default_basedir
         super().__init__(
-            mappers=mappers, reducers=reducers,
-            emitter=emitter, fallback=fallback)
+            mappers=mappers, 
+            reducers=reducers,
+            emitter=emitter, 
+            fallback=fallback)
             
     #Protected
             

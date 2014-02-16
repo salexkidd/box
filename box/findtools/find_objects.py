@@ -1,10 +1,10 @@
 import inspect
 from importlib.machinery import SourceFileLoader
-from ..itertools import MapReduceCall
+from ..itertools import map_reduce
 from ..types import RegexCompiledPatternType
 from .find_files import find_files, FindFilesMapEmitter
  
-class find_objects(MapReduceCall):
+class find_objects(map_reduce):
     
     #Public  
     
@@ -14,24 +14,24 @@ class find_objects(MapReduceCall):
     def __init__(self, objname=None, objtype=None, *, 
                  filename=None, filepath=None,  
                  basedir=None, maxdepth=None, 
-                 mappers=[], reducers=[], emitter=None, 
-                 fallback=None, onwalkerror=None, followlinks=False):
+                 mappers=[], reducers=[], 
+                 emitter=None, fallback=None, 
+                 onwalkerror=None, followlinks=False):
         self._objname = objname
         self._objtype = objtype
         self._filename = filename        
-        self._filepath = filepath        
+        self._filepath = filepath
         self._basedir = basedir
-        self._maxdepth = maxdepth
-        self._user_mappers = mappers
-        self._user_reducers = reducers
-        self._emitter = emitter
-        self._fallback = fallback        
+        self._maxdepth = maxdepth       
         self._onwalkerror = onwalkerror
         self._followlinks = followlinks          
         if not self._basedir:
             self._basedir = self.default_basedir
-        if not self._emitter:
-            self._emitter = self.default_emitter
+        super().__init__(
+            mappers=mappers, 
+            reducers=reducers,
+            emitter=emitter, 
+            fallback=fallback)            
     
     #Protected
     
@@ -39,7 +39,7 @@ class find_objects(MapReduceCall):
     _find_files_function = staticmethod(find_files)
     
     @property
-    def _iterable(self):
+    def _builtin_values(self):
         for module in self._modules:
             for objname in dir(module):
                 obj = getattr(module, objname)
@@ -47,6 +47,11 @@ class find_objects(MapReduceCall):
                     object=obj, 
                     objname=objname, 
                     module=module)
+
+    @property
+    def _builtin_mappers(self):
+        return [FindObjectsObjnameMapper(self._objname),
+                FindObjectsObjtypeMapper(self._objtype)] 
     
     @property              
     def _modules(self):
@@ -65,12 +70,7 @@ class find_objects(MapReduceCall):
             onwalkerror = self._onwalkerror,
             followlinks = self._followlinks)
         return files
-
-    @property
-    def _builtin_mappers(self):
-        return [FindObjectsObjnameMapper(self._objname),
-                FindObjectsObjtypeMapper(self._objtype)] 
-         
+      
     
 class FindObjectsMapEmitter(FindFilesMapEmitter):
 
