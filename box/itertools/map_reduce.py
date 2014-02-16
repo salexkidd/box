@@ -62,15 +62,18 @@ class map_reduce(FunctionCall):
             
     @property            
     def _values(self):
-        return chain(self._builtin_values, self._user_values)
+        return chain(self._builtin_values, 
+                     self._user_values)
     
     @property        
     def _mappers(self):
-        return chain(self._builtin_mappers, self._user_mappers)    
+        return chain(self._builtin_mappers, 
+                     self._user_mappers)    
     
     @property        
     def _reducers(self):
-        return chain(self._builtin_reducers, self._user_reducers)
+        return chain(self._builtin_reducers, 
+                     self._user_reducers)
     
     
 class MapEmitter:
