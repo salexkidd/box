@@ -1,16 +1,17 @@
 from abc import ABCMeta, abstractmethod
 from ..functools import FunctionCall
-from ..itertools import map_reduce
+from ..itertools import map_reduce, MapEmitter
 
 class find(FunctionCall, metaclass=ABCMeta):
 
-    #Public          
+    #Public
             
     def __call__(self):
         result = map_reduce(
             self._iterable, 
             mappers=self._mappers, 
             reducers=self._reducers,
+            emitter=self._emitter,
             fallback=self._fallback)
         return result
             
@@ -20,6 +21,7 @@ class find(FunctionCall, metaclass=ABCMeta):
     _builtin_reducers = []
     _user_mappers = []
     _user_reducers = []
+    _emitter = MapEmitter
     _fallback = None
     
     @property
