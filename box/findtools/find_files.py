@@ -15,7 +15,7 @@ class find_files(FunctionCall):
     def __init__(self, filename=None, filepath=None, *,
                  basedir=None, maxdepth=None, 
                  mappers=[], reducers=[], emitter=None, 
-                 onwalkerror=None, followlinks=False):
+                 fallback=None, onwalkerror=None, followlinks=False):
         self._filename = filename
         self._filepath = filepath
         self._basedir = basedir
@@ -23,6 +23,7 @@ class find_files(FunctionCall):
         self._mappers = mappers
         self._reducers = reducers
         self._emitter = emitter
+        self._fallback = fallback
         self._onwalkerror = onwalkerror
         self._followlinks = followlinks
         if not self._basedir:
@@ -35,7 +36,8 @@ class find_files(FunctionCall):
         mappers = self._builtin_mappers+self._mappers
         values = map_reduce(files, 
             mappers=mappers, 
-            reducers=self._reducers)
+            reducers=self._reducers,
+            fallback=self._fallback)
         return values            
             
     #Protected
@@ -44,7 +46,7 @@ class find_files(FunctionCall):
     
     def _get_files(self):
         walk = self._walk_function(
-            self._basedir, 
+            self._basedir,
             onerror=self._onwalkerror,
             followlinks=self._followlinks)
         for dirpath, _, filenames in walk:       
