@@ -13,10 +13,10 @@ class find_objects(map_reduce):
        
     def __init__(self, objname=None, objtype=None, *, 
                  filename=None, filepath=None,  
-                 basedir=None, maxdepth=None, 
+                 basedir=None, maxdepth=None,
+                 onwalkerror=None, followlinks=False,
                  mappers=[], reducers=[], 
-                 emitter=None, fallback=None, 
-                 onwalkerror=None, followlinks=False):
+                 emitter=None, fallback=None):
         self._objname = objname
         self._objtype = objtype
         self._filename = filename        

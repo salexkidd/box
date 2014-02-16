@@ -13,9 +13,9 @@ class find_files(map_reduce):
 
     def __init__(self, filename=None, filepath=None, *,
                  basedir=None, maxdepth=None, 
+                 onwalkerror=None, followlinks=False,
                  mappers=[], reducers=[], 
-                 emitter=None, fallback=None,
-                 onwalkerror=None, followlinks=False):
+                 emitter=None, fallback=None):
         self._filename = filename
         self._filepath = filepath
         self._basedir = basedir
