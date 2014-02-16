@@ -6,10 +6,11 @@ class map_reduce(FunctionCall):
     
     def __init__(self, iterable, *, 
                  mappers=[], reducers=[], 
-                 emitter=None):
+                 fallback=None, emitter=None):
         self._iterable = iterable
         self._mappers = mappers
         self._reducers = reducers
+        self._fallback = fallback
         self._emitter = emitter
         if not self._emitter:
             self._emitter = self.default_emitter
@@ -39,11 +40,18 @@ class map_reduce(FunctionCall):
                 break
     
     def _reduce(self, values):
-        result = values
-        for reducer in self._reducers:
-            result = reducer(result)
-        return result
-    
+        try:
+            result = values
+            for reducer in self._reducers:
+                result = reducer(result)
+            return result
+        except Exception as exception:
+            if isinstance(self._fallback, Exception):
+                raise self._fallback
+            elif callable(self._fallback):
+                return self._fallback(exception)            
+            else:
+                return self._fallback
     
 class MapEmitter:
 
