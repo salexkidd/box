@@ -16,7 +16,7 @@ class find_objects(FunctionCall):
                  filename=None, filepath=None,  
                  basedir=None, maxdepth=None, 
                  mappers=[], reducers=[], emitter=None, 
-                 onwalkerror=None, followlinks=False):
+                 fallback=None, onwalkerror=None, followlinks=False):
         self._objname = objname
         self._objtype = objtype
         self._filename = filename        
@@ -26,6 +26,7 @@ class find_objects(FunctionCall):
         self._mappers = mappers
         self._reducers = reducers
         self._emitter = emitter
+        self._fallback = fallback        
         self._onwalkerror = onwalkerror
         self._followlinks = followlinks          
         if not self._basedir:
@@ -38,7 +39,8 @@ class find_objects(FunctionCall):
         mappers = self._builtin_mappers+self._mappers
         result = map_reduce(objects, 
             mappers=mappers, 
-            reducers=self._reducers)
+            reducers=self._reducers,
+            fallback=self._fallback)
         return result
     
     #Protected
