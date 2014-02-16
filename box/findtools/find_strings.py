@@ -14,7 +14,7 @@ class find_strings(FunctionCall):
                  filename=None, filepath=None,  
                  basedir=None, maxdepth=None, 
                  mappers=[], reducers=[], emitter=None, 
-                 onwalkerror=None, followlinks=False):
+                 fallback=None, onwalkerror=None, followlinks=False):
         self._string = string
         self._filename = filename
         self._filepath = filepath        
@@ -23,6 +23,7 @@ class find_strings(FunctionCall):
         self._mappers = mappers
         self._reducers = reducers
         self._emitter = emitter
+        self._fallback = fallback        
         self._onwalkerror = onwalkerror
         self._followlinks = followlinks        
         if not self._basedir:
@@ -34,7 +35,8 @@ class find_strings(FunctionCall):
         strings = self._get_strings()
         values = map_reduce(strings, 
             mappers=self._mappers, 
-            reducers=self._reducers)
+            reducers=self._reducers,
+            fallback=self._fallback)
         return values
     
     #Protected
