@@ -1,8 +1,8 @@
-from ..itertools import MapReduceCall
+from ..itertools import map_reduce
 from ..types import RegexCompiledPatternType
 from .find_files import find_files, FindFilesMapEmitter
   
-class find_strings(MapReduceCall):
+class find_strings(map_reduce):
 
     #Public
     
@@ -19,16 +19,15 @@ class find_strings(MapReduceCall):
         self._filepath = filepath        
         self._basedir = basedir
         self._maxdepth = maxdepth
-        self._user_mappers = mappers
-        self._user_reducers = reducers
-        self._emitter = emitter
-        self._fallback = fallback        
         self._onwalkerror = onwalkerror
         self._followlinks = followlinks        
         if not self._basedir:
             self._basedir = self.default_basedir
-        if not self._emitter:
-            self._emitter = self.default_emitter
+        super().__init__(
+            mappers=mappers, 
+            reducers=reducers,
+            emitter=emitter, 
+            fallback=fallback) 
     
     #Protected
         
@@ -36,7 +35,7 @@ class find_strings(MapReduceCall):
     _find_files_function = staticmethod(find_files)
     
     @property
-    def _iterable(self):
+    def _builtin_values(self):
         for filepath in self._files:
             with self._open_function(filepath) as fileobj:
                 filetext = fileobj.read()
