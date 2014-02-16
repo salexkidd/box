@@ -1,1 +1,1 @@
-#Builded for box 0.10.1 from _templates/requirements.txt
+#Builded for box 0.11.0 from _templates/requirements.txt
