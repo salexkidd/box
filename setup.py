@@ -22,7 +22,7 @@ package = {
     'author': 'roll',
     'author_email': 'roll@respect31.com',
     'classifiers': ['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],       
-    'description': 'Box is library to provide common functionality.',
+    'description': 'Box is a library to provide common functionality.',
     'download_url':'https://github.com/respect31/box/tarball/0.10.1',
     'license': 'MIT License',
     'maintainer': 'roll',
@@ -33,7 +33,7 @@ package = {
 
 Box
 =====================
-Box is library to provide common functionality.
+Box is a library to provide common functionality.
 
 .. image:: https://secure.travis-ci.org/respect31/box.png?branch=master 
      :target: https://travis-ci.org/respect31/box 
