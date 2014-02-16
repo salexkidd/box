@@ -6,12 +6,12 @@ class map_reduce(FunctionCall):
     
     def __init__(self, iterable, *, 
                  mappers=[], reducers=[], 
-                 fallback=None, emitter=None):
+                 emitter=None, fallback=None):
         self._iterable = iterable
         self._mappers = mappers
         self._reducers = reducers
+        self._emitter = emitter        
         self._fallback = fallback
-        self._emitter = emitter
         if not self._emitter:
             self._emitter = self.default_emitter
     
