@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from ..functools import FunctionCall
-from .map_reduce import map_reduce, MapEmitter
+from .map_reduce import map_reduce
 
 class MapReduceCall(FunctionCall, metaclass=ABCMeta):
 
@@ -21,7 +21,7 @@ class MapReduceCall(FunctionCall, metaclass=ABCMeta):
     _builtin_reducers = []
     _user_mappers = []
     _user_reducers = []
-    _emitter = MapEmitter
+    _emitter = None
     _fallback = None
     
     @property
