@@ -50,8 +50,10 @@ class map_reduce(FunctionCall):
                 raise self._fallback
             elif callable(self._fallback):
                 return self._fallback(exception)            
-            else:
+            elif self._fallback != None:
                 return self._fallback
+            else:
+                raise
     
 class MapEmitter:
 
