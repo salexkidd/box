@@ -36,10 +36,9 @@ class find_objects(FunctionCall):
     
     def __call__(self):
         objects = self._get_objects()
-        mappers = self._builtin_mappers+self._mappers
         result = map_reduce(objects, 
-            mappers=mappers, 
-            reducers=self._reducers,
+            mappers=self._effective_mappers, 
+            reducers=self._effective_reducers,
             fallback=self._fallback)
         return result
     
@@ -73,10 +72,22 @@ class find_objects(FunctionCall):
             followlinks = self._followlinks)
         return files
     
+    @property        
+    def _effective_mappers(self):
+        return self._builtin_mappers+self._mappers    
+    
+    @property        
+    def _effective_reducers(self):
+        return self._builtin_reducers+self._reducers
+    
     @property
     def _builtin_mappers(self):
         return [FindObjectsObjnameMapper(self._objname),
                 FindObjectsObjtypeMapper(self._objtype)]
+
+    @property        
+    def _builtin_reducers(self):
+        return [] 
          
     
 class FindObjectsMapEmitter(FindFilesMapEmitter):

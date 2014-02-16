@@ -33,12 +33,11 @@ class find_files(FunctionCall):
             
     def __call__(self):
         files = self._get_files()        
-        mappers = self._builtin_mappers+self._mappers
-        values = map_reduce(files, 
-            mappers=mappers, 
-            reducers=self._reducers,
+        result = map_reduce(files, 
+            mappers=self._effective_mappers, 
+            reducers=self._effective_reducers,
             fallback=self._fallback)
-        return values            
+        return result
             
     #Protected
             
@@ -53,12 +52,24 @@ class find_files(FunctionCall):
             for filename in filenames:
                 filepath = os.path.join(dirpath, filename)
                 yield self._emitter(filepath, filepath=filepath) 
-        
+    
+    @property        
+    def _effective_mappers(self):
+        return self._builtin_mappers+self._mappers    
+    
+    @property        
+    def _effective_reducers(self):
+        return self._builtin_reducers+self._reducers
+       
     @property        
     def _builtin_mappers(self):
         return [FindFilesMaxdepthMapper(self._basedir, self._maxdepth),
                 FindFilesFilenameMapper(self._filename),
                 FindFilesFilepathMapper(self._filepath)]
+
+    @property        
+    def _builtin_reducers(self):
+        return []
         
 
 class FindFilesMapEmitter(MapEmitter):

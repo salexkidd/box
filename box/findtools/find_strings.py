@@ -33,11 +33,11 @@ class find_strings(FunctionCall):
             
     def __call__(self):
         strings = self._get_strings()
-        values = map_reduce(strings, 
-            mappers=self._mappers, 
-            reducers=self._reducers,
+        result = map_reduce(strings, 
+            mappers=self._effective_mappers, 
+            reducers=self._effective_reducers,
             fallback=self._fallback)
-        return values
+        return result
     
     #Protected
         
@@ -68,7 +68,23 @@ class find_strings(FunctionCall):
             maxdepth=self._maxdepth,
             onwalkerror = self._onwalkerror,
             followlinks = self._followlinks)
-        return files  
+        return files
+    
+    @property        
+    def _effective_mappers(self):
+        return self._builtin_mappers+self._mappers    
+    
+    @property        
+    def _effective_reducers(self):
+        return self._builtin_reducers+self._reducers
+    
+    @property        
+    def _builtin_mappers(self):
+        return []
+
+    @property        
+    def _builtin_reducers(self):
+        return []     
   
 
 class FindStringsMapEmitter(FindFilesMapEmitter): pass
