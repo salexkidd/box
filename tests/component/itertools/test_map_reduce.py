@@ -37,7 +37,13 @@ class map_reduce_Test(unittest.TestCase):
     def test_with_reducer(self):
         reducer = lambda values: 'reduced'
         elements = map_reduce(self.iterable, reducers=[reducer])
-        self.assertEqual(elements, 'reduced')    
+        self.assertEqual(elements, 'reduced')
+        
+    def test_with_reducer_and_fallback(self):
+        reducer = lambda values: 1/0
+        elements = map_reduce(
+            self.iterable, reducers=[reducer], fallback='fallback')
+        self.assertEqual(elements, 'fallback')        
 
 
 class MapEmitterTest(unittest.TestCase): 
