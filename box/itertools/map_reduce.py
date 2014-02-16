@@ -1,29 +1,35 @@
+from itertools import chain
 from ..functools import FunctionCall,  DEFAULT
 
 class map_reduce(FunctionCall):
     
     default_emitter = 'deferred:MapEmitter'
     
-    def __init__(self, iterable, *, 
+    def __init__(self, values=[], *args, 
                  mappers=[], reducers=[], 
-                 emitter=None, fallback=None):
-        self._iterable = iterable
-        self._mappers = mappers
-        self._reducers = reducers
-        self._emitter = emitter        
+                 emitter=None, fallback=None, 
+                 **kwargs):
+        self._user_values = values
+        self._user_mappers = mappers
+        self._user_reducers = reducers
+        self._emitter = emitter
         self._fallback = fallback
         if not self._emitter:
             self._emitter = self.default_emitter
     
     def __call__(self):
-        values = self._map()
-        reduced_values = self._reduce(values)
+        mapped_values = self._map(self._values)
+        reduced_values = self._reduce(mapped_values)
         return reduced_values
 
     #Protected
     
-    def _map(self):
-        for emitter in self._iterable:
+    _builtin_values = []
+    _builtin_mappers = []
+    _builtin_reducers = []
+    
+    def _map(self, values):
+        for emitter in values:
             if not isinstance(emitter, self._emitter):
                 emitter = self._emitter(emitter)
             for mapper in self._mappers:
@@ -54,6 +60,19 @@ class map_reduce(FunctionCall):
                 return self._fallback
             else:
                 raise
+            
+    @property            
+    def _values(self):
+        return chain(self._builtin_values, self._user_values)
+    
+    @property        
+    def _mappers(self):
+        return chain(self._builtin_mappers, self._user_mappers)    
+    
+    @property        
+    def _reducers(self):
+        return chain(self._builtin_reducers, self._user_reducers)
+    
     
 class MapEmitter:
 
