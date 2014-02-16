@@ -60,7 +60,12 @@ class find_files_Test(unittest.TestCase):
     def test_with_reducer(self):
         reducer=lambda files: list(files)[0]
         files = self.find(filename='file1', maxdepth=1, reducers=[reducer])
-        self.assertEqual(files, 'file1')               
+        self.assertEqual(files, 'file1')
+    
+    def test_with_reducer_and_fallback(self):
+        reducer = lambda values: 1/0
+        files = self.find(reducers=[reducer], fallback='fallback')
+        self.assertEqual(files, 'fallback')                     
     
     #Protected
     

@@ -43,7 +43,12 @@ class find_strings_Test(unittest.TestCase):
             emitter.value(emitter.filepath+':'+emitter.value()))
         strings = list(self.find(re.compile('(da|ta)'), mappers=[mapper]))
         self.assertEqual(strings, 
-            ['file1:da', 'file1:ta', 'file2:da', 'file2:ta'])       
+            ['file1:da', 'file1:ta', 'file2:da', 'file2:ta'])
+    
+    def test_with_reducer_and_fallback(self):
+        reducer = lambda values: 1/0
+        strings = self.find(reducers=[reducer], fallback='fallback')
+        self.assertEqual(strings, 'fallback')          
     
     #Protected
 

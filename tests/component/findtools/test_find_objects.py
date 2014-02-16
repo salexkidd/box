@@ -48,6 +48,11 @@ class find_objects_Test(unittest.TestCase):
         objects = list(self.find(objname='call', mappers=[mapper]))
         self.assertEqual(objects, ['call', 'call'])               
     
+    def test_with_reducer_and_fallback(self):
+        reducer = lambda values: 1/0
+        objects = self.find(reducers=[reducer], fallback='fallback')
+        self.assertEqual(objects, 'fallback')
+        
     #Protected
 
     def _make_mock_find_function(self, files):
