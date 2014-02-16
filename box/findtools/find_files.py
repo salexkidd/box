@@ -29,7 +29,7 @@ class find_files(map_reduce):
     _walk_function = staticmethod(os.walk)
     
     @property
-    def _builtin_values(self):
+    def _extension_values(self):
         walk = self._walk_function(
             self._basedir,
             onerror=self._onwalkerror,
@@ -40,7 +40,7 @@ class find_files(map_reduce):
                 yield self._emitter(filepath, filepath=filepath) 
 
     @property        
-    def _builtin_mappers(self):
+    def _extension_mappers(self):
         return [FindFilesMaxdepthMapper(self._basedir, self._maxdepth),
                 FindFilesFilenameMapper(self._filename),
                 FindFilesFilepathMapper(self._filepath)]

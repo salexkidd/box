@@ -7,12 +7,14 @@ class map_reduce(FunctionCall):
     
     def __init__(self, values=[], *args, 
                  mappers=[], reducers=[], 
-                 emitter=None, fallback=None, **kwargs):
+                 emitter=None, fallback=None, 
+                 getfirst=False, **kwargs):
         self._user_values = values
         self._user_mappers = mappers
         self._user_reducers = reducers
         self._emitter = emitter
         self._fallback = fallback
+        self._getfirst = getfirst
         if not self._emitter:
             self._emitter = self.default_emitter
     
@@ -22,10 +24,11 @@ class map_reduce(FunctionCall):
         return reduced_values
 
     #Protected
-    
-    _builtin_values = []
-    _builtin_mappers = []
-    _builtin_reducers = []
+
+    _extension_values = []
+    _extension_mappers = []
+    _extension_reducers = []
+    _getfirst_exception = None
     
     def _map(self, values):
         for emitter in values:
@@ -62,19 +65,40 @@ class map_reduce(FunctionCall):
             
     @property            
     def _values(self):
-        return chain(self._builtin_values, 
-                     self._user_values)
+        return chain(
+            self._system_values,
+            self._extension_values,
+            self._user_values)
     
     @property        
     def _mappers(self):
-        return chain(self._builtin_mappers, 
-                     self._user_mappers)    
+        return chain(
+            self._system_mappers,                
+            self._extension_mappers,
+            self._user_mappers)    
     
     @property        
     def _reducers(self):
-        return chain(self._builtin_reducers, 
-                     self._user_reducers)
+        return chain(
+            self._system_reducers,
+            self._extension_reducers,
+            self._user_reducers)
     
+    @property
+    def _system_values(self):
+        return []
+        
+    @property
+    def _system_mappers(self):
+        return [MapReduceGetfirstMapper(
+            self._getfirst)]
+    
+    @property
+    def _system_reducers(self):
+        return [MapReduceGetfirstReducer(
+            self._getfirst, 
+            self._getfirst_exception)]
+        
     
 class MapReduceEmitter:
 
@@ -86,6 +110,7 @@ class MapReduceEmitter:
         self._emitted = []
         self._skipped = False
         self._stopped = False
+        self._stopped_if_not_skipped = False
             
     def __getattr__(self, name):
         try:
@@ -111,9 +136,12 @@ class MapReduceEmitter:
             self._skipped = True
         return self
            
-    def stop(self, condition=None):
+    def stop(self, condition=None, *, if_not_skipped=False):
         if condition == None or condition:
-            self._stopped = True
+            if if_not_skipped:
+                self._stopped_if_not_skipped = True
+            else:
+                self._stopped = True
         return self
     
     @property
@@ -126,7 +154,47 @@ class MapReduceEmitter:
     
     @property
     def stopped(self):
-        return self._stopped  
+        if self._stopped:
+            return self._stopped
+        else:
+            if self._stopped_if_not_skipped:
+                return not self._skipped
+            else:
+                return False
     
     
-map_reduce.default_emitter = MapReduceEmitter  
+class MapReduceGetfirstMapper:
+
+    #Public
+    
+    def __init__(self, getfirst=False):
+        self._getfirst = getfirst
+
+    def __call__(self, emitter):
+        if self._getfirst:
+            emitter.stop(if_not_skipped=True)
+    
+    
+class MapReduceGetfirstReducer:
+
+    #Public
+    
+    default_exception = 'deferred:NotEmitted'
+    
+    def __init__(self, getfirst=False, exception=None):
+        self._getfirst = getfirst        
+        self._exception = exception
+
+    def __call__(self, values):
+        if self._getfirst:
+            try:
+                return next(values)
+            except Exception:
+                raise self._exception()
+        else:
+            return values
+        
+    
+class NotEmitted(Exception): pass
+map_reduce.default_emitter = MapReduceEmitter
+MapReduceGetfirstReducer.default_exception = NotEmitted    

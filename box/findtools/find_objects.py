@@ -33,7 +33,7 @@ class find_objects(map_reduce):
     _find_files_function = staticmethod(find_files)
     
     @property
-    def _builtin_values(self):
+    def _extension_values(self):
         for module in self._modules:
             for objname in dir(module):
                 obj = getattr(module, objname)
@@ -43,7 +43,7 @@ class find_objects(map_reduce):
                     module=module)
 
     @property
-    def _builtin_mappers(self):
+    def _extension_mappers(self):
         return [FindObjectsObjnameMapper(self._objname),
                 FindObjectsObjtypeMapper(self._objtype)] 
     

@@ -30,7 +30,7 @@ class find_strings(map_reduce):
     _find_files_function = staticmethod(find_files)
     
     @property
-    def _builtin_values(self):
+    def _extension_values(self):
         for filepath in self._files:
             with self._open_function(filepath) as fileobj:
                 filetext = fileobj.read()
