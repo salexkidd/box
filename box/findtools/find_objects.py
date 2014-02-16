@@ -14,9 +14,7 @@ class find_objects(map_reduce):
     def __init__(self, objname=None, objtype=None, *, 
                  filename=None, filepath=None,  
                  basedir=None, maxdepth=None,
-                 onwalkerror=None, followlinks=False,
-                 mappers=[], reducers=[], 
-                 emitter=None, fallback=None):
+                 onwalkerror=None, followlinks=False, **kwargs):
         self._objname = objname
         self._objtype = objtype
         self._filename = filename        
@@ -27,11 +25,7 @@ class find_objects(map_reduce):
         self._followlinks = followlinks          
         if not self._basedir:
             self._basedir = self.default_basedir
-        super().__init__(
-            mappers=mappers, 
-            reducers=reducers,
-            emitter=emitter, 
-            fallback=fallback)            
+        super().__init__(**kwargs)            
     
     #Protected
     
