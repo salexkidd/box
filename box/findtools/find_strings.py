@@ -1,6 +1,7 @@
 from ..itertools import map_reduce
 from ..types import RegexCompiledPatternType
 from .find_files import find_files, FindFilesEmitter
+from .not_found import NotFound
   
 class find_strings(map_reduce):
 
@@ -26,6 +27,7 @@ class find_strings(map_reduce):
     
     #Protected
         
+    _getfirst_exception = NotFound        
     _open_function = staticmethod(open)
     _find_files_function = staticmethod(find_files)
     

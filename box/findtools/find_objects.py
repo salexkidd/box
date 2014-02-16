@@ -3,6 +3,7 @@ from importlib.machinery import SourceFileLoader
 from ..itertools import map_reduce
 from ..types import RegexCompiledPatternType
 from .find_files import find_files, FindFilesEmitter
+from .not_found import NotFound
  
 class find_objects(map_reduce):
     
@@ -29,6 +30,7 @@ class find_objects(map_reduce):
     
     #Protected
     
+    _getfirst_exception = NotFound    
     _source_file_loader_class = SourceFileLoader
     _find_files_function = staticmethod(find_files)
     

@@ -3,6 +3,7 @@ import re
 import fnmatch
 from ..itertools import map_reduce, MapReduceEmitter
 from ..types import RegexCompiledPatternType
+from .not_found import NotFound
 
 class find_files(map_reduce):
 
@@ -26,6 +27,7 @@ class find_files(map_reduce):
             
     #Protected
             
+    _getfirst_exception = NotFound
     _walk_function = staticmethod(os.walk)
     
     @property

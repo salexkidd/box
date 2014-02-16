@@ -1,6 +1,5 @@
 import os
 import unittest
-from operator import itemgetter
 from box import version
 from box.findtools import find_objects
 
@@ -17,7 +16,7 @@ class SetupTest(unittest.TestCase):
             filename='setup.py', 
             basedir=self.basedir, 
             maxdepth=1,
-            reducers=[list, itemgetter(0)])
+            getfirst=True)
         self.assertEqual(package['name'], 'box')
         self.assertEqual(package['version'], version)
         
