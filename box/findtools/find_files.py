@@ -1,7 +1,7 @@
 import os
 import re
 import fnmatch
-from ..itertools import map_reduce, MapEmitter
+from ..itertools import map_reduce, MapReduceEmitter
 from ..types import RegexCompiledPatternType
 
 class find_files(map_reduce):
@@ -9,7 +9,7 @@ class find_files(map_reduce):
     #Public
     
     default_basedir = '.'
-    default_emitter = 'deferred:FindFilesMapEmitter'
+    default_emitter = 'deferred:FindFilesEmitter'
 
     def __init__(self, filename=None, filepath=None, *,
                  basedir=None, maxdepth=None, 
@@ -46,7 +46,7 @@ class find_files(map_reduce):
                 FindFilesFilepathMapper(self._filepath)]
         
 
-class FindFilesMapEmitter(MapEmitter):
+class FindFilesEmitter(MapReduceEmitter):
 
     #Public
 
@@ -119,4 +119,4 @@ class FindFilesFilepathMapper:
                     emitter.skip()
                     
                     
-find_files.default_emitter = FindFilesMapEmitter                          
+find_files.default_emitter = FindFilesEmitter                          

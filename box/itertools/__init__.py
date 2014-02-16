@@ -1,1 +1,1 @@
-from .map_reduce import map_reduce, MapEmitter
+from .map_reduce import map_reduce, MapReduceEmitter

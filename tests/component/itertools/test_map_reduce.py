@@ -1,5 +1,5 @@
 import unittest
-from box.itertools.map_reduce import map_reduce, MapEmitter
+from box.itertools.map_reduce import map_reduce, MapReduceEmitter
 
 class map_reduce_Test(unittest.TestCase):
 
@@ -46,12 +46,12 @@ class map_reduce_Test(unittest.TestCase):
         self.assertEqual(result, 'fallback')        
 
 
-class MapEmitterTest(unittest.TestCase): 
+class MapReduceEmitterTest(unittest.TestCase): 
     
     #Public
     
     def setUp(self):
-        self.emitter = MapEmitter('value', var='var')
+        self.emitter = MapReduceEmitter('value', var='var')
     
     def test___getattr__(self):
         self.assertEqual(self.emitter.var, 'var')

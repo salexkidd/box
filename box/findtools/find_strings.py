@@ -1,13 +1,13 @@
 from ..itertools import map_reduce
 from ..types import RegexCompiledPatternType
-from .find_files import find_files, FindFilesMapEmitter
+from .find_files import find_files, FindFilesEmitter
   
 class find_strings(map_reduce):
 
     #Public
     
     default_basedir = '.'
-    default_emitter = 'deferred:FindStringsMapEmitter'  
+    default_emitter = 'deferred:FindStringsEmitter'  
     
     def __init__(self, string=None, *,
                  filename=None, filepath=None,  
@@ -58,5 +58,5 @@ class find_strings(map_reduce):
         return files 
   
 
-class FindStringsMapEmitter(FindFilesMapEmitter): pass
-find_strings.default_emitter = FindStringsMapEmitter 
+class FindStringsEmitter(FindFilesEmitter): pass
+find_strings.default_emitter = FindStringsEmitter 

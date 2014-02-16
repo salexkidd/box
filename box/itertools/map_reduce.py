@@ -3,7 +3,7 @@ from ..functools import FunctionCall,  DEFAULT
 
 class map_reduce(FunctionCall):
     
-    default_emitter = 'deferred:MapEmitter'
+    default_emitter = 'deferred:MapReduceEmitter'
     
     def __init__(self, values=[], *args, 
                  mappers=[], reducers=[], 
@@ -76,7 +76,7 @@ class map_reduce(FunctionCall):
                      self._user_reducers)
     
     
-class MapEmitter:
+class MapReduceEmitter:
 
     #Public
 
@@ -129,4 +129,4 @@ class MapEmitter:
         return self._stopped  
     
     
-map_reduce.default_emitter = MapEmitter  
+map_reduce.default_emitter = MapReduceEmitter  

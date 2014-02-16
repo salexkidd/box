@@ -2,14 +2,14 @@ import inspect
 from importlib.machinery import SourceFileLoader
 from ..itertools import map_reduce
 from ..types import RegexCompiledPatternType
-from .find_files import find_files, FindFilesMapEmitter
+from .find_files import find_files, FindFilesEmitter
  
 class find_objects(map_reduce):
     
     #Public  
     
     default_basedir = '.'
-    default_emitter = 'deferred:FindObjectsMapEmitter'
+    default_emitter = 'deferred:FindObjectsEmitter'
        
     def __init__(self, objname=None, objtype=None, *, 
                  filename=None, filepath=None,  
@@ -66,7 +66,7 @@ class find_objects(map_reduce):
         return files
       
     
-class FindObjectsMapEmitter(FindFilesMapEmitter):
+class FindObjectsEmitter(FindFilesEmitter):
 
     #Public
 
@@ -108,4 +108,4 @@ class FindObjectsObjtypeMapper:
                 emitter.skip()
                 
                 
-find_objects.default_emitter = FindObjectsMapEmitter                 
+find_objects.default_emitter = FindObjectsEmitter                 
