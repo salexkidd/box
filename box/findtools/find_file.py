@@ -1,4 +1,4 @@
 from .find_files import find_files
-from .find_value import FindValueMixin
+from .find_first import FindFirstMixin
 
-class find_file(FindValueMixin, find_files): pass
+class find_file(FindFirstMixin, find_files): pass

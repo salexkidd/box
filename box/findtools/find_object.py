@@ -1,4 +1,4 @@
+from .find_first import FindFirstMixin
 from .find_objects import find_objects
-from .find_value import FindValueMixin
 
-class find_object(FindValueMixin, find_objects): pass
+class find_object(FindFirstMixin, find_objects): pass
