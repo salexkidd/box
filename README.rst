@@ -1,4 +1,4 @@
-.. Builded for box 0.11.0 from _templates/README.rst
+.. Builded for box 0.12.0 from _templates/README.rst
 
 Box
 =====================
