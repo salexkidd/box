@@ -33,8 +33,5 @@ package = {
     
 }
 
-if __name__ == '__main__':
-	if (os.environ.get('TRAVIS', None) or 
-		os.environ.get('READTHEDOCS', None)):
-		package['data_files'] = []	
+if __name__ == '__main__':	
 	setup(**package)
