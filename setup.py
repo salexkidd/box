@@ -1,4 +1,4 @@
-#Builded for box 0.12.0 from _templates/setup.tpl
+#Builded for box 0.12.0 from _sources/setup.tpl
 
 import os
 from setuptools import find_packages, setup
@@ -14,6 +14,7 @@ package = {
         exclude=['tests*']
     ),
 	'include_package_data': True,
+    'install_requires': [],  
     'tests_require': ['nose'],
     'test_suite': 'nose.collector',
     
@@ -29,7 +30,7 @@ package = {
     'maintainer_email': 'roll@respect31.com',
     'platforms': ['Unix'],
     'url': 'https://github.com/respect31/box',
-    'long_description': '''.. Builded for box 0.12.0 from _templates/README.rst
+    'long_description': '''.. Builded for box 0.12.0 from _sources/README.rst
 
 Box
 =====================
@@ -88,12 +89,9 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.''',        
+THE SOFTWARE.''',  
     
 }
 
 if __name__ == '__main__':
-	if (os.environ.get('TRAVIS', None) or 
-		os.environ.get('READTHEDOCS', None)):
-		package['data_files'] = []	
 	setup(**package)
