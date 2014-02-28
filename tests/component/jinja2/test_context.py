@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock
-from box.jinja2.object_context import ObjectContext
+from box.jinja2.context import ObjectContext
 
 class ObjectContextTest(unittest.TestCase):
     

@@ -36,9 +36,7 @@ class render_file_Test(unittest.TestCase):
         context = object()
         result = self.partial_render(context)
         self.assertEqual(result, 'text')
-        (self.render._object_context_class.
-            assert_called_with(context))
-        self.template.render.assert_called_with('object_context')   
+        self.template.render.assert_called_with(context)   
     
     #Protected
     
@@ -47,10 +45,8 @@ class render_file_Test(unittest.TestCase):
             #Public
             meta_module = 'module'
             #Protected
-            _object_context_class = Mock(return_value='object_context')
             _open_function = mock_open()
+            _file_system_loader_class = Mock(return_value='loader')            
             _environment_class = Mock(return_value=Mock(
                 get_template=Mock(return_value=template)))
-            _file_system_loader_class = Mock(return_value='loader')
-            _object_template_class = Mock()
         return mock_render           

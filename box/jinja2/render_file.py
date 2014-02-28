@@ -1,7 +1,6 @@
 import os
 from ..functools import FunctionCall
-from .object_context import ObjectContext
-from .object_template import ObjectTemplateMixin        
+from .environment import EnvironmentMixin
 
 class render_file(FunctionCall):
     
@@ -19,11 +18,10 @@ class render_file(FunctionCall):
             
     #Protected
     
-    _object_context_class = ObjectContext
     _open_function = staticmethod(open)
     
     def _render(self):
-        return self._template.render(self._prepared_context)
+        return self._template.render(self._context)
     
     def _write(self, content):
         if self._target:
@@ -35,36 +33,16 @@ class render_file(FunctionCall):
         dirpath, filename = os.path.split(self._source)
         loader = self._file_system_loader_class(dirpath)
         environment = self._environment_class(loader=loader)
-        if not self._is_object_jinja2_context(self._context):        
-            environment.template_class = self._object_template_class
         template = environment.get_template(filename)    
         return template
-    
-    @property    
-    def _prepared_context(self):
-        prepared_context = self._context
-        if not self._is_object_jinja2_context(prepared_context):
-            prepared_context = self._object_context_class(prepared_context)
-        return prepared_context
-    
-    def _is_object_jinja2_context(self, obj):
-        if hasattr(obj, '__contains__') and hasattr(obj, '__getitem__'):
-            return True
-        else:
-            return False
-    
-    @property
-    def _environment_class(self):
-        from jinja2 import Environment
-        return Environment
     
     @property
     def _file_system_loader_class(self):
         from jinja2 import FileSystemLoader
-        return FileSystemLoader    
+        return FileSystemLoader
     
     @property
-    def _object_template_class(self):
-        from jinja2 import Template
-        class ObjectTemplate(ObjectTemplateMixin, Template): pass
-        return ObjectTemplate
+    def _environment_class(self):
+        from jinja2 import Environment
+        class Environment(EnvironmentMixin, Environment): pass
+        return Environment
