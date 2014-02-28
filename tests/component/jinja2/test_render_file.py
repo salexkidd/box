@@ -15,22 +15,17 @@ class render_file_Test(unittest.TestCase):
     def test(self):
         result = self.partial_render()
         self.assertEqual(result, 'text')
-        (self.render._file_system_loader_class.
-            assert_called_with('/dirpath'))
-        (self.render._environment_class.
-            assert_called_with(loader='loader'))
-        (self.render._environment_class.
-         return_value.get_template.
-            assert_called_with('filename'))
+        self.render._file_system_loader_class.assert_called_with('/dirpath')
+        self.render._environment_class.assert_called_with(loader='loader')
+        (self.render._environment_class.  
+            return_value.get_template.assert_called_with('filename'))
         self.template.render.assert_called_with({})
     
     def test_with_target(self):
         result = self.partial_render(target='/target')
         self.assertEqual(result, 'text')
-        (self.render._open_function.
-            assert_called_with('/target', 'w'))
-        (self.render._open_function().write.
-            assert_called_with('text'))
+        self.render._open_function.assert_called_with('/target', 'w')
+        self.render._open_function().write.assert_called_with('text')
         
     def test_with_context_is_object(self):
         context = object()
