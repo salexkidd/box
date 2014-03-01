@@ -1,15 +1,16 @@
 import os
-from ..functools import FunctionCall
+from ..functools import cachedproperty, FunctionCall 
 from .environment import EnvironmentMixin
 
 class render_file(FunctionCall):
     
     #Public
     
-    def __init__(self, source, context={}, *, target=None):
+    def __init__(self, source, context={}, *, loader=None, target=None):
         self._source = source
         self._context = context
         self._target = target
+        self._loader = loader
     
     def __call__(self):
         content = self._render()
@@ -28,13 +29,28 @@ class render_file(FunctionCall):
             with self._open_function(self._target, 'w') as file:
                 file.write(content)
                 
-    @property
+    @cachedproperty
     def _template(self):
-        dirpath, filename = os.path.split(self._source)
-        loader = self._file_system_loader_class(dirpath)
-        environment = self._environment_class(loader=loader)
-        template = environment.get_template(filename)    
-        return template
+        return self._environment.get_template(self._effective_source)    
+    
+    @cachedproperty
+    def _environment(self):
+        return self._environment_class(loader=self._effective_loader)
+    
+    @cachedproperty
+    def _effective_source(self):
+        if self._loader:
+            return self._source
+        else:
+            return os.path.basename(self._source)
+            
+    @cachedproperty
+    def _effective_loader(self):
+        if self._loader:
+            return self._loader
+        else:
+            dirpath = os.path.dirname(self._source)
+            return self._file_system_loader_class(dirpath)
     
     @property
     def _file_system_loader_class(self):
