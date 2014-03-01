@@ -6,7 +6,7 @@ class render_file(FunctionCall):
     
     #Public
     
-    def __init__(self, source, context={}, target=None):
+    def __init__(self, source, context={}, *, target=None):
         self._source = source
         self._context = context
         self._target = target
