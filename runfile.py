@@ -28,4 +28,4 @@ class MainModule(PythonPackgramModule):
     tests_require = ['nose']
     test_suite = 'nose.collector'    
     #TODO: fix autoversion!
-    version = '0.12.0'
+    version = '0.13.0'
