@@ -5,15 +5,15 @@ class InputCall(FunctionCall):
     #Public
     
     prompt = 'Input'
-    error = 'Try again..'
+    border = ': '
     default = None
     options = None
-    attempts = 3 
-    binding = ' '
-    brackets = '[]'
-    end = ':'
-    separator = '/'    
-    on_default = staticmethod(str.upper)
+    attempts = 3
+    error = 'Try again..'
+    hint_indent = ' '
+    hint_borders = '[]'
+    hint_separator = '/'
+    hint_on_default = staticmethod(str.upper)
     input_function = staticmethod(input)
     print_function = staticmethod(print)
     
@@ -52,12 +52,12 @@ class InputCall(FunctionCall):
     def templated_prompt(self):
         hint = ''
         if self.options:
-            hint = ('{binding}{left_bracket}'
-                    '{formatted_options}{right_bracket}')
+            hint = ('{hint_indent}{hint_left_border}'
+                    '{formatted_options}{hint_right_border}')
         elif self.default:
-            hint = ('{binding}{left_bracket}'
-                    '{formatted_default}{right_bracket}')
-        return '{prompt}'+hint+'{end}'
+            hint = ('{hint_indent}{hint_left_border}'
+                    '{formatted_default}{hint_right_border}')
+        return '{prompt}'+hint+'{border}'
 
     @property
     def templated_error(self):
@@ -84,9 +84,9 @@ class InputCall(FunctionCall):
             elements = []
             for option in self.options:
                 if option == self.default:
-                    option = self.on_default(option)
+                    option = self.hint_on_default(option)
                 elements.append(option)
-            options = self.separator.join(elements)
+            options = self.hint_separator.join(elements)
         return options
     
     @property
@@ -97,12 +97,12 @@ class InputCall(FunctionCall):
         return default
     
     @property    
-    def left_bracket(self):
-        return self.brackets[:int(len(self.brackets)/2)]
+    def hint_left_border(self):
+        return self.hint_borders[:int(len(self.hint_borders)/2)]
     
     @property    
-    def right_bracket(self):
-        return self.brackets[int(len(self.brackets)/2):]    
+    def hint_right_border(self):
+        return self.hint_borders[int(len(self.hint_borders)/2):]    
     
     
 locals().update({'input': InputCall}) 
