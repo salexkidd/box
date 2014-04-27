@@ -5,7 +5,7 @@ class InputCall(FunctionCall):
     #Public
     
     prompt = 'Input'
-    border = ': '
+    separator = ': '
     default = None
     options = None
     attempts = 3
@@ -57,7 +57,7 @@ class InputCall(FunctionCall):
         elif self.default:
             hint = ('{hint_indent}{hint_left_border}'
                     '{formatted_default}{hint_right_border}')
-        return '{prompt}'+hint+'{border}'
+        return '{prompt}'+hint+'{separator}'
 
     @property
     def templated_error(self):
