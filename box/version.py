@@ -22,7 +22,7 @@ class Version(str):
     
     @property
     def _as_str(self):
-        items = [self.major, self.minor, self.micro] 
+        items = [self.major, self.minor, self.micro]
         if self.level != 'final':
             items.append(self.level)
         return '.'.join(map(str, items)) 
