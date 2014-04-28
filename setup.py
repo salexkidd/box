@@ -1,4 +1,4 @@
-#Builded for box 0.14.0 from _sources/setup.tpl
+#DO NOT CHANGE THIS FILE. SOURCE IS IN "_sources" DIRECTORY.
 
 import os
 from setuptools import find_packages, setup
@@ -30,7 +30,7 @@ package = {
     'maintainer_email': 'roll@respect31.com',
     'platforms': ['Unix'],
     'url': 'https://github.com/respect31/box',
-    'long_description': '''.. Builded for box 0.14.0 from _sources/README.rst
+    'long_description': '''.. DO NOT CHANGE THIS FILE. SOURCE IS IN "_sources" DIRECTORY.
 
 Box
 =====================
