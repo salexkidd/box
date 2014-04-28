@@ -32,7 +32,16 @@ class map_reduce_Test(unittest.TestCase):
     def test_with_mapper_using_stop(self):
         mapper = lambda emitter: emitter.stop()
         result = list(map_reduce(self.iterable, mappers=[mapper]))
-        self.assertEqual(result, ['value1'])                 
+        self.assertEqual(result, ['value1'])
+        
+    def test_with_mapper_using_stop_and_skip(self):
+        #Test ensures that map will stop on step with stop and skip
+        mapper1 = lambda emitter: emitter.stop()
+        def mapper2(emitter):
+            if emitter.value() == 'value1':
+                emitter.skip()
+        result = list(map_reduce(self.iterable, mappers=[mapper1, mapper2]))
+        self.assertEqual(result, [])                        
         
     def test_with_reducer(self):
         reducer = lambda result: 'reduced'

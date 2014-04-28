@@ -39,6 +39,8 @@ class map_reduce(FunctionCall):
                 if emitter.skipped:
                     break
             if emitter.skipped:
+                if emitter.stopped:
+                    break
                 continue
             if emitter.emitted:
                 yield from emitter.emitted
