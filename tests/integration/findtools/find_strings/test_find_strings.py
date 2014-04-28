@@ -3,7 +3,7 @@ import re
 import unittest
 from box.findtools import find_strings
 
-class StringFinderTest(unittest.TestCase):
+class find_strings_Test(unittest.TestCase):
 
     #Public
     

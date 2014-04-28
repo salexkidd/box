@@ -2,7 +2,7 @@ import os
 import unittest
 from box.findtools import find_files
 
-class FileFinderTest(unittest.TestCase):
+class find_files_Test(unittest.TestCase):
 
     #Public
     
