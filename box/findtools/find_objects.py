@@ -15,7 +15,7 @@ class find_objects(map_reduce):
     def __init__(self, objname=None, objtype=None, *, 
                  filename=None, filepath=None,  
                  basedir=None, maxdepth=None,
-                 onwalkerror=None, followlinks=False, **kwargs):
+                 onwalkerror=None, **kwargs):
         self._objname = objname
         self._objtype = objtype
         self._filename = filename        
@@ -23,7 +23,6 @@ class find_objects(map_reduce):
         self._basedir = basedir
         self._maxdepth = maxdepth       
         self._onwalkerror = onwalkerror
-        self._followlinks = followlinks          
         if not self._basedir:
             self._basedir = self.default_basedir
         super().__init__(**kwargs)            
@@ -63,8 +62,7 @@ class find_objects(map_reduce):
             filepath=self._filepath,             
             basedir=self._basedir, 
             maxdepth=self._maxdepth,
-            onwalkerror = self._onwalkerror,
-            followlinks = self._followlinks)
+            onwalkerror = self._onwalkerror)
         return files
       
     

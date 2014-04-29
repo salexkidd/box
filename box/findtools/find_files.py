@@ -15,13 +15,12 @@ class find_files(map_reduce):
 
     def __init__(self, filename=None, filepath=None, *,
                  basedir=None, maxdepth=None, 
-                 onwalkerror=None, followlinks=False, **kwargs):
+                 onwalkerror=None, **kwargs):
         self._filename = filename
         self._filepath = filepath
         self._basedir = basedir
         self._maxdepth = maxdepth
         self._onwalkerror = onwalkerror
-        self._followlinks = followlinks
         if not self._basedir:
             self._basedir = self.default_basedir
         super().__init__(**kwargs)
