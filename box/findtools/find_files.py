@@ -36,7 +36,9 @@ class find_files(map_reduce):
             self._basedir,
             onerror=self._onwalkerror,
             followlinks=self._followlinks)
-        for dirpath, _, filenames in walk:       
+        for dirpath, dirnames, filenames in walk:
+            dirnames.sort()
+            filenames.sort()
             for filename in filenames:
                 filepath = os.path.join(dirpath, filename)
                 yield self._emitter(filepath, filepath=filepath) 
