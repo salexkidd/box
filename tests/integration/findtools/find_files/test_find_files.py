@@ -9,7 +9,6 @@ class find_files_Test(unittest.TestCase):
     def test_find(self):
         files = list(find_files(
             filename='file1', basedir=self._get_fixtures_path()))
-        print(files)
         self.assertEqual(files, [
             self._get_fixtures_path('file1'), 
             self._get_fixtures_path('folder1', 'file1'),

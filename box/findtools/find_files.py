@@ -2,6 +2,7 @@ import os
 import re
 import fnmatch
 from ..itertools import map_reduce, MapReduceEmitter
+from ..os import balanced_walk
 from ..types import RegexCompiledPatternType
 from .not_found import NotFound
 
@@ -28,20 +29,13 @@ class find_files(map_reduce):
     #Protected
             
     _getfirst_exception = NotFound
-    _walk_function = staticmethod(os.walk)
+    _walk_function = staticmethod(balanced_walk)
     
     @property
     def _extension_values(self):
-        walk = self._walk_function(
-            self._basedir,
-            onerror=self._onwalkerror,
-            followlinks=self._followlinks)
-        for dirpath, dirnames, filenames in walk:
-            dirnames.sort()
-            filenames.sort()
-            for filename in filenames:
-                filepath = os.path.join(dirpath, filename)
-                yield self._emitter(filepath, filepath=filepath) 
+        for filepath in self._walk_function(
+            self._basedir, onerror=self._onwalkerror):
+            yield self._emitter(filepath, filepath=filepath) 
 
     @property        
     def _extension_mappers(self):
