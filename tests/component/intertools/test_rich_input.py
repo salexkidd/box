@@ -1,14 +1,14 @@
 import unittest
 from functools import partial
 from unittest.mock import Mock
-from box.input.input import input
+from box.intertools.rich_input import rich_input
 
-class input_Test(unittest.TestCase):
+class rich_input_Test(unittest.TestCase):
     
     #Public
     
     def setUp(self):
-        self.partial_input = partial(input, 'prompt')
+        self.partial_input = partial(rich_input, 'prompt')
     
     def test(self):
         input_function = Mock(return_value='input')

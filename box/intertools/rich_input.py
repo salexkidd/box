@@ -1,6 +1,6 @@
 from ..functools import FunctionCall
 
-class InputCall(FunctionCall):
+class rich_input(FunctionCall):
     
     #Public
     
@@ -102,7 +102,4 @@ class InputCall(FunctionCall):
     
     @property    
     def hint_right_border(self):
-        return self.hint_borders[int(len(self.hint_borders)/2):]    
-    
-    
-locals().update({'input': InputCall}) 
+        return self.hint_borders[int(len(self.hint_borders)/2):]
