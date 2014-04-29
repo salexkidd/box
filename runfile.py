@@ -21,7 +21,7 @@ class MainModule(PythonPackgramModule):
     development_requires = []    
     github_user = 'respect31'
     install_requires = []
-    license = 'MIT License'  
+    license = 'MIT License'
     maintainer = 'roll'
     maintainer_email = 'roll@respect31.com'
     name = 'box'
@@ -30,4 +30,14 @@ class MainModule(PythonPackgramModule):
     pypi_password_secure = 'jFRWJAyhP5RA9j8CEpJzwJhwZmbfcxW1HpRO43mMu2/Nh3FW7GdisUovCLOS/khygJvh86vfe6m69+GEVuH/VgUEw8GcdZ41Zcla0ZnBhQrH0PTQel5Fou85foD7yXf42toVY3DV7C/JPk8PK3swSlIJ26n4dVreI7y1xvRmVHk='
     tests_require = ['nose']
     test_suite = 'nose.collector'
-    version = '0.15.0'
+    
+    version = FindVar(
+        string=re.compile(
+            r'Version\(major=(\d*), minor=(\d*), micro=(\d*), level=\'(\w*)\'\)'),
+        filename='version.py',
+        maxdepth=2,
+        reducers=[
+            lambda values: [value for value in values if value != 'final'],
+            lambda values: '.'.join(values),
+        ],
+    )
