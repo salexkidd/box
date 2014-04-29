@@ -35,25 +35,20 @@ class find_objects(map_reduce):
     
     @property
     def _extension_values(self):
-        for module in self._modules:
+        for file in self._files: 
+            loader = self._source_file_loader_class(file, file)
+            module = loader.load_module(file)
             for objname in dir(module):
                 obj = getattr(module, objname)
                 yield self._emitter(obj,
                     object=obj, 
-                    objname=objname, 
+                    objname=objname,
                     module=module)
 
     @property
     def _extension_mappers(self):
         return [FindObjectsObjnameMapper(self._objname),
                 FindObjectsObjtypeMapper(self._objtype)] 
-    
-    @property              
-    def _modules(self):
-        for file in self._files: 
-            loader = self._source_file_loader_class(file, file)
-            module = loader.load_module(file)
-            yield module   
      
     @property             
     def _files(self):
