@@ -1,3 +1,5 @@
+import re
+from run import FindVar
 from packgram.manage import PythonPackgramModule
     
 class MainModule(PythonPackgramModule):

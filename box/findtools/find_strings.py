@@ -36,15 +36,28 @@ class find_strings(map_reduce):
             with self._open_function(filepath) as fileobj:
                 filetext = fileobj.read()
                 if isinstance(self._string, RegexCompiledPatternType):
+                    #Given string is regex object - re search
                     for match in self._string.finditer(filetext):
-                        has_groups = bool(match.groups())
-                        matched_string = match.group(has_groups)
-                        yield self._emitter(matched_string, filepath=filepath)
+                        matched_groups = match.groups()
+                        if matched_groups:
+                            #Yields every matched group
+                            for matched_group in matched_groups:
+                                yield self._emitter(matched_group, 
+                                                    filepath=filepath)
+                        else:
+                            #Yields whole match
+                            matched_string = match.group()
+                            yield self._emitter(matched_string, 
+                                                filepath=filepath)
                 elif self._string:
+                    #Given string is string - str search
                     matches = filetext.count(self._string)
                     for _ in range(matches):
+                        #Yields given strings matches count times
                         yield self._emitter(self._string, filepath=filepath)
                 else:
+                    #Given string is None - no search
+                    #Yields whole file
                     yield self._emitter(filetext, filepath=filepath)
                     
     @property
