@@ -9,9 +9,9 @@ class find_files_Test(unittest.TestCase):
     
     def setUp(self):
         walk_items = [
-            ['', [], ['file1', 'file2']],
-            ['folder', [], ['file1', 'file2']],
-            ['folder/subfolder', [], ['file3']],
+            'file1', 'file2', 
+            'folder/file1', 'folder/file2',
+            'folder/subfolder/file3',
         ]
         self.find = self._make_mock_find_function(walk_items)
    
