@@ -41,12 +41,12 @@ class find_strings(map_reduce):
                     for match in self._string.finditer(filetext):
                         matched_groups = match.groups()
                         if matched_groups:
-                            #Yields every matched group
+                            #Emits every matched group
                             for matched_group in matched_groups:
                                 yield self._emitter(matched_group, 
                                                     filepath=filepath)
                         else:
-                            #Yields whole match
+                            #Emits whole match
                             matched_string = match.group()
                             yield self._emitter(matched_string, 
                                                 filepath=filepath)
@@ -54,11 +54,11 @@ class find_strings(map_reduce):
                     #Search string is string - str search
                     matches = filetext.count(self._string)
                     for _ in range(matches):
-                        #Yields given strings matches count times
+                        #Emits given strings matches count times
                         yield self._emitter(self._string, filepath=filepath)
                 else:
                     #Search string is None - no search
-                    #Yields whole file
+                    #Emits whole file
                     yield self._emitter(filetext, filepath=filepath)
                     
     @property

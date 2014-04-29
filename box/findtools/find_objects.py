@@ -42,7 +42,7 @@ class find_objects(map_reduce):
             for objname in dir(module):
                 #Gets every object in module
                 obj = getattr(module, objname)
-                #Yields gotten object
+                #Emits gotten object
                 yield self._emitter(obj,
                     object=obj, 
                     objname=objname,
