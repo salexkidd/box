@@ -10,7 +10,7 @@ class find_objects(map_reduce):
     #Public  
     
     default_basedir = '.'
-    default_emitter = 'deferred:FindObjectsEmitter'
+    default_emitter = property(lambda self: FindObjectsEmitter)
        
     def __init__(self, objname=None, objtype=None, *, 
                  filename=None, filepath=None,  
@@ -105,7 +105,4 @@ class FindObjectsObjtypeMapper:
             if isinstance(types, type):
                 types = [types]
             if not isinstance(emitter.object, tuple(types)):
-                emitter.skip()
-                
-                
-find_objects.default_emitter = FindObjectsEmitter                 
+                emitter.skip()             

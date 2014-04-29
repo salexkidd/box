@@ -8,7 +8,7 @@ class find_strings(map_reduce):
     #Public
     
     default_basedir = '.'
-    default_emitter = 'deferred:FindStringsEmitter'  
+    default_emitter = property(lambda self: FindStringsEmitter) 
     
     def __init__(self, string=None, *,
                  filename=None, filepath=None,  
@@ -71,5 +71,4 @@ class find_strings(map_reduce):
         return files 
   
 
-class FindStringsEmitter(FindFilesEmitter): pass
-find_strings.default_emitter = FindStringsEmitter 
+class FindStringsEmitter(FindFilesEmitter): pass 

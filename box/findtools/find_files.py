@@ -11,7 +11,7 @@ class find_files(map_reduce):
     #Public
     
     default_basedir = '.'
-    default_emitter = 'deferred:FindFilesEmitter'
+    default_emitter = property(lambda self: FindFilesEmitter)
 
     def __init__(self, filename=None, filepath=None, *,
                  basedir=None, maxdepth=None, 
@@ -113,7 +113,4 @@ class FindFilesFilepathMapper:
                     emitter.skip()
             else:
                 if not fnmatch.fnmatch(emitter.filepath, self._filepath):
-                    emitter.skip()
-                    
-                    
-find_files.default_emitter = FindFilesEmitter                          
+                    emitter.skip()                      
