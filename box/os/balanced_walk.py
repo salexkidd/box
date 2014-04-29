@@ -11,7 +11,7 @@ def balanced_walk(*dirpathes, sorter=sorted):
     :returns generator: filepath generator
     """
     dirpathes = list(dirpathes)
-    inner_filepathes = []        
+    inner_filepathes = []
     inner_dirpathes = []
     for dirpath in dirpathes:
         for name in os.listdir(dirpath):
