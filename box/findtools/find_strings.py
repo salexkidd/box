@@ -33,10 +33,11 @@ class find_strings(map_reduce):
     @property
     def _extension_values(self):
         for filepath in self._files:
+            #Reads every file selected by find_files
             with self._open_function(filepath) as fileobj:
                 filetext = fileobj.read()
                 if isinstance(self._string, RegexCompiledPatternType):
-                    #Given string is regex object - re search
+                    #Search string is regex object - re search
                     for match in self._string.finditer(filetext):
                         matched_groups = match.groups()
                         if matched_groups:
@@ -50,13 +51,13 @@ class find_strings(map_reduce):
                             yield self._emitter(matched_string, 
                                                 filepath=filepath)
                 elif self._string:
-                    #Given string is string - str search
+                    #Search string is string - str search
                     matches = filetext.count(self._string)
                     for _ in range(matches):
                         #Yields given strings matches count times
                         yield self._emitter(self._string, filepath=filepath)
                 else:
-                    #Given string is None - no search
+                    #Search string is None - no search
                     #Yields whole file
                     yield self._emitter(filetext, filepath=filepath)
                     

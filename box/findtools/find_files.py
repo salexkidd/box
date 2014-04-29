@@ -34,6 +34,7 @@ class find_files(map_reduce):
     def _extension_values(self):
         for filepath in self._walk_function(
             self._basedir, onerror=self._onwalkerror):
+            #Yield every file gotten from walk in basedir
             yield self._emitter(filepath, filepath=filepath) 
 
     @property        

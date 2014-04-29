@@ -35,11 +35,14 @@ class find_objects(map_reduce):
     
     @property
     def _extension_values(self):
-        for file in self._files: 
+        for file in self._files:
+            #Loads as a module every selected by find_files file 
             loader = self._source_file_loader_class(file, file)
             module = loader.load_module(file)
             for objname in dir(module):
+                #Gets every object in module
                 obj = getattr(module, objname)
+                #Yields gotten object
                 yield self._emitter(obj,
                     object=obj, 
                     objname=objname,
