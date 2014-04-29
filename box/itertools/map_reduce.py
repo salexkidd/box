@@ -3,7 +3,7 @@ from ..functools import FunctionCall,  DEFAULT
 
 class map_reduce(FunctionCall):
     
-    default_emitter = 'deferred:MapReduceEmitter'
+    default_emitter = property(lambda self: MapReduceEmitter)
     
     def __init__(self, values=[], *args, 
                  mappers=[], reducers=[], 
@@ -181,7 +181,7 @@ class MapReduceGetfirstReducer:
 
     #Public
     
-    default_exception = 'deferred:NotEmitted'
+    default_exception = property(lambda self: NotEmitted)
     
     def __init__(self, getfirst=False, exception=None):
         self._getfirst = getfirst        
@@ -198,5 +198,3 @@ class MapReduceGetfirstReducer:
         
     
 class NotEmitted(Exception): pass
-map_reduce.default_emitter = MapReduceEmitter
-MapReduceGetfirstReducer.default_exception = NotEmitted    
