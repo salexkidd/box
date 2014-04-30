@@ -7,32 +7,36 @@ class SettingsMetaclass(type):
     
     def __call__(self, settings=None, **kwargs):
         settings = dict.__new__(self)
-        esettings = self.merge_extensions()
+        esettings = self._merge_extensions()
         esettings.update(settings)
         settings.__init__(settings=esettings, **kwargs)
         return settings
     
-    def merge_extensions(self):
+    #Protected
+    
+    def _merge_extensions(self):
         settings = {}
         for extension in self._extensions:
             if isinstance(extension, str):
                 if os.path.isfile(extension):
-                    extension_class = self.find_extension_class(extension)
+                    #Extension's Settings already exists 
+                    extension_class = self._find_extension_class(extension)
                     extension = extension_class()
                 else:
-                    self.make_extension_class(extension)
+                    #Extension's Settings has to be created
+                    self._create_extension_class(extension)
                     extension = {}
             settings.update(extension)
         return settings
     
-    def find_extension_class(self, filepath):
+    def _find_extension_class(self, filepath):
         extension_class = find_objects(
             objtype=self.__class__,
             filepath=filepath,
             getfirst=True)
         return extension_class
     
-    def make_extension_class(self, filepath):
+    def _create_extension_class(self, filepath):
         pass
         
 
