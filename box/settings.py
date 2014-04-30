@@ -1,3 +1,6 @@
+import os
+from .findtools import find_objects
+
 class SettingsMetaclass(type):
     
     #Public
@@ -12,9 +15,25 @@ class SettingsMetaclass(type):
     def merge_extensions(self):
         settings = {}
         for extension in self._extensions:
-            if isinstance(extension, dict):
-                settings.update(extension)
+            if isinstance(extension, str):
+                if os.path.isfile(extension):
+                    extension_class = self.find_extension_class(extension)
+                    extension = extension_class()
+                else:
+                    self.make_extension_class(extension)
+                    extension = {}
+            settings.update(extension)
         return settings
+    
+    def find_extension_class(self, filepath):
+        extension_class = find_objects(
+            objtype=self.__class__,
+            filepath=filepath,
+            getfirst=True)
+        return extension_class
+    
+    def make_extension_class(self, filepath):
+        pass
         
 
 class Settings(dict, metaclass=SettingsMetaclass):
