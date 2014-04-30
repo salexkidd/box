@@ -12,7 +12,8 @@ class SettingsMetaclass(type):
     def merge_extensions(self):
         settings = {}
         for extension in self._extensions:
-            pass
+            if isinstance(extension, dict):
+                settings.update(extension)
         return settings
         
 
