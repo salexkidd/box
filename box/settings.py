@@ -4,14 +4,16 @@ class SettingsMetaclass(type):
     
     def __call__(self, settings=None, **kwargs):
         settings = dict.__new__(self)
-        esettings = self.__class__.get_user_settings()
+        esettings = self.merge_extensions()
         esettings.update(settings)
         settings.__init__(settings=esettings, **kwargs)
         return settings
     
-    @classmethod
-    def get_user_settings(cls):
-        return {}
+    def merge_extensions(self):
+        settings = {}
+        for extension in self._extensions:
+            pass
+        return settings
         
 
 class Settings(dict, metaclass=SettingsMetaclass):
@@ -34,6 +36,8 @@ class Settings(dict, metaclass=SettingsMetaclass):
         type(self).__init__(self)
                     
     #Protected
+    
+    _extensions = []    
     
     @property
     def _as_dict(self):
