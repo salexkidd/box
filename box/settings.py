@@ -4,12 +4,14 @@ class SettingsMetaclass(type):
     
     def __call__(self, settings=None, **kwargs):
         settings = dict.__new__(self)
-        settings.__init__(settings=settings, **kwargs)
+        esettings = self.__class__.get_user_settings()
+        esettings.update(settings)
+        settings.__init__(settings=esettings, **kwargs)
         return settings
     
     @classmethod
     def get_user_settings(cls):
-        pass
+        return {}
         
 
 class Settings(dict, metaclass=SettingsMetaclass):
