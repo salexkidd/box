@@ -1,4 +1,14 @@
-class Settings(dict):
+class SettingsMetaclass(type):
+    
+    #Public
+    
+    def __call__(self, *args, **kwargs):
+        settings = dict.__new__(self)
+        settings.__init__(*args, **kwargs)
+        return settings
+        
+
+class Settings(dict, metaclass=SettingsMetaclass):
     
     #Public
     
