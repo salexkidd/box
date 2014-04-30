@@ -2,10 +2,14 @@ class SettingsMetaclass(type):
     
     #Public
     
-    def __call__(self, *args, **kwargs):
+    def __call__(self, settings=None, **kwargs):
         settings = dict.__new__(self)
-        settings.__init__(*args, **kwargs)
+        settings.__init__(settings=settings, **kwargs)
         return settings
+    
+    @classmethod
+    def get_user_settings(cls):
+        pass
         
 
 class Settings(dict, metaclass=SettingsMetaclass):
