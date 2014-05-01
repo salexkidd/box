@@ -1,0 +1,1 @@
+class NotEmitted(Exception): pass
