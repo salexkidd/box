@@ -4,4 +4,4 @@ class Settings(Settings):
 
     #Public
 
-    pass
+    attr2 = 'attr2'
