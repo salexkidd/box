@@ -26,11 +26,11 @@ class SettingsMetaclass(type):
         for extension in self._extensions:
             if isinstance(extension, str):
                 if os.path.isfile(extension):
-                    #Extension's Settings already exists 
+                    #Extension's settings file already exists 
                     extension_class = self._find_extension_class(extension)
                     extension = extension_class()
                 else:
-                    #Extension's Settings has to be created
+                    #Extension's settings file has to be created
                     self._create_extension_class(extension)
                     extension = {}
             settings.update(extension)
@@ -48,8 +48,8 @@ class SettingsMetaclass(type):
                 getfirst=True)
         except NotFound:
             raise RuntimeError(
-                'Settings file "filepath" doesn\'t contain '
-                'correct user settings class')
+                'Extension\'s settings file "filepath" doesn\'t '
+                'contain correct user settings class')
         return extension_class
     
     def _create_extension_class(self, filepath):
@@ -58,8 +58,8 @@ class SettingsMetaclass(type):
                 file.write(self._extension_file_pattern)
         except IOError:
             raise RuntimeError(
-                'Settings can\'t create settings file '
-                'at extension path "filepath"')
+                'Extension\'s settings file is failed '
+                'to be created at extension path "filepath"')
         
 
 class Settings(dict, metaclass=SettingsMetaclass):
