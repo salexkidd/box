@@ -25,14 +25,14 @@ class SettingsTest(unittest.TestCase):
             {'attr1': 'value1', 
              'attr2': 'value2'})
         
-    def test_extension_is_path_to_file_with_settings(self):
+    def test_extension_is_path_to_file_with_user_settings(self):
         extension = self._get_fixtures_path('settings1.py')
         settings = self._make_mock_settings_class([extension])()
         self.assertEqual(settings, 
             {'attr1': 'value1', 
-             'attr2': 'value2'}) 
+             'attr2': 'value2'})
         
-    def test_extension_is_path_to_file_without_correct_settings(self):
+    def test_extension_is_path_to_file_without_user_settings(self):
         extension = self._get_fixtures_path('settings2.py')
         MockSettings = self._make_mock_settings_class([extension])
         self.assertRaises(RuntimeError, MockSettings)
@@ -41,7 +41,7 @@ class SettingsTest(unittest.TestCase):
         extension = self._get_fixtures_path('settings3.py')
         settings = self._make_mock_settings_class([extension])()
         self.assertEqual(settings, 
-            {'attr1': 'value1'})      
+            {'attr1': 'value1'})
     
     #Protected
     
