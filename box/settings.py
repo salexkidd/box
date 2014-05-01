@@ -1,4 +1,5 @@
 import os
+import inspect
 from .findtools import find_objects
 
 class SettingsMetaclass(type):
@@ -35,6 +36,8 @@ class SettingsMetaclass(type):
             filename=os.path.basename(filepath),
             basedir=os.path.dirname(filepath),
             maxdepth=1,                      
+            mappers=[lambda emitter: emitter.skip(
+                inspect.getmodule(emitter.object) != emitter.module)],
             getfirst=True)
         return extension_class
     
