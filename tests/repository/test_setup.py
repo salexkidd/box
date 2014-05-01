@@ -1,7 +1,8 @@
 import os
 import unittest
 from box import version
-from box.findtools import find_objects
+#TODO: Nose in shell imports module instead of object
+from box.findtools.find_objects import find_objects
 
 class SetupTest(unittest.TestCase):
 

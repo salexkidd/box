@@ -1,6 +1,7 @@
 import os
 import unittest
-from box.findtools import find_files
+#TODO: Nose in shell imports module instead of object
+from box.findtools.find_files import find_files
 
 class find_files_Test(unittest.TestCase):
 
