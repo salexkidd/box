@@ -1,6 +1,6 @@
 import os
 import unittest
-from box.findtools import find_files
+from box.findtools.find_files import find_files
 
 class find_files_Test(unittest.TestCase):
 
