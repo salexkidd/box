@@ -8,14 +8,18 @@ class SettingsTest(unittest.TestCase):
 
     def test(self):
         settings = self._make_mock_settings_class()()
-        self.assertEqual(settings, {'attr1': 'attr1'})
+        self.assertEqual(settings, {'attr1': 'value1'})
+        
+    def test_dict_extension(self):
+        settings = self._make_mock_settings_class([{'attr2': 'value2'}])()
+        self.assertEqual(settings, {'attr1': 'value1', 'attr2': 'value2'})         
     
     #Protected
     
     def _make_mock_settings_class(self, extensions=[]):
         class MockSettings(Settings):
             #Public
-            attr1='attr1'
+            attr1='value1'
             #Protected
             _extensions=extensions
         return MockSettings

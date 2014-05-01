@@ -4,4 +4,4 @@ class Settings(Settings):
 
     #Public
 
-    attr2 = 'attr2'
+    attr2 = 'value2'
