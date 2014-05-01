@@ -32,7 +32,9 @@ class SettingsMetaclass(type):
     def _find_extension_class(self, filepath):
         extension_class = find_objects(
             objtype=self.__class__,
-            filepath=filepath,
+            filename=os.path.basename(filepath),
+            basedir=os.path.dirname(filepath),
+            maxdepth=1,                      
             getfirst=True)
         return extension_class
     

@@ -23,7 +23,14 @@ class SettingsTest(unittest.TestCase):
         settings = self._make_mock_settings_class([extension])()
         self.assertEqual(settings, 
             {'attr1': 'value1', 
-             'attr2': 'value2'})                  
+             'attr2': 'value2'})
+        
+    def test_extension_is_path_to_file_with_settings(self):
+        extension = self._get_fixtures_path('settings1.py')
+        settings = self._make_mock_settings_class([extension])()
+        self.assertEqual(settings, 
+            {'attr1': 'value1', 
+             'attr2': 'value2'})                 
     
     #Protected
     
