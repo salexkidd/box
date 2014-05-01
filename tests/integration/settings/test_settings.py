@@ -5,7 +5,13 @@ from box import Settings
 class SettingsTest(unittest.TestCase):
 
     #Public
-
+    
+    def tearDowm(self):
+        try:
+            os.remove(self._get_fixtures_path('settings3.py'))
+        except os.error:
+            pass
+    
     def test(self):
         settings = self._make_mock_settings_class()()
         self.assertEqual(settings, 
@@ -39,6 +45,13 @@ class SettingsTest(unittest.TestCase):
         
     def test_extension_is_path_to_non_existent_file(self):
         extension = self._get_fixtures_path('settings3.py')
+        #Settings have to create non existent file
+        self.assertFalse(os.path.isfile(extension))
+        settings = self._make_mock_settings_class([extension])()
+        self.assertEqual(settings, 
+            {'attr1': 'value1'})
+        #Now file exists and contains user settings stub
+        self.assertTrue(os.path.isfile(extension))
         settings = self._make_mock_settings_class([extension])()
         self.assertEqual(settings, 
             {'attr1': 'value1'})
