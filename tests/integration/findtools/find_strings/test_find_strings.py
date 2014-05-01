@@ -1,7 +1,7 @@
 import os
 import re
 import unittest
-from box.findtools import find_strings
+from box.findtools.find_strings import find_strings
 
 class find_strings_Test(unittest.TestCase):
 

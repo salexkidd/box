@@ -1,14 +1,15 @@
-from ..itertools import map_reduce
-from ..types import RegexCompiledPatternType
-from .find_files import find_files, FindFilesEmitter
-from .not_found import NotFound
+from ...itertools import map_reduce
+from ...types import RegexCompiledPatternType
+from ..find_files import find_files
+from ..not_found import NotFound
+from .emitter import FindStringsEmitter
   
 class find_strings(map_reduce):
 
     #Public
     
     default_basedir = '.'
-    default_emitter = property(lambda self: FindStringsEmitter) 
+    default_emitter = FindStringsEmitter
     
     def __init__(self, string=None, *,
                  filename=None, filepath=None,  
@@ -69,7 +70,4 @@ class find_strings(map_reduce):
             basedir=self._basedir, 
             maxdepth=self._maxdepth,
             onwalkerror = self._onwalkerror)
-        return files 
-  
-
-class FindStringsEmitter(FindFilesEmitter): pass 
+        return files
