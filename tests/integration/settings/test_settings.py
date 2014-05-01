@@ -36,6 +36,12 @@ class SettingsTest(unittest.TestCase):
         extension = self._get_fixtures_path('settings2.py')
         MockSettings = self._make_mock_settings_class([extension])
         self.assertRaises(RuntimeError, MockSettings)
+        
+    def test_extension_is_path_to_non_existent_file(self):
+        extension = self._get_fixtures_path('settings3.py')
+        settings = self._make_mock_settings_class([extension])()
+        self.assertEqual(settings, 
+            {'attr1': 'value1'})      
     
     #Protected
     
