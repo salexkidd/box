@@ -1,6 +1,6 @@
 import os
 import inspect
-from .findtools import find_objects
+from .findtools import find_objects, NotFound
 
 class SettingsMetaclass(type):
     
@@ -31,14 +31,19 @@ class SettingsMetaclass(type):
         return settings
     
     def _find_extension_class(self, filepath):
-        extension_class = find_objects(
-            objtype=self.__class__,
-            filename=os.path.basename(filepath),
-            basedir=os.path.dirname(filepath),
-            maxdepth=1,                      
-            mappers=[lambda emitter: emitter.skip(
-                inspect.getmodule(emitter.object) != emitter.module)],
-            getfirst=True)
+        try:
+            extension_class = find_objects(
+                objtype=self.__class__,
+                filename=os.path.basename(filepath),
+                basedir=os.path.dirname(filepath),
+                maxdepth=1,                      
+                mappers=[lambda emitter: emitter.skip(
+                    inspect.getmodule(emitter.object) != emitter.module)],
+                getfirst=True)
+        except NotFound:
+            raise RuntimeError(
+                'Settings file "filepath" doesn\'t contain '
+                'correct user settings class')
         return extension_class
     
     def _create_extension_class(self, filepath):
