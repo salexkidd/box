@@ -1,16 +1,17 @@
-import inspect
 from importlib.machinery import SourceFileLoader
-from ..itertools import map_reduce
-from ..types import RegexCompiledPatternType
-from .find_files import find_files, FindFilesEmitter
-from .not_found import NotFound
+from ...itertools import map_reduce
+from ..find_files import find_files
+from ..not_found import NotFound
+from .emitter import FindObjectsEmitter
+from .objname import FindObjectsObjnameMapper
+from .objtype import FindObjectsObjtypeMapper
  
 class find_objects(map_reduce):
     
     #Public  
     
     default_basedir = '.'
-    default_emitter = property(lambda self: FindObjectsEmitter)
+    default_emitter = FindObjectsEmitter
        
     def __init__(self, objname=None, objtype=None, *, 
                  filename=None, filepath=None,  
@@ -61,46 +62,4 @@ class find_objects(map_reduce):
             basedir=self._basedir, 
             maxdepth=self._maxdepth,
             onwalkerror = self._onwalkerror)
-        return files
-      
-    
-class FindObjectsEmitter(FindFilesEmitter):
-
-    #Public
-
-    @property
-    def filepath(self):
-        return inspect.getfile(self.module)
-   
-        
-class FindObjectsObjnameMapper:
-    
-    #Public
-    
-    def __init__(self, objname):
-        self._objname = objname
-        
-    def __call__(self, emitter):
-        if self._objname:
-            if isinstance(self._objname, RegexCompiledPatternType):
-                if not self._objname.match(emitter.objname):
-                    emitter.skip()
-            else:
-                if emitter.objname != self._objname:
-                    emitter.skip()
-                    
-
-class FindObjectsObjtypeMapper:
-    
-    #Public
-    
-    def __init__(self, objtype):
-        self._objtype = objtype
-        
-    def __call__(self, emitter):
-        if self._objtype:
-            types = self._objtype
-            if isinstance(types, type):
-                types = [types]
-            if not isinstance(emitter.object, tuple(types)):
-                emitter.skip()             
+        return files            
