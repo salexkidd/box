@@ -6,7 +6,7 @@ class SettingsTest(unittest.TestCase):
 
     #Public
     
-    def tearDowm(self):
+    def tearDown(self):
         try:
             os.remove(self._get_fixtures_path('settings3.py'))
         except os.error:

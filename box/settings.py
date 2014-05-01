@@ -15,6 +15,12 @@ class SettingsMetaclass(type):
     
     #Protected
     
+    _extension_file_pattern = (
+        'from box import Settings\n\n'
+            'class Settings(Settings):\n\n'
+            '    #Public\n\n'
+            '    pass')
+    
     def _merge_extensions(self):
         settings = {}
         for extension in self._extensions:
@@ -47,7 +53,13 @@ class SettingsMetaclass(type):
         return extension_class
     
     def _create_extension_class(self, filepath):
-        pass
+        try:
+            with open(filepath, 'w') as file:
+                file.write(self._extension_file_pattern)
+        except IOError:
+            raise RuntimeError(
+                'Settings can\'t create settings file '
+                'at extension path "filepath"')
         
 
 class Settings(dict, metaclass=SettingsMetaclass):
