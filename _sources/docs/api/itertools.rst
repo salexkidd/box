@@ -1,5 +1,5 @@
 box.itertools
--------------
+=============
 
 Module provides map_reduce function.
 

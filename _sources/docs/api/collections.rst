@@ -1,5 +1,5 @@
 box.collections
----------------
+===============
 
 Module is a library adding some new types to standard
 collections module.

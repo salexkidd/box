@@ -1,5 +1,5 @@
 Table of Contents
------------------
+=================
 
 .. toctree::
    :maxdepth: 2   
@@ -8,7 +8,7 @@ Table of Contents
    api
 
 Indices and Tables
-------------------
+==================
 
 * :ref:`genindex`
 * :ref:`modindex`

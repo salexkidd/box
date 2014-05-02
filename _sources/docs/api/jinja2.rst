@@ -1,5 +1,5 @@
 box.jinja2
-----------
+==========
 
 Module is a wrapper around jinja2 module.
 

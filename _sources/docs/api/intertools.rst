@@ -1,5 +1,5 @@
 box.intertools
---------------
+==============
 
 Module provides input function with rich functionality.
 

@@ -1,5 +1,5 @@
 box.findtools
--------------
+=============
 
 Module provides finding functionality based on map_reduce concept
 and python generators. There are three main functions to find files, 
