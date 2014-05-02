@@ -1,9 +1,9 @@
-box.jinja2
-==========
+box.json
+========
 
-Module is a wrapper around jinja2 module.
+Little addition to standard json module.
 
-.. automodule:: box.jinja2
+.. automodule:: box.json
    :members:
    :undoc-members:
    :imported-members:
