@@ -4,7 +4,7 @@ Table of Contents
 .. toctree::
    :maxdepth: 2   
    
-   Welcome to Box! <welcome>
+   Welcome to Box! <readme>
 
 .. toctree::
    :glob:
