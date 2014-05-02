@@ -8,7 +8,7 @@ Table of Contents
 
 .. toctree::
    :glob:
-   :maxdepth: 2   
+   :maxdepth: 2
    
    pages/*   
 
