@@ -4,7 +4,7 @@ Table of Contents
 .. toctree::
    :maxdepth: 3   
    
-   Welcome to Box! <welcome>
+   Introduction <welcome>
    api
 
 Indices and Tables
