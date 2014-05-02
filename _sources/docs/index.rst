@@ -2,7 +2,7 @@ Table of Contents
 =================
 
 .. toctree::
-   :maxdepth: 2   
+   :maxdepth: 3   
    
    Welcome to Box! <welcome>
    api
