@@ -1,7 +1,7 @@
 #DO NOT CHANGE THIS FILE. SOURCE IS IN "_sources" DIRECTORY.
 
-run>=0.13
+runpack>=0.13
 packgram>=0.7
-Sphinx
+sphinx
 sphinx_rtd_theme
 nose

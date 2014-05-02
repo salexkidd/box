@@ -19,9 +19,9 @@ class MainModule(PythonPackgramModule):
     ]
     description = 'Box is a library to provide common functionality.'
     development_requires = [
-        'run>=0.13',
+        'runpack>=0.13',
         'packgram>=0.7',
-        'Sphinx',
+        'sphinx',
         'sphinx_rtd_theme',
     ]    
     github_user = 'respect31'
