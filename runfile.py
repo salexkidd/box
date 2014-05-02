@@ -18,7 +18,7 @@ class MainModule(PythonPackgramModule):
         'Topic :: System :: Systems Administration', 
     ]
     description = 'Box is a library to provide common functionality.'
-    development_requires = ['Sphinx>=1.2']    
+    development_requires = ['Sphinx>=1.2', 'sphinx_rtd_theme>=0.1']    
     github_user = 'respect31'
     install_requires = []
     license = 'MIT License'
