@@ -4,13 +4,8 @@ Table of Contents
 .. toctree::
    :maxdepth: 2   
    
-   Welcome to Box! <readme>
-
-.. toctree::
-   :glob:
-   :maxdepth: 2
-   
-   pages/*   
+   Welcome to Box! <welcome>
+   api
 
 Indices and Tables
 ------------------
