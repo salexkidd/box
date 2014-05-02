@@ -2,10 +2,10 @@ Table of Contents
 =================
 
 .. toctree::
-   :maxdepth: 3   
+   :maxdepth: 2   
    
-   Introduction <welcome>
-   api
+   Introduction <pages/intro>
+   pages/api
 
 Indices and Tables
 ==================
