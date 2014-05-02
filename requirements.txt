@@ -1,3 +1,4 @@
 #DO NOT CHANGE THIS FILE. SOURCE IS IN "_sources" DIRECTORY.
 
+Sphinx>=1.2
 nose
