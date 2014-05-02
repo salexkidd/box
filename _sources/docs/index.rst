@@ -4,8 +4,8 @@ Table of Contents
 .. toctree::
    :maxdepth: 2   
    
-   Introduction <pages/intro>
-   pages/api
+   Introduction <intro>
+   api
 
 Indices and Tables
 ==================
