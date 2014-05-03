@@ -7,7 +7,7 @@ class render_file(render_string):
     
     :param str source: filepath to be rendered    
     
-    .. seealso:: :class:`box.jinja2.render_string`    
+    .. seealso:: Full documentation: :class:`box.jinja2.render_string`    
     """
     
     #Protected
