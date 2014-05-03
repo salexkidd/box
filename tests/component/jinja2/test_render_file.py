@@ -23,7 +23,7 @@ class render_file_Test(unittest.TestCase):
     
     def test_with_target(self):
         result = self.partial_render(target='/target')
-        self.assertEqual(result, 'text')
+        self.assertEqual(result, None)
         self.render._open_function.assert_called_with('/target', 'w')
         self.render._open_function().write.assert_called_with('text')
         

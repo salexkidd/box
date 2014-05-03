@@ -13,8 +13,10 @@ class render_string(FunctionCall):
     
     def __call__(self):
         content = self._render()
-        self._write(content)
-        return content
+        if self._target:
+            self._write(content)
+        else:
+            return content
             
     #Protected
     
@@ -24,9 +26,8 @@ class render_string(FunctionCall):
         return self._template.render(self._context)
     
     def _write(self, content):
-        if self._target:
-            with self._open_function(self._target, 'w') as file:
-                file.write(content)
+        with self._open_function(self._target, 'w') as file:
+            file.write(content)
                 
     @cachedproperty
     def _template(self):
