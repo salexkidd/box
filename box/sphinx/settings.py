@@ -4,9 +4,10 @@ from ..settings import Settings
 class Settings(Settings):
     """Class representation of sphinx conf.py.
     
-    Just put code like this in conf.py module and use inheritance and 
-    other class benefits. It gives opportunity to not operate with
-    big config file filled by standard settings::
+    Just put code like this in conf.py module and use inheritance from 
+    default sphinx settings and other class benefits. It gives a opportunity 
+    to not operate with big config file filled by standard settings and 
+    see only important things::
     
       from box.sphinx import Settings
 

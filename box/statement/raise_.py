@@ -1,4 +1,4 @@
 def raise_(exception):
-    """Raise excetion.
+    """Raise exception.
     """
     raise exception
