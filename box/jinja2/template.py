@@ -2,6 +2,8 @@ import sys
 from .context import ObjectContext
 
 class TemplateMixin:
+    """Mixin adds to jinja2.Template support of :class:`ObjectContext`.
+    """
     
     #Public
     

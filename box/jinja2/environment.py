@@ -1,6 +1,8 @@
 from .template import TemplateMixin
 
 class EnvironmentMixin:
+    """Mixin adds to jinja2.Environment template with :class:`TemplateMixin`.
+    """
 
     #Public
     

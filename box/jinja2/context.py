@@ -1,4 +1,6 @@
 class ObjectContext:
+    """Adapter between standard dict context and object.
+    """
     
     #Public
     
