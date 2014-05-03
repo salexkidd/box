@@ -49,7 +49,8 @@ class SettingsMetaclass(type):
         except NotFound:
             raise RuntimeError(
                 'Extension\'s settings file "filepath" doesn\'t '
-                'contain correct user settings class')
+                'contain correct user settings class'.
+                format(filepath=filepath))
         return extension_class
     
     def _create_extension_class(self, filepath):
@@ -59,7 +60,8 @@ class SettingsMetaclass(type):
         except IOError:
             raise RuntimeError(
                 'Extension\'s settings file is failed '
-                'to be created at extension path "filepath"')
+                'to be created at extension path "filepath"'.
+                format(filepath=filepath))
         
 
 class Settings(dict, metaclass=SettingsMetaclass):
