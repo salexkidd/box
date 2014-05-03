@@ -1,2 +1,2 @@
-from .settings import Settings
+from .settings import SettingsMetaclass, Settings
 from .version import Version, version

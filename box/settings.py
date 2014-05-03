@@ -3,6 +3,7 @@ import inspect
 from .findtools import find_objects, NotFound
 
 class SettingsMetaclass(type):
+    """Metaclass adds extensions functionality to Settings."""
     
     #Public
     
@@ -65,6 +66,28 @@ class SettingsMetaclass(type):
         
 
 class Settings(dict, metaclass=SettingsMetaclass):
+    """Dict with public attributes loaded to dict on init.
+    
+    :param dict settings: dict to override settings values
+    :param dict kwargs: key=value pairs to override settings values
+    
+    Following example will show common workflow and extensions: 
+    
+    >>> from box import Settings
+    >>> class Settings(Settings):
+    ...   attr1 = 'value1'
+    ...   attr2 = 'value2'
+    ...   _extensions = [{'attr2': 'new2'}, 'path_to_user_settings']
+    ...
+    >>> s = Settings(attr1='new1')
+    >>> s
+    {'attr1': 'new1', 'attr2': 'new2'}
+    
+    In the example above program also checks path_to_user_settings:
+    
+    - if file exists and contain Settings subclass program will use it 
+    - if file doesn't exist program will create stub Settings file      
+    """
     
     #Public
     
@@ -85,7 +108,14 @@ class Settings(dict, metaclass=SettingsMetaclass):
                     
     #Protected
     
-    _extensions = []    
+    _extensions = []
+    """List of extensions.
+    
+    Members should be following types:
+    
+    - if element is a dict it just override settings values
+    - if element is a string it should be a filepath to another Settings
+    """
     
     @property
     def _as_dict(self):
