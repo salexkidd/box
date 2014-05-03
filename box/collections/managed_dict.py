@@ -1,5 +1,11 @@
 class ManagedDict(dict):
-    """All mutations through __setitem__ and __delitem__"""
+    """Dict with all mutations through __setitem__ and __delitem__.
+    
+    Type reimplements all standard dict mutation methods
+    to guarantee that all of changes will be processed through
+    __setitem__ and __delitem__. This feature gives full control 
+    over dict changes by client.
+    """
     
     #Public
     

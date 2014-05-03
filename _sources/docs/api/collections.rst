@@ -1,10 +1,8 @@
 box.collections
 ===============
 
-Module is a library adding some new types to standard
-collections module.
+Library adds some new types to standard collections module.
 
 .. automodule:: box.collections
    :members:
-   :undoc-members:
    :imported-members:
