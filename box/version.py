@@ -1,12 +1,42 @@
 class Version(str):
+    """Version representation.
+    
+    :param dict kwargs: key=value pairs to override version c 
+    
+    >>> from box import Version
+    >>> class Version(Version):
+    ...   major = 1
+    ...   minor = 2
+    ...   micro = 3
+    ...
+    >>> v = Version(micro=5)
+    >>> v
+    '1.2.5'
+    >>> v.major
+    1
+    >>> v.info
+    (1, 2, 5, 'final', 0)
+    
+    .. seealso:: Python versioning: `sys.version_info <https://docs.python.org/3/library/sys.html#sys.version_info>`_
+    """
     
     #Public
     
     major = 0
+    """Version's major component.
+    """
     minor = 0
+    """Version's minor component.
+    """    
     micro = 0
+    """Version's micro component.
+    """    
     level = 'final'
+    """Version's level.
+    """
     serial = 0
+    """Version's serial.
+    """    
       
     def __new__(cls, version=None, **kwargs):
         if not version:
@@ -16,6 +46,8 @@ class Version(str):
     
     @property
     def info(self):
+        """Version as a tuple.
+        """
         return self._as_tuple
     
     #Protected

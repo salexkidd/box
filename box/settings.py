@@ -66,7 +66,7 @@ class SettingsMetaclass(type):
         
 
 class Settings(dict, metaclass=SettingsMetaclass):
-    """Dict with public attributes loaded to dict on init.
+    """Settings representation.
     
     :param dict settings: dict to override settings values
     :param dict kwargs: key=value pairs to override settings values

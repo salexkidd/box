@@ -12,6 +12,7 @@ class Settings(Settings):
     extensions = ['sphinx.ext.autodoc']
     master_doc = 'index'
     pygments_style = 'sphinx'
+    autodoc_member_order = 'bysource'
 
     #Project
     

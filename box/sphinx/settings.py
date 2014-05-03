@@ -2,7 +2,7 @@ from ..functools import cachedproperty
 from ..settings import Settings
 
 class Settings(Settings):
-    """Class representation of sphinx conf.py.
+    """Sphinx conf.py representation.
     
     Just put code like this in conf.py module and use inheritance from 
     default sphinx settings and other class benefits. It gives a opportunity 
