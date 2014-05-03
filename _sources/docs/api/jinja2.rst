@@ -11,7 +11,7 @@ Module extends popular package jinja2.
 .. autoclass:: box.jinja2.render_dir
 
 .. automodule:: box.jinja2
-   :members:
-   :undoc-members:
-   :imported-members:
-   :exclude-members: render_string, render_file, render_dir 
+     :members:
+     :undoc-members:
+     :imported-members:
+     :exclude-members: render_string, render_file, render_dir 

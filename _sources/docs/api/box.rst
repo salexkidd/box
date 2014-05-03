@@ -2,6 +2,6 @@ box
 ===
 
 .. automodule:: box
-   :members:
-   :undoc-members:
-   :imported-members:
+     :members:
+     :undoc-members:
+     :imported-members:

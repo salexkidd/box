@@ -2,7 +2,7 @@ API Reference
 =============
 
 .. toctree::
-   :glob:
+     :glob:
    
-   api/box
-   api/*
+     api/box
+     api/*

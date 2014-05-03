@@ -6,9 +6,9 @@ class render_dir(FunctionCall):
     """Render a directory using context.
     
     :param str source: directory to be rendered
-    :param dict context: rendering context
+    :param dict/obj context: rendering context
     
-    Directory rendering means that all names from os.listdir
+    Directory rendering means that every name from os.listdir
     will be processed by render_string and then renamed accordingly. 
     
     .. note:: This class acts like a function when called.    

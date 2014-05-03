@@ -7,5 +7,5 @@ Module extends popular package sphinx.
      to install it to use this module.
 
 .. automodule:: box.sphinx
-   :members:
-   :imported-members:
+     :members:
+     :imported-members:

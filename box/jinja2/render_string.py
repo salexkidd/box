@@ -5,7 +5,7 @@ class render_string(FunctionCall):
     """Render a string using context.
     
     :param str source: string to be rendered
-    :param dict context: rendering context
+    :param dict/obj context: rendering context
     :param object loader: jinja2 loader
     :param str target: filepath to write renered string into
     
