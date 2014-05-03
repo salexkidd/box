@@ -2,6 +2,19 @@ from ..functools import cachedproperty, FunctionCall
 from .environment import EnvironmentMixin
 
 class render_string(FunctionCall):
+    """Render a string with context.
+    
+    :param str source: string to be rendered
+    :param dict context: rendering context
+    :param object loader: jinja2 loader
+    :param str target: filepath to write renered string into
+    
+    :returns str/None: rendered string
+    
+    If target is given function will not return any value.
+    
+    .. note:: This class acts like a function when called.    
+    """
     
     #Public
     
