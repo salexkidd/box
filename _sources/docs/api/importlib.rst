@@ -1,7 +1,7 @@
 box.importlib
 =============
 
-Library adds some new functionalitu to standard importlib module.  
+Library adds some new functionality to standard importlib module.  
 
 .. automodule:: box.importlib
    :members:
