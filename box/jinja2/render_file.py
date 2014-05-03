@@ -3,6 +3,12 @@ from ..functools import cachedproperty
 from .render_string import render_string
 
 class render_file(render_string):
+    """Render a file using context.
+    
+    :param str source: filepath to be rendered    
+    
+    .. seealso:: :class:`box.jinja2.render_string`    
+    """
     
     #Protected
                 

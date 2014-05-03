@@ -7,6 +7,12 @@ Module extends popular package jinja2.
      to install it to use this module.
 
 .. automodule:: box.jinja2
+   :members: render_string, render_file
+   :undoc-members:
+   :imported-members:
+
+.. automodule:: box.jinja2
    :members:
    :undoc-members:
    :imported-members:
+   :exclude-members: render_string, render_file 

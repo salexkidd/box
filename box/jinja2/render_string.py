@@ -2,7 +2,7 @@ from ..functools import cachedproperty, FunctionCall
 from .environment import EnvironmentMixin
 
 class render_string(FunctionCall):
-    """Render a string with context.
+    """Render a string using context.
     
     :param str source: string to be rendered
     :param dict context: rendering context
