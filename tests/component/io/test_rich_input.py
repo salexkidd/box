@@ -1,7 +1,7 @@
 import unittest
 from functools import partial
 from unittest.mock import Mock
-from box.intertools.rich_input import rich_input
+from box.io.rich_input import rich_input
 
 class rich_input_Test(unittest.TestCase):
     
