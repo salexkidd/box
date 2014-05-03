@@ -1,7 +1,7 @@
 box.importlib
 =============
 
-Module adds function to import objects by name like 'module.attr'.  
+Library adds some new functionalitu to standard importlib module.  
 
 .. automodule:: box.importlib
    :members:
