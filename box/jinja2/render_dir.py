@@ -3,6 +3,16 @@ from ..functools import FunctionCall
 from .render_string import render_string
 
 class render_dir(FunctionCall):
+    """Render a directory using context.
+    
+    :param str source: directory to be rendered
+    :param dict context: rendering context
+    
+    Directory rendering means that all names from os.listdir
+    will be processed by render_string and then renamed accordingly. 
+    
+    .. note:: This class acts like a function when called.    
+    """
     
     #Public
     
@@ -19,5 +29,4 @@ class render_dir(FunctionCall):
                     new_path = os.path.join(self._source, new_name)
                     os.rename(path, new_path)
             except Exception:
-                pass
-            
+                pass         
