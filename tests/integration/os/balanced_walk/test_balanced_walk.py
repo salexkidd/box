@@ -11,9 +11,9 @@ class balanced_walk_Test(unittest.TestCase):
         self.assertEqual(files, [
             self._get_fixtures_path('file1'),
             self._get_fixtures_path('file2'), 
-            self._get_fixtures_path('folder1', 'file1'),
-            self._get_fixtures_path('folder2', 'file1'),
-            self._get_fixtures_path('folder1', 'subfolder1', 'file1'),])        
+            self._get_fixtures_path('dir1', 'file1'),
+            self._get_fixtures_path('dir2', 'file1'),
+            self._get_fixtures_path('dir1', 'subdir1', 'file1'),])        
         
     #Protected
     
