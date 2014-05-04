@@ -3,7 +3,8 @@ from box.functools import cachedproperty
 from .command import Command
 
 class Program(metaclass=ABCMeta):
-    """Console program abstraction"""
+    """Console command representation.
+    """
     
     #Public
         

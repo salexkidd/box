@@ -3,6 +3,12 @@ from argparse import ArgumentParser
 from box.functools import cachedproperty
 
 class Command:
+    """Console command representation.
+    
+    :param list argv: program's arguments like sys.argv
+    :param dict config: command configuration
+    :param dict kwargs: key=value command configuration pairs
+    """
     
     #Public
     
