@@ -25,8 +25,12 @@ class balanced_walk_Test(unittest.TestCase):
             'fixtures/dir1/file1',
             'fixtures/dir2/file1',
             'fixtures/dir1/subdir1/file1',])
+    
+    def test_error(self):
+        files = list(balanced_walk('error'))
+        self.assertEqual(files, [])
         
-    def test_raise_error_with_onerror(self):
+    def test_error_with_onerror(self):
         onerror = Mock()
         files = list(balanced_walk('error', onerror=onerror))
         self.assertEqual(files, [])
