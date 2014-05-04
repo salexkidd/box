@@ -3,7 +3,18 @@ from box.functools import cachedproperty
 from .command import Command
 
 class Program(metaclass=ABCMeta):
-    """Console command representation.
+    """Abstract console program representation.
+    
+    Client have to implement __call__ method:
+    
+    >>> from box.argparse import Program
+    >>> class Program(Program):
+    ...   def __call__(self):
+    ...     print(self._command.arguments)
+    ...
+    >>> p = Program(['program', 'arg'])
+    >>> p()
+    ['arg']
     """
     
     #Public
