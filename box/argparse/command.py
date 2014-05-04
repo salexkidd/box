@@ -6,8 +6,15 @@ class Command:
     """Console command representation.
     
     :param list argv: program's arguments like sys.argv
-    :param dict config: command configuration
+    :param dict config: command configuration for argparse
     :param dict kwargs: key=value command configuration pairs
+    
+    Command provides access to command line arguments by attribute names:
+    
+    >>> from box.argparse import Command
+    >>> c = Command(['program', 'arg'])
+    >>> c.arguments
+    ['arg']
     """
     
     #Public
