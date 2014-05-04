@@ -1,21 +1,57 @@
 from ..functools import FunctionCall
 
 class rich_input(FunctionCall):
+    """Read a string from standard input.
+    
+    :param str prompt: default prompt
+    :param dict kwargs: key=value pairs of parameters
+    
+    When you called function with any kwarg it overrides class attributes
+    and changes function behaviour. See parameter list below. All of them
+    you can use in function call. Also all of them you can redefine in
+    inherited class.
+    
+    .. note:: This class acts like a function when called.   
+    """
     
     #Public
     
     prompt = 'Input'
+    """Default prompt.
+    """
     separator = ': '
+    """Symbols to end prompt.
+    """
     default = None
+    """Default value if user will not input anything.
+    """
     options = None
+    """List of available options.
+    """
     attempts = 3
+    """How many attempts user have to match one of the available option.
+    """
     error = 'Try again..'
+    """Print when user fails to match one of the available option.
+    """
     hint_indent = ' '
+    """Indent before hint.
+    """
     hint_borders = '[]'
+    """Borders around hint.
+    """    
     hint_separator = '/'
+    """Separator to separate available options.
+    """
     hint_on_default = staticmethod(str.upper)
+    """Function called on default value in available options.
+    """
     input_function = staticmethod(input)
+    """Base input function. For example you can use getpass.getpass.
+    """
     print_function = staticmethod(print)
+    """Base print function. For example you can use pprint.pprint.
+    """    
     
     def __init__(self, prompt=None, **kwargs):
         if prompt != None:
@@ -42,14 +78,20 @@ class rich_input(FunctionCall):
     
     @property
     def rendered_prompt(self):
+        """Exactly what will be printed to user as prompt.
+        """
         return self.templated_prompt.format(**self.context)
     
     @property
     def rendered_error(self):
+        """Exactly what will be printed to user as error.
+        """        
         return self.templated_error.format(**self.context)
     
     @property
     def templated_prompt(self):
+        """Prompt template.
+        """
         hint = ''
         if self.options:
             hint = ('{hint_indent}{hint_left_border}'
@@ -61,10 +103,14 @@ class rich_input(FunctionCall):
 
     @property
     def templated_error(self):
+        """Error template.
+        """        
         return '{error}'
     
     @property
     def context(self):
+        """Context to make rendered_* from templated_*. 
+        """
         context = {}
         for name in dir(self):
             if (name.startswith('rendered') or
@@ -79,6 +125,8 @@ class rich_input(FunctionCall):
     
     @property
     def formatted_options(self):
+        """Options as a string.
+        """
         options = ''
         if self.options:
             elements = []
@@ -91,6 +139,8 @@ class rich_input(FunctionCall):
     
     @property
     def formatted_default(self):
+        """Default as a string.
+        """        
         default = ''
         if self.default:
             default = self.default
@@ -98,8 +148,12 @@ class rich_input(FunctionCall):
     
     @property    
     def hint_left_border(self):
+        """Left border for hint.
+        """
         return self.hint_borders[:int(len(self.hint_borders)/2)]
     
     @property    
     def hint_right_border(self):
+        """Right border for hint.
+        """        
         return self.hint_borders[int(len(self.hint_borders)/2):]
