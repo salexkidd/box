@@ -1,6 +1,7 @@
+import os
 import re
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 from box.os.balanced_walk import balanced_walk
 
 class balanced_walk_Test(unittest.TestCase):
@@ -13,7 +14,8 @@ class balanced_walk_Test(unittest.TestCase):
         patch('os.path.isfile', new=self._mock_isfile).start()
         patch('os.path.isdir', new=self._mock_isdir).start()
         patch('os.path.join', new=self._mock_join).start()
-        self.addCleanup(patch.stopall)    
+        self.addCleanup(patch.stopall)
+        self.error = os.error()
 
     def test(self):
         files = list(balanced_walk('fixtures'))
@@ -23,6 +25,12 @@ class balanced_walk_Test(unittest.TestCase):
             'fixtures/dir1/file1',
             'fixtures/dir2/file1',
             'fixtures/dir1/subdir1/file1',])
+        
+    def test_raise_error_with_onerror(self):
+        onerror = Mock()
+        files = list(balanced_walk('error', onerror=onerror))
+        self.assertEqual(files, [])
+        onerror.assert_called_with(self.error)
         
     #Protected
    
@@ -34,7 +42,9 @@ class balanced_walk_Test(unittest.TestCase):
         elif path == 'fixtures/dir2':
             return ['file1',]
         elif path == 'fixtures/dir1/subdir1':
-            return ['file1']        
+            return ['file1']
+        elif path == 'error':
+            raise self.error      
     
     def _mock_islink(self, path):
         return bool(re.search('link\d?$', path))
