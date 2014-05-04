@@ -3,7 +3,8 @@ import inspect
 from .findtools import find_objects, NotFound
 
 class SettingsMetaclass(type):
-    """Metaclass adds extensions functionality to Settings."""
+    """Metaclass adds extensions functionality to Settings.
+    """
     
     #Public
     
