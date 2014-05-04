@@ -1,4 +1,4 @@
-import copy
+from copy import copy
 from argparse import ArgumentParser
 from box.functools import cachedproperty
 
@@ -17,11 +17,12 @@ class Command:
         ],       
     }
     
-    def __init__(self, argv, config=None):
+    def __init__(self, argv, config=None, **kwargs):
         self._argv = argv
         self._config = config
         if self._config == None: 
-            self._config = self.default_config
+            self._config = copy(self.default_config)
+        self._config.update(kwargs)
         
     def __getattr__(self, name):
         if not name.startswith('_'):
@@ -45,7 +46,7 @@ class Command:
     def _parser(self):
         parser = self._parser_class(**self._parser_config)
         for argument in self._parser_arguments:
-            argument = copy.copy(argument)
+            argument = copy(argument)
             try:
                 try:
                     args = [argument.pop('name'),]
@@ -65,7 +66,7 @@ class Command:
     
     @property
     def _parser_config(self):
-        config = copy.copy(self._config)
+        config = copy(self._config)
         config.pop('arguments', [])
         return config
             

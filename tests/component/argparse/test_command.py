@@ -54,14 +54,14 @@ class CommandTest(unittest.TestCase):
           
     def test__config_default(self):
         command = self.partial_command(config=None)
-        self.assertEqual(command._config, 'default_config')        
+        self.assertEqual(command._config, {'attr': 'value'})        
     
     #Protected
     
     def _make_mock_command_class(self):
         class MockCommand(Command):
             #Public
-            default_config = 'default_config'
+            default_config = {'attr': 'value'}
             #Protected
             _parser_class = Mock(return_value=Mock(
                 add_argument=Mock(),

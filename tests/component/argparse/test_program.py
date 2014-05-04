@@ -14,8 +14,7 @@ class ProgramTest(unittest.TestCase):
     def test__command(self):
         self.assertEqual(self.program._command, 'command')
         self.program._command_class.assert_called_with(
-            ['prog', 'argument'], 
-            config={'prog': 'programmock', 'kwarg': 'kwarg'})
+            ['prog', 'argument'], prog='programmock')
         
     #Protected
     
@@ -24,7 +23,5 @@ class ProgramTest(unittest.TestCase):
             #Public
             __call__ = Mock()
             #Protected
-            _command_class = Mock(
-                default_config={'kwarg': 'kwarg'},
-                return_value='command')
+            _command_class = Mock(return_value='command')
         return ProgramMock
