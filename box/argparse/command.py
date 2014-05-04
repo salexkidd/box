@@ -85,7 +85,8 @@ class Command:
             
     
 class SilentArgumentParser(ArgumentParser):
-    """Argument parser with raising exception instead of program exit."""
+    """Argument parser with raising exception instead of program exit.
+    """
     
     #Public
     
