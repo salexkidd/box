@@ -99,8 +99,9 @@ class Settings(dict, metaclass=SettingsMetaclass):
                 inspect.getmodule(emitter.object) != emitter.module)],
             getfirst=True)
     
-    @classmethod    
+    @classmethod
     def _create_extension_class(cls, extension):
+        os.makedirs(os.path.dirname(extension), exist_ok=True)
         with open(extension, 'w') as file:
             file.write(
             'from box import Settings\n\n'
