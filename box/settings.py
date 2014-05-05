@@ -1,6 +1,6 @@
 import os
 import inspect
-from .findtools import find_objects, NotFound
+from .findtools import find_objects
 
 class SettingsMetaclass(type):
     """Metaclass adds extensions functionality to Settings.
@@ -26,44 +26,36 @@ class SettingsMetaclass(type):
     def _merge_extensions(self):
         settings = {}
         for extension in self._extensions:
-            if isinstance(extension, str):
-                if os.path.isfile(extension):
-                    #Extension's settings file already exists 
-                    extension_class = self._find_extension_class(extension)
-                    extension = extension_class()
-                else:
-                    #Extension's settings file has to be created
-                    self._create_extension_class(extension)
-                    extension = {}
-            settings.update(extension)
+            try:
+                if isinstance(extension, str):
+                    if os.path.isfile(extension):
+                        #Extension's settings file already exists 
+                        extension_class = self._find_extension_class(extension)
+                        extension = extension_class()
+                    else:
+                        #Extension's settings file has to be created
+                        self._create_extension_class(extension)
+                        extension = {}
+                settings.update(extension)
+            except Exception as error:
+                if self._extensions_onerror != None:
+                    self._extensions_onerror(extension, error)
+                continue
         return settings
     
     def _find_extension_class(self, filepath):
-        try:
-            extension_class = find_objects(
-                objtype=self.__class__,
-                filename=os.path.basename(filepath),
-                basedir=os.path.dirname(filepath),
-                maxdepth=1,                      
-                mappers=[lambda emitter: emitter.skip(
-                    inspect.getmodule(emitter.object) != emitter.module)],
-                getfirst=True)
-        except NotFound:
-            raise RuntimeError(
-                'Extension\'s settings file "filepath" doesn\'t '
-                'contain correct user settings class'.
-                format(filepath=filepath))
-        return extension_class
+        return find_objects(
+            objtype=self.__class__,
+            filename=os.path.basename(filepath),
+            basedir=os.path.dirname(filepath),
+            maxdepth=1,                      
+            mappers=[lambda emitter: emitter.skip(
+                inspect.getmodule(emitter.object) != emitter.module)],
+            getfirst=True)
     
     def _create_extension_class(self, filepath):
-        try:
-            with open(filepath, 'w') as file:
-                file.write(self._extension_file_pattern)
-        except IOError:
-            raise RuntimeError(
-                'Extension\'s settings file is failed '
-                'to be created at extension path "filepath"'.
-                format(filepath=filepath))
+        with open(filepath, 'w') as file:
+            file.write(self._extension_file_pattern)
         
 
 class Settings(dict, metaclass=SettingsMetaclass):
@@ -116,6 +108,12 @@ class Settings(dict, metaclass=SettingsMetaclass):
     
     - if element is a dict it just override settings values
     - if element is a string it should be a filepath to another Settings
+    """
+    _extensions_onerror = None
+    """Callable object with signature (extension, error).
+    
+    By default extension fails silently if any error occured. 
+    If this attribute is not None it will be called to handle an error.
     """
     
     @property

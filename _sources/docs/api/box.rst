@@ -11,7 +11,7 @@ Main
 There are mentioned above main classes.
 
 .. autoclass:: box.Settings
-     :members: _extensions
+     :members: _extensions, _extensions_onerror
  
 .. autoclass:: box.Version
      :members:

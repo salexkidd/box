@@ -1,5 +1,6 @@
 import os
 import unittest
+from unittest.mock import Mock, ANY
 from box import Settings
 
 class SettingsTest(unittest.TestCase):
@@ -38,10 +39,14 @@ class SettingsTest(unittest.TestCase):
             {'attr1': 'value1', 
              'attr2': 'value2'})
         
-    def test_extension_is_path_to_file_without_user_settings(self):
+    def test_extension_is_path_to_without_settings_file(self):
+        mock_onerror = Mock()
         extension = self._get_fixtures_path('settings2.py')
         MockSettings = self._make_mock_settings_class([extension])
-        self.assertRaises(RuntimeError, MockSettings)
+        MockSettings._extensions_onerror = mock_onerror
+        settings = MockSettings()
+        self.assertEqual(settings, {'attr1': 'value1'})
+        mock_onerror.assert_called_with(extension, ANY)
         
     def test_extension_is_path_to_non_existent_file(self):
         extension = self._get_fixtures_path('settings3.py')
