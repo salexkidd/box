@@ -15,48 +15,6 @@ class SettingsMetaclass(type):
         settings.__init__(settings=esettings, **kwargs)
         return settings
     
-    #Protected
-    
-    _extension_file_pattern = (
-        'from box import Settings\n\n'
-            'class Settings(Settings):\n\n'
-            '    #Public\n\n'
-            '    pass')
-    
-    def _merge_extensions(self):
-        settings = {}
-        for extension in self._extensions:
-            try:
-                if isinstance(extension, str):
-                    if os.path.isfile(extension):
-                        #Extension's settings file already exists 
-                        extension_class = self._find_extension_class(extension)
-                        extension = extension_class()
-                    else:
-                        #Extension's settings file has to be created
-                        self._create_extension_class(extension)
-                        extension = {}
-                settings.update(extension)
-            except Exception as error:
-                if self._extensions_onerror != None:
-                    self._extensions_onerror(extension, error)
-                continue
-        return settings
-    
-    def _find_extension_class(self, filepath):
-        return find_objects(
-            objtype=self.__class__,
-            filename=os.path.basename(filepath),
-            basedir=os.path.dirname(filepath),
-            maxdepth=1,                      
-            mappers=[lambda emitter: emitter.skip(
-                inspect.getmodule(emitter.object) != emitter.module)],
-            getfirst=True)
-    
-    def _create_extension_class(self, filepath):
-        with open(filepath, 'w') as file:
-            file.write(self._extension_file_pattern)
-        
 
 class Settings(dict, metaclass=SettingsMetaclass):
     """Settings representation.
@@ -109,13 +67,51 @@ class Settings(dict, metaclass=SettingsMetaclass):
     - if element is a dict it just override settings values
     - if element is a string it should be a filepath to another Settings
     """
-    _extensions_onerror = None
-    """Callable object with signature (extension, error).
     
-    By default extension fails silently if any error occured. 
-    If this attribute is not None it will be called to handle an error.
-    """
+    @classmethod    
+    def _merge_extensions(cls):
+        settings = {}
+        for extension in cls._extensions:
+            try:
+                if isinstance(extension, str):
+                    if os.path.isfile(extension):
+                        #Extension's settings file already exists 
+                        extension_class = cls._find_extension_class(extension)
+                        extension = extension_class()
+                    else:
+                        #Extension's settings file has to be created
+                        cls._create_extension_class(extension)
+                        extension = {}
+                settings.update(extension)
+            except Exception as error:
+                cls._handle_extension_error(extension, error)
+                continue
+        return settings
     
+    @classmethod    
+    def _find_extension_class(cls, extension):
+        return find_objects(
+            objtype=cls.__class__,
+            filename=os.path.basename(extension),
+            basedir=os.path.dirname(extension),
+            maxdepth=1,                      
+            mappers=[lambda emitter: emitter.skip(
+                inspect.getmodule(emitter.object) != emitter.module)],
+            getfirst=True)
+    
+    @classmethod    
+    def _create_extension_class(cls, extension):
+        with open(extension, 'w') as file:
+            file.write(
+            'from box import Settings\n\n'
+            'class Settings(Settings):\n\n'
+            '    #Public\n\n'
+            '    pass')
+    
+    @classmethod        
+    def _handle_extension_error(cls, extensoin, error):
+        pass
+            
     @property
     def _as_dict(self):
         items = {}

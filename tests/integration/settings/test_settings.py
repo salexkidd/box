@@ -43,7 +43,7 @@ class SettingsTest(unittest.TestCase):
         mock_onerror = Mock()
         extension = self._get_fixtures_path('settings2.py')
         MockSettings = self._make_mock_settings_class([extension])
-        MockSettings._extensions_onerror = mock_onerror
+        MockSettings._handle_extension_error = mock_onerror
         settings = MockSettings()
         self.assertEqual(settings, {'attr1': 'value1'})
         mock_onerror.assert_called_with(extension, ANY)
