@@ -6,7 +6,7 @@ python:
   - '3.4'  
 install:
   - pip install coveralls
-  - pip install -r requirements.txt  
+  - pip install nose
 script:
   - coverage run --source=box setup.py test
 after_success:
