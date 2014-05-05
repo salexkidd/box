@@ -64,4 +64,4 @@ class Version(str):
         return (self.major, self.minor, self.micro, self.level, self.serial)
     
     
-version = Version(major=0, minor=17, micro=0, level='final')
+version = Version(major=0, minor=18, micro=0, level='final')
