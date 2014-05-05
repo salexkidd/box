@@ -14,8 +14,6 @@ There are mentioned above main classes.
      :members: _extensions
  
 .. autoclass:: box.Version
-     :members:
-     :undoc-members:
 
 Advanced
 --------
@@ -23,7 +21,5 @@ Advanced
 Additional elements.
      
 .. automodule:: box
-     :members:
-     :undoc-members:
      :imported-members:
      :exclude-members: Settings, Version

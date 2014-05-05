@@ -22,6 +22,5 @@ Advanced
 Module provides additional elements.
 
 .. automodule:: box.jinja2
-     :members:
      :imported-members:
      :exclude-members: render_string, render_file, render_dir 
