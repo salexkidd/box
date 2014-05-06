@@ -6,6 +6,7 @@ def balanced_walk(*dirpathes, sorter=sorted, onerror=None):
     :param str dirpath: directory path 
     :param function(pathes) sorter: function to sort paths
     :param function(os.error) onerror: function to handle os.errors
+    
     :returns generator: filepath generator
     
     Function doesn't support symbolic links.    
