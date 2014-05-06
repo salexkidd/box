@@ -1,9 +1,9 @@
 import os
 
-def balanced_walk(*dirpathes, sorter=sorted, onerror=None):
+def balanced_walk(*basedirs, sorter=sorted, onerror=None):
     """Recursevly yield sorted filepathes from top to bottom of directory tree.
 
-    :param str dirpath: directory path 
+    :param str basedir: base directory path 
     :param function(pathes) sorter: function to sort paths
     :param function(os.error) onerror: function to handle os.errors
     
@@ -11,25 +11,25 @@ def balanced_walk(*dirpathes, sorter=sorted, onerror=None):
     
     Function doesn't support symbolic links.    
     """
-    dirpathes = list(dirpathes)
-    inner_filepathes = []
-    inner_dirpathes = []
-    for dirpath in dirpathes:
+    basedirs = list(basedirs)
+    filepathes = []
+    dirpathes = []
+    for basedir in basedirs:
         try:
-            for name in os.listdir(dirpath):
-                path = os.path.join(dirpath, name)
+            for name in os.listdir(basedir):
+                path = os.path.join(basedir, name)
                 if os.path.islink(path):
                     continue
                 elif os.path.isfile(path):
-                    inner_filepathes.append(path)            
+                    filepathes.append(path)            
                 elif os.path.isdir(path):
-                    inner_dirpathes.append(path)      
+                    dirpathes.append(path)      
         except os.error as exception:
             if onerror is not None:
                 onerror(exception)
             return   
-    inner_filepathes = sorter(inner_filepathes)
-    inner_dirpathes = sorter(inner_dirpathes)
-    yield from inner_filepathes
-    if inner_dirpathes:
-        yield from balanced_walk(*inner_dirpathes)
+    filepathes = sorter(filepathes)
+    dirpathes = sorter(dirpathes)
+    yield from filepathes
+    if dirpathes:
+        yield from balanced_walk(*dirpathes)
