@@ -39,11 +39,11 @@ class find_files(map_reduce):
             not isinstance(self._filepath, RegexCompiledPatternType)):
             #We have a glob pattern
             for filepath in self._glob_function(
-                self._filepath, basedir=self._basedir,files=True):
+                self._filepath, basedir=self._basedir, files=True):
                 #Emits every file gotten from glob by pattern
                 yield self._emitter(filepath, filepath=filepath) 
         else:
-            #No glob pattern
+            #We don't have a glob pattern
             for filepath in self._walk_function(
                 self._basedir, onerror=self._onwalkerror):
                 #Emits every file gotten from walk in basedir
