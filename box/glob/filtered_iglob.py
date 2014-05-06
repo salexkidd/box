@@ -1,10 +1,10 @@
 import os
 from glob import iglob
 
-def filtered_iglob(pathname, basedir=None, files=False, dirs=False):
-    """Yield the paths matching a pathname pattern.
+def filtered_iglob(pattern, basedir=None, files=False, dirs=False):
+    """Yield the paths matching a pattern.
     
-    :param str pathname: glob pathname pattern
+    :param str pattern: glob path pattern
     :param str basedir: pathname basedirs
     :param bool files: include files flag
     :param bool dirs: include dirs flag
@@ -14,8 +14,8 @@ def filtered_iglob(pathname, basedir=None, files=False, dirs=False):
     Function doesn't support symbolic links.
     """
     if basedir != None:
-        pathname = os.path.join(basedir, pathname)
-    for path in iglob(pathname):
+        pattern = os.path.join(basedir, pattern)
+    for path in iglob(pattern):
         if os.path.islink(path):
             continue
         if os.path.isfile(path) and files:
