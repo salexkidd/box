@@ -35,14 +35,14 @@ class find_files(map_reduce):
         if (self._filepath != None and
             not isinstance(self._filepath, RegexCompiledPatternType)):
             #We have a glob pattern
-            for filepath in self._glob(
-                self._filepath, basedir=self._basedir, files=True):
+            for filepath in self._glob(self._filepath, 
+                basedir=self._basedir, sorter=sorted, files=True):
                 #Emits every file by glob for pattern in basedir
                 yield self._emitter(filepath, filepath=filepath) 
         else:
             #We don't have a glob pattern
-            for _, filepathes in self._walk(
-                self._basedir, sorter=sorted, onerror=self._onwalkerror):
+            for _, filepathes in self._walk(self._basedir, 
+                sorter=sorted, onerror=self._onwalkerror):
                 for filepath in filepathes:
                     #Emits every file by walk in basedir
                     yield self._emitter(filepath, filepath=filepath) 
