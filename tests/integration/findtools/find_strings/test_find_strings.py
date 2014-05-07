@@ -9,7 +9,7 @@ class find_strings_Test(unittest.TestCase):
     #Public
     
     def setUp(self):
-        self.basedir = self._get_fixtures_path() 
+        self.basedir = self._make_path() 
 
     def test_find(self):
         strings = list(find_strings(re.compile('string\d'), 
@@ -23,5 +23,5 @@ class find_strings_Test(unittest.TestCase):
         
     #Protected    
         
-    def _get_fixtures_path(self, *args):
-        return os.path.join(os.path.dirname(__file__), 'fixtures', *args)       
+    def _make_path(self, *args, basedir='fixtures'):
+        return os.path.join(os.path.dirname(__file__), basedir, *args)       
