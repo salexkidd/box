@@ -9,23 +9,20 @@ class balanced_walk_Test(unittest.TestCase):
     def test(self):
         levels = list(balanced_walk(self._make_path(), sorter=sorted))
         self.assertEqual(len(levels), 3)
-        self.assertEqual(
-            levels[0], 
+        self.assertEqual(levels[0], 
             (#Dirpathes
              [self._make_path('dir1'), 
               self._make_path('dir2')],
              #Filepathes
              [self._make_path('file1'), 
               self._make_path('file2')]))
-        self.assertEqual(
-            levels[1], 
+        self.assertEqual(levels[1], 
             (#Dirpathes
              [self._make_path('dir1/subdir1')],
              #Filepathes
              [self._make_path('dir1/file1'), 
               self._make_path('dir2/file1')]))
-        self.assertEqual(
-            levels[2], 
+        self.assertEqual(levels[2], 
             (#Dirpathes
              [],
              #Filepathes
