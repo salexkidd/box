@@ -12,7 +12,6 @@ class find_files(map_reduce):
 
     #Public
     
-    default_basedir = '.'
     default_emitter = FindFilesEmitter
 
     def __init__(self, filename=None, filepath=None, *,
@@ -23,8 +22,6 @@ class find_files(map_reduce):
         self._basedir = basedir
         self._maxdepth = maxdepth
         self._onwalkerror = onwalkerror
-        if not self._basedir:
-            self._basedir = self.default_basedir
         super().__init__(**kwargs)
             
     #Protected
@@ -40,14 +37,14 @@ class find_files(map_reduce):
             #We have a glob pattern
             for filepath in self._glob(
                 self._filepath, basedir=self._basedir, files=True):
-                #Emits every file gotten from glob by pattern
+                #Emits every file by glob for pattern in basedir
                 yield self._emitter(filepath, filepath=filepath) 
         else:
             #We don't have a glob pattern
             for _, filepathes in self._walk(
                 self._basedir, sorter=sorted, onerror=self._onwalkerror):
                 for filepath in filepathes:
-                    #Emits every file gotten from walk in basedir
+                    #Emits every file by walk in basedir
                     yield self._emitter(filepath, filepath=filepath) 
 
     @property        

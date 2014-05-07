@@ -8,7 +8,6 @@ class find_strings(map_reduce):
 
     #Public
     
-    default_basedir = '.'
     default_emitter = FindStringsEmitter
     
     def __init__(self, string=None, *,
@@ -21,8 +20,6 @@ class find_strings(map_reduce):
         self._basedir = basedir
         self._maxdepth = maxdepth
         self._onwalkerror = onwalkerror
-        if not self._basedir:
-            self._basedir = self.default_basedir
         super().__init__(**kwargs) 
     
     #Protected

@@ -10,7 +10,6 @@ class find_objects(map_reduce):
     
     #Public  
     
-    default_basedir = '.'
     default_emitter = FindObjectsEmitter
        
     def __init__(self, objname=None, objtype=None, *, 
@@ -24,8 +23,6 @@ class find_objects(map_reduce):
         self._basedir = basedir
         self._maxdepth = maxdepth       
         self._onwalkerror = onwalkerror
-        if not self._basedir:
-            self._basedir = self.default_basedir
         super().__init__(**kwargs)            
     
     #Protected

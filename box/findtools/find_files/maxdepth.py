@@ -18,13 +18,8 @@ class FindFilesMaxdepthMapper:
     #Protected
     
     def _calculate_depth(self, filepath):
-        basedir = os.path.normpath(self._basedir)
-        dirpath = os.path.normpath(os.path.dirname(filepath))
-        if basedir == dirpath:
-            depth = 1
-        elif os.path.sep not in dirpath:
-            depth = 2
-        else:
-            subpath = dirpath.replace(basedir+os.path.sep, '', 1)
-            depth = subpath.count(os.path.sep)+2
+        depth = 1
+        if filepath:
+            relpath = os.path.relpath(filepath, start=self._basedir)
+            depth = relpath.count(os.path.sep)+1
         return depth
