@@ -18,27 +18,55 @@ class balanced_walk_Test(unittest.TestCase):
         self.error = os.error()
 
     def test(self):
-        levels = list(balanced_walk('fixtures', sorter=sorted))
+        levels = list(balanced_walk(sorter=sorted))
         self.assertEqual(len(levels), 3)
         self.assertEqual(levels[0], 
             (#Dirpathes
-             ['fixtures/dir1', 
-              'fixtures/dir2'],
+             ['dir1', 
+              'dir2'],
              #Filepathes
-             ['fixtures/file1', 
-              'fixtures/file2']))
+             ['file1', 
+              'file2']))
         self.assertEqual(levels[1], 
             (#Dirpathes
-             ['fixtures/dir1/subdir1'],
+             ['dir1/subdir1'],
              #Filepathes
-             ['fixtures/dir1/file1', 
-              'fixtures/dir2/file1']))
+             ['dir1/file1', 
+              'dir2/file1']))
         self.assertEqual(levels[2], 
             (#Dirpathes
              [],
              #Filepathes
-             ['fixtures/dir1/subdir1/file1']))               
+             ['dir1/subdir1/file1']))               
     
+    def test_with_dirpath(self):
+        levels = list(balanced_walk('dir1', sorter=sorted))
+        self.assertEqual(len(levels), 2)
+        self.assertEqual(levels[0], 
+            (#Dirpathes
+             ['dir1/subdir1'],
+             #Filepathes
+             ['dir1/file1']))
+        self.assertEqual(levels[1], 
+            (#Dirpathes
+             [],
+             #Filepathes
+             ['dir1/subdir1/file1']))  
+        
+    def test_with_basedir(self):
+        levels = list(balanced_walk(basedir='dir1', sorter=sorted))
+        self.assertEqual(len(levels), 2)
+        self.assertEqual(levels[0], 
+            (#Dirpathes
+             ['subdir1'],
+             #Filepathes
+             ['file1']))
+        self.assertEqual(levels[1], 
+            (#Dirpathes
+             [],
+             #Filepathes
+             ['subdir1/file1']))         
+        
     def test_error(self):
         files = list(balanced_walk('error', sorter=sorted))
         self.assertEqual(files, [])
@@ -52,13 +80,13 @@ class balanced_walk_Test(unittest.TestCase):
     #Protected
     
     def _mock_listdir(self, path):
-        if path == 'fixtures':
+        if path == '.':
             return ['dir1', 'dir2', 'file1', 'file2', 'link']
-        elif path == 'fixtures/dir1':
+        elif path == 'dir1':
             return ['subdir1', 'file1',]
-        elif path == 'fixtures/dir2':
+        elif path == 'dir2':
             return ['file1',]
-        elif path == 'fixtures/dir1/subdir1':
+        elif path == 'dir1/subdir1':
             return ['file1']
         elif path == 'error':
             raise self.error 
