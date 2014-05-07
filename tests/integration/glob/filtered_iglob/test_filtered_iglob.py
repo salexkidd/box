@@ -9,9 +9,7 @@ class balanced_walk_Test(unittest.TestCase):
     
     def setUp(self):
         self.partial_glob = partial(
-            filtered_iglob, 
-            sorter=sorted, 
-            basedir=self._make_path())
+            filtered_iglob, basedir=self._basedir, sorter=sorted)
 
     def test(self):
         pathes = list(self.partial_glob('*'))
@@ -19,23 +17,22 @@ class balanced_walk_Test(unittest.TestCase):
         
     def test_with_files_is_true(self):
         pathes = list(self.partial_glob('*', files=True))
-        self.assertEqual(pathes, [self._make_path('file')])
+        self.assertEqual(pathes, ['file'])
         
     def test_with_dirs_is_true(self):
         pathes = list(self.partial_glob('*', dirs=True))
-        self.assertEqual(pathes, [self._make_path('dir')])
+        self.assertEqual(pathes, ['dir'])
         
     def test_with_files_and_dirs_is_true(self):
         pathes = list(self.partial_glob('*', files=True, dirs=True))
-        self.assertEqual(pathes, 
-            [self._make_path('dir'), 
-             self._make_path('file')])
+        self.assertEqual(pathes, ['dir', 'file'])
         
     def test_with_files_and_dirs_is_true_for_subdir(self):        
         pathes = list(self.partial_glob('dir/*', files=True, dirs=True))
-        self.assertEqual(pathes, [self._make_path('dir/file')])               
+        self.assertEqual(pathes, ['dir/file'])               
         
     #Protected
     
-    def _make_path(self, *args):
-        return os.path.join(os.path.dirname(__file__), 'fixtures', *args)   
+    @property
+    def _basedir(self):
+        return os.path.join(os.path.dirname(__file__), 'fixtures')   

@@ -7,7 +7,7 @@ def filtered_iglob(pattern, *,
     """Yield the paths matching a pattern using filters.
     
     :param str pattern: glob path pattern
-    :param str basedir: pathname basedirs
+    :param str basedir: all pathes are relative to basedir
     :param bool files: include files flag
     :param bool dirs: include dirs flag
     
@@ -15,15 +15,16 @@ def filtered_iglob(pattern, *,
     
     Function doesn't support symbolic links.
     """
-    pattern = enhanced_join(basedir, pattern)
-    pathes = glob.iglob(pattern)
+    full_pattern = enhanced_join(basedir, pattern)
+    full_pathes = glob.iglob(full_pattern)
     if sorter != None:
-        pathes = sorter(pathes)
-    for path in pathes:
-        if os.path.islink(path):
+        full_pathes = sorter(full_pathes)
+    for full_path in full_pathes:
+        if os.path.islink(full_path):
             continue
-        if os.path.isfile(path) and not files:
+        if os.path.isfile(full_path) and not files:
             continue
-        if os.path.isdir(path) and not dirs: 
+        if os.path.isdir(full_path) and not dirs: 
             continue
+        path = os.path.relpath(full_path, start=basedir)
         yield path

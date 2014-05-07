@@ -9,7 +9,6 @@ class filtered_iglob_Test(unittest.TestCase):
     
     def setUp(self):
         patch('glob.iglob', new=self._mock_iglob).start()
-        patch('os.path.join', new=self._mock_join).start()        
         patch('os.path.islink', new=self._mock_islink).start()
         patch('os.path.isfile', new=self._mock_isfile).start()
         patch('os.path.isdir', new=self._mock_isdir).start()
@@ -30,11 +29,18 @@ class filtered_iglob_Test(unittest.TestCase):
     def test_with_files_and_dirs_is_true(self):
         pathes = list(filtered_iglob('*', files=True, dirs=True))
         self.assertEqual(pathes, ['dir', 'file'])      
+    
+    def test_with_files_and_dirs_is_true_for_subdir(self):        
+        pathes = list(filtered_iglob('dir/*', files=True, dirs=True))
+        self.assertEqual(pathes, ['dir/file'])   
           
     #Protected
     
     def _mock_iglob(self, pattern):
-        return ['dir', 'file', 'link']
+        if pattern == '*':
+            return ['dir', 'file', 'link']
+        elif pattern == 'dir/*':
+            return ['dir/file']
              
     def _mock_islink(self, path):
         return bool(re.search('link\d?$', path))
@@ -44,6 +50,3 @@ class filtered_iglob_Test(unittest.TestCase):
     
     def _mock_isdir(self, path):
         return bool(re.search('dir\d?$', path))
-    
-    def _mock_join(self, *pathes):
-        return '/'.join(pathes)
