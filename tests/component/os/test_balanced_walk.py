@@ -10,10 +10,10 @@ class balanced_walk_Test(unittest.TestCase):
     
     def setUp(self):
         patch('os.listdir', new=self._mock_listdir).start()
-        patch('os.path.join', new=self._mock_join).start()        
         patch('os.path.islink', new=self._mock_islink).start()
         patch('os.path.isfile', new=self._mock_isfile).start()
         patch('os.path.isdir', new=self._mock_isdir).start()
+        patch('os.path.sep', new='/').start()  
         self.addCleanup(patch.stopall)
         self.error = os.error()
 
@@ -71,6 +71,3 @@ class balanced_walk_Test(unittest.TestCase):
     
     def _mock_isdir(self, path):
         return bool(re.search('dir\d?$', path))
-    
-    def _mock_join(self, *pathes):
-        return '/'.join(pathes)

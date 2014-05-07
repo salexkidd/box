@@ -1,39 +1,36 @@
 import os
+from .enhanced_join import enhanced_join
 
-def balanced_walk(dirpath=None, *, sorter=None, onerror=None):
+def balanced_walk(dirpath=None, *, 
+                  basedir=None, sorter=None, onerror=None):
     """Recursevly yield (dirpathes, filepathes) tuple 
     level by level from top to bottom of directory tree.
 
-    :param str/list dirpath: top directory path or list of pathes
+    :param str dirpath: directory path or list of pathes
+    :param str basedir: all pathes are relative to basedir 
     :param function(pathes) sorter: function to sort pathes
     :param function(os.error) onerror: function to handle os.errors
     
     :returns generator: (dirpathes, filepathes) generator
     
-    Function doesn't support symbolic links. 
+    Function doesn't support symbolic links.
     """
+    dirpathes = dirpath
     if not isinstance(dirpath, list):
         dirpathes = [dirpath]
-    else:
-        dirpathes = dirpath
     inner_filepathes = []
     inner_dirpathes = []
     for dirpath in dirpathes:
         try:
-            if dirpath == None:
-                names = os.listdir()
-            else:
-                names = os.listdir(dirpath)
-            for name in names:
-                if dirpath == None:
-                    path = name
-                else:
-                    path = os.path.join(dirpath, name)
-                if os.path.islink(path):
+            full_dirpath = enhanced_join(basedir, dirpath, fallback='.')
+            for name in os.listdir(full_dirpath):
+                path = enhanced_join(dirpath, name)
+                full_path = enhanced_join(basedir, path)
+                if os.path.islink(full_path):
                     continue
-                elif os.path.isfile(path):
+                elif os.path.isfile(full_path):
                     inner_filepathes.append(path)            
-                elif os.path.isdir(path):
+                elif os.path.isdir(full_path):
                     inner_dirpathes.append(path)
         except os.error as exception:
             if onerror is not None:
@@ -45,6 +42,7 @@ def balanced_walk(dirpath=None, *, sorter=None, onerror=None):
     yield (inner_dirpathes, inner_filepathes)
     if inner_dirpathes:
         yield from balanced_walk(
-            inner_dirpathes, 
+            inner_dirpathes,
+            basedir=basedir,
             sorter=sorter, 
             onerror=onerror)

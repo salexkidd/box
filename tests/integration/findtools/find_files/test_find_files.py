@@ -25,6 +25,12 @@ class find_files_Test(unittest.TestCase):
             self._make_path('file1'), 
             self._make_path('dir1', 'file1'),
             self._make_path('dir2', 'file1'),])
+    
+    @unittest.skip    
+    def test_find_with_filepath(self):
+        files = list(self.partial_find(filepath='file1'))
+        self.assertEqual(files, [
+            self._make_path('file1')])        
         
     #Protected
         
