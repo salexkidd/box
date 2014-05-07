@@ -1,34 +1,49 @@
 import os
 import unittest
+from functools import partial
 from box.os import balanced_walk
 
 class balanced_walk_Test(unittest.TestCase):
 
     #Public
+    
+    def setUp(self):
+        self.partial_walk = partial(
+            balanced_walk, basedir=self._basedir, sorter=sorted)
         
     def test(self):
-        levels = list(balanced_walk(self._make_path(), sorter=sorted))
+        levels = list(self.partial_walk())
         self.assertEqual(len(levels), 3)
         self.assertEqual(levels[0], 
             (#Dirpathes
-             [self._make_path('dir1'), 
-              self._make_path('dir2')],
+             ['dir1', 
+              'dir2'],
              #Filepathes
-             [self._make_path('file1'), 
-              self._make_path('file2')]))
+             ['file1', 
+              'file2']))
         self.assertEqual(levels[1], 
             (#Dirpathes
-             [self._make_path('dir1/subdir1')],
+             ['dir1/subdir1'],
              #Filepathes
-             [self._make_path('dir1/file1'), 
-              self._make_path('dir2/file1')]))
+             ['dir1/file1', 
+              'dir2/file1']))
         self.assertEqual(levels[2], 
             (#Dirpathes
              [],
              #Filepathes
-             [self._make_path('dir1/subdir1/file1')]))                 
+             ['dir1/subdir1/file1']))
+        
+    def test_with_dirpath(self):
+        levels = list(self.partial_walk('dir1/subdir1'))
+        self.assertEqual(len(levels), 1)
+        self.assertEqual(levels[0], 
+            (#Dirpathes
+             [],
+             #Filepathes
+             ['dir1/subdir1/file1']))                          
         
     #Protected
     
-    def _make_path(self, *args):
-        return os.path.join(os.path.dirname(__file__), 'fixtures', *args)    
+    @property
+    def _basedir(self):
+        return os.path.join(os.path.dirname(__file__), 'fixtures')
