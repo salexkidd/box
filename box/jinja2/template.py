@@ -14,7 +14,7 @@ class TemplateMixin:
             try:
                 context = ObjectContext(context) 
                 context = self.new_context(context, shared=True)
-                return self._concat_function(self.root_render_func(context))
+                return self._concat(self.root_render_func(context))
             except Exception:
                 exc_info = sys.exc_info()
                 return self.environment.handle_exception(exc_info, True)
@@ -29,6 +29,6 @@ class TemplateMixin:
             return False
         
     @property
-    def _concat_function(self):
+    def _concat(self):
         from jinja2.utils import concat
         return concat

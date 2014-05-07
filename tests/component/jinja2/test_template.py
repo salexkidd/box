@@ -14,7 +14,7 @@ class TemplateMixinTest(unittest.TestCase):
         self.assertEqual(self.template.render(None), 'result')
         self.template.new_context.assert_called_with(ANY, shared=True)
         self.template.root_render_func.assert_called_with('new_context')
-        self.template._concat_function.assert_called_with('root_render')
+        self.template._concat.assert_called_with('root_render')
         
     #Protected
     
@@ -24,5 +24,5 @@ class TemplateMixinTest(unittest.TestCase):
             new_context = Mock(return_value='new_context')
             root_render_func = Mock(return_value='root_render')
             #Protected
-            _concat_function = Mock(return_value='result')
+            _concat = Mock(return_value='result')
         return MockTemplate

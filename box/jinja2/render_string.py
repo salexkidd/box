@@ -31,13 +31,13 @@ class render_string(FunctionCall):
             
     #Protected
     
-    _open_function = staticmethod(open)
+    _open = staticmethod(open)
     
     def _render(self):
         return self._template.render(self._context)
     
     def _write(self, content):
-        with self._open_function(self._target, 'w') as file:
+        with self._open(self._target, 'w') as file:
             file.write(content)
                 
     @cachedproperty

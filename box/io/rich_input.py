@@ -44,10 +44,10 @@ class rich_input(FunctionCall):
     hint_on_default = staticmethod(str.upper)
     """Function called on default value in available options.
     """
-    input_function = staticmethod(input)
+    input = staticmethod(input)
     """Base input function. For example you can use getpass.getpass.
     """
-    print_function = staticmethod(print)
+    print = staticmethod(print)
     """Base print function. For example you can use pprint.pprint.
     """    
     
@@ -59,12 +59,12 @@ class rich_input(FunctionCall):
         
     def __call__(self):
         for _ in range(0, self.attempts):
-            result = self.input_function(self.rendered_prompt)
+            result = self.input(self.rendered_prompt)
             if not result:
                 result = self.default
             if self.options:
                 if result not in self.options:
-                    self.print_function(self.rendered_error)
+                    self.print(self.rendered_error)
                     continue 
             return result
         else:

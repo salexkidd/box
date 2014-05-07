@@ -13,14 +13,14 @@ class find_files_Test(unittest.TestCase):
             (['dir/subdir'], ['dir/file1', 'dir/file2',]), 
             ([], ['dir/subdir/file3',]), 
         ]        
-        self.find = self._make_mock_find_function(walk_items)
+        self.find = self._make_mock_find(walk_items)
    
     def test(self):
         files = list(self.find(
             basedir='basedir',
             onwalkerror='onwalkerror'))
         self.assertEqual(len(files), 5)
-        self.find._walk_function.assert_called_with(
+        self.find._walk.assert_called_with(
             'basedir',
             sorter=sorted,
             onerror='onwalkerror')      
@@ -42,7 +42,7 @@ class find_files_Test(unittest.TestCase):
         files = list(self.find(filename=filename, maxdepth=1))
         self.assertEqual(files, ['file1'])     
     
-    @unittest.skip('Requires mock _glob_function')        
+    @unittest.skip('Requires mock _glob')        
     def test_with_filepath(self):
         files = list(self.find(filepath='dir/file*'))
         self.assertEqual(files, ['dir/file1', 'dir/file2'])
@@ -69,8 +69,8 @@ class find_files_Test(unittest.TestCase):
     
     #Protected
     
-    def _make_mock_find_function(self, walk_items):
+    def _make_mock_find(self, walk_items):
         class mock_find(find_files):
             #Protected
-            _walk_function = Mock(return_value=walk_items)
+            _walk = Mock(return_value=walk_items)
         return mock_find

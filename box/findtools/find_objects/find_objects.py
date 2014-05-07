@@ -32,7 +32,7 @@ class find_objects(map_reduce):
     
     _getfirst_exception = NotFound    
     _source_file_loader_class = SourceFileLoader
-    _find_files_function = staticmethod(find_files)
+    _find_files = staticmethod(find_files)
     
     @property
     def _extension_values(self):
@@ -56,7 +56,7 @@ class find_objects(map_reduce):
      
     @property             
     def _files(self):
-        files = self._find_files_function(
+        files = self._find_files(
             filename=self._filename,
             filepath=self._filepath,             
             basedir=self._basedir, 

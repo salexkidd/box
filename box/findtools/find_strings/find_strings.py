@@ -28,14 +28,14 @@ class find_strings(map_reduce):
     #Protected
         
     _getfirst_exception = NotFound        
-    _open_function = staticmethod(open)
-    _find_files_function = staticmethod(find_files)
+    _open = staticmethod(open)
+    _find_files = staticmethod(find_files)
     
     @property
     def _extension_values(self):
         for filepath in self._files:
             #Reads every file selected by find_files
-            with self._open_function(filepath) as fileobj:
+            with self._open(filepath) as fileobj:
                 filetext = fileobj.read()
                 if isinstance(self._string, RegexCompiledPatternType):
                     #Search string is regex object - re search
@@ -64,7 +64,7 @@ class find_strings(map_reduce):
                     
     @property
     def _files(self):
-        files = self._find_files_function(
+        files = self._find_files(
             filename=self._filename,
             filepath=self._filepath,
             basedir=self._basedir, 

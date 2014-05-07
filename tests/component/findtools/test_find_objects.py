@@ -8,7 +8,7 @@ class find_objects_Test(unittest.TestCase):
     
     def setUp(self):
         files = ['file1', 'file2']
-        self.find = self._make_mock_find_function(files)
+        self.find = self._make_mock_find(files)
         
     def test(self):
         objects = list(self.find(
@@ -18,7 +18,7 @@ class find_objects_Test(unittest.TestCase):
             maxdepth='maxdepth',
             onwalkerror='onwalkerror'))
         self.assertTrue(objects)
-        self.find._find_files_function.assert_called_with(
+        self.find._find_files.assert_called_with(
             filename='filename',
             filepath='filepath',              
             basedir='basedir', 
@@ -53,10 +53,10 @@ class find_objects_Test(unittest.TestCase):
         
     #Protected
 
-    def _make_mock_find_function(self, files):
+    def _make_mock_find(self, files):
         class mock_find(find_objects):
             #Protected
             _source_file_loader_class = Mock(return_value=Mock(
                 load_module=Mock(return_value=unittest.mock)))
-            _find_files_function = Mock(return_value=files)
+            _find_files = Mock(return_value=files)
         return mock_find

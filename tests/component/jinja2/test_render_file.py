@@ -9,7 +9,7 @@ class render_file_Test(unittest.TestCase):
 
     def setUp(self):
         self.template = Mock(render=Mock(return_value='text'))
-        self.render = self._make_mock_render_function(self.template)
+        self.render = self._make_mock_render(self.template)
         self.partial_render = partial(self.render, '/dirpath/filename')
         
     def test(self):
@@ -24,8 +24,8 @@ class render_file_Test(unittest.TestCase):
     def test_with_target(self):
         result = self.partial_render(target='/target')
         self.assertEqual(result, None)
-        self.render._open_function.assert_called_with('/target', 'w')
-        self.render._open_function().write.assert_called_with('text')
+        self.render._open.assert_called_with('/target', 'w')
+        self.render._open().write.assert_called_with('text')
         
     def test_with_context_is_object(self):
         context = object()
@@ -35,12 +35,12 @@ class render_file_Test(unittest.TestCase):
     
     #Protected
     
-    def _make_mock_render_function(self, template):
+    def _make_mock_render(self, template):
         class mock_render(render_file):
             #Public
             meta_module = 'module'
             #Protected
-            _open_function = mock_open()
+            _open = mock_open()
             _file_system_loader_class = Mock(return_value='loader')            
             _environment_class = Mock(return_value=Mock(
                 get_template=Mock(return_value=template)))
