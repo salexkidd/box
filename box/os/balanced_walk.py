@@ -1,9 +1,6 @@
 import os
-from ..functools import FunctionCall
-from .enhanced_join import enhanced_join
-from .enhanced_listdir import enhanced_listdir
 
-class balanced_walk(FunctionCall):
+def balanced_walk(dirpath=None, *, sorter=None, onerror=None):
     """Recursevly yield (dirpathes, filepathes) tuple 
     level by level from top to bottom of directory tree.
 
@@ -15,49 +12,39 @@ class balanced_walk(FunctionCall):
     
     Function doesn't support symbolic links. 
     """
-    
-    #Public
-    
-    def __init__(self, dirpath=None, *, sorter=None, onerror=None):
-        self._dirpath = dirpath
-        self._sorter = sorter
-        self._onerror = onerror
-        
-    def __call__(self):
-        if not isinstance(self._dirpath, list):
-            dirpathes = [self._dirpath]
-        else:
-            dirpathes = self._dirpath
-        inner_filepathes = []
-        inner_dirpathes = []
-        for dirpath in dirpathes:
-            try:
-                for name in self._listdir(dirpath):
-                    path = self._join(dirpath, name)
-                    if self._islink(path):
-                        continue
-                    elif self._isfile(path):
-                        inner_filepathes.append(path)            
-                    elif self._isdir(path):
-                        inner_dirpathes.append(path)
-            except os.error as exception:
-                if self._onerror is not None:
-                    self._onerror(exception)
-                return
-        if self._sorter != None:
-            inner_filepathes = self._sorter(inner_filepathes)
-            inner_dirpathes = self._sorter(inner_dirpathes)
-        yield (inner_dirpathes, inner_filepathes)
-        if inner_dirpathes:
-            yield from type(self)(
-                inner_dirpathes, 
-                sorter=self._sorter, 
-                onerror=self._onerror)
-            
-    #Protected
-    
-    _listdir = staticmethod(enhanced_listdir)
-    _join = staticmethod(enhanced_join)
-    _islink = staticmethod(os.path.islink)
-    _isfile = staticmethod(os.path.isfile)
-    _isdir = staticmethod(os.path.isdir)
+    if not isinstance(dirpath, list):
+        dirpathes = [dirpath]
+    else:
+        dirpathes = dirpath
+    inner_filepathes = []
+    inner_dirpathes = []
+    for dirpath in dirpathes:
+        try:
+            if dirpath == None:
+                names = os.listdir()
+            else:
+                names = os.listdir(dirpath)
+            for name in names:
+                if dirpath == None:
+                    path = name
+                else:
+                    path = os.path.join(dirpath, name)
+                if os.path.islink(path):
+                    continue
+                elif os.path.isfile(path):
+                    inner_filepathes.append(path)            
+                elif os.path.isdir(path):
+                    inner_dirpathes.append(path)
+        except os.error as exception:
+            if onerror is not None:
+                onerror(exception)
+            return
+    if sorter != None:
+        inner_filepathes = sorter(inner_filepathes)
+        inner_dirpathes = sorter(inner_dirpathes)
+    yield (inner_dirpathes, inner_filepathes)
+    if inner_dirpathes:
+        yield from balanced_walk(
+            inner_dirpathes, 
+            sorter=sorter, 
+            onerror=onerror)
