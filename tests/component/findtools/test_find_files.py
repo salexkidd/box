@@ -41,11 +41,6 @@ class find_files_Test(unittest.TestCase):
         filename = re.compile('file1+')
         files = list(self.find(filename=filename, maxdepth=1))
         self.assertEqual(files, ['file1'])     
-    
-    @unittest.skip('Requires mock _glob')        
-    def test_with_filepath(self):
-        files = list(self.find(filepath='dir/file*'))
-        self.assertEqual(files, ['dir/file1', 'dir/file2'])
         
     def test_with_filepath_is_regex(self):
         filepath = re.compile('.*2$')
