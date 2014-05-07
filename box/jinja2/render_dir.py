@@ -9,9 +9,7 @@ class render_dir(FunctionCall):
     :param dict/obj context: rendering context
     
     Directory rendering means that every name from os.listdir
-    will be processed by render_string and then renamed accordingly. 
-    
-    .. note:: This class acts like a function when called.    
+    will be processed by render_string and then renamed accordingly.    
     """
     
     #Public

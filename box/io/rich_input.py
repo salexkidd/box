@@ -10,8 +10,6 @@ class rich_input(FunctionCall):
     and changes function behaviour. See parameter list below. All of them
     you can use in function call. Also all of them you can redefine in
     inherited class.
-    
-    .. note:: This class acts like a function when called.   
     """
     
     #Public

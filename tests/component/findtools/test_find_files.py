@@ -9,10 +9,10 @@ class find_files_Test(unittest.TestCase):
     
     def setUp(self):
         walk_items = [
-            'file1', 'file2', 
-            'dir/file1', 'dir/file2',
-            'dir/subdir/file3',
-        ]
+            (['dir'], ['file1', 'file2',]),
+            (['dir/subdir'], ['dir/file1', 'dir/file2',]), 
+            ([], ['dir/subdir/file3',]), 
+        ]        
         self.find = self._make_mock_find_function(walk_items)
    
     def test(self):
@@ -22,6 +22,7 @@ class find_files_Test(unittest.TestCase):
         self.assertEqual(len(files), 5)
         self.find._walk_function.assert_called_with(
             'basedir',
+            sorter=sorted,
             onerror='onwalkerror')      
         
     def test_with_maxdepth_is_1(self):

@@ -11,9 +11,7 @@ class render_string(FunctionCall):
     
     :returns str/None: rendered string
     
-    If target is given function will not return any value.
-    
-    .. note:: This class acts like a function when called.    
+    If target is given function will not return any value.   
     """
     
     #Public

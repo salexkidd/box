@@ -44,10 +44,11 @@ class find_files(map_reduce):
                 yield self._emitter(filepath, filepath=filepath) 
         else:
             #We don't have a glob pattern
-            for filepath in self._walk_function(
-                self._basedir, onerror=self._onwalkerror):
-                #Emits every file gotten from walk in basedir
-                yield self._emitter(filepath, filepath=filepath) 
+            for _, filepathes in self._walk_function(
+                self._basedir, sorter=sorted, onerror=self._onwalkerror):
+                for filepath in filepathes:
+                    #Emits every file gotten from walk in basedir
+                    yield self._emitter(filepath, filepath=filepath) 
 
     @property        
     def _extension_mappers(self):
