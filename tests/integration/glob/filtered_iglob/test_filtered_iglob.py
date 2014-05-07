@@ -37,5 +37,5 @@ class balanced_walk_Test(unittest.TestCase):
         
     #Protected
     
-    def _make_path(self, *args, basedir='fixtures'):
-        return os.path.join(os.path.dirname(__file__), basedir, *args)   
+    def _make_path(self, *args):
+        return os.path.join(os.path.dirname(__file__), 'fixtures', *args)   
