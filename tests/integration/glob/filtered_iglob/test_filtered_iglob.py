@@ -19,19 +19,21 @@ class balanced_walk_Test(unittest.TestCase):
         
     def test_with_files_is_true(self):
         pathes = list(self.partial_glob('*', files=True))
-        self.assertEqual(pathes, 
-            [self._make_path('file')])
+        self.assertEqual(pathes, [self._make_path('file')])
         
     def test_with_dirs_is_true(self):
         pathes = list(self.partial_glob('*', dirs=True))
-        self.assertEqual(pathes, 
-            [self._make_path('dir')])
+        self.assertEqual(pathes, [self._make_path('dir')])
         
     def test_with_files_and_dirs_is_true(self):
         pathes = list(self.partial_glob('*', files=True, dirs=True))
         self.assertEqual(pathes, 
-            [self._make_path('dir'),
-             self._make_path('file')])                
+            [self._make_path('dir'), 
+             self._make_path('file')])
+        
+    def test_with_files_and_dirs_is_true_for_subdir(self):        
+        pathes = list(self.partial_glob('dir/*', files=True, dirs=True))
+        self.assertEqual(pathes, [self._make_path('dir/file')])               
         
     #Protected
     
