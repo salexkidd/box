@@ -1,6 +1,7 @@
 import re
 import unittest
 from unittest.mock import patch
+from functools import partial
 from box.glob.filtered_iglob import filtered_iglob
 
 class filtered_iglob_Test(unittest.TestCase):
@@ -13,26 +14,28 @@ class filtered_iglob_Test(unittest.TestCase):
         patch('os.path.isfile', new=self._mock_isfile).start()
         patch('os.path.isdir', new=self._mock_isdir).start()
         self.addCleanup(patch.stopall)
+        self.partial_glob = partial(
+            filtered_iglob, sorter=sorted)
 
     def test(self):
-        pathes = list(filtered_iglob('*'))
+        pathes = list(self.partial_glob('*'))
         self.assertEqual(pathes, [])
         
     def test_with_files_is_true(self):
-        pathes = list(filtered_iglob('*', files=True))
+        pathes = list(self.partial_glob('*', files=True))
         self.assertEqual(pathes, ['file'])
         
     def test_with_dirs_is_true(self):
-        pathes = list(filtered_iglob('*', dirs=True))
+        pathes = list(self.partial_glob('*', dirs=True))
         self.assertEqual(pathes, ['dir'])
         
     def test_with_files_and_dirs_is_true(self):
-        pathes = list(filtered_iglob('*', files=True, dirs=True))
+        pathes = list(self.partial_glob('*', files=True, dirs=True))
         self.assertEqual(pathes, ['dir', 'file'])      
     
     def test_with_files_and_dirs_is_true_for_subdir(self):        
-        pathes = list(filtered_iglob('dir/*', files=True, dirs=True))
-        self.assertEqual(pathes, ['dir/file'])   
+        pathes = list(self.partial_glob('dir/*', files=True, dirs=True))
+        self.assertEqual(pathes, ['dir/file'])
           
     #Protected
     

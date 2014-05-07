@@ -41,8 +41,9 @@ class find_files(map_reduce):
                 yield self._emitter(filepath, filepath=filepath) 
         else:
             #We don't have a glob pattern
-            for _, filepathes in self._walk(self._basedir, 
-                sorter=sorted, onerror=self._onwalkerror):
+            for _, filepathes in self._walk(
+                self._basedir, sorter=sorted,
+                onerror=self._onwalkerror):
                 for filepath in filepathes:
                     #Emits every file by walk in basedir
                     yield self._emitter(filepath, filepath=filepath) 
