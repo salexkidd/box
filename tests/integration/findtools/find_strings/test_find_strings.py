@@ -1,24 +1,25 @@
 import os
 import re
 import unittest
+from functools import partial
 #TODO: Nose in shell imports module instead of object
 from box.findtools.find_strings import find_strings
 
 class find_strings_Test(unittest.TestCase):
-
-    #Public
     
     def setUp(self):
-        self.basedir = self._make_path() 
+        self.partial_find = partial(find_strings, basedir=self._make_path())    
+
+    #Public
 
     def test_find(self):
-        strings = list(find_strings(re.compile('string\d'), 
-            filename='file1', basedir=self.basedir, maxdepth=1))
+        strings = list(self.partial_find(
+            re.compile('string\d'), filename='file1', maxdepth=1))
         self.assertEqual(strings, ['string1'])
 
     def test_find_with_maxdepth_is_1(self):
-        files = list(find_strings(re.compile('string\d'), 
-            filename='file1', basedir=self.basedir))
+        files = list(self.partial_find(
+            re.compile('string\d'), filename='file1'))
         self.assertEqual(files, ['string1', 'string3'])
         
     #Protected    
