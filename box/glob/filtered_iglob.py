@@ -1,7 +1,8 @@
 import os
 import glob
 
-def filtered_iglob(pattern, *, basedir=None, files=False, dirs=False):
+def filtered_iglob(pattern, *, 
+                   basedir=None, sorter=None, files=False, dirs=False):
     """Yield the paths matching a pattern using filters.
     
     :param str pattern: glob path pattern
@@ -15,7 +16,10 @@ def filtered_iglob(pattern, *, basedir=None, files=False, dirs=False):
     """
     if basedir != None:
         pattern = os.path.join(basedir, pattern)
-    for path in glob.iglob(pattern):
+    pathes = glob.iglob(pattern)
+    if sorter != None:
+        pathes = sorter(pathes)
+    for path in pathes:
         if os.path.islink(path):
             continue
         if os.path.isfile(path) and not files:

@@ -21,20 +21,20 @@ class filtered_iglob_Test(unittest.TestCase):
         
     def test_with_files_is_true(self):
         pathes = list(filtered_iglob('*', files=True))
-        self.assertEqual(pathes, ['file1', 'file2'])
+        self.assertEqual(pathes, ['file'])
         
     def test_with_dirs_is_true(self):
         pathes = list(filtered_iglob('*', dirs=True))
-        self.assertEqual(pathes, ['dir1', 'dir2'])
+        self.assertEqual(pathes, ['dir'])
         
     def test_with_files_and_dirs_is_true(self):
         pathes = list(filtered_iglob('*', files=True, dirs=True))
-        self.assertEqual(pathes, ['dir1', 'dir2', 'file1', 'file2'])      
+        self.assertEqual(pathes, ['dir', 'file'])      
           
     #Protected
     
     def _mock_iglob(self, pattern):
-        return ['dir1', 'dir2', 'file1', 'file2', 'link']
+        return ['dir', 'file', 'link']
              
     def _mock_islink(self, path):
         return bool(re.search('link\d?$', path))
