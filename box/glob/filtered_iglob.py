@@ -1,5 +1,6 @@
 import os
 import glob
+from ..os import enhanced_join
 
 def filtered_iglob(pattern, *, 
                    basedir=None, sorter=None, files=False, dirs=False):
@@ -14,8 +15,7 @@ def filtered_iglob(pattern, *,
     
     Function doesn't support symbolic links.
     """
-    if basedir != None:
-        pattern = os.path.join(basedir, pattern)
+    pattern = enhanced_join(basedir, pattern)
     pathes = glob.iglob(pattern)
     if sorter != None:
         pathes = sorter(pathes)
