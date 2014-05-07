@@ -76,4 +76,4 @@ class balanced_walk_Test(unittest.TestCase):
         return bool(re.search('dir\d?$', path))
     
     def _mock_join(self, *pathes):
-        return '/'.join(filter(lambda path: path != None, pathes))
+        return '/'.join(pathes)
