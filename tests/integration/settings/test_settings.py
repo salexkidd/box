@@ -32,7 +32,6 @@ class SettingsTest(unittest.TestCase):
             {'attr1': 'value1', 
              'attr2': 'value2'})
     
-    @unittest.skip('Error with find_files')    
     def test_extension_is_path_to_file_with_user_settings(self):
         extension = self._make_path('settings1.py')
         settings = self._make_mock_settings_class([extension])()

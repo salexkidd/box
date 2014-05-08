@@ -93,7 +93,6 @@ class Settings(dict, metaclass=SettingsMetaclass):
         return find_objects(
             objtype=cls.__class__,
             filepath=extension,
-            maxdepth=1,                      
             mappers=[lambda emitter: emitter.skip(
                 inspect.getmodule(emitter.object) != emitter.module)],
             getfirst=True)
