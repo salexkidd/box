@@ -10,7 +10,7 @@ class find_objects_Test(unittest.TestCase):
     #Public
     
     def setUp(self):
-        self.partial_find = partial(find_objects, basedir=self._make_path()) 
+        self.partial_find = partial(find_objects, basedir=self._basedir) 
         
     def test_find(self):
         objects = list(self.partial_find(
@@ -24,5 +24,6 @@ class find_objects_Test(unittest.TestCase):
         
     #Protected    
         
-    def _make_path(self, *args):
-        return os.path.join(os.path.dirname(__file__), 'fixtures', *args)       
+    @property    
+    def _basedir(self):
+        return os.path.join(os.path.dirname(__file__), 'fixtures')       

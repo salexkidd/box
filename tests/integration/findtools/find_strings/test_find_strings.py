@@ -8,7 +8,7 @@ from box.findtools.find_strings import find_strings
 class find_strings_Test(unittest.TestCase):
     
     def setUp(self):
-        self.partial_find = partial(find_strings, basedir=self._make_path())    
+        self.partial_find = partial(find_strings, basedir=self._basedir)    
 
     #Public
 
@@ -24,5 +24,6 @@ class find_strings_Test(unittest.TestCase):
         
     #Protected    
         
-    def _make_path(self, *args):
-        return os.path.join(os.path.dirname(__file__), 'fixtures', *args)       
+    @property    
+    def _basedir(self):
+        return os.path.join(os.path.dirname(__file__), 'fixtures')       
