@@ -35,14 +35,13 @@ class find_objects(map_reduce):
     @property
     def _extension_values(self):
         for filepath in self._filepathes:
-            #Loads as a module every selected by find_files file 
+            #Loads as a module every file from find_files 
             full_filepath = enhanced_join(self._basedir, filepath)
             loader = self._loader_class(full_filepath, full_filepath)
             module = loader.load_module(full_filepath)
             for objname in dir(module):
-                #Gets every object in module
+                #Emits every object in module
                 obj = getattr(module, objname)
-                #Emits gotten object
                 yield self._emitter(obj,
                     object=obj, 
                     objname=objname,

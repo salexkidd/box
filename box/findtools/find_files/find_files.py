@@ -34,10 +34,10 @@ class find_files(map_reduce):
     @property
     def _extension_values(self):
         for filepath in self._filepathes:
+            #Emits every file from walk/glob
             file = filepath
             if self._join:
                 file = enhanced_join(self._basedir, filepath)
-            #Emits every file gotten from filepathes
             yield self._emitter(file, basedir=self._basedir, filepath=filepath)  
 
     @property        
