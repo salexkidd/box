@@ -11,25 +11,21 @@ class balanced_walk_Test(unittest.TestCase):
         self.partial_glob = partial(
             filtered_iglob, basedir=self._basedir, sorter=sorted)
 
-    def test(self):
+    def test(self):        
         pathes = list(self.partial_glob('*'))
-        self.assertEqual(pathes, [])
-        
-    def test_with_files_is_true(self):
-        pathes = list(self.partial_glob('*', files=True))
-        self.assertEqual(pathes, ['file'])
-        
-    def test_with_dirs_is_true(self):
-        pathes = list(self.partial_glob('*', dirs=True))
-        self.assertEqual(pathes, ['dir'])
-        
-    def test_with_files_and_dirs_is_true(self):
-        pathes = list(self.partial_glob('*', files=True, dirs=True))
         self.assertEqual(pathes, ['dir', 'file'])
         
-    def test_with_files_and_dirs_is_true_for_subdir(self):        
-        pathes = list(self.partial_glob('dir/*', files=True, dirs=True))
-        self.assertEqual(pathes, ['dir/file'])               
+    def test_subdir(self):        
+        pathes = list(self.partial_glob('dir/*'))
+        self.assertEqual(pathes, ['dir/file'])        
+        
+    def test_with_mode_is_files(self):
+        pathes = list(self.partial_glob('*', mode='files'))
+        self.assertEqual(pathes, ['file'])
+        
+    def test_with_mode_is_dirs(self):
+        pathes = list(self.partial_glob('*', mode='dirs'))
+        self.assertEqual(pathes, ['dir'])             
         
     #Protected
     

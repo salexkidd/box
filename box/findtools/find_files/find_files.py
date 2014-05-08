@@ -52,10 +52,10 @@ class find_files(map_reduce):
             isinstance(self._filepath, RegexCompiledPatternType)):
             #We have to walk
             filepathes = self._walk(
-                basedir=self._basedir, sorter=sorted, files=True,
+                basedir=self._basedir, sorter=sorted, mode='files',
                 onerror=self._onwalkerror)            
         else:
             #We have a glob pattern
             filepathes = self._glob(self._filepath, 
-                basedir=self._basedir, sorter=sorted, files=True)
+                basedir=self._basedir, sorter=sorted, mode='files')
         return filepathes

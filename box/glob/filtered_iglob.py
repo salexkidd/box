@@ -3,14 +3,13 @@ import glob
 from ..os import enhanced_join
 
 def filtered_iglob(pattern, *, 
-                   basedir=None, sorter=None, files=False, dirs=False):
-    """Yield the paths matching a pattern using filters.
+                   basedir=None, mode=None, sorter=None):
+    """Yield the pathes matching a pattern.
     
     :param str pattern: glob path pattern
     :param str basedir: all pathes are relative to basedir
+    :param str[files/dirs] mode: filtering mode
     :param function(pathes) sorter: function to sort pathes
-    :param bool files: include files flag
-    :param bool dirs: include dirs flag
     
     :returns object: paths generator
     
@@ -21,11 +20,14 @@ def filtered_iglob(pattern, *,
     if sorter != None:
         full_pathes = sorter(full_pathes)
     for full_path in full_pathes:
+        path = os.path.relpath(full_path, start=basedir)
         if os.path.islink(full_path):
             continue
-        if os.path.isfile(full_path) and not files:
-            continue
-        if os.path.isdir(full_path) and not dirs: 
-            continue
-        path = os.path.relpath(full_path, start=basedir)
-        yield path
+        if mode == 'files': 
+            if os.path.isfile(full_path):
+                yield path
+        elif mode == 'dirs': 
+            if os.path.isdir(full_path):
+                yield path
+        else:
+            yield path      

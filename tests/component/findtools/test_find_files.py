@@ -20,7 +20,7 @@ class find_files_Test(unittest.TestCase):
         self.find._walk.assert_called_with(
             basedir='basedir',
             sorter=sorted,
-            files=True,
+            mode='files',
             onerror='onwalkerror')      
         
     def test_with_maxdepth_is_1(self):
