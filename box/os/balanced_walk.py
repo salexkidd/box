@@ -1,15 +1,18 @@
 import os
 from .enhanced_join import enhanced_join
 
-def balanced_walk(dirpath=None, *, 
-                  basedir=None, sorter=None, onerror=None):
+def balanced_walk(dirpath=None, *, onerror=None,
+                  basedir=None, sorter=None, files=False, dirs=False):
     """Recursevly yield (dirpathes, filepathes) tuple 
     level by level from top to bottom of directory tree.
 
     :param str dirpath: directory path or list of pathes
-    :param str basedir: all pathes are relative to basedir 
-    :param function(pathes) sorter: function to sort pathes
     :param function(os.error) onerror: function to handle os.errors
+    :param str basedir: all pathes are relative to basedir
+    :param function(pathes) sorter: function to sort pathes
+    :param bool files: yields every filepath instead of tuple if True
+    :param bool dirs: yields every dirpath instead of tuple if True    
+    
     
     :returns generator: (dirpathes, filepathes) generator
     
@@ -39,10 +42,17 @@ def balanced_walk(dirpath=None, *,
     if sorter != None:
         inner_filepathes = sorter(inner_filepathes)
         inner_dirpathes = sorter(inner_dirpathes)
-    yield (inner_dirpathes, inner_filepathes)
+    if files:
+        yield from inner_filepathes
+    elif dirs:
+        yield from inner_dirpathes
+    else:
+        yield (inner_dirpathes, inner_filepathes)
     if inner_dirpathes:
         yield from balanced_walk(
             inner_dirpathes,
             basedir=basedir,
-            sorter=sorter, 
+            sorter=sorter,
+            files=files,
+            dirs=dirs, 
             onerror=onerror)

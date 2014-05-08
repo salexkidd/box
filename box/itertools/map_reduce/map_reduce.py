@@ -5,7 +5,7 @@ from .getfirst import MapReduceGetfirstMapper, MapReduceGetfirstReducer
 
 class map_reduce(FunctionCall):
     
-    default_emitter = property(lambda self: MapReduceEmitter)
+    default_emitter = MapReduceEmitter
     
     def __init__(self, values=[], *args, 
                  mappers=[], reducers=[], 

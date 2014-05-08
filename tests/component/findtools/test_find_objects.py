@@ -23,7 +23,8 @@ class find_objects_Test(unittest.TestCase):
             filepath='filepath',              
             basedir='basedir', 
             maxdepth='maxdepth',
-            onwalkerror='onwalkerror')
+            onwalkerror='onwalkerror',
+            join=True)
         (self.find._source_file_loader_class.
             assert_has_calls([call('file1', 'file1'), call('file2', 'file2')]))
         (self.find._source_file_loader_class.return_value.load_module.

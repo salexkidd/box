@@ -8,6 +8,7 @@ def filtered_iglob(pattern, *,
     
     :param str pattern: glob path pattern
     :param str basedir: all pathes are relative to basedir
+    :param function(pathes) sorter: function to sort pathes
     :param bool files: include files flag
     :param bool dirs: include dirs flag
     

@@ -16,4 +16,4 @@ class FindFilesFilepathMapper:
                     emitter.skip()
             else:
                 if not fnmatch.fnmatch(emitter.filepath, self._filepath):
-                    emitter.skip()                 
+                    emitter.skip()           

@@ -1,6 +1,6 @@
 from ...glob import filtered_iglob
 from ...itertools import map_reduce
-from ...os import balanced_walk
+from ...os import balanced_walk, enhanced_join
 from ...types import RegexCompiledPatternType
 from ..not_found import NotFound
 from .emitter import FindFilesEmitter
@@ -15,11 +15,12 @@ class find_files(map_reduce):
     default_emitter = FindFilesEmitter
 
     def __init__(self, filename=None, filepath=None, *,
-                 basedir=None, maxdepth=None, 
+                 basedir=None, join=False, maxdepth=None, 
                  onwalkerror=None, **kwargs):
         self._filename = filename
         self._filepath = filepath
         self._basedir = basedir
+        self._join = join
         self._maxdepth = maxdepth
         self._onwalkerror = onwalkerror
         super().__init__(**kwargs)
@@ -32,24 +33,29 @@ class find_files(map_reduce):
     
     @property
     def _extension_values(self):
-        if (self._filepath != None and
-            not isinstance(self._filepath, RegexCompiledPatternType)):
-            #We have a glob pattern
-            for filepath in self._glob(self._filepath, 
-                basedir=self._basedir, sorter=sorted, files=True):
-                #Emits every file by glob for pattern in basedir
-                yield self._emitter(filepath, filepath=filepath) 
-        else:
-            #We don't have a glob pattern
-            for _, filepathes in self._walk(
-                self._basedir, sorter=sorted,
-                onerror=self._onwalkerror):
-                for filepath in filepathes:
-                    #Emits every file by walk in basedir
-                    yield self._emitter(filepath, filepath=filepath) 
+        for filepath in self._filepathes:
+            file = filepath
+            if self._join:
+                file = enhanced_join(self._basedir, filepath)
+            #Emits every file gotten from filepathes
+            yield self._emitter(file, basedir=self._basedir, filepath=filepath)  
 
     @property        
     def _extension_mappers(self):
-        return [FindFilesMaxdepthMapper(self._basedir, self._maxdepth),
+        return [FindFilesMaxdepthMapper(self._maxdepth),
                 FindFilesFilenameMapper(self._filename),
                 FindFilesFilepathMapper(self._filepath)]
+    
+    @property
+    def _filepathes(self):
+        if (self._filepath == None or
+            isinstance(self._filepath, RegexCompiledPatternType)):
+            #We have to walk
+            filepathes = self._walk(
+                basedir=self._basedir, sorter=sorted, files=True,
+                onerror=self._onwalkerror)            
+        else:
+            #We have a glob pattern
+            filepathes = self._glob(self._filepath, 
+                basedir=self._basedir, sorter=sorted, files=True)
+        return filepathes

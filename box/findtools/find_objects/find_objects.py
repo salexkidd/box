@@ -58,5 +58,6 @@ class find_objects(map_reduce):
             filepath=self._filepath,             
             basedir=self._basedir, 
             maxdepth=self._maxdepth,
-            onwalkerror = self._onwalkerror)
+            onwalkerror = self._onwalkerror,
+            join=True)
         return files            

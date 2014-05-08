@@ -8,12 +8,9 @@ class find_files_Test(unittest.TestCase):
     #Public
     
     def setUp(self):
-        walk_items = [
-            (['dir'], ['file1', 'file2',]),
-            (['dir/subdir'], ['dir/file1', 'dir/file2',]), 
-            ([], ['dir/subdir/file3',]), 
-        ]        
-        self.find = self._make_mock_find(walk_items)
+        filepathes = [
+            'file1', 'file2', 'dir/file1', 'dir/file2', 'dir/subdir/file3']
+        self.find = self._make_mock_find(filepathes)
    
     def test(self):
         files = list(self.find(
@@ -21,8 +18,9 @@ class find_files_Test(unittest.TestCase):
             onwalkerror='onwalkerror'))
         self.assertEqual(len(files), 5)
         self.find._walk.assert_called_with(
-            'basedir',
+            basedir='basedir',
             sorter=sorted,
+            files=True,
             onerror='onwalkerror')      
         
     def test_with_maxdepth_is_1(self):
@@ -64,8 +62,9 @@ class find_files_Test(unittest.TestCase):
     
     #Protected
     
-    def _make_mock_find(self, walk_items):
+    def _make_mock_find(self, filepathes):
         class mock_find(find_files):
             #Protected
-            _walk = Mock(return_value=walk_items)
+            _walk = Mock(return_value=filepathes)
+            _glob = Mock(return_value=filepathes)
         return mock_find
