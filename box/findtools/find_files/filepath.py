@@ -1,5 +1,4 @@
 import re
-import fnmatch
 from ...types import RegexCompiledPatternType
 
 class FindFilesFilepathMapper:
@@ -13,7 +12,4 @@ class FindFilesFilepathMapper:
         if self._filepath:
             if isinstance(self._filepath, RegexCompiledPatternType):
                 if not re.match(self._filepath, emitter.filepath):
-                    emitter.skip()
-            else:
-                if not fnmatch.fnmatch(emitter.filepath, self._filepath):
                     emitter.skip()           
