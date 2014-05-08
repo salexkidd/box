@@ -1,5 +1,6 @@
 from importlib.machinery import SourceFileLoader
 from ...itertools import map_reduce
+from ...os import enhanced_join
 from ..find_files import find_files
 from ..not_found import NotFound
 from .emitter import FindObjectsEmitter
@@ -28,15 +29,16 @@ class find_objects(map_reduce):
     #Protected
     
     _getfirst_exception = NotFound    
-    _source_file_loader_class = SourceFileLoader
+    _loader_class = SourceFileLoader
     _find_files = staticmethod(find_files)
     
     @property
     def _extension_values(self):
-        for file in self._files:
+        for filepath in self._filepathes:
             #Loads as a module every selected by find_files file 
-            loader = self._source_file_loader_class(file, file)
-            module = loader.load_module(file)
+            full_filepath = enhanced_join(self._basedir, filepath)
+            loader = self._loader_class(full_filepath, full_filepath)
+            module = loader.load_module(full_filepath)
             for objname in dir(module):
                 #Gets every object in module
                 obj = getattr(module, objname)
@@ -52,12 +54,11 @@ class find_objects(map_reduce):
                 FindObjectsObjtypeMapper(self._objtype)] 
      
     @property             
-    def _files(self):
+    def _filepathes(self):
         files = self._find_files(
             filename=self._filename,
             filepath=self._filepath,             
             basedir=self._basedir, 
             maxdepth=self._maxdepth,
-            onwalkerror = self._onwalkerror,
-            join=True)
+            onwalkerror = self._onwalkerror)
         return files            

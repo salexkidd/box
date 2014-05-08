@@ -24,10 +24,10 @@ class find_strings_Test(unittest.TestCase):
             filepath='filepath',            
             basedir='basedir', 
             maxdepth='maxdepth',
-            onwalkerror='onwalkerror',
-            join=True)    
+            onwalkerror='onwalkerror')    
         self.find._open.assert_has_calls(
-            [call('file1'), call('file2')], any_order=True)
+            [call('basedir/file1'), 
+             call('basedir/file2')])
     
     def test_with_string(self):
         strings = list(self.find('data'))

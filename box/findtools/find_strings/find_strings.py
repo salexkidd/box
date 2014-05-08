@@ -1,4 +1,5 @@
 from ...itertools import map_reduce
+from ...os import enhanced_join
 from ...types import RegexCompiledPatternType
 from ..find_files import find_files
 from ..not_found import NotFound
@@ -30,9 +31,10 @@ class find_strings(map_reduce):
     
     @property
     def _extension_values(self):
-        for filepath in self._files:
+        for filepath in self._filepathes:
             #Reads every file selected by find_files
-            with self._open(filepath) as fileobj:
+            full_filepath = enhanced_join(self._basedir, filepath)
+            with self._open(full_filepath) as fileobj:
                 filetext = fileobj.read()
                 if isinstance(self._string, RegexCompiledPatternType):
                     #Search string is regex object - re search
@@ -60,12 +62,11 @@ class find_strings(map_reduce):
                     yield self._emitter(filetext, filepath=filepath)
                     
     @property
-    def _files(self):
+    def _filepathes(self):
         files = self._find_files(
             filename=self._filename,
             filepath=self._filepath,
             basedir=self._basedir, 
             maxdepth=self._maxdepth,
-            onwalkerror = self._onwalkerror,
-            join=True)
+            onwalkerror = self._onwalkerror)
         return files

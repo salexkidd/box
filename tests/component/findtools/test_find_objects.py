@@ -23,12 +23,13 @@ class find_objects_Test(unittest.TestCase):
             filepath='filepath',              
             basedir='basedir', 
             maxdepth='maxdepth',
-            onwalkerror='onwalkerror',
-            join=True)
-        (self.find._source_file_loader_class.
-            assert_has_calls([call('file1', 'file1'), call('file2', 'file2')]))
-        (self.find._source_file_loader_class.return_value.load_module.
-            assert_has_calls([call('file1'), call('file2')]))
+            onwalkerror='onwalkerror')
+        self.find._loader_class.assert_has_calls(
+            [call('basedir/file1', 'basedir/file1'), 
+             call('basedir/file2', 'basedir/file2')])
+        self.find._loader_class.return_value.load_module.assert_has_calls(
+            [call('basedir/file1'), 
+             call('basedir/file2')])
         
     def test_with_objname(self):
         objects = list(self.find(objname='call'))
@@ -57,7 +58,7 @@ class find_objects_Test(unittest.TestCase):
     def _make_mock_find(self, files):
         class mock_find(find_objects):
             #Protected
-            _source_file_loader_class = Mock(return_value=Mock(
+            _loader_class = Mock(return_value=Mock(
                 load_module=Mock(return_value=unittest.mock)))
             _find_files = Mock(return_value=files)
         return mock_find
