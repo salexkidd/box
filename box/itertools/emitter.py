@@ -1,6 +1,6 @@
-from ...functools import DEFAULT
+from ..functools import DEFAULT
 
-class MapReduceEmitter:
+class Emitter:
 
     #Public
 

@@ -1,11 +1,11 @@
 from itertools import chain
-from ...functools import FunctionCall
-from .emitter import MapReduceEmitter
-from .getfirst import MapReduceGetfirstMapper, MapReduceGetfirstReducer
+from ..functools import FunctionCall
+from .emitter import Emitter
+from .getfirst import GetfirstMapper, GetfirstReducer
 
 class map_reduce(FunctionCall):
     
-    default_emitter = MapReduceEmitter
+    default_emitter = Emitter
     
     def __init__(self, values=[], *args, 
                  mappers=[], reducers=[], 
@@ -94,11 +94,11 @@ class map_reduce(FunctionCall):
         
     @property
     def _system_mappers(self):
-        return [MapReduceGetfirstMapper(
+        return [GetfirstMapper(
             self._getfirst)]
     
     @property
     def _system_reducers(self):
-        return [MapReduceGetfirstReducer(
+        return [GetfirstReducer(
             self._getfirst, 
             self._getfirst_exception)]

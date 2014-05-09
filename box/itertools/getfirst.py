@@ -1,6 +1,6 @@
 from .not_emitted import NotEmitted
 
-class MapReduceGetfirstMapper:
+class GetfirstMapper:
 
     #Public
     
@@ -12,7 +12,7 @@ class MapReduceGetfirstMapper:
             emitter.stop(if_not_skipped=True)
             
 
-class MapReduceGetfirstReducer:
+class GetfirstReducer:
 
     #Public
     

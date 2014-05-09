@@ -1,7 +1,7 @@
 import os
-from ...itertools import MapReduceEmitter
+from ...itertools import Emitter
 
-class FindFilesEmitter(MapReduceEmitter):
+class FindFilesEmitter(Emitter):
 
     #Public
 

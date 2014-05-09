@@ -1,5 +1,5 @@
 import unittest
-from box.itertools.map_reduce import map_reduce, MapReduceEmitter
+from box.itertools.map_reduce import map_reduce
 
 class map_reduce_Test(unittest.TestCase):
 
@@ -56,20 +56,4 @@ class map_reduce_Test(unittest.TestCase):
         
     def test_with_getfirst(self):
         result = map_reduce(self.iterable, getfirst=True)
-        self.assertEqual(result, 'value1')        
-           
-
-
-class MapReduceEmitterTest(unittest.TestCase): 
-    
-    #Public
-    
-    def setUp(self):
-        self.emitter = MapReduceEmitter('value', var='var')
-    
-    def test___getattr__(self):
-        self.assertEqual(self.emitter.var, 'var')
-        
-    def test___getattr___not_existent(self):
-        self.assertRaises(AttributeError, 
-            getattr, self.emitter, 'not_existent')         
+        self.assertEqual(result, 'value1')      
