@@ -4,7 +4,7 @@ class GetfirstMapper:
 
     #Public
     
-    def __init__(self, getfirst=False):
+    def __init__(self, getfirst):
         self._getfirst = getfirst
 
     def __call__(self, emitter):
@@ -18,7 +18,7 @@ class GetfirstReducer:
     
     default_exception = NotEmitted
     
-    def __init__(self, getfirst=False, exception=None):
+    def __init__(self, getfirst, exception=None):
         self._getfirst = getfirst        
         self._exception = exception
 
