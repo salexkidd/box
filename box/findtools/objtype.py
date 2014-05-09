@@ -1,4 +1,4 @@
-class FindObjectsObjtypeMapper:
+class ObjtypeMapper:
     
     #Public
     

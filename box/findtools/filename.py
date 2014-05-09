@@ -1,8 +1,8 @@
 import re
 import fnmatch
-from ...types import RegexCompiledPatternType
+from ..types import RegexCompiledPatternType
 
-class FindFilesFilenameMapper:
+class FilenameMapper:
     
     #Public
     

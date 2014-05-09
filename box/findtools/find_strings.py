@@ -1,16 +1,15 @@
 from functools import partial
-from ...itertools import map_reduce
-from ...os import enhanced_join
-from ...types import RegexCompiledPatternType
-from ..find_files import find_files
-from ..not_found import NotFound
-from .emitter import FindStringsEmitter
+from ..itertools import map_reduce
+from ..os import enhanced_join
+from ..types import RegexCompiledPatternType
+from .find_files import find_files, FindFilesEmitter
+from .not_found import NotFound
   
 class find_strings(map_reduce):
 
     #Public
     
-    default_emitter = FindStringsEmitter
+    default_emitter = property(lambda self: FindStringsEmitter)
     
     def __init__(self, string=None, *,
                  filename=None, filepath=None,  
@@ -71,3 +70,6 @@ class find_strings(map_reduce):
             maxdepth=self._maxdepth,
             onwalkerror = self._onwalkerror)
         return files
+    
+
+class FindStringsEmitter(FindFilesEmitter): pass     

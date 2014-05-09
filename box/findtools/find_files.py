@@ -1,18 +1,18 @@
-from ...glob import filtered_iglob
-from ...itertools import map_reduce
-from ...os import balanced_walk, enhanced_join
-from ...types import RegexCompiledPatternType
-from ..not_found import NotFound
-from .emitter import FindFilesEmitter
-from .maxdepth import FindFilesMaxdepthMapper
-from .filename import FindFilesFilenameMapper
-from .filepath import FindFilesFilepathMapper
+import os
+from ..glob import filtered_iglob
+from ..itertools import map_reduce, Emitter
+from ..os import balanced_walk, enhanced_join
+from ..types import RegexCompiledPatternType
+from .not_found import NotFound
+from .maxdepth import MaxdepthMapper
+from .filename import FilenameMapper
+from .filepath import FilepathMapper
 
 class find_files(map_reduce):
 
     #Public
     
-    default_emitter = FindFilesEmitter
+    default_emitter = property(lambda self: FindFilesEmitter)
 
     def __init__(self, filename=None, filepath=None, *,
                  basedir=None, join=False, maxdepth=None, 
@@ -42,9 +42,9 @@ class find_files(map_reduce):
 
     @property        
     def _extension_mappers(self):
-        return [FindFilesMaxdepthMapper(self._maxdepth),
-                FindFilesFilenameMapper(self._filename),
-                FindFilesFilepathMapper(self._filepath)]
+        return [MaxdepthMapper(self._maxdepth),
+                FilenameMapper(self._filename),
+                FilepathMapper(self._filepath)]
     
     @property
     def _filepathes(self):
@@ -59,3 +59,12 @@ class find_files(map_reduce):
             filepathes = self._glob(self._filepath, 
                 basedir=self._basedir, sorter=sorted, mode='files')
         return filepathes
+    
+
+class FindFilesEmitter(Emitter):
+
+    #Public
+
+    @property
+    def filename(self):
+        return os.path.basename(self.filepath)    

@@ -1,6 +1,6 @@
-from ...types import RegexCompiledPatternType
+from ..types import RegexCompiledPatternType
 
-class FindObjectsObjnameMapper:
+class ObjnameMapper:
     
     #Public
     

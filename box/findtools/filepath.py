@@ -1,7 +1,7 @@
 import re
-from ...types import RegexCompiledPatternType
+from ..types import RegexCompiledPatternType
 
-class FindFilesFilepathMapper:
+class FilepathMapper:
     
     #Public
     

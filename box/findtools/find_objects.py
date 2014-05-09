@@ -1,17 +1,16 @@
 from importlib.machinery import SourceFileLoader
-from ...itertools import map_reduce
-from ...os import enhanced_join
-from ..find_files import find_files
-from ..not_found import NotFound
-from .emitter import FindObjectsEmitter
-from .objname import FindObjectsObjnameMapper
-from .objtype import FindObjectsObjtypeMapper
+from ..itertools import map_reduce
+from ..os import enhanced_join
+from .find_files import find_files, FindFilesEmitter
+from .not_found import NotFound
+from .objname import ObjnameMapper
+from .objtype import ObjtypeMapper
  
 class find_objects(map_reduce):
     
     #Public  
     
-    default_emitter = FindObjectsEmitter
+    default_emitter = property(lambda self: FindObjectsEmitter)
        
     def __init__(self, objname=None, objtype=None, *, 
                  filename=None, filepath=None,  
@@ -48,8 +47,8 @@ class find_objects(map_reduce):
 
     @property
     def _extension_mappers(self):
-        return [FindObjectsObjnameMapper(self._objname),
-                FindObjectsObjtypeMapper(self._objtype)] 
+        return [ObjnameMapper(self._objname),
+                ObjtypeMapper(self._objtype)] 
      
     @property             
     def _filepathes(self):
@@ -59,4 +58,13 @@ class find_objects(map_reduce):
             basedir=self._basedir, 
             maxdepth=self._maxdepth,
             onwalkerror = self._onwalkerror)
-        return files            
+        return files
+    
+    
+class FindObjectsEmitter(FindFilesEmitter): 
+
+    #Public
+    
+    @property
+    def objtype(self):
+        return type(self._object)    
