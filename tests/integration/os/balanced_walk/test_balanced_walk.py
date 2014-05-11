@@ -9,11 +9,11 @@ class balanced_walk_Test(unittest.TestCase):
     #Public
     
     def setUp(self):
-        self.partial_walk = partial(
-            balanced_walk, basedir=self._basedir, sorter=sorted)
+        self.pwalk = partial(balanced_walk, 
+            basedir=self._basedir, sorter=sorted)
         
     def test(self):
-        levels = list(self.partial_walk())
+        levels = list(self.pwalk())
         self.assertEqual(len(levels), 3)
         self.assertEqual(levels[0], 
             (#Dirpathes
@@ -35,7 +35,7 @@ class balanced_walk_Test(unittest.TestCase):
              ['dir1/subdir1/file1']))
         
     def test_with_dirpath(self):
-        levels = list(self.partial_walk('dir1/subdir1'))
+        levels = list(self.pwalk('dir1/subdir1'))
         self.assertEqual(len(levels), 1)
         self.assertEqual(levels[0], 
             (#Dirpathes

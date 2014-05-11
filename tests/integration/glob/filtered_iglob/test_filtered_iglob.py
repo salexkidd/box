@@ -8,23 +8,23 @@ class balanced_walk_Test(unittest.TestCase):
     #Public
     
     def setUp(self):
-        self.partial_glob = partial(
-            filtered_iglob, basedir=self._basedir, sorter=sorted)
+        self.pglob = partial(filtered_iglob, 
+            basedir=self._basedir, sorter=sorted)
 
     def test(self):        
-        pathes = list(self.partial_glob('*'))
+        pathes = list(self.pglob('*'))
         self.assertEqual(pathes, ['dir', 'file'])
         
     def test_subdir(self):        
-        pathes = list(self.partial_glob('dir/*'))
+        pathes = list(self.pglob('dir/*'))
         self.assertEqual(pathes, ['dir/file'])        
         
     def test_with_mode_is_files(self):
-        pathes = list(self.partial_glob('*', mode='files'))
+        pathes = list(self.pglob('*', mode='files'))
         self.assertEqual(pathes, ['file'])
         
     def test_with_mode_is_dirs(self):
-        pathes = list(self.partial_glob('*', mode='dirs'))
+        pathes = list(self.pglob('*', mode='dirs'))
         self.assertEqual(pathes, ['dir'])             
         
     #Protected

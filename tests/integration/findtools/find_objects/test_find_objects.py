@@ -10,15 +10,15 @@ class find_objects_Test(unittest.TestCase):
     #Public
     
     def setUp(self):
-        self.partial_find = partial(find_objects, basedir=self._basedir) 
+        self.pfind = partial(find_objects, basedir=self._basedir) 
         
     def test_find(self):
-        objects = list(self.partial_find(
+        objects = list(self.pfind(
             objname=re.compile('attr\d'), filename='module1.py', maxdepth=1))
         self.assertEqual(objects, ['attr1'])
 
     def test_find_with_maxdepth_is_1(self):
-        objects = list(self.partial_find(
+        objects = list(self.pfind(
             objname=re.compile('attr\d'), filename='module1.py'))
         self.assertEqual(objects, ['attr1', 'attr3'])
         

@@ -8,18 +8,18 @@ class rich_input_Test(unittest.TestCase):
     #Public
     
     def setUp(self):
-        self.partial_input = partial(rich_input, 'prompt')
+        self.pinput = partial(rich_input, 'prompt')
     
     def test(self):
         mock_input = Mock(return_value='input')
-        result = self.partial_input(
+        result = self.pinput(
             input=mock_input)
         self.assertEqual(result, 'input')
         mock_input.assert_called_with('prompt: ')
         
     def test_with_default(self):
         mock_input = Mock(return_value='')
-        result = self.partial_input(
+        result = self.pinput(
             default='default', 
             input=mock_input)
         self.assertEqual(result, 'default')
@@ -29,7 +29,7 @@ class rich_input_Test(unittest.TestCase):
         mock_input = Mock(return_value='')
         mock_print = Mock()
         self.assertRaises(ValueError, 
-            self.partial_input, 
+            self.pinput, 
             options=['y', 'n'], 
             input=mock_input,
             print=mock_print)
@@ -38,7 +38,7 @@ class rich_input_Test(unittest.TestCase):
         
     def test_with_default_and_options(self):
         mock_input = Mock(return_value='')
-        result = self.partial_input(
+        result = self.pinput(
             default='y',
             options=['y', 'n'], 
             input=mock_input)

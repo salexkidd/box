@@ -10,10 +10,10 @@ class render_file_Test(unittest.TestCase):
     def setUp(self):
         self.template = Mock(render=Mock(return_value='text'))
         self.render = self._make_mock_render(self.template)
-        self.partial_render = partial(self.render, '/dirpath/filename')
+        self.prender = partial(self.render, '/dirpath/filename')
         
     def test(self):
-        result = self.partial_render()
+        result = self.prender()
         self.assertEqual(result, 'text')
         self.render._file_system_loader_class.assert_called_with('/dirpath')
         self.render._environment_class.assert_called_with(loader='loader')
@@ -22,14 +22,14 @@ class render_file_Test(unittest.TestCase):
         self.template.render.assert_called_with({})
     
     def test_with_target(self):
-        result = self.partial_render(target='/target')
+        result = self.prender(target='/target')
         self.assertEqual(result, None)
         self.render._open.assert_called_with('/target', 'w')
         self.render._open().write.assert_called_with('text')
         
     def test_with_context_is_object(self):
         context = object()
-        result = self.partial_render(context)
+        result = self.prender(context)
         self.assertEqual(result, 'text')
         self.template.render.assert_called_with(context)   
     

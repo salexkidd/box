@@ -17,11 +17,10 @@ class balanced_walk_Test(unittest.TestCase):
         patch('os.path.isdir', new=self._mock_isdir).start()
         self.addCleanup(patch.stopall)
         self.error = os.error()
-        self.partial_walk = partial(
-            balanced_walk, sorter=sorted)
+        self.pwalk = partial(balanced_walk, sorter=sorted)
 
     def test(self):
-        levels = list(self.partial_walk())
+        levels = list(self.pwalk())
         self.assertEqual(len(levels), 3)
         self.assertEqual(levels[0], 
             (#Dirpathes
@@ -43,7 +42,7 @@ class balanced_walk_Test(unittest.TestCase):
              ['dir1/subdir1/file1']))               
     
     def test_with_dirpath(self):
-        levels = list(self.partial_walk('dir1'))
+        levels = list(self.pwalk('dir1'))
         self.assertEqual(len(levels), 2)
         self.assertEqual(levels[0], 
             (#Dirpathes
@@ -57,7 +56,7 @@ class balanced_walk_Test(unittest.TestCase):
              ['dir1/subdir1/file1']))  
         
     def test_with_basedir(self):
-        levels = list(self.partial_walk(basedir='dir1'))
+        levels = list(self.pwalk(basedir='dir1'))
         self.assertEqual(len(levels), 2)
         self.assertEqual(levels[0], 
             (#Dirpathes
@@ -71,7 +70,7 @@ class balanced_walk_Test(unittest.TestCase):
              ['subdir1/file1']))
         
     def test_with_dirpath_and_basedir(self):
-        levels = list(self.partial_walk('subdir1', basedir='dir1'))
+        levels = list(self.pwalk('subdir1', basedir='dir1'))
         self.assertEqual(len(levels), 1)
         self.assertEqual(levels[0], 
             (#Dirpathes
@@ -80,12 +79,12 @@ class balanced_walk_Test(unittest.TestCase):
              ['subdir1/file1']))   
         
     def test_error(self):
-        files = list(self.partial_walk('error'))
+        files = list(self.pwalk('error'))
         self.assertEqual(files, [])
         
     def test_error_with_onerror(self):
         onerror = Mock()
-        files = list(self.partial_walk('error', onerror=onerror))
+        files = list(self.pwalk('error', onerror=onerror))
         self.assertEqual(files, [])
         onerror.assert_called_with(self.error)
         

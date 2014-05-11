@@ -8,17 +8,17 @@ from box.findtools.find_strings import find_strings
 class find_strings_Test(unittest.TestCase):
     
     def setUp(self):
-        self.partial_find = partial(find_strings, basedir=self._basedir)    
+        self.pfind = partial(find_strings, basedir=self._basedir)    
 
     #Public
 
     def test_find(self):
-        strings = list(self.partial_find(
+        strings = list(self.pfind(
             re.compile('string\d'), filename='file1', maxdepth=1))
         self.assertEqual(strings, ['string1'])
 
     def test_find_with_maxdepth_is_1(self):
-        files = list(self.partial_find(
+        files = list(self.pfind(
             re.compile('string\d'), filename='file1'))
         self.assertEqual(files, ['string1', 'string3'])
         
