@@ -1,3 +1,4 @@
+import os
 from copy import copy
 from argparse import ArgumentParser
 from box.functools import cachedproperty
@@ -20,13 +21,12 @@ class Command:
     #Public
     
     default_config = {
-        'prog': 'program',
         'add_help': True,                     
         'arguments': [
             {
              'name': 'arguments',
              'nargs':'*',
-            },             
+            },
         ],       
     }
     
@@ -81,6 +81,7 @@ class Command:
     def _parser_config(self):
         config = copy(self._config)
         config.pop('arguments', [])
+        config.setdefault('prog', os.path.basename(self._argv[0]))
         return config
             
     

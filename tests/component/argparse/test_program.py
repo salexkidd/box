@@ -1,27 +1,26 @@
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 from box.argparse.program import Program
 
 class ProgramTest(unittest.TestCase):
 
     #Public
 
+    
     def setUp(self):
-        MockProgram = self._make_program_mock_class()
         self.argv = ['prog', 'argument']
-        self.program = MockProgram(self.argv)
-        
-    def test__command(self):
-        self.assertEqual(self.program._command, 'command')
-        self.program._command_class.assert_called_with(
-            ['prog', 'argument'], prog='programmock')
+        self.Program = self._make_mock_program_class()
+        self.program = self.Program(self.argv)
+    
+    @patch.object(Program, '_command_class')    
+    def test__command(self, command_class):
+        self.assertEqual(self.program._command, command_class.return_value)
+        command_class.assert_called_with(['prog', 'argument'])
         
     #Protected
     
-    def _make_program_mock_class(self):
-        class ProgramMock(Program):
+    def _make_mock_program_class(self):
+        class MockProgram(Program):
             #Public
             __call__ = Mock()
-            #Protected
-            _command_class = Mock(return_value='command')
-        return ProgramMock
+        return MockProgram

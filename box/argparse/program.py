@@ -32,5 +32,4 @@ class Program(metaclass=ABCMeta):
       
     @cachedproperty
     def _command(self):
-        prog = type(self).__name__.lower()
-        return self._command_class(self._argv, prog=prog)
+        return self._command_class(self._argv)
