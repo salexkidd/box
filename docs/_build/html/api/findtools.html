@@ -1,0 +1,301 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>box.findtools &mdash; box 0.20.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="box 0.20.0 documentation" href="../index.html"/>
+        <link rel="up" title="API Reference" href="../api.html"/>
+        <link rel="next" title="box.functools" href="functools.html"/>
+        <link rel="prev" title="box.collections" href="collections.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> box</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html#quick-links">Quick Links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html#authors">Authors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html#maintainers">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html#license">License</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="box.html">box</a></li>
+<li class="toctree-l2"><a class="reference internal" href="argparse.html">box.argparse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collections.html">box.collections</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">box.findtools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functools.html">box.functools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="glob.html">box.glob</a></li>
+<li class="toctree-l2"><a class="reference internal" href="importlib.html">box.importlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io.html">box.io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="itertools.html">box.itertools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jinja2.html">box.jinja2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="json.html">box.json</a></li>
+<li class="toctree-l2"><a class="reference internal" href="os.html">box.os</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sphinx.html">box.sphinx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="statement.html">box.statement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="type.html">box.types</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">box</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../api.html">API Reference</a> &raquo;</li>
+      
+    <li>box.findtools</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/api/findtools.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="box-findtools">
+<h1>box.findtools<a class="headerlink" href="#box-findtools" title="Permalink to this headline">¶</a></h1>
+<p>Module provides finding functionality based on map_reduce concept
+and python generators.</p>
+<div class="section" id="main">
+<h2>Main<a class="headerlink" href="#main" title="Permalink to this headline">¶</a></h2>
+<p>There are three main functions to find files, strings and python objects.</p>
+<dl class="class">
+<dt id="box.findtools.find_files">
+<em class="property">class </em><tt class="descclassname">box.findtools.</tt><tt class="descname">find_files</tt><big>(</big><em>filename=None</em>, <em>filepath=None</em>, <em>*</em>, <em>basedir=None</em>, <em>join=False</em>, <em>maxdepth=None</em>, <em>onwalkerror=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#box.findtools.find_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">box.itertools.map_reduce.map_reduce</span></tt></p>
+<dl class="attribute">
+<dt id="box.findtools.find_files.default_emitter">
+<tt class="descname">default_emitter</tt><a class="headerlink" href="#box.findtools.find_files.default_emitter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="box.findtools.find_strings">
+<em class="property">class </em><tt class="descclassname">box.findtools.</tt><tt class="descname">find_strings</tt><big>(</big><em>string=None</em>, <em>*</em>, <em>filename=None</em>, <em>filepath=None</em>, <em>basedir=None</em>, <em>maxdepth=None</em>, <em>onwalkerror=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#box.findtools.find_strings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">box.itertools.map_reduce.map_reduce</span></tt></p>
+<dl class="attribute">
+<dt id="box.findtools.find_strings.default_emitter">
+<tt class="descname">default_emitter</tt><a class="headerlink" href="#box.findtools.find_strings.default_emitter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="box.findtools.find_objects">
+<em class="property">class </em><tt class="descclassname">box.findtools.</tt><tt class="descname">find_objects</tt><big>(</big><em>objname=None</em>, <em>objtype=None</em>, <em>*</em>, <em>filename=None</em>, <em>filepath=None</em>, <em>basedir=None</em>, <em>maxdepth=None</em>, <em>onwalkerror=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#box.findtools.find_objects" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">box.itertools.map_reduce.map_reduce</span></tt></p>
+<dl class="attribute">
+<dt id="box.findtools.find_objects.default_emitter">
+<tt class="descname">default_emitter</tt><a class="headerlink" href="#box.findtools.find_objects.default_emitter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="box.findtools.NotFound">
+<em class="property">class </em><tt class="descclassname">box.findtools.</tt><tt class="descname">NotFound</tt><a class="headerlink" href="#box.findtools.NotFound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">box.itertools.not_emitted.NotEmitted</span></tt></p>
+</dd></dl>
+
+</div>
+<div class="section" id="advanced">
+<h2>Advanced<a class="headerlink" href="#advanced" title="Permalink to this headline">¶</a></h2>
+<p>Additional elements for advanced use.</p>
+<span class="target" id="module-box.findtools"></span><dl class="class">
+<dt id="box.findtools.FilenameMapper">
+<em class="property">class </em><tt class="descclassname">box.findtools.</tt><tt class="descname">FilenameMapper</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#box.findtools.FilenameMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="box.findtools.FilepathMapper">
+<em class="property">class </em><tt class="descclassname">box.findtools.</tt><tt class="descname">FilepathMapper</tt><big>(</big><em>filepath</em><big>)</big><a class="headerlink" href="#box.findtools.FilepathMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="box.findtools.FindFilesEmitter">
+<em class="property">class </em><tt class="descclassname">box.findtools.</tt><tt class="descname">FindFilesEmitter</tt><big>(</big><em>value</em>, <em>**context</em><big>)</big><a class="headerlink" href="#box.findtools.FindFilesEmitter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">box.itertools.emitter.Emitter</span></tt></p>
+<dl class="attribute">
+<dt id="box.findtools.FindFilesEmitter.filename">
+<tt class="descname">filename</tt><a class="headerlink" href="#box.findtools.FindFilesEmitter.filename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="box.findtools.FindObjectsEmitter">
+<em class="property">class </em><tt class="descclassname">box.findtools.</tt><tt class="descname">FindObjectsEmitter</tt><big>(</big><em>value</em>, <em>**context</em><big>)</big><a class="headerlink" href="#box.findtools.FindObjectsEmitter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">box.findtools.find_files.FindFilesEmitter</span></tt></p>
+<dl class="attribute">
+<dt id="box.findtools.FindObjectsEmitter.objtype">
+<tt class="descname">objtype</tt><a class="headerlink" href="#box.findtools.FindObjectsEmitter.objtype" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="box.findtools.FindStringsEmitter">
+<em class="property">class </em><tt class="descclassname">box.findtools.</tt><tt class="descname">FindStringsEmitter</tt><big>(</big><em>value</em>, <em>**context</em><big>)</big><a class="headerlink" href="#box.findtools.FindStringsEmitter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">box.findtools.find_files.FindFilesEmitter</span></tt></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="box.findtools.MaxdepthMapper">
+<em class="property">class </em><tt class="descclassname">box.findtools.</tt><tt class="descname">MaxdepthMapper</tt><big>(</big><em>maxdepth</em><big>)</big><a class="headerlink" href="#box.findtools.MaxdepthMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="box.findtools.ObjnameMapper">
+<em class="property">class </em><tt class="descclassname">box.findtools.</tt><tt class="descname">ObjnameMapper</tt><big>(</big><em>objname</em><big>)</big><a class="headerlink" href="#box.findtools.ObjnameMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="box.findtools.ObjtypeMapper">
+<em class="property">class </em><tt class="descclassname">box.findtools.</tt><tt class="descname">ObjtypeMapper</tt><big>(</big><em>objtype</em><big>)</big><a class="headerlink" href="#box.findtools.ObjtypeMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="functools.html" class="btn btn-neutral float-right" title="box.functools"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="collections.html" class="btn btn-neutral" title="box.collections"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Respect31.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.20.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
