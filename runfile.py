@@ -1,6 +1,6 @@
-from packgram.manage import PythonPackgramModule
+from packgram import ManageModule
     
-class MainModule(PythonPackgramModule):
+class MainModule(ManageModule):
         
     #Vars
     
