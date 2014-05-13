@@ -11,9 +11,8 @@ class SetupTest(unittest.TestCase):
     def test(self):
         package = find_objects(
             objname='package', 
-            filename='setup.py', 
+            filepath='setup.py', 
             basedir=self._basedir, 
-            maxdepth=1,
             getfirst=True)
         self.assertEqual(package['name'], 'box')
         self.assertEqual(package['version'], version)
