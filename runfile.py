@@ -17,7 +17,6 @@ class MainModule(ManageModule):
     ]
     description = 'Box is a library to provide common functionality.'
     development_requires = [
-        'runpack>=0.14',
         'sphinx',
         'sphinx_rtd_theme',
     ]    
