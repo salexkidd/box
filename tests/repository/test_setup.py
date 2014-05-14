@@ -1,24 +1,12 @@
-import os
-import unittest
-from box import version
-#TODO: Nose in shell imports module instead of object
-from box.findtools.find_objects import find_objects
+import box
+from packgram.tests import SetupTest
 
-class SetupTest(unittest.TestCase):
+class SetupTest(SetupTest):
 
     #Public
-    
-    def test(self):
-        package = find_objects(
-            objname='package', 
-            filepath='setup.py', 
-            basedir=self._basedir, 
-            getfirst=True)
-        self.assertEqual(package['name'], 'box')
-        self.assertEqual(package['version'], version)
+
+    __test__ = True
         
     #Protected
     
-    @property
-    def _basedir(self, *args):
-        return os.path.join(os.path.dirname(__file__), '..', '..')
+    _package = box
