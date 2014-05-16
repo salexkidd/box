@@ -1,6 +1,13 @@
+from run import FindModule
 from packgram import ManageModule
     
 class MainModule(ManageModule):
+    
+    #Modules
+        
+    #TODO: use names instead basedir after run fix
+    docs = FindModule(basedir='docs')
+    tests = FindModule(basedir='tests')    
         
     #Vars
     
@@ -17,6 +24,7 @@ class MainModule(ManageModule):
     ]
     description = 'Box is a library to provide common functionality.'
     development_requires = [
+        'runpack>=0.15',
         'sphinx',
         'sphinx_rtd_theme',
     ]    
