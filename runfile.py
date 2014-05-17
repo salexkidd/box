@@ -5,6 +5,7 @@ class MainModule(ManageModule):
     
     #Modules
         
+    #TODO: move to ManageModule when deferred load will be added to run        
     #TODO: use names instead basedir after run fix
     docs = FindModule(basedir='docs')
     tests = FindModule(basedir='tests')    
@@ -22,11 +23,7 @@ class MainModule(ManageModule):
         'Topic :: System :: Systems Administration', 
     ]
     description = 'Box is a library to provide common functionality.'
-    development_requires = [
-        'runpack>=0.15',
-        'sphinx',
-        'sphinx_rtd_theme',
-    ]    
+    development_requires = ['sphinx', 'sphinx_rtd_theme']    
     github_user = 'respect31'
     install_requires = []
     license = 'MIT License'
@@ -36,8 +33,5 @@ class MainModule(ManageModule):
     platforms = ['Unix']
     pypi_user = 'roll'
     pypi_password_secure = 'jFRWJAyhP5RA9j8CEpJzwJhwZmbfcxW1HpRO43mMu2/Nh3FW7GdisUovCLOS/khygJvh86vfe6m69+GEVuH/VgUEw8GcdZ41Zcla0ZnBhQrH0PTQel5Fou85foD7yXf42toVY3DV7C/JPk8PK3swSlIJ26n4dVreI7y1xvRmVHk='
-    tests_require = [
-        'packgram>=0.9',
-        'nose',
-    ]
+    tests_require = ['packgram>=0.9', 'nose']
     test_suite = 'nose.collector'
