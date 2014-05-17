@@ -93,5 +93,10 @@ THE SOFTWARE.''',
     
 }
 
+if (not os.environ.get('TRAVIS', None) and  
+	not	os.environ.get('READTHEDOCS', None)):
+	package['entry_points'] = {}
+	package['data_files'] = []
+
 if __name__ == '__main__':
 	setup(**package)
