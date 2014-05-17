@@ -15,7 +15,7 @@ package = {
     ),
 	'include_package_data': True,
     'install_requires': [],  
-    'tests_require': ['packgram>=0.9', 'nose'],
+    'tests_require': ['packgram>=0.9.1', 'nose'],
     'test_suite': 'nose.collector',
     
     #Description
@@ -36,20 +36,21 @@ Box
 =====================
 Box is a library to provide common functionality.
 
-.. image:: https://secure.travis-ci.org/respect31/box.png?branch=master 
+.. image:: http://img.shields.io/badge/code-GitHub-brightgreen.svg
+     :target: https://github.com/respect31/box
+     :alt: code
+.. image:: http://img.shields.io/travis/respect31/box/master.svg
      :target: https://travis-ci.org/respect31/box 
      :alt: build
-.. image:: https://coveralls.io/repos/respect31/box/badge.png?branch=master 
+.. image:: http://img.shields.io/coveralls/respect31/box/master.svg 
      :target: https://coveralls.io/r/respect31/box  
      :alt: coverage
-.. image:: http://b.repl.ca/v1/docs-uploaded-brightgreen.png
+.. image:: http://img.shields.io/badge/docs-RTD-brightgreen.svg
      :target: http://box.readthedocs.org
-     :alt: documentation
-     
-Quick Links
------------
-- `Source code (GitHub) <https://github.com/respect31/box>`_
-- `Package index (PyPi) <https://pypi.python.org/pypi?:action=display&name=box>`_
+     :alt: docs     
+.. image:: http://img.shields.io/pypi/v/box.svg
+     :target: https://pypi.python.org/pypi?:action=display&name=box
+     :alt: pypi
 
 Requirements
 ------------
