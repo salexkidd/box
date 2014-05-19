@@ -6,8 +6,9 @@ class render_string(FunctionCall):
     
     :param str source: string to be rendered
     :param dict/obj context: rendering context
-    :param object loader: jinja2 loader
     :param str target: filepath to write renered string into
+    :param object loader: jinja2's loader    
+    :param dict env_params: parameters to pass to jinja2's Environment
     
     :returns str/None: rendered string
     
@@ -16,11 +17,13 @@ class render_string(FunctionCall):
     
     #Public
     
-    def __init__(self, source, context={}, *, loader=None, target=None):
+    def __init__(self, source, context={}, *, 
+                 target=None, loader=None, **env_params):
         self._source = source
         self._context = context
         self._target = target
         self._loader = loader
+        self._env_params = env_params
     
     def __call__(self):
         content = self._render()
@@ -42,7 +45,8 @@ class render_string(FunctionCall):
                 
     @cachedproperty
     def _template(self):
-        environment = self._environment_class(loader=self._loader)
+        environment = self._environment_class(
+            loader=self._loader, **self._env_params)
         return environment.from_string(self._source)
     
     @property

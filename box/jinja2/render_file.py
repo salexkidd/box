@@ -19,7 +19,8 @@ class render_file(render_string):
         if not loader:
             dirpath, source = os.path.split(self._source)
             loader = self._file_system_loader_class(dirpath)
-        environment = self._environment_class(loader=loader)          
+        environment = self._environment_class(
+            loader=loader, **self._env_params)        
         return environment.get_template(source)
     
     @property
