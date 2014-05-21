@@ -7,7 +7,7 @@ package = {
 	#Main
 
     'name': 'box',
-	'version':'0.21.0',
+	'version':'0.21.1',
 	'packages': find_packages(
         os.path.dirname(__file__) or '.', 
         exclude=['tests*']
@@ -23,7 +23,7 @@ package = {
     'author_email': 'roll@respect31.com',
     'classifiers': ['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],       
     'description': 'Box is a library to provide common functionality.',
-    'download_url':'https://github.com/respect31/box/tarball/0.21.0',
+    'download_url':'https://github.com/respect31/box/tarball/0.21.1',
     'license': 'MIT License',
     'maintainer': 'roll',
     'maintainer_email': 'roll@respect31.com',
@@ -33,6 +33,7 @@ package = {
 Box
 =====================
 Box is a library to provide common functionality.
+
 .. image:: http://img.shields.io/badge/code-GitHub-brightgreen.svg
      :target: https://github.com/respect31/box
      :alt: code
@@ -48,6 +49,7 @@ Box is a library to provide common functionality.
 .. image:: http://img.shields.io/pypi/v/box.svg
      :target: https://pypi.python.org/pypi?:action=display&name=box
      :alt: pypi
+
 Requirements
 ------------
 - Python 3.3 and higher
