@@ -1,1 +1,2 @@
+{% include "template1" %}
 {{ attr2 }}

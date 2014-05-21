@@ -14,9 +14,13 @@ class render_file_Test(unittest.TestCase):
         self.prender = partial(render_file, context=Context())
         
     def test(self):
-        self.assertEqual(
-            self.prender(self._make_path('template1')), 
-            'value1\nvalue2')
+        self.assertEqual(self.prender(self._make_path('template1')), 
+            'value1')
+        
+    def test_with_include_in_templates(self):
+        self.assertEqual(self.prender(self._make_path('template2')), 
+            'value1\n'
+            'value2')        
         
     #Protected
     
