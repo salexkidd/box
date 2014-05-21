@@ -91,9 +91,9 @@ class render_string(FunctionCall):
         if isinstance(vrs, Mapping):
             parent = vrs
             if not shared:
-                #TODO: make for ObjectContext
                 parent = dict(globs or (), **vrs)
-        else:            
+        else:         
+            #TODO: add shared for ObjectContext   
             parent = ObjectContext(vrs)
         if locs:
             if shared:
