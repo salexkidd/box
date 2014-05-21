@@ -1,4 +1,4 @@
-class ObjectContext:
+class ObjectContext(dict):
     """Adapter between standard dict context and object.
     """
     
@@ -8,10 +8,21 @@ class ObjectContext:
         self._object = obj
         
     def __contains__(self, key):
-        return hasattr(self._object, key) 
+        if super().__contains__(key):
+            return True
+        else:
+            return hasattr(self._object, key) 
         
     def __getitem__(self, key):
         try:
-            return getattr(self._object, key)
-        except AttributeError:
-            raise KeyError(key)
+            return super().__getitem__(key)
+        except KeyError:
+            try:
+                return getattr(self._object, key)
+            except AttributeError:
+                raise KeyError(key)
+            
+    def __copy__(self):
+        context = type(self)(self._object)
+        context.update(self)
+        return context
