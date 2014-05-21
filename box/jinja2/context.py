@@ -1,5 +1,5 @@
 class ObjectContext(dict):
-    """Adapter between standard dict context and object.
+    """Adapter between standard mapping context and object.
     """
     
     #Public
