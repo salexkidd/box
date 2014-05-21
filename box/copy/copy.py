@@ -13,4 +13,4 @@ def copy(obj, *args, **kwargs):
     if hasattr(obj, '__copy__'):
         return obj.__copy__(*args, **kwargs)
     else:
-        return python_copy(object)
+        return python_copy(obj)
