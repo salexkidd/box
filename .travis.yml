@@ -1,9 +1,9 @@
 #DO NOT CHANGE THIS FILE. SOURCE IS IN "_sources" DIRECTORY.
-
-language: python
+language: 
+  python
 python:
   - '3.3'
-  - '3.4'  
+  - '3.4'
 install:
   - pip install coveralls
   - pip install packgram>=0.9.1 nose

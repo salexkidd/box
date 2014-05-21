@@ -1,9 +1,7 @@
 .. DO NOT CHANGE THIS FILE. SOURCE IS IN "_sources" DIRECTORY.
-
 Box
 =====================
 Box is a library to provide common functionality.
-
 .. image:: http://img.shields.io/badge/code-GitHub-brightgreen.svg
      :target: https://github.com/respect31/box
      :alt: code
@@ -19,23 +17,18 @@ Box is a library to provide common functionality.
 .. image:: http://img.shields.io/pypi/v/box.svg
      :target: https://pypi.python.org/pypi?:action=display&name=box
      :alt: pypi
-
 Requirements
 ------------
 - Python 3.3 and higher
-
 Installation
 ------------
 - pip install box
-
 Authors
 -------
 - roll <roll@respect31.com>
-
 Maintainers
 -----------
 - roll <roll@respect31.com>
-
 License
 -------
 MIT License
