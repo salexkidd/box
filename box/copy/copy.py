@@ -7,8 +7,10 @@ def copy(obj, *args, **kwargs):
     :param tuple args: args to pass to object's __copy__ method
     :param dict kwargs: kwargs to pass to object's __copy__ method      
     
-    If object has __copy__ method function calls it with args and kwarg.
-    If object hasn't __copy__ method function acts like copy.copy.
+    Difference with python library module is in __copy__ method priority:
+    
+      - if object has __copy__ method function calls it with args and kwarg
+      - if object hasn't __copy__ method function acts like copy.copy
     """
     if hasattr(obj, '__copy__'):
         return obj.__copy__(*args, **kwargs)
