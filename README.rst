@@ -1,4 +1,5 @@
 .. DO NOT CHANGE THIS FILE. SOURCE IS IN "_sources" DIRECTORY.
+
 Box
 =====================
 Box is a library to provide common functionality.
@@ -22,15 +23,19 @@ Box is a library to provide common functionality.
 Requirements
 ------------
 - Python 3.3 and higher
+
 Installation
 ------------
 - pip install box
+
 Authors
 -------
 - roll <roll@respect31.com>
+
 Maintainers
 -----------
 - roll <roll@respect31.com>
+
 License
 -------
 MIT License

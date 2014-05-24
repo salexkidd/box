@@ -1,19 +1,26 @@
 #DO NOT CHANGE THIS FILE. SOURCE IS IN "_sources" DIRECTORY.
+
 language: 
   python
+
 python:
   - '3.3'
   - '3.4'
+
 install:
   - pip install coveralls
-  - pip install packgram>=0.9.1 nose
+  - pip install packgram>=0.10 nose
+
 script:
   - coverage run --source=box setup.py test
+
 after_success:
   - coveralls
+
 notifications:
   email:
     - roll@respect31.com
+
 deploy:
   provider: pypi
   user: roll

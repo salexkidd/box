@@ -1,4 +1,5 @@
 #DO NOT CHANGE THIS FILE. SOURCE IS IN "_sources" DIRECTORY.
+
 import os
 from setuptools import find_packages
 
@@ -14,7 +15,7 @@ package = {
     ),
 	'include_package_data': True,
     'install_requires': [],  
-    'tests_require': ['packgram>=0.9.1', 'nose'],
+    'tests_require': ['packgram>=0.10', 'nose'],
     'test_suite': 'nose.collector',
     
     #Description
@@ -30,6 +31,7 @@ package = {
     'platforms': ['Unix'],
     'url': 'https://github.com/respect31/box',
     'long_description': '''.. DO NOT CHANGE THIS FILE. SOURCE IS IN "_sources" DIRECTORY.
+
 Box
 =====================
 Box is a library to provide common functionality.
@@ -53,15 +55,19 @@ Box is a library to provide common functionality.
 Requirements
 ------------
 - Python 3.3 and higher
+
 Installation
 ------------
 - pip install box
+
 Authors
 -------
 - roll <roll@respect31.com>
+
 Maintainers
 -----------
 - roll <roll@respect31.com>
+
 License
 -------
 MIT License
@@ -92,6 +98,7 @@ if (not os.environ.get('TRAVIS', None) and
 	not	os.environ.get('READTHEDOCS', None)):
 	package['entry_points'] = {}
 	package['data_files'] = []
+
 if __name__ == '__main__':
 	from setuptools import setup
 	setup(**package)
