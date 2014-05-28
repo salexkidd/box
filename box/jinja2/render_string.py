@@ -88,13 +88,15 @@ class render_string(FunctionCall):
         from jinja2.runtime import Context, missing
         if vrs is None:
             vrs = {}
-        if isinstance(vrs, Mapping):
-            parent = vrs
-            if not shared:
-                #TODO: add not shared for ObjectContext
-                parent = dict(globs or (), **vrs)
-        else:         
-            parent = ObjectContext(vrs)
+        parent = vrs
+        if not isinstance(vrs, Mapping):   
+            parent = ObjectContext(vrs)        
+        if not shared:
+            parent = copy(parent)
+            for key, value in (globs or {}).items():
+                if key not in parent:
+                    #Setdefault doesn't work for ObjectContext
+                    parent[key] = value
         if locs:
             if shared:
                 parent = copy(parent)
