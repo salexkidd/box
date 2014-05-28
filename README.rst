@@ -20,6 +20,9 @@ Box is a library to provide common functionality.
      :target: https://pypi.python.org/pypi?:action=display&name=box
      :alt: pypi
 
+*Package is under active development. Before version 1 backward-compatibility 
+on minor releases (0.x.0), documentation and changelog are not guaranteed.*
+
 Requirements
 ------------
 - Python 3.3 and higher

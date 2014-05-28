@@ -15,7 +15,7 @@ package = {
     ),
 	'include_package_data': True,
     'install_requires': [],  
-    'tests_require': ['packgram>=0.10', 'nose'],
+    'tests_require': ['packgram>=0.10.1', 'nose'],
     'test_suite': 'nose.collector',
     
     #Description
@@ -51,6 +51,9 @@ Box is a library to provide common functionality.
 .. image:: http://img.shields.io/pypi/v/box.svg
      :target: https://pypi.python.org/pypi?:action=display&name=box
      :alt: pypi
+
+*Package is under active development. Before version 1 backward-compatibility 
+on minor releases (0.x.0), documentation and changelog are not guaranteed.*
 
 Requirements
 ------------
