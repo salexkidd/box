@@ -35,13 +35,13 @@ class rich_input(FunctionCall):
     hint_indent = ' '
     """Indent before hint.
     """
-    hint_borders = '[]'
+    hint_borders = '()'
     """Borders around hint.
     """    
     hint_separator = '/'
     """Separator to separate available options.
     """
-    hint_on_default = staticmethod(str.upper)
+    hint_on_default = staticmethod(lambda option: '['+option+']')
     """Function called on default value in available options.
     """
     input = staticmethod(input)

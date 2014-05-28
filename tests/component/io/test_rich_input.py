@@ -23,7 +23,7 @@ class rich_input_Test(unittest.TestCase):
             default='default', 
             input=mock_input)
         self.assertEqual(result, 'default')
-        mock_input.assert_called_with('prompt [default]: ')
+        mock_input.assert_called_with('prompt (default): ')
     
     def test_with_options(self):
         mock_input = Mock(return_value='')
@@ -33,7 +33,7 @@ class rich_input_Test(unittest.TestCase):
             options=['y', 'n'], 
             input=mock_input,
             print=mock_print)
-        mock_input.assert_called_with('prompt [y/n]: ')
+        mock_input.assert_called_with('prompt (y/n): ')
         mock_print.assert_called_with('Try again..')
         
     def test_with_default_and_options(self):
@@ -43,4 +43,4 @@ class rich_input_Test(unittest.TestCase):
             options=['y', 'n'], 
             input=mock_input)
         self.assertEqual(result, 'y')
-        mock_input.assert_called_with('prompt [Y/n]: ')
+        mock_input.assert_called_with('prompt ([y]/n): ')
