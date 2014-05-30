@@ -1,6 +1,5 @@
 import sys
 from unittest.mock import patch
-from collections.abc import Mapping
 from ..copy import copy
 from ..functools import cachedproperty, FunctionCall 
 from .context import ObjectContext
@@ -89,7 +88,7 @@ class render_string(FunctionCall):
         if vrs is None:
             vrs = {}
         parent = vrs
-        if not isinstance(vrs, Mapping):   
+        if not isinstance(vrs, dict):   
             parent = ObjectContext(vrs)        
         if not shared:
             parent = copy(parent)
