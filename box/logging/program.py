@@ -3,7 +3,7 @@ import logging
 from abc import ABCMeta, abstractmethod
 from ..argparse import Program 
 
-class Program(Program, metaclass=ABCMeta):
+class LoggingProgram(Program, metaclass=ABCMeta):
     
     #Public
      

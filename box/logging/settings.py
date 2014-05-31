@@ -1,6 +1,6 @@
 from ..packtools import Settings
 
-class Settings(Settings):
+class LoggingSettings(Settings):
         
     #Console
     
