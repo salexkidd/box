@@ -1,5 +1,5 @@
 import sys
-import logging
+import logging.config
 from abc import ABCMeta, abstractmethod
 from ..argparse import Program 
 from ..functools import cachedproperty
@@ -38,11 +38,11 @@ class LoggingProgram(Program, metaclass=ABCMeta):
               
     @property
     def _argparse_config(self):
-        self._settings.argparse
+        return self._settings.argparse
         
     @property
     def _logging_config(self):
-        self._settings.logging
+        return self._settings.logging
            
     @cachedproperty
     def _settings(self):
