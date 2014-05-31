@@ -1,5 +1,5 @@
-box
-===
+box.packtools
+=============
 
 Module provides two classes for better settings and version managment.
 They could be used for different purposes but the most obvious way to use it is
@@ -10,16 +10,16 @@ Main
 
 There are mentioned above main classes.
 
-.. autoclass:: box.Settings
+.. autoclass:: box.packtools.Settings
      :members: _extensions
  
-.. autoclass:: box.Version
+.. autoclass:: box.packtools.Version
 
 Advanced
 --------
 
 Additional elements.
      
-.. automodule:: box
+.. automodule:: box.packtools
      :imported-members:
      :exclude-members: Settings, Version
