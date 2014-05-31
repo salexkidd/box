@@ -74,8 +74,7 @@ class Command:
     
     @property
     def _parser_arguments(self):
-        arguments = self._config.get('arguments', [])
-        return arguments    
+        return self._config.get('arguments', [])
     
     @property
     def _parser_config(self):
