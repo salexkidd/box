@@ -1,5 +1,5 @@
 import unittest
-from box.version import Version
+from box.packtools import Version
 
 class VersionTest(unittest.TestCase):
 

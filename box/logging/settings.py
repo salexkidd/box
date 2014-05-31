@@ -1,4 +1,4 @@
-from ..settings import Settings
+from ..packtools import Settings
 
 class Settings(Settings):
     

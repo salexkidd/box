@@ -1,5 +1,5 @@
 from ..functools import cachedproperty
-from ..settings import Settings
+from ..packtools import Settings
 
 class Settings(Settings):
     """Sphinx conf.py representation.

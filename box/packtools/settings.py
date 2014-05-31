@@ -1,6 +1,6 @@
 import os
 import inspect
-from .findtools import find_objects
+from ..findtools import find_objects
 
 class SettingsMetaclass(type):
     """Metaclass adds extensions functionality to Settings.
@@ -24,7 +24,7 @@ class Settings(dict, metaclass=SettingsMetaclass):
     
     Following example will show common workflow and extensions: 
     
-    >>> from box import Settings
+    >>> from box.packtools import Settings
     >>> class Settings(Settings):
     ...   attr1 = 'value1'
     ...   attr2 = 'value2'
@@ -102,7 +102,7 @@ class Settings(dict, metaclass=SettingsMetaclass):
         os.makedirs(os.path.dirname(extension), exist_ok=True)
         with open(extension, 'w') as file:
             file.write(
-            'from box import Settings\n\n'
+            'from box.packtools import Settings\n\n'
             'class Settings(Settings):\n\n'
             '    #Public\n\n'
             '    pass')

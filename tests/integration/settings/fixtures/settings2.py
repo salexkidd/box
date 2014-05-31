@@ -1,1 +1,1 @@
-from box import Settings; Settings
+from box.packtools import Settings; Settings

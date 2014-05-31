@@ -1,5 +1,5 @@
 import unittest
-from box.settings import Settings
+from box.packtools import Settings
 
 class SettingsTest(unittest.TestCase):
 
