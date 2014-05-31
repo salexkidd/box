@@ -8,12 +8,6 @@ class LoggingProgram(Program, metaclass=ABCMeta):
     #Public
      
     def __call__(self):
-        self._config()
-        self._execute()
-         
-    #Protected
-    
-    def _config(self):
         logging.config.dictConfig(self._logging_config)        
         logger = logging.getLogger()
         if self._command.debug:
@@ -21,16 +15,15 @@ class LoggingProgram(Program, metaclass=ABCMeta):
         if self._command.verbose:
             logger.setLevel(logging.INFO)
         if self._command.quiet:
-            logger.setLevel(logging.ERROR)      
-    
-    def _execute(self):
+            logger.setLevel(logging.ERROR)
         try:
-            self._invoke()
+            self._execute()
         except Exception as exception:
             logging.getLogger(__name__).error(
-                self._format_exception(exception), 
-                exc_info=self._command.debug)
-            sys.exit(1)
+                str(exception), exc_info=self._command.debug)
+            sys.exit(1)            
+         
+    #Protected
             
     @property
     @abstractmethod
@@ -38,10 +31,5 @@ class LoggingProgram(Program, metaclass=ABCMeta):
         pass #pragma: no cover
     
     @abstractmethod    
-    def _invoke(self):      
+    def _execute(self):      
         pass #pragma: no cover
-    
-    def _format_exception(self, exception):
-        return '{category}: {message}'.format(
-            category=type(exception).__name__,
-            message=str(exception))
