@@ -75,8 +75,6 @@ class Command:
     @property
     def _parser_arguments(self):
         arguments = self._config.get('arguments', [])
-        if isinstance(arguments, dict):
-            arguments = list(arguments.values())
         return arguments    
     
     @property
