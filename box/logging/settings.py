@@ -32,8 +32,8 @@ class Settings(Settings):
     
     #Logging
     
-    default_logging_level = 'WARNING' 
-    default_logging_format = '[%(levelname)s] %(message)s'
+    logging_level = 'WARNING' 
+    logging_format = '[%(levelname)s] %(message)s'
    
     @property
     def logging(self):
@@ -45,7 +45,7 @@ class Settings(Settings):
         logging.setdefault('formatters', {})
         logging['loggers'][''] = {
             'handlers': ['default'],        
-            'level': self.default_logging_level,
+            'level': self.logging_level,
             'propagate': True,
         }
         logging['handlers']['default'] = {
@@ -54,6 +54,6 @@ class Settings(Settings):
             'formatter': 'default',
         }
         logging['handlers']['default'] = {
-            'format': self.default_logging_format
+            'format': self.logging_format
         }    
         return logging
