@@ -26,15 +26,15 @@ class LoggingProgram(Program, metaclass=ABCMeta):
             sys.exit(1)            
          
     #Protected
+        
+    @abstractmethod    
+    def _execute(self):      
+        pass #pragma: no cover
     
     @cachedproperty
     def _command(self):
         return self._command_class(
             self._argv, config=self._argparse_config)
-        
-    @abstractmethod    
-    def _execute(self):      
-        pass #pragma: no cover
               
     @property
     def _argparse_config(self):
