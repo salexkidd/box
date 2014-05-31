@@ -16,7 +16,7 @@ class LoggingProgramTest(unittest.TestCase):
     def test___call__(self, get_logger, logging_config):
         self.program()
         logging_config.dictConfig.assert_called_with(
-            self.program._logging_config)
+            self.program._settings.logging)
         get_logger.assert_called_with()
         get_logger.return_value.setLevel.assert_has_calls([
             call(logging.DEBUG),

@@ -10,7 +10,7 @@ class LoggingProgram(Program, metaclass=ABCMeta):
     #Public
      
     def __call__(self):
-        logging.config.dictConfig(self._logging_config)        
+        logging.config.dictConfig(self._settings.logging)        
         logger = logging.getLogger()
         if self._command.debug:
             logger.setLevel(logging.DEBUG)
@@ -26,24 +26,16 @@ class LoggingProgram(Program, metaclass=ABCMeta):
             sys.exit(1)            
          
     #Protected
-        
-    @abstractmethod    
-    def _execute(self):      
-        pass #pragma: no cover
     
     @cachedproperty
     def _command(self):
         return self._command_class(
-            self._argv, config=self._argparse_config)
-              
-    @property
-    def _argparse_config(self):
-        return self._settings.argparse
+            self._argv, config=self._settings.argparse)
         
-    @property
-    def _logging_config(self):
-        return self._settings.logging
-           
+    @abstractmethod    
+    def _execute(self):      
+        pass #pragma: no cover
+         
     @cachedproperty
     def _settings(self):
         return LoggingSettings()       
