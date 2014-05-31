@@ -2,6 +2,8 @@ import sys
 import logging
 from abc import ABCMeta, abstractmethod
 from ..argparse import Program 
+from ..functools import cachedproperty
+from .settings import LoggingSettings
 
 class LoggingProgram(Program, metaclass=ABCMeta):
     
@@ -24,12 +26,24 @@ class LoggingProgram(Program, metaclass=ABCMeta):
             sys.exit(1)            
          
     #Protected
-            
-    @property
-    @abstractmethod
-    def _logging_config(self):
-        pass #pragma: no cover
     
+    @cachedproperty
+    def _command(self):
+        return self._command_class(
+            self._argv, config=self._argparse_config)
+        
     @abstractmethod    
     def _execute(self):      
         pass #pragma: no cover
+              
+    @property
+    def _argparse_config(self):
+        self._settings.argparse
+        
+    @property
+    def _logging_config(self):
+        self._settings.logging
+           
+    @cachedproperty
+    def _settings(self):
+        return LoggingSettings()       

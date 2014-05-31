@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from box.functools import cachedproperty
+from ..functools import cachedproperty
 from .command import Command
 
 class Program(metaclass=ABCMeta):

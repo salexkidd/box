@@ -1,7 +1,7 @@
 import os
 from copy import copy
 from argparse import ArgumentParser
-from box.functools import cachedproperty
+from ..functools import cachedproperty
 
 class Command:
     """Console command representation.
