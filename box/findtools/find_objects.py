@@ -7,6 +7,18 @@ from .objname import ObjnameMapper
 from .objtype import ObjtypeMapper
  
 class find_objects(map_reduce):
+    """Find objects using map_reduce framework.
+    
+    :param str/re objname: objname filter
+    :param type objtype: objtype filter    
+    :param str/glob/re filename: filename filter
+    :param str/glob/re filepath: filepath filter
+    :param str basedir: base directory to find
+    :param int maxdepth: maximal find depth relatively to basedir
+    :param callable onwalkerror: error handler for os.walk
+    
+    Function also accepts :class:`box.itertools.map_reduce` kwargs.
+    """
     
     #Public  
     
