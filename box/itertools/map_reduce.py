@@ -4,13 +4,23 @@ from .emitter import Emitter
 from .getfirst import GetfirstMapper, GetfirstReducer
 
 class map_reduce(FunctionCall):
+    """Process iterable values using map_resuce framework.
+    
+    :param iterable values: values to process
+    :param list mappers: list of mappers
+    :param list reducers: list of reducers
+    :param type emitter: emitter class
+    :param bool getfirst: return first if True
+    :param mixed fallback: fallback if fails
+    
+    :returns mixed: map_reduce result
+    """
     
     default_emitter = Emitter
     
-    def __init__(self, values=[], *args, 
-                 mappers=[], reducers=[], 
-                 emitter=None, getfirst=False,  
-                 fallback=None, **kwargs):
+    def __init__(self, values=[], *, 
+                 mappers=[], reducers=[], emitter=None, 
+                 getfirst=False, fallback=None):
         self._user_values = values
         self._user_mappers = mappers
         self._user_reducers = reducers
