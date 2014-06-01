@@ -9,14 +9,14 @@ class map_reduce(FunctionCall):
     
     def __init__(self, values=[], *args, 
                  mappers=[], reducers=[], 
-                 emitter=None, fallback=None, 
-                 getfirst=False, **kwargs):
+                 emitter=None, getfirst=False,  
+                 fallback=None, **kwargs):
         self._user_values = values
         self._user_mappers = mappers
         self._user_reducers = reducers
         self._emitter = emitter
+        self._getfirst = getfirst        
         self._fallback = fallback
-        self._getfirst = getfirst
         if not self._emitter:
             self._emitter = self.default_emitter
     
@@ -43,7 +43,7 @@ class map_reduce(FunctionCall):
             if emitter.skipped:
                 if emitter.stopped:
                     break
-                continue
+                continue #pragma: no cover (coverage bug)
             if emitter.emitted:
                 yield from emitter.emitted
             else:

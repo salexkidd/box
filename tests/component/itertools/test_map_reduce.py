@@ -48,15 +48,24 @@ class map_reduce_Test(unittest.TestCase):
         result = map_reduce(self.iterable, reducers=[reducer])
         self.assertEqual(result, 'reduced')
         
-    def test_with_reducer_and_fallback(self):
-        reducer = lambda result: 1/0
-        result = map_reduce(self.iterable, 
-            reducers=[reducer], fallback='fallback')
-        self.assertEqual(result, 'fallback')
-        
     def test_with_getfirst(self):
         result = map_reduce(self.iterable, getfirst=True)
         self.assertEqual(result, 'value1')
         
     def test_with_getfirst_and_not_values(self):
         self.assertRaises(Exception, map_reduce, [], getfirst=True)
+    
+    def test_with_fallback_is_none_and_error(self):
+        self.assertRaises(Exception, map_reduce, [], getfirst=True)
+         
+    def test_with_fallback_is_value_and_error(self):
+        result = map_reduce([], getfirst=True, fallback='fallback')
+        self.assertEqual(result, 'fallback')
+        
+    def test_with_fallback_is_exception_and_error(self):
+        self.assertRaises(RuntimeError, 
+            map_reduce, [], getfirst=True, fallback=RuntimeError())
+        
+    def test_with_fallback_is_callable_and_error(self):
+        result = map_reduce([], getfirst=True, fallback=lambda excp: 'excp')
+        self.assertEqual(result, 'excp')           
