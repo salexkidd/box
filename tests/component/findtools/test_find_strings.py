@@ -32,17 +32,20 @@ class find_strings_Test(unittest.TestCase):
     def test_with_string(self):
         strings = list(self.find('data'))
         self.assertEqual(strings, ['data', 'data'])
-        
+    
     def test_with_string_is_regex(self):
-        strings = list(self.find(re.compile('(da|ta)')))
-        self.assertEqual(strings, ['da', 'ta', 'da', 'ta'])       
+        strings = list(self.find(re.compile('data')))
+        self.assertEqual(strings, ['data', 'data'])  
+    
+    def test_with_string_is_regex_with_groups(self):
+        strings = list(self.find(re.compile('(d|t)(a)')))
+        self.assertEqual(strings, ['d', 'a', 't', 'a', 'd', 'a', 't', 'a'])       
         
     def test_with_mapper(self):
         mapper = (lambda emitter: 
             emitter.value(emitter.filepath+':'+emitter.value()))
-        strings = list(self.find(re.compile('(da|ta)'), mappers=[mapper]))
-        self.assertEqual(strings, 
-            ['file1:da', 'file1:ta', 'file2:da', 'file2:ta'])
+        strings = list(self.find('data', mappers=[mapper]))
+        self.assertEqual(strings, ['file1:data', 'file2:data'])
     
     def test_with_reducer_and_fallback(self):
         reducer = lambda values: 1/0
