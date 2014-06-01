@@ -17,6 +17,8 @@ class find_objects(map_reduce):
     :param int maxdepth: maximal find depth relatively to basedir
     :param callable onwalkerror: error handler for os.walk
     
+    :returns generator: found objects generator    
+    
     Function also accepts :class:`box.itertools.map_reduce` kwargs.
     """
     
