@@ -11,8 +11,19 @@ class find_files_Test(unittest.TestCase):
         filepathes = [
             'file1', 'file2', 'dir/file1', 'dir/file2', 'dir/subdir/file3']
         self.find = self._make_mock_find(filepathes)
-   
-    def test(self):
+        
+    def test_glob(self):
+        files = list(self.find(
+            filepath='file*',
+            basedir='basedir'))
+        self.assertEqual(len(files), 2)
+        self.find._glob.assert_called_with(
+            'file*',
+            basedir='basedir',
+            sorter=sorted,
+            mode='files')
+        
+    def test_walk(self):
         files = list(self.find(
             basedir='basedir',
             onwalkerror='onwalkerror'))
@@ -21,7 +32,7 @@ class find_files_Test(unittest.TestCase):
             basedir='basedir',
             sorter=sorted,
             mode='files',
-            onerror='onwalkerror')      
+            onerror='onwalkerror')
      
     def test_with_filename(self):
         files = list(self.find(filename='file3'))
@@ -31,7 +42,11 @@ class find_files_Test(unittest.TestCase):
         filename = re.compile('file1+')
         files = list(self.find(filename=filename, maxdepth=1))
         self.assertEqual(files, ['file1'])     
-        
+    
+    def test_with_filepath(self):
+        files = list(self.find(filepath='file*'))
+        self.assertEqual(files, ['file1', 'file2']) 
+         
     def test_with_filepath_is_regex(self):
         filepath = re.compile('.*2$')
         files = list(self.find(filepath=filepath))
@@ -73,6 +88,6 @@ class find_files_Test(unittest.TestCase):
     def _make_mock_find(self, filepathes):
         class mock_find(find_files):
             #Protected
+            _glob = Mock(return_value=filepathes[:2])            
             _walk = Mock(return_value=filepathes)
-            _glob = Mock(return_value=filepathes)
         return mock_find

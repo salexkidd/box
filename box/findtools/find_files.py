@@ -59,16 +59,16 @@ class find_files(map_reduce):
     
     @property
     def _filepathes(self):
-        if (self._filepath == None or
-            isinstance(self._filepath, RegexCompiledPatternType)):
-            #We have to walk
-            filepathes = self._walk(
-                basedir=self._basedir, sorter=sorted, mode='files',
-                onerror=self._onwalkerror)            
-        else:
+        if (self._filepath != None and
+            not isinstance(self._filepath, RegexCompiledPatternType)):
             #We have a glob pattern
             filepathes = self._glob(self._filepath, 
                 basedir=self._basedir, sorter=sorted, mode='files')
+        else:
+            #We have to walk
+            filepathes = self._walk(
+                basedir=self._basedir, sorter=sorted, mode='files',
+                onerror=self._onwalkerror)             
         return filepathes
     
 
