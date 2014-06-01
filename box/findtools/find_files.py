@@ -9,6 +9,17 @@ from .filename import FilenameMapper
 from .filepath import FilepathMapper
 
 class find_files(map_reduce):
+    """Find files using map_reduce framework.
+    
+    :param str/glob/re filename: filename filter
+    :param str/glob/re filepath: filepath filter
+    :param str basedir: base directory to find
+    :param bool join: if True joins resulted filepath with basedir
+    :param int maxdepth: maximal find depth relatively to basedir
+    :param callable onwalkerror: error handler for os.walk
+    
+    Function also accepts :class:`box.itertools.map_reduce` kwargs.
+    """
 
     #Public
     

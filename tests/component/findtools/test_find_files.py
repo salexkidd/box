@@ -22,14 +22,6 @@ class find_files_Test(unittest.TestCase):
             sorter=sorted,
             mode='files',
             onerror='onwalkerror')      
-        
-    def test_with_maxdepth_is_1(self):
-        files = list(self.find(filename='file1', maxdepth=1))
-        self.assertEqual(files, ['file1'])
-        
-    def test_with_maxdepth_is_2(self):
-        files = list(self.find(filename='file1', maxdepth=2))
-        self.assertEqual(files, ['file1', 'dir/file1'])
      
     def test_with_filename(self):
         files = list(self.find(filename='file3'))
@@ -43,7 +35,15 @@ class find_files_Test(unittest.TestCase):
     def test_with_filepath_is_regex(self):
         filepath = re.compile('.*2$')
         files = list(self.find(filepath=filepath))
-        self.assertEqual(files, ['file2', 'dir/file2'])        
+        self.assertEqual(files, ['file2', 'dir/file2']) 
+          
+    def test_with_maxdepth_is_1(self):
+        files = list(self.find(filename='file1', maxdepth=1))
+        self.assertEqual(files, ['file1'])
+        
+    def test_with_maxdepth_is_2(self):
+        files = list(self.find(filename='file1', maxdepth=2))
+        self.assertEqual(files, ['file1', 'dir/file1'])
         
     def test_with_mapper(self):
         mapper = lambda emitter: emitter.value(emitter.value()+'!')
