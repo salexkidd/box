@@ -56,4 +56,7 @@ class map_reduce_Test(unittest.TestCase):
         
     def test_with_getfirst(self):
         result = map_reduce(self.iterable, getfirst=True)
-        self.assertEqual(result, 'value1')      
+        self.assertEqual(result, 'value1')
+        
+    def test_with_getfirst_and_not_values(self):
+        self.assertRaises(Exception, map_reduce, [], getfirst=True)
