@@ -18,26 +18,26 @@ class Emitter:
         except KeyError:
             raise AttributeError(name)
     
-    def value(self, value=DEFAULT, condition=None):
+    def value(self, value=DEFAULT, condition=True):
         if value == DEFAULT:
             return self._value
         else:
-            if condition == None or condition:
+            if condition:
                 self._value = value
             return self
                 
-    def emit(self, value, condition=None):
-        if condition == None or condition:
+    def emit(self, value, condition=True):
+        if condition:
             self._emitted.append(value)
         return self
             
-    def skip(self, condition=None):
-        if condition == None or condition:
+    def skip(self, condition=True):
+        if condition:
             self._skipped = True
         return self
            
-    def stop(self, condition=None, *, if_not_skipped=False):
-        if condition == None or condition:
+    def stop(self, condition=True, *, if_not_skipped=False):
+        if condition:
             if if_not_skipped:
                 self._stopped_if_not_skipped = True
             else:
