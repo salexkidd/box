@@ -44,10 +44,10 @@ class find_objects_Test(unittest.TestCase):
         self.assertEqual(objects, [call, call])             
         
     def test_with_mapper(self):
-        mapper = lambda emitter: emitter.emit(emitter.objname)
+        mapper = lambda emitter: emitter.emit(emitter.objtype)
         objects = list(self.find(objname='call', mappers=[mapper]))
-        self.assertEqual(objects, ['call', 'call'])               
-    
+        self.assertEqual(objects, [type(call), type(call)])
+        
     def test_with_reducer_and_fallback(self):
         reducer = lambda values: 1/0
         objects = self.find(reducers=[reducer], fallback='fallback')

@@ -67,4 +67,4 @@ class FindObjectsEmitter(FindFilesEmitter):
     
     @property
     def objtype(self):
-        return type(self._object)    
+        return type(self.object)    
