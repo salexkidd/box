@@ -36,7 +36,15 @@ class find_files_Test(unittest.TestCase):
         filepath = re.compile('.*2$')
         files = list(self.find(filepath=filepath))
         self.assertEqual(files, ['file2', 'dir/file2']) 
-          
+    
+    def test_with_basedir(self):
+        files = list(self.find(filename='file3', basedir='basedir'))
+        self.assertEqual(files, ['dir/subdir/file3'])
+        
+    def test_with_basedir_and_join(self):
+        files = list(self.find(filename='file3', basedir='basedir', join=True))
+        self.assertEqual(files, ['basedir/dir/subdir/file3'])        
+        
     def test_with_maxdepth_is_1(self):
         files = list(self.find(filename='file1', maxdepth=1))
         self.assertEqual(files, ['file1'])
