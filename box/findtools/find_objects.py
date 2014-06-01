@@ -7,7 +7,7 @@ from .objname import ObjnameMapper
 from .objtype import ObjtypeMapper
  
 class find_objects(map_reduce):
-    """Find objects using map_reduce framework.
+    """Find objects in files using map_reduce framework.
     
     :param str/re objname: objname filter
     :param type objtype: objtype filter    

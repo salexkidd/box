@@ -6,7 +6,18 @@ from .find_files import find_files, FindFilesEmitter
 from .not_found import NotFound
   
 class find_strings(map_reduce):
-
+    """Find strings in files using map_reduce framework.
+    
+    :param str/re string: string filter
+    :param str/glob/re filename: filename filter
+    :param str/glob/re filepath: filepath filter
+    :param str basedir: base directory to find
+    :param int maxdepth: maximal find depth relatively to basedir
+    :param callable onwalkerror: error handler for os.walk
+    
+    Function also accepts :class:`box.itertools.map_reduce` kwargs.
+    """
+    
     #Public
     
     default_emitter = property(lambda self: FindStringsEmitter)
