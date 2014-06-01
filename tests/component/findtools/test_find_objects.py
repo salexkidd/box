@@ -1,3 +1,4 @@
+import re
 import unittest
 from unittest.mock import Mock, call
 from box.findtools.find_objects import find_objects
@@ -34,6 +35,10 @@ class find_objects_Test(unittest.TestCase):
     def test_with_objname(self):
         objects = list(self.find(objname='call'))
         self.assertEqual(objects, [call, call])
+        
+    def test_with_objname_is_regex(self):
+        objects = list(self.find(objname=re.compile('call')))
+        self.assertEqual(objects, [call, call])        
         
     def test_with_objtype(self):
         objects = list(self.find(objtype=type(call)))
