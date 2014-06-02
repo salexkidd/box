@@ -1,5 +1,8 @@
 import box
-from packgram.tests import SetupTest
+try:
+    from packgram.tests import SetupTest
+except ImportError:
+    from unittest import TestCase as SetupTest
 
 class SetupTest(SetupTest):
 
