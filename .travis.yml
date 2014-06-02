@@ -9,7 +9,7 @@ python:
 
 install:
   - pip install coveralls
-  - pip install packgram>=0.10.2 nose
+  - pip install nose
 
 script:
   - coverage run --source=box setup.py test

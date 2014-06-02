@@ -15,7 +15,7 @@ package = {
     ),
 	'include_package_data': True,
     'install_requires': [],  
-    'tests_require': ['packgram>=0.10.2', 'nose'],
+    'tests_require': ['nose'],
     'test_suite': 'nose.collector',
     
     #Description
