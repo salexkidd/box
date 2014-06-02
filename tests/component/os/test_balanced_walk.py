@@ -39,8 +39,8 @@ class balanced_walk_Test(unittest.TestCase):
             (#Dirpathes
              [],
              #Filepathes
-             ['dir1/subdir1/file1']))               
-    
+             ['dir1/subdir1/file1']))
+        
     def test_with_dirpath(self):
         levels = list(self.pwalk('dir1'))
         self.assertEqual(len(levels), 2)
@@ -76,13 +76,31 @@ class balanced_walk_Test(unittest.TestCase):
             (#Dirpathes
              [],
              #Filepathes
-             ['subdir1/file1']))   
+             ['subdir1/file1']))
         
-    def test_error(self):
+    def test_with_mode_is_files(self):
+        files = list(self.pwalk(mode='files'))
+        self.assertEqual(files, [
+            #Filepathes
+            'file1', 
+            'file2', 
+            'dir1/file1', 
+            'dir2/file1',
+            'dir1/subdir1/file1'])
+        
+    def test_with_mode_is_dirs(self):
+        files = list(self.pwalk(mode='dirs'))
+        self.assertEqual(files, [
+            #Dirpathes
+            'dir1', 
+            'dir2', 
+            'dir1/subdir1'])               
+        
+    def test_onerror_is_none_with_error(self):
         files = list(self.pwalk('error'))
         self.assertEqual(files, [])
         
-    def test_error_with_onerror(self):
+    def test_onerror_is_callable_with_error(self):
         onerror = Mock()
         files = list(self.pwalk('error', onerror=onerror))
         self.assertEqual(files, [])
