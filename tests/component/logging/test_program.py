@@ -22,7 +22,15 @@ class LoggingProgramTest(unittest.TestCase):
             call(logging.DEBUG),
             call(logging.INFO),
             call(logging.ERROR)])
-        self.program._execute.assert_called_with()   
+        self.program._execute.assert_called_with()
+        
+    @patch('logging.getLogger')
+    def test___call___with_error(self, get_logger):
+        self.program._execute = Mock(side_effect=Exception('exception'))
+        self.assertRaises(SystemExit, self.program)
+        get_logger.assert_called_with('box.logging.program')
+        get_logger.return_value.error.assert_called_with(
+            'exception', exc_info='debug')   
     
     #Protected
     
