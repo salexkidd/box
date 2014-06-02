@@ -1,6 +1,6 @@
 from copy import copy as python_copy
 
-def copy(obj, *args, **kwargs):
+def enhanced_copy(obj, *args, **kwargs):
     """Shallow copy operation on arbitrary Python objects.
     
     :param mixed obj: object to copy

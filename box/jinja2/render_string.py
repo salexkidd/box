@@ -1,6 +1,6 @@
 import sys
 from unittest.mock import patch
-from ..copy import copy
+from ..copy import enhanced_copy
 from ..functools import cachedproperty, FunctionCall 
 from .context import ObjectContext
 
@@ -91,14 +91,14 @@ class render_string(FunctionCall):
         if not isinstance(vrs, dict):   
             parent = ObjectContext(vrs)        
         if not shared:
-            parent = copy(parent)
+            parent = enhanced_copy(parent)
             for key, value in (globs or {}).items():
                 if key not in parent:
                     #Setdefault doesn't work for ObjectContext
                     parent[key] = value
         if locs:
             if shared:
-                parent = copy(parent)
+                parent = enhanced_copy(parent)
             for key, value in locs.items():
                 if key[:2] == 'l_' and value is not missing:
                     parent[key[2:]] = value
