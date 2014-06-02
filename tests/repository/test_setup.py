@@ -1,15 +1,15 @@
-import box
-try:
+from box.importlib import check_module
+
+if check_module('packgram'):
+    import box
     from packgram.tests import SetupTest
-except ImportError:
-    from unittest import TestCase as SetupTest
-
-class SetupTest(SetupTest):
-
-    #Public
-
-    __test__ = True
-        
-    #Protected
     
-    _package = box
+    class SetupTest(SetupTest):
+    
+        #Public
+    
+        __test__ = True
+            
+        #Protected
+        
+        _package = box
