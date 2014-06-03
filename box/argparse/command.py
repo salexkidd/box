@@ -20,21 +20,9 @@ class Command:
     
     #Public
     
-    default_config = {
-        'add_help': True,                     
-        'arguments': [
-            {
-             'name': 'arguments',
-             'nargs':'*',
-            },
-        ],       
-    }
-    
-    def __init__(self, argv, config=None, **kwargs):
+    def __init__(self, argv, config, **kwargs):
         self._argv = argv
-        self._config = config
-        if self._config == None: 
-            self._config = copy(self.default_config)
+        self._config = copy(config)
         self._config.update(kwargs)
         
     def __getattr__(self, name):

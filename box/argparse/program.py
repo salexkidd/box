@@ -1,6 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from ..functools import cachedproperty
 from .command import Command
+from .settings import Settings
 
 class Program(metaclass=ABCMeta):
     """Abstract console program representation.
@@ -29,7 +30,13 @@ class Program(metaclass=ABCMeta):
     #Protected
     
     _command_class = Command
+    _settings_class = Settings
       
     @cachedproperty
     def _command(self):
-        return self._command_class(self._argv)
+        return self._command_class(
+            self._argv, config=self._settings.argparse)
+    
+    @cachedproperty    
+    def _settings(self):
+        return self._settings_class()

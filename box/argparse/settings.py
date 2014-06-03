@@ -1,4 +1,6 @@
-class Settings:
+from ..packtools import Settings
+
+class Settings(Settings):
 
     #Public
     

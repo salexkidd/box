@@ -50,18 +50,12 @@ class CommandTest(unittest.TestCase):
                          self.config['arguments'])
         
     def test__parser_config(self):
-        self.assertEqual(self.command._parser_config, {'prog': 'prog'})
-          
-    def test__config_default(self):
-        command = self.pcommand(config=None)
-        self.assertEqual(command._config, {'attr': 'value'})        
+        self.assertEqual(self.command._parser_config, {'prog': 'prog'})       
     
     #Protected
     
     def _make_mock_command_class(self):
         class MockCommand(Command):
-            #Public
-            default_config = {'attr': 'value'}
             #Protected
             _parser_class = Mock(return_value=Mock(
                 add_argument=Mock(),

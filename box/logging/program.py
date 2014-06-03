@@ -2,7 +2,6 @@ import sys
 import logging.config
 from abc import ABCMeta, abstractmethod
 from ..argparse import Program 
-from ..functools import cachedproperty
 from .settings import Settings
 
 class Program(Program, metaclass=ABCMeta):
@@ -27,15 +26,8 @@ class Program(Program, metaclass=ABCMeta):
          
     #Protected
     
-    @cachedproperty
-    def _command(self):
-        return self._command_class(
-            self._argv, config=self._settings.argparse)
+    _settings_class = Settings
         
     @abstractmethod    
     def _execute(self):      
-        pass #pragma: no cover
-         
-    @cachedproperty
-    def _settings(self):
-        return Settings()       
+        pass #pragma: no cover      
