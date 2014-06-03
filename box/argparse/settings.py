@@ -7,7 +7,6 @@ class Settings(Settings):
     @property
     def argparse(self):
         return {
-            'add_help': True,                     
             'arguments': [
                 {
                  'name': 'arguments',

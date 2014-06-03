@@ -13,8 +13,9 @@ class Command:
     Command provides access to command line arguments by attribute names:
     
     >>> from box.argparse import Command
-    >>> c = Command(['program', 'arg'])
-    >>> c.arguments
+    >>> config = {'arguments': [{'name': 'arguments', 'nargs':'*'}]}    
+    >>> command = Command(['program', 'arg'], config=config)
+    >>> command.arguments
     ['arg']
     """
     

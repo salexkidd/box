@@ -13,8 +13,8 @@ class Program(metaclass=ABCMeta):
     ...   def __call__(self):
     ...     print(self._command.arguments)
     ...
-    >>> p = Program(['program', 'arg'])
-    >>> p()
+    >>> program = Program(['program', 'arg'])
+    >>> program()
     ['arg']
     """
     
