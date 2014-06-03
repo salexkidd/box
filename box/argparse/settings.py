@@ -8,11 +8,18 @@ class Settings(Settings):
     
     @property
     def argparse(self):
-        return merge_dicts(getattr(super(), 'argparse', {}), {
+        return self._derive_argparse({
             'arguments': [
                 {
                  'name': 'arguments',
                  'nargs':'*',
                 },
             ]
-        }, resolvers={list: operator.add})
+        })
+        
+    #Protected
+    
+    def _derive_argparse(self, argparse):
+        return merge_dicts(getattr(super(), 'argparse', {}), argparse, 
+                           resolvers={list: operator.add})
+        

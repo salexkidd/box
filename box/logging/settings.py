@@ -1,6 +1,5 @@
-import operator
 from ..collections import merge_dicts
-from ..packtools import Settings
+from ..argparse import Settings
 
 class Settings(Settings):
         
@@ -8,7 +7,7 @@ class Settings(Settings):
     
     @property
     def argparse(self):
-        return merge_dicts(getattr(super(), 'argparse', {}), {
+        return self._derive_argparse({
             'arguments': [
                 {
                  'dest': 'debug',
@@ -29,7 +28,7 @@ class Settings(Settings):
                  'help': 'Enable verbose mode.',                 
                 },  
             ]
-        }, resolvers={list: operator.add})
+        })
     
     #Logging
     
@@ -38,7 +37,7 @@ class Settings(Settings):
     
     @property
     def logging(self):
-        return merge_dicts(getattr(super(), 'logging', {}), {
+        return self._derive_logging({
             'version': 1,
             'disable_existing_loggers': False,
             'loggers': {
@@ -60,4 +59,9 @@ class Settings(Settings):
                     'format': self.logging_format
                 },                                                
             },
-        })             
+        })  
+        
+    #Protected
+    
+    def _derive_logging(self, logging):
+        return merge_dicts(getattr(super(), 'logging', {}), logging)                   
