@@ -7,6 +7,7 @@ class Settings(Settings):
     @property
     def argparse(self):
         return {
+            'conflict_handler': 'resolve',                
             'arguments': [
                 {
                  'name': 'arguments',
