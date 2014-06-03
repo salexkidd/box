@@ -2,15 +2,16 @@ from ..packtools import Settings
 
 class Settings(Settings):
 
-    #Public
+    #Argparse
     
     @property
     def argparse(self):
-        return {
-            'arguments': [
-                {
-                 'name': 'arguments',
-                 'nargs':'*',
-                },
-            ],       
-        }
+        argparse = getattr(super(), 'argparse', {})
+        argparse.setdefault('arguments', [])
+        argparse['arguments'].extend([
+            {
+             'name': 'arguments',
+             'nargs':'*',
+            },
+        ])
+        return argparse
