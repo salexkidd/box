@@ -1,6 +1,6 @@
 from ..packtools import Settings
 
-class LoggingSettings(Settings):
+class Settings(Settings):
         
     #Argparse
     

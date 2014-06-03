@@ -3,9 +3,9 @@ import logging.config
 from abc import ABCMeta, abstractmethod
 from ..argparse import Program 
 from ..functools import cachedproperty
-from .settings import LoggingSettings
+from .settings import Settings
 
-class LoggingProgram(Program, metaclass=ABCMeta):
+class Program(Program, metaclass=ABCMeta):
     
     #Public
      
@@ -38,4 +38,4 @@ class LoggingProgram(Program, metaclass=ABCMeta):
          
     @cachedproperty
     def _settings(self):
-        return LoggingSettings()       
+        return Settings()       

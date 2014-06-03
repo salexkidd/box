@@ -1,2 +1,2 @@
-from .program import LoggingProgram
-from .settings import LoggingSettings
+from .program import Program
+from .settings import Settings

@@ -1,9 +1,9 @@
 import logging
 import unittest
 from unittest.mock import Mock, call, patch
-from box.logging.program import LoggingProgram
+from box.logging.program import Program
 
-class LoggingProgramTest(unittest.TestCase):
+class ProgramTest(unittest.TestCase):
 
     #Public
 
@@ -35,7 +35,7 @@ class LoggingProgramTest(unittest.TestCase):
     #Protected
     
     def _make_mock_program_class(self):
-        class MockProgram(LoggingProgram):
+        class MockProgram(Program):
             #Protected
             _execute = Mock()
             _command_class = Mock(return_value=Mock(
