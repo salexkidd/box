@@ -6,4 +6,5 @@ class merge_dicts_Test(unittest.TestCase):
     #Public
 
     def test(self):
-        pass
+        result = merge_dicts({'a': 1}, {'b': 2})
+        self.assertEqual(result, {'a': 1, 'b': 2})
