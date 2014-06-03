@@ -1,3 +1,5 @@
+import operator
+from ..collections import merge_dicts
 from ..packtools import Settings
 
 class Settings(Settings):
@@ -6,12 +8,14 @@ class Settings(Settings):
     
     @property
     def argparse(self):
-        argparse = getattr(super(), 'argparse', {})
-        argparse.setdefault('arguments', [])
-        argparse['arguments'].extend([
-            {
-             'name': 'arguments',
-             'nargs':'*',
-            },
-        ])
-        return argparse
+        argparse1 = getattr(super(), 'argparse', {})
+        argparse2 = {
+            'arguments': [
+                {
+                 'name': 'arguments',
+                 'nargs':'*',
+                },
+            ]
+        }
+        return merge_dicts(argparse1, argparse2, 
+            resolvers={list: operator.add})
