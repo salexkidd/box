@@ -1,3 +1,6 @@
+import operator
+from functools import partial
+from ..collections import merge_dicts
 from ..packtools import Settings
 
 class Settings(Settings):
@@ -6,29 +9,29 @@ class Settings(Settings):
     
     @property
     def argparse(self):
-        argparse = getattr(super(), 'argparse', {})
-        argparse.setdefault('arguments', [])
-        argparse['arguments'].extend([
-            {
-             'dest': 'debug',
-             'action': 'store_true',
-             'flags': ['-d', '--debug'],
-             'help': 'Enable debug mode.',
-            },
-            {
-             'dest': 'quiet',
-             'action': 'store_true',
-             'flags': ['-q', '--quiet'],
-             'help': 'Enable quiet mode.',
-            }, 
-            {
-             'dest': 'verbose',
-             'action': 'store_true',
-             'flags': ['-v', '--verbose'],
-             'help': 'Enable verbose mode.',                 
-            },                                                                                                                           
-        ])
-        return argparse
+        pmerge_dicts = partial(merge_dicts, resolvers={list: operator.add})
+        return pmerge_dicts(getattr(super(), 'argparse', {}), {
+            'arguments': [
+                {
+                 'dest': 'debug',
+                 'action': 'store_true',
+                 'flags': ['-d', '--debug'],
+                 'help': 'Enable debug mode.',
+                },
+                {
+                 'dest': 'quiet',
+                 'action': 'store_true',
+                 'flags': ['-q', '--quiet'],
+                 'help': 'Enable quiet mode.',
+                }, 
+                {
+                 'dest': 'verbose',
+                 'action': 'store_true',
+                 'flags': ['-v', '--verbose'],
+                 'help': 'Enable verbose mode.',                 
+                },  
+            ]
+        })
     
     #Logging
     
@@ -37,23 +40,26 @@ class Settings(Settings):
     
     @property
     def logging(self):
-        logging = getattr(super(), 'logging', {})
-        logging.setdefault('loggers', {})
-        logging.setdefault('handlers', {})
-        logging.setdefault('formatters', {})        
-        logging['version'] = 1
-        logging['disable_existing_loggers'] = False
-        logging['loggers'][''] = {
-            'handlers': ['default'],        
-            'level': self.logging_level,
-            'propagate': True,
-        }
-        logging['handlers']['default'] = {
-            'level':'DEBUG',    
-            'class':'logging.StreamHandler',
-            'formatter': 'default',
-        }
-        logging['formatters']['default'] = {
-            'format': self.logging_format
-        }    
-        return logging        
+        return merge_dicts(getattr(super(), 'logging', {}), {
+            'version': 1,
+            'disable_existing_loggers': False,
+            'loggers': {
+                '': {
+                    'handlers': ['default'],        
+                    'level': self.logging_level,
+                    'propagate': True,
+                },                                   
+            },
+            'handlers': {
+                'default': {
+                    'level':'DEBUG',    
+                    'class':'logging.StreamHandler',
+                    'formatter': 'default',
+                },                                                   
+            },
+            'formatters': {
+                'default': {
+                    'format': self.logging_format
+                },                                                
+            },
+        })             
