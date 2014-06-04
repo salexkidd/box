@@ -1,7 +1,7 @@
 #DO NOT CHANGE THIS FILE. SOURCE IS IN "_sources" DIRECTORY.
 
 packgram>=0.10.2
+sphinx
 sphinx_rtd_theme
 nose
 jinja2
-sphinx
