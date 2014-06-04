@@ -76,5 +76,5 @@ class Settings(Settings):
     
     @cachedproperty
     def _defaults(self):
-        from sphinx.config import Config 
+        from sphinx.config import Config
         return Config(None, None, {}, None)       
