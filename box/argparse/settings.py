@@ -6,7 +6,7 @@ class Settings(Settings):
         
     #Protected
     
-    def _merge_argparse(self, argparse1, argparse2):
-        return merge_dicts(argparse1, argparse2, 
-                           resolvers={list: operator.add})
+    def _inherit_argparse(self, current_class, extension):
+        base = getattr(super(current_class, self), 'argparse', {}) 
+        return merge_dicts(base, extension, resolvers={list: operator.add})
         

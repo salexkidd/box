@@ -7,8 +7,7 @@ class Settings(Settings):
     
     @property
     def argparse(self):
-        super_argparse = getattr(super(Settings, self), 'argpase', {})
-        return self._merge_argparse(super_argparse, {
+        return self._inherit_argparse(Settings, {
             'arguments': [
                 {
                  'dest': 'debug',
@@ -38,8 +37,7 @@ class Settings(Settings):
     
     @property
     def logging(self):
-        super_logging = getattr(super(Settings, self), 'logging', {})        
-        return self._merge_logging(super_logging, {
+        return self._inherit_logging(Settings, {
             'version': 1,
             'disable_existing_loggers': False,
             'loggers': {
@@ -65,5 +63,6 @@ class Settings(Settings):
         
     #Protected
     
-    def _merge_logging(self, logging1, logging2):
-        return merge_dicts(logging1, logging2)                   
+    def _inherit_logging(self, current_class, extension):
+        base = getattr(super(current_class, self), 'logging', {}) 
+        return merge_dicts(base, extension)                  
