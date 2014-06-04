@@ -3,23 +3,10 @@ from ..collections import merge_dicts
 from ..packtools import Settings
 
 class Settings(Settings):
-
-    #Argparse
-    
-    @property
-    def argparse(self):
-        return self._derive_argparse({
-            'arguments': [
-                {
-                 'name': 'arguments',
-                 'nargs':'*',
-                },
-            ]
-        })
         
     #Protected
     
-    def _derive_argparse(self, argparse):
-        return merge_dicts(getattr(super(), 'argparse', {}), argparse, 
+    def _merge_argparse(self, argparse1, argparse2):
+        return merge_dicts(argparse1, argparse2, 
                            resolvers={list: operator.add})
         
