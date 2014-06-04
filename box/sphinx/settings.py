@@ -31,9 +31,13 @@ class Settings(Settings):
         except AttributeError:
             raise AttributeError(name)
     
+    #Project
+    
     @property    
     def release(self):
         return self.version
+    
+    #LaTeX
     
     @property     
     def latex_documents(self):
@@ -43,6 +47,8 @@ class Settings(Settings):
             self.project+' Documentation', 
             self.author, 
             'manual')]
+    
+    #Manual
      
     @property          
     def man_pages(self):
@@ -52,6 +58,8 @@ class Settings(Settings):
             self.project+' Documentation', 
             [self.author], 
             1)]
+    
+    #Texinfo
         
     @property          
     def texinfo_documents(self): 
