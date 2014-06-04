@@ -9,7 +9,7 @@ python:
 
 install:
   - pip install coveralls
-  - pip install nose
+  - pip install nose jinja2
 
 script:
   - coverage run --source=box setup.py test
