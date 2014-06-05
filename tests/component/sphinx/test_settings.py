@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 from box.sphinx.settings import Settings
 
 class SettingsTest(unittest.TestCase):
@@ -10,12 +10,12 @@ class SettingsTest(unittest.TestCase):
         self.Settings = self._make_mock_settings_class()
         self.settings = self.Settings()
 
-    def test___getattr__(self):
-        self.assertEqual(self.settings.attr, 'value')
-        
-    def test___getattr___non_existent(self):
-        self.assertRaises(AttributeError, 
-            getattr, self.settings, 'non_existent')
+    @patch('box.sphinx.settings.import_object')
+    def test___getattr__(self, import_object):
+        sphinx_config = Mock(attr1='value1', spec=['attr1'])
+        import_object.return_value = Mock(return_value=sphinx_config)
+        self.assertEqual(self.settings.attr1, 'value1')
+        self.assertRaises(AttributeError, getattr, self.settings, 'attr2')
         
     def test_release(self):
         self.assertEqual(self.settings.release, 'version')              
@@ -55,6 +55,4 @@ class SettingsTest(unittest.TestCase):
             master_doc = 'master_doc'
             project = 'project'
             version = 'version'
-            #Protected
-            _defaults = Mock(attr='value', spec=['attr'])
         return MockSettings
