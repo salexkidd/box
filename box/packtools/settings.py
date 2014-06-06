@@ -109,7 +109,7 @@ class Settings(dict, metaclass=SettingsMetaclass):
     
     @classmethod        
     def _handle_extension_error(cls, extensoin, error):
-        pass
+        pass #pragma: no cover
             
     @property
     def _as_dict(self):
