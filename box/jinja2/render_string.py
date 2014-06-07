@@ -94,7 +94,7 @@ class render_string(FunctionCall):
             parent = enhanced_copy(parent)
             for key, value in (globs or {}).items():
                 if key not in parent:
-                    #Setdefault doesn't work for ObjectContext
+                    #dict.setdefault doesn't work for ObjectContext
                     parent[key] = value
         if locs:
             if shared:
