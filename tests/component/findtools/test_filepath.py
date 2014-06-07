@@ -3,7 +3,7 @@ import unittest
 from unittest.mock import Mock
 from box.findtools.filepath import FilepathMapper
 
-class FilepathMapperTest(unittest.TestCase):
+class FilepathMapperTest_match(unittest.TestCase):
 
     #Public
     
@@ -17,11 +17,16 @@ class FilepathMapperTest(unittest.TestCase):
         self.assertFalse(self.emitter.skip.call_count)
           
     def test___call___with_filepath_is_regex(self):
-        #Pattern matchs - not skip
         mapper = FilepathMapper(re.compile('f.*'))
         mapper(self.emitter)
         self.assertFalse(self.emitter.skip.call_count)
-        #Pattern doesn't match - skip
+        
+
+class FilepathMapperTest_not_match(FilepathMapperTest_match):
+
+    #Public
+          
+    def test___call___with_filepath_is_regex(self):
         mapper = FilepathMapper(re.compile('x.*'))
         mapper(self.emitter)
-        self.assertTrue(self.emitter.skip.call_count)
+        self.assertTrue(self.emitter.skip.call_count)        
