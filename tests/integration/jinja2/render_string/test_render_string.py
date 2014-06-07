@@ -1,6 +1,7 @@
 from box.importlib import check_module
 
 if check_module('jinja2'):
+    import os
     import unittest
     from unittest.mock import Mock, patch
     from box.jinja2 import render_string
@@ -8,6 +9,12 @@ if check_module('jinja2'):
     class render_string_Test(unittest.TestCase):
     
         #Public
+        
+        def tearDown(self):
+            try:
+                os.remove(self._make_path('target'))
+            except os.error:
+                pass
         
         def test(self):
             result = render_string('{{ attr1 }}')
@@ -29,4 +36,15 @@ if check_module('jinja2'):
         @patch('jinja2.utils.concat')
         def test_with_error_in_rendering(self, concat):
             concat.side_effect = Exception()
-            self.assertRaises(Exception, render_string, '{{ attr1 }}')  
+            self.assertRaises(Exception, render_string, '{{ attr1 }}')
+            
+        def test_with_target(self):
+            target=self._make_path('target')
+            render_string('value1', target=target)
+            with open(target) as file:
+                self.assertEqual(file.read(), 'value1')
+            
+        #Protected
+        
+        def _make_path(self, *args):
+            return os.path.join(os.path.dirname(__file__), 'fixtures', *args) 
