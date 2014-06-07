@@ -1,11 +1,15 @@
 class ObjectContext(dict):
     """Adapter between standard mapping context and object.
+    
+    :param object obj: object to adapt
+    :param dict kwargs: standard dict items
     """
     
     #Public
     
-    def __init__(self, obj):
+    def __init__(self, obj, **kwargs):
         self._object = obj
+        self.update(**kwargs)
         
     def __contains__(self, key):
         if super().__contains__(key):
