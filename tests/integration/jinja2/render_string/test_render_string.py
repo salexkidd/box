@@ -12,7 +12,7 @@ if check_module('jinja2'):
         
         def tearDown(self):
             try:
-                os.remove(self._make_path('target.txt'))
+                os.remove(self._make_path('target'))
             except os.error:
                 pass
         
@@ -39,7 +39,7 @@ if check_module('jinja2'):
             self.assertRaises(Exception, render_string, '{{ attr1 }}')
             
         def test_with_target(self):
-            target=self._make_path('target.txt')
+            target=self._make_path('target')
             render_string('value1', target=target)
             with open(target) as file:
                 self.assertEqual(file.read(), 'value1')
