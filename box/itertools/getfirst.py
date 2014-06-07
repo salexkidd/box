@@ -21,6 +21,8 @@ class GetfirstReducer:
     def __init__(self, getfirst, exception=None):
         self._getfirst = getfirst        
         self._exception = exception
+        if self._exception == None:
+            self._exception = self.default_exception
 
     def __call__(self, values):
         if self._getfirst:
