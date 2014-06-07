@@ -37,14 +37,12 @@ class render_string(FunctionCall):
             
     #Protected
     
-    _open = staticmethod(open)
-    
     def _render(self):
         with patch('jinja2.runtime.new_context', self._new_context):
             return self._template.render(self._context)
     
     def _write(self, content):
-        with self._open(self._target, 'w') as file:
+        with open(self._target, 'w') as file:
             file.write(content)
                 
     @cachedproperty
