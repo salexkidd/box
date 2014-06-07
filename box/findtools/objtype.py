@@ -11,4 +11,4 @@ class ObjtypeMapper:
             if isinstance(types, type):
                 types = [types]
             if not isinstance(emitter.object, tuple(types)):
-                emitter.skip() 
+                emitter.skip()
