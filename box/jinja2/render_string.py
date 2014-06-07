@@ -1,3 +1,4 @@
+import os
 import sys
 from unittest.mock import patch
 from ..copy import enhanced_copy
@@ -42,6 +43,7 @@ class render_string(FunctionCall):
             return self._template.render(self._context)
     
     def _write(self, content):
+        os.makedirs(os.path.dirname(self._target), exist_ok=True)
         with open(self._target, 'w') as file:
             file.write(content)
                 
