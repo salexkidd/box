@@ -13,12 +13,12 @@ class ObjnameMapperTest_match(unittest.TestCase):
     def test___call__(self):
         mapper = ObjnameMapper('objname')
         mapper(self.emitter)
-        self.assertFalse(self.emitter.skip.call_count)
+        self.assertFalse(self.emitter.skip.called)
           
     def test___call___with_objname_is_regex(self):
         mapper = ObjnameMapper(re.compile('o.*'))
         mapper(self.emitter)
-        self.assertFalse(self.emitter.skip.call_count)
+        self.assertFalse(self.emitter.skip.called)
 
 
 class ObjnameMapperTest_not_match(ObjnameMapperTest_match):
@@ -28,9 +28,9 @@ class ObjnameMapperTest_not_match(ObjnameMapperTest_match):
     def test___call__(self):
         mapper = ObjnameMapper('x')
         mapper(self.emitter)
-        self.assertTrue(self.emitter.skip.call_count)
+        self.assertTrue(self.emitter.skip.called)
           
     def test___call___with_objname_is_regex(self):
         mapper = ObjnameMapper(re.compile('x.*'))
         mapper(self.emitter)
-        self.assertTrue(self.emitter.skip.call_count)
+        self.assertTrue(self.emitter.skip.called)

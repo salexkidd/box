@@ -13,12 +13,12 @@ class FilenameMapperTest_match(unittest.TestCase):
     def test___call__(self):
         mapper = FilenameMapper('f*')
         mapper(self.emitter)
-        self.assertFalse(self.emitter.skip.call_count)
+        self.assertFalse(self.emitter.skip.called)
           
     def test___call___with_filename_is_regex(self):
         mapper = FilenameMapper(re.compile('f.*'))
         mapper(self.emitter)
-        self.assertFalse(self.emitter.skip.call_count)
+        self.assertFalse(self.emitter.skip.called)
 
 
 class FilenameMapperTest_not_match(FilenameMapperTest_match):
@@ -28,9 +28,9 @@ class FilenameMapperTest_not_match(FilenameMapperTest_match):
     def test___call__(self):
         mapper = FilenameMapper('x*')
         mapper(self.emitter)
-        self.assertTrue(self.emitter.skip.call_count)
+        self.assertTrue(self.emitter.skip.called)
           
     def test___call___with_filename_is_regex(self):
         mapper = FilenameMapper(re.compile('x.*'))
         mapper(self.emitter)
-        self.assertTrue(self.emitter.skip.call_count)
+        self.assertTrue(self.emitter.skip.called)

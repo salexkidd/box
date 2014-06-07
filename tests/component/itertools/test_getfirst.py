@@ -17,7 +17,7 @@ class GetfirstMapperTest(unittest.TestCase):
     def test___call___with_getfirst_is_false(self):
         mapper = GetfirstMapper(False)
         mapper(self.emitter)
-        self.assertFalse(self.emitter.stop.call_count)
+        self.assertFalse(self.emitter.stop.called)
         
 
 class GetfirstReducerTest(unittest.TestCase):

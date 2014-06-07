@@ -14,12 +14,12 @@ class FilepathMapperTest_match(unittest.TestCase):
         #Non regex patterns - not skip always
         mapper = FilepathMapper('x*')
         mapper(self.emitter)
-        self.assertFalse(self.emitter.skip.call_count)
+        self.assertFalse(self.emitter.skip.called)
           
     def test___call___with_filepath_is_regex(self):
         mapper = FilepathMapper(re.compile('f.*'))
         mapper(self.emitter)
-        self.assertFalse(self.emitter.skip.call_count)
+        self.assertFalse(self.emitter.skip.called)
         
 
 class FilepathMapperTest_not_match(FilepathMapperTest_match):
@@ -29,4 +29,4 @@ class FilepathMapperTest_not_match(FilepathMapperTest_match):
     def test___call___with_filepath_is_regex(self):
         mapper = FilepathMapper(re.compile('x.*'))
         mapper(self.emitter)
-        self.assertTrue(self.emitter.skip.call_count)        
+        self.assertTrue(self.emitter.skip.called)        
