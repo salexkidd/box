@@ -3,5 +3,9 @@ box.copy
 
 Functionality relevant to standard copy module.
 
-.. automodule:: box.copy
-     :imported-members:
+Public
+------
+
+Module’s public interface.
+
+.. autofunction:: box.copy.enhanced_copy
