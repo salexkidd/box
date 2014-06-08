@@ -1,8 +1,7 @@
 import unittest
 from functools import partial
 from unittest.mock import Mock, call
-from box.argparse.command import (Command, SilentArgumentParser, 
-                                  SilentArgumentParserException)
+from box.argparse.command import Command
 
 class CommandTest(unittest.TestCase):
     
@@ -63,15 +62,3 @@ class CommandTest(unittest.TestCase):
                 format_help=Mock(return_value=Mock(
                     strip=Mock(return_value='program_help')))))
         return MockCommand
-    
-
-class SilentParserTest(unittest.TestCase):
-
-    #Public
-    
-    def setUp(self):
-        self.parser = SilentArgumentParser()
-
-    def test_error(self):
-        self.assertRaises(SilentArgumentParserException, 
-                          self.parser.error, 'message')

@@ -3,19 +3,13 @@ box.argparse
 
 Module is a wrapper around standard argparse module.
 
-Main
-----
+Public
+------
 
-Module provides two main classes to simplify work with argparse.
+Module’s public interface.
 
-.. autoclass:: box.argparse.Command
 .. autoclass:: box.argparse.Program
-
-Advanced
---------
-
-Additional elements.
-
-.. automodule:: box.argparse
-     :imported-members:
-     :exclude-members: Command, Program
+.. autoclass:: box.argparse.Command
+.. autoclass:: box.argparse.Settings
+.. autoclass:: box.argparse.SilentArgumentParser
+.. autoclass:: box.argparse.SilentArgumentParserException

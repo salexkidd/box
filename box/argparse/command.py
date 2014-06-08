@@ -71,16 +71,3 @@ class Command:
         config.pop('arguments', [])
         config.setdefault('prog', os.path.basename(self._argv[0]))
         return config
-            
-    
-class SilentArgumentParser(ArgumentParser):
-    """Argument parser with raising exception instead of program exit.
-    """
-    
-    #Public
-    
-    def error(self, message):
-        raise SilentArgumentParserException(message)
-    
-    
-class SilentArgumentParserException(Exception): pass
