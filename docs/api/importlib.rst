@@ -3,5 +3,10 @@ box.importlib
 
 Library adds some new functionality to standard importlib module.  
 
-.. automodule:: box.importlib
-     :imported-members:
+Public
+------
+
+Module’s public interface.
+
+.. autofunction:: box.importlib.import_object
+.. autofunction:: box.importlib.check_module
