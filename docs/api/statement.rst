@@ -3,5 +3,9 @@ box.statement
 
 Statements as a function. It's like standard operator module.
 
-.. automodule:: box.statement
-     :imported-members:
+Public
+------
+
+Module’s public interface.
+
+.. autofunction:: box.statement.raise_
