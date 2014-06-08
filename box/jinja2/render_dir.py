@@ -30,4 +30,4 @@ class render_dir(FunctionCall):
                     new_path = os.path.join(self._source, new_name)
                     os.rename(path, new_path)
             except Exception:
-                pass         
+                pass

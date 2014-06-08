@@ -2,6 +2,7 @@ from box.importlib import check_module
 
 if check_module('jinja2'):
     import os
+    import shutil
     import unittest
     from unittest.mock import Mock, patch
     from box.jinja2 import render_string
@@ -12,7 +13,7 @@ if check_module('jinja2'):
         
         def tearDown(self):
             try:
-                os.remove(self._make_path('target'))
+                shutil.rmtree(self._make_path())
             except os.error:
                 pass
         
