@@ -1,7 +1,12 @@
 box.logging
 ===========
 
-Module provides some functionality relevent to logging. 
+Module provides some functionality relevent to logging.
 
-.. automodule:: box.logging
-     :imported-members:
+Public
+------
+
+Module’s public interface. 
+
+.. autoclass:: box.logging.Program
+.. autoclass:: box.logging.Settings
