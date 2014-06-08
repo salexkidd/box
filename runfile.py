@@ -19,7 +19,7 @@ class MainModule(ManageModule):
         'License :: OSI Approved :: MIT License', 
         'Programming Language :: Python :: 3', 
         'Topic :: Software Development :: Libraries :: Python Modules', 
-        'Topic :: System :: Systems Administration', 
+        'Topic :: System :: Systems Administration',
     ]
     description = 'Box is a library to provide common functionality.'
     development_requires = ['packgram>=0.10.2', 'sphinx', 'sphinx_rtd_theme']    
