@@ -1,13 +1,14 @@
 import os
 from copy import copy
-from argparse import ArgumentParser
 from ..functools import cachedproperty
+from .parser import Parser
 
 class Command:
     """Console command representation.
     
     :param list argv: program's arguments like sys.argv
     :param dict config: command configuration for argparse
+    :param type exception: exception class to raise instead of exit
     :param dict kwargs: key=value command configuration pairs
     
     Command provides access to command line arguments by attribute names:
@@ -21,10 +22,11 @@ class Command:
     
     #Public
     
-    def __init__(self, argv, config, **kwargs):
+    def __init__(self, argv, config, exception=None, **kwargs):
         self._argv = argv
         self._config = copy(config)
         self._config.update(kwargs)
+        self._exception = exception
         
     def __getattr__(self, name):
         if not name.startswith('_'):
@@ -38,7 +40,7 @@ class Command:
         
     #Protected
     
-    _parser_class = ArgumentParser
+    _parser_class = Parser
 
     @cachedproperty
     def _namespace(self):
@@ -46,7 +48,8 @@ class Command:
        
     @cachedproperty
     def _parser(self):
-        parser = self._parser_class(**self._parser_config)
+        parser = self._parser_class(
+            exception=self._exception, **self._parser_config)
         for argument in self._parser_arguments:
             argument = copy(argument)
             try:
