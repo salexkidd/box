@@ -43,7 +43,9 @@ class render_string(FunctionCall):
             return self._template.render(self._context)
     
     def _write(self, content):
-        os.makedirs(os.path.dirname(self._target), exist_ok=True)
+        dirname = os.path.dirname(self._target)
+        if dirname:
+            os.makedirs(dirname, exist_ok=True)
         with open(self._target, 'w') as file:
             file.write(content)
                 

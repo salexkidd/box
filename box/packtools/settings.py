@@ -99,7 +99,9 @@ class Settings(dict, metaclass=SettingsMetaclass):
     
     @classmethod
     def _create_extension_class(cls, extension):
-        os.makedirs(os.path.dirname(extension), exist_ok=True)
+        dirname = os.path.dirname(extension)
+        if dirname:
+            os.makedirs(dirname, exist_ok=True)
         with open(extension, 'w') as file:
             file.write(
             'from box.packtools import Settings\n\n'
