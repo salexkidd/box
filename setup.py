@@ -8,7 +8,7 @@ package = {
 	#Main
 
     'name': 'box',
-	'version':'0.23.1',
+	'version':'0.24.0',
 	'packages': find_packages(
         os.path.dirname(__file__) or '.', 
         exclude=['tests*']
@@ -24,7 +24,7 @@ package = {
     'author_email': 'roll@respect31.com',
     'classifiers': ['Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],       
     'description': 'Box is a library to provide common functionality.',
-    'download_url':'https://github.com/respect31/box/tarball/0.23.1',
+    'download_url':'https://github.com/respect31/box/tarball/0.24.0',
     'license': 'MIT License',
     'maintainer': 'roll',
     'maintainer_email': 'roll@respect31.com',

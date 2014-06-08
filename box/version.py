@@ -3,8 +3,8 @@ from box.packtools import Version
 class Version(Version):
     
     major = 0
-    minor = 23
-    micro = 1
+    minor = 24
+    micro = 0
     level = 'final'
     
     
