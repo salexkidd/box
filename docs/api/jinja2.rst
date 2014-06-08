@@ -6,8 +6,10 @@ Module extends popular templating package jinja2.
 .. warning:: Jinja2 is not in box dependencies list. You have
      to install it to use this module.
 
-Main
-----
+Public
+------
+
+Module’s public interface.
      
 Functions to work with jinja2 using one line of code.
 They support object as context (lazy name/attribute instead of key/value).
@@ -16,11 +18,9 @@ They support object as context (lazy name/attribute instead of key/value).
 .. autoclass:: box.jinja2.render_file
 .. autoclass:: box.jinja2.render_dir
 
-Advanced
+Internal
 --------
 
-Module provides additional elements.
+Module’s internal implementation.
 
-.. automodule:: box.jinja2
-     :imported-members:
-     :exclude-members: render_string, render_file, render_dir 
+.. autoclass:: box.jinja2.context.ObjectContext 
