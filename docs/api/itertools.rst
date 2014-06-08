@@ -3,19 +3,18 @@ box.itertools
 
 Module adds some functionality to standard itertools module.
 
-Main
-----
+Public
+------
 
-Main elements to use module.
+Module's public interface.
 
 .. autoclass:: box.itertools.map_reduce
+.. autoclass:: box.itertools.Emitter
 .. autoclass:: box.itertools.NotEmitted
 
-Advanced
+Internal
 --------
 
-Additional elements for advanced use.
+Module's internal implementation.
 
-.. automodule:: box.itertools
-     :imported-members:
-     :exclude-members: map_reduce, NotEmitted
+.. automodule:: box.itertools.getfirst
