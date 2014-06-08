@@ -5,7 +5,7 @@ def merge_dicts(dict1, dict2, *, resolvers={}):
     
     :param dict dict1: left dict to merge
     :param dict dict2: right dict to merge
-    :param dict mergers: resolvers by type
+    :param dict resolvers: resolvers by type
     
     :returns dict: merged dict
     """
