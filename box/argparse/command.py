@@ -11,13 +11,13 @@ class Command:
     :param type exception: exception class to raise instead of exit
     :param dict kwargs: key=value command configuration pairs
     
-    Command provides access to command line arguments by attribute names:
+    Command provides access to command line arguments by attribute names::
     
-    >>> from box.argparse import Command
-    >>> config = {'arguments': [{'name': 'arguments', 'nargs':'*'}]}    
-    >>> command = Command(['program', 'arg'], config=config)
-    >>> command.arguments
-    ['arg']
+      >>> from box.argparse import Command
+      >>> config = {'arguments': [{'name': 'arguments', 'nargs':'*'}]}    
+      >>> command = Command(['program', 'arg'], config=config)
+      >>> command.arguments
+      ['arg']
     """
     
     #Public

@@ -20,16 +20,17 @@ class FunctionCall(metaclass=Function):
     
     On __init__ step your class gets arguments and can save they as attributes. 
     Then on __call__ step your class returns result of function call. 
-    Inherit from this class to make your class acting like a function:
     
-    >>> from box.functools import FunctionCall
-    >>> class hello(FunctionCall):
-    ...   def __init__(self, person):
-    ...     self._person = person
-    ...   def __call__(self):
-    ...     print('Hello '+self._person+'!')
-    >>> hello('World')
-    'Hello World!'
+    Inherit from this class to make your class acting like a function::
+    
+      >>> from box.functools import FunctionCall
+      >>> class hello(FunctionCall):
+      ...   def __init__(self, person):
+      ...     self._person = person
+      ...   def __call__(self):
+      ...     print('Hello '+self._person+'!')
+      >>> hello('World')
+      'Hello World!'
     """
 
     #Public

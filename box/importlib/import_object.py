@@ -18,12 +18,12 @@ def import_object(name, package=None):
       
     If name not is a string function returns name without changes.
     It usefull when client may give you pointer to some objects in 
-    two forms like string or already imported object:
+    two forms like string or already imported object::
     
-    >>> obj = import_object('box.importlib.import_object')
-    >>> obj is import_object(obj)
-    >>> obj
-    <function box.importlib.import_object.import_object>
+      >>> obj = import_object('box.importlib.import_object')
+      >>> obj is import_object(obj)
+      >>> obj
+      <function box.importlib.import_object.import_object>
     """
     if isinstance(name, str):
         try:

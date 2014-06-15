@@ -22,17 +22,17 @@ class Settings(dict, metaclass=SettingsMetaclass):
     :param dict settings: dict to override settings values
     :param dict kwargs: key=value pairs to override settings values
     
-    Following example will show common workflow and extensions: 
+    Following example will show common workflow and extensions:: 
     
-    >>> from box.packtools import Settings
-    >>> class Settings(Settings):
-    ...   attr1 = 'value1'
-    ...   attr2 = 'value2'
-    ...   _extensions = [{'attr2': 'new2'}, 'path_to_user_settings']
-    ...
-    >>> s = Settings(attr1='new1')
-    >>> s
-    {'attr1': 'new1', 'attr2': 'new2'}
+      >>> from box.packtools import Settings
+      >>> class Settings(Settings):
+      ...   attr1 = 'value1'
+      ...   attr2 = 'value2'
+      ...   _extensions = [{'attr2': 'new2'}, 'path_to_user_settings']
+      ...
+      >>> s = Settings(attr1='new1')
+      >>> s
+      {'attr1': 'new1', 'attr2': 'new2'}
     
     In the example above program also checks path_to_user_settings:
     

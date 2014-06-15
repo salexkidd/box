@@ -1,21 +1,23 @@
 class Version(str):
     """Version representation.
     
-    :param dict kwargs: key=value pairs to override version c 
+    :param dict kwargs: key=value pairs to override version elements
     
-    >>> from box.packtools import Version
-    >>> class Version(Version):
-    ...   major = 1
-    ...   minor = 2
-    ...   micro = 3
-    ...
-    >>> v = Version(micro=5)
-    >>> v
-    '1.2.5'
-    >>> v.major
-    1
-    >>> v.info
-    (1, 2, 5, 'final', 0)
+    Usage example:: 
+    
+      >>> from box.packtools import Version
+      >>> class Version(Version):
+      ...   major = 1
+      ...   minor = 2
+      ...   micro = 3
+      ...
+      >>> v = Version(micro=5)
+      >>> v
+      '1.2.5'
+      >>> v.major
+      1
+      >>> v.info
+      (1, 2, 5, 'final', 0)
     
     .. seealso:: Python versioning: `sys.version_info <https://docs.python.org/3/library/sys.html#sys.version_info>`_
     """

@@ -13,16 +13,18 @@ class Program(metaclass=ABCMeta):
     compatible with module's :class:`box.argparse.Command`, 
     :class:`box.argparse.Settings` replacements.
     
-    >>> from box.argparse import Program, Settings
-    >>> class Settings(Settings):
-    ...   argparse = {'arguments': [{'name': 'arguments', 'nargs':'*'}]}
-    >>> class Program(Program):
-    ...   def __call__(self):
-    ...     print(self._command.arguments)
-    ...   _settings_class = Settings
-    >>> program = Program(['program', 'arg'])
-    >>> program()
-    ['arg']
+    Usage exmaple::
+    
+      >>> from box.argparse import Program, Settings
+      >>> class Settings(Settings):
+      ...   argparse = {'arguments': [{'name': 'arguments', 'nargs':'*'}]}
+      >>> class Program(Program):
+      ...   def __call__(self):
+      ...     print(self._command.arguments)
+      ...   _settings_class = Settings
+      >>> program = Program(['program', 'arg'])
+      >>> program()
+      ['arg']
     """
     
     #Public
