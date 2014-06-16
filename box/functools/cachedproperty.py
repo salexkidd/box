@@ -62,7 +62,7 @@ class cachedproperty:
             
     #Protected
     
-    _object_cache_attribute_name = '_box_cached_properties'
+    _object_cache_attribute_name = '_box_functools_cached_properties'
     
     @property
     def _name(self):
