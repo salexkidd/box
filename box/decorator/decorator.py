@@ -23,6 +23,6 @@ class Decorator(metaclass=DecoratorMetaclass):
     
     #Public
     
-    @abstractmethod    
+    @abstractmethod
     def __call__(self, function):
         pass #pragma: no cover        
