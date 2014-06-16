@@ -1,6 +1,6 @@
 from ..functools import cachedproperty
 from ..importlib import import_object
-from ..packtools import Settings
+from ..packtools import Settings, include
 from .setup import setup
 
 class Settings(Settings):
@@ -75,9 +75,10 @@ class Settings(Settings):
             'Miscellaneous')]
         
     #Setup
-    
+
     @property
     def setup(self):
+        @include
         def esetup(app):
             for name in sorted(dir(self)):
                 attr = getattr(self, name)
@@ -87,12 +88,6 @@ class Settings(Settings):
         return esetup
         
     #Protected
-    
-    @property
-    def _as_dict(self):
-        items = super()._as_dict
-        items['setup'] = self.setup
-        return items
     
     @cachedproperty
     def _defaults(self):
