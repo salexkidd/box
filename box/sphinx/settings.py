@@ -82,9 +82,9 @@ class Settings(Settings):
         def esetup(app):
             for name in sorted(dir(self)):
                 attr = getattr(self, name)
-                obj = getattr(attr, setup.attribute_name, None)
-                if obj != None:
-                    obj.invoke(self, app)
+                item = getattr(attr, setup.attribute_name, None)
+                if item != None:
+                    item.invoke(self, app)
         return esetup
         
     #Protected
