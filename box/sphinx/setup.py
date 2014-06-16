@@ -13,5 +13,5 @@ class setup(Decorator):
         setattr(method, self.attribute_name, self)
         return method
         
-    def invoke(self, app):
-        self._method(app)
+    def invoke(self, obj, app):
+        self._method(obj, app)

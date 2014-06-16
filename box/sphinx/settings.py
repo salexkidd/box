@@ -83,7 +83,7 @@ class Settings(Settings):
                 attr = getattr(self, name)
                 obj = getattr(attr, setup.attribute_name, None)
                 if obj != None:
-                    obj.invoke(app)
+                    obj.invoke(self, app)
         return esetup
         
     #Protected
