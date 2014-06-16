@@ -8,13 +8,13 @@ class DecoratorMetaclass(ABCMeta):
     
     def __call__(self, *args, **kwargs):
         decorator = object.__new__(self)
-        if getattr(self, '__init__') is not object.__init__:
+        if getattr(self, '__init__') is object.__init__:
+            #Init is not provided - 1 step
+            return decorator.__call__(*args, **kwargs)            
+        else:
             #Init is provided - 2 steps 
             decorator.__init__(*args, **kwargs)
             return decorator
-        else:
-            #Init is not provided - 1 step
-            return decorator.__call__(*args, **kwargs)
     
     def __instancecheck__(self, instance):
         return issubclass(instance, self)        
