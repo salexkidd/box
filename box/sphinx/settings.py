@@ -76,17 +76,19 @@ class Settings(Settings):
         
     #Setup
     
-    @property
-    def setup(self):
-        def setup(app):
-            for name in sorted(dir(self)):
-                attr = getattr(self, name)
-                if getattr(attr, '_box_setup', False):
-                    attr(app)
-        return setup
-           
+    def setup(self, app):
+        for name in sorted(dir(self)):
+            attr = getattr(self, name)
+            if isinstance(attr, setup):
+                attr.invoke(app)
         
     #Protected
+    
+    @property
+    def _as_dict(self):
+        items = super()._as_dict
+        items['setup'] = self.setup
+        return items
     
     @cachedproperty
     def _defaults(self):
