@@ -71,7 +71,19 @@ class Settings(Settings):
             self.author,
             self.project, 
             'One line description of project.',
-            'Miscellaneous')]        
+            'Miscellaneous')]
+        
+    #Setup
+    
+    @property
+    def setup(self):
+        def setup(app):
+            for name in dir(self):
+                attr = getattr(self, name)
+                if getattr(attr, '_box_setup', False):
+                    attr(app)
+        return setup
+           
         
     #Protected
     
