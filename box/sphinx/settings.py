@@ -1,6 +1,7 @@
 from ..functools import cachedproperty
 from ..importlib import import_object
 from ..packtools import Settings
+from .setup import setup
 
 class Settings(Settings):
     """Sphinx conf.py representation.
@@ -78,7 +79,7 @@ class Settings(Settings):
     @property
     def setup(self):
         def setup(app):
-            for name in dir(self):
+            for name in sorted(dir(self)):
                 attr = getattr(self, name)
                 if getattr(attr, '_box_setup', False):
                     attr(app)
