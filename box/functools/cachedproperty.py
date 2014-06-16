@@ -62,12 +62,10 @@ class cachedproperty:
             
     #Protected
     
-    _object_cache_attribute_name = '_box_functools_cached_properties'
-    
     @property
     def _name(self):
         return self._fget.__name__
     
     @classmethod    
     def _get_object_cache(cls, obj):
-        return obj.__dict__.setdefault(cls._object_cache_attribute_name, {})
+        return obj.__dict__.setdefault('_box_functools_cached_properties', {})
