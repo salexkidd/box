@@ -80,7 +80,7 @@ class Settings(Settings):
     def setup(self):
         @include
         def esetup(app):
-            #Sphinx doesn't work with method
+            #Sphinx doesn't work with bound method
             for name in sorted(dir(self)):
                 attr = getattr(self, name)
                 item = getattr(attr, setup.attribute_name, None)
