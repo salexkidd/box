@@ -11,6 +11,9 @@ class FunctionMetaclass(ABCMeta):
         function.__init__(*args, **kwargs)
         result = function.__call__()
         return result
+    
+    def __instancecheck__(self, instance):
+        return issubclass(instance, self)
 
 
 class Function(metaclass=FunctionMetaclass):

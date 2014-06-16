@@ -15,6 +15,9 @@ class DecoratorMetaclass(ABCMeta):
         else:
             #Init is not provided - 1 step
             return decorator.__call__(*args, **kwargs)
+    
+    def __instancecheck__(self, instance):
+        return issubclass(instance, self)        
         
         
 class Decorator(metaclass=DecoratorMetaclass):
