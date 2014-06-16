@@ -78,13 +78,13 @@ class Settings(Settings):
     
     @property
     def setup(self):
-        def setup1(app):
+        def esetup(app):
             for name in sorted(dir(self)):
                 attr = getattr(self, name)
                 obj = getattr(attr, setup.attribute_name, None)
                 if obj != None:
                     obj.invoke(app)
-        return setup1
+        return esetup
         
     #Protected
     
