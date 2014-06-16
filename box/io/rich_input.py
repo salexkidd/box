@@ -1,6 +1,6 @@
-from ..functools import FunctionCall
+from ..functools import Function
 
-class rich_input(FunctionCall):
+class rich_input(Function):
     """Read a string from standard input.
     
     :param str prompt: default prompt

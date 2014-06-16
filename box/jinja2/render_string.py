@@ -2,10 +2,10 @@ import os
 import sys
 from unittest.mock import patch
 from ..copy import enhanced_copy
-from ..functools import cachedproperty, FunctionCall 
+from ..functools import cachedproperty, Function
 from .context import ObjectContext
 
-class render_string(FunctionCall):
+class render_string(Function):
     """Render a string using context.
     
     :param str source: string to be rendered

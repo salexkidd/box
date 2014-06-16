@@ -1,8 +1,8 @@
 import os
-from ..functools import FunctionCall
+from ..functools import Function
 from .render_string import render_string
 
-class render_dir(FunctionCall):
+class render_dir(Function):
     """Render a directory using context.
     
     :param str source: directory to be rendered

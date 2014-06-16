@@ -1,16 +1,16 @@
+=============
 box.functools
 =============
 
 Module adds some functionality to standard functools module.
 
+------
 Public
 ------
 
 Module’s public interface.
 
 .. autoclass:: box.functools.Function
-.. autoclass:: box.functools.FunctionCall
-
 .. class:: box.functools.cachedproperty
      
      Property with caching.
@@ -18,3 +18,11 @@ Module’s public interface.
 .. data:: box.functools.DEFAULT
    
      Deafult value to use instead of None.
+     
+--------
+Internal
+--------
+
+Module's internal implementation.
+
+.. autoclass:: box.functools.FunctionMetaclass

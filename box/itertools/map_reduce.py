@@ -1,9 +1,9 @@
 from itertools import chain
-from ..functools import FunctionCall
+from ..functools import Function
 from .emitter import Emitter
 from .getfirst import GetfirstMapper, GetfirstReducer
 
-class map_reduce(FunctionCall):
+class map_reduce(Function):
     """Process iterable values using map_resuce framework.
     
     :param iterable values: values to process

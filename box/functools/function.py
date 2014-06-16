@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
-class Function(ABCMeta):
+class FunctionMetaclass(ABCMeta):
     """Metaclass making normal class acting like a function.
     """
     
@@ -13,8 +13,8 @@ class Function(ABCMeta):
         return result
 
 
-class FunctionCall(metaclass=Function):
-    """Abstract function call class.
+class Function(metaclass=FunctionMetaclass):
+    """Base abstract class for 2 step functions.
     
     Designed for complicated functions when more convenient to work with state.
     
@@ -23,8 +23,8 @@ class FunctionCall(metaclass=Function):
     
     Inherit from this class to make your class acting like a function::
     
-      >>> from box.functools import FunctionCall
-      >>> class hello(FunctionCall):
+      >>> from box.functools import Function
+      >>> class hello(Function):
       ...   def __init__(self, person):
       ...     self._person = person
       ...   def __call__(self):

@@ -1,7 +1,7 @@
 import unittest
-from box.functools.function import FunctionCall
+from box.functools.function import Function
 
-class FunctionCallTest(unittest.TestCase):
+class FunctionTest(unittest.TestCase):
 
     #Public
     
@@ -14,7 +14,7 @@ class FunctionCallTest(unittest.TestCase):
     #Protected
     
     def _make_mock_function(self):
-        class mock_function(FunctionCall):
+        class mock_function(Function):
             #Public
             def __init__(self, arg):
                 self._arg = arg
