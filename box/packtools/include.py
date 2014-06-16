@@ -1,6 +1,8 @@
 from ..decorator import Decorator
 
 class include(Decorator):
+    """Decorate function/method to be included in settings.
+    """
 
     #Public
     
