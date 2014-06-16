@@ -25,4 +25,4 @@ Internal
 
 Module's internal implementation.
 
-.. autoclass:: box.functools.FunctionMetaclass
+.. autoclass:: box.functools.function.FunctionMetaclass
