@@ -1,7 +1,7 @@
 from ..decorator import Decorator
 
 class include(Decorator):
-    """Decorate object to be included in settings.
+    """Decorate callable object to be included in settings.
     """
 
     #Public
