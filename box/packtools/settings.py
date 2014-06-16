@@ -77,6 +77,7 @@ class Settings(dict, metaclass=SettingsMetaclass):
                 attr = getattr(self, name)
                 if callable(attr):
                     if not getattr(attr, include.attribute_name, False):
+                        #Callable doesn't use @include decorator - skip
                         continue
                 items[name] = attr
         return items
