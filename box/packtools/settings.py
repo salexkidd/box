@@ -67,6 +67,16 @@ class Settings(dict, metaclass=SettingsMetaclass):
     - if element is a dict it just override settings values
     - if element is a string it should be a filepath to another Settings
     """
+            
+    @property
+    def _as_dict(self):
+        items = {}
+        for name in dir(self):
+            if not name.startswith('_'):
+                value = getattr(self, name)
+                if not callable(value):
+                    items[name] = value
+        return items
     
     @classmethod    
     def _merge_extensions(cls):
@@ -112,13 +122,3 @@ class Settings(dict, metaclass=SettingsMetaclass):
     @classmethod        
     def _handle_extension_error(cls, extensoin, error):
         pass #pragma: no cover
-            
-    @property
-    def _as_dict(self):
-        items = {}
-        for name in dir(self):
-            if not name.startswith('_'):
-                value = getattr(self, name)
-                if not callable(value):
-                    items[name] = value
-        return items
