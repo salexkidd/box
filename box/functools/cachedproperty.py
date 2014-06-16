@@ -2,6 +2,8 @@ class cachedproperty:
     
     #Public
     
+    attribute_name = '_box_functools_cached_properties'
+    
     def __init__(self, fget=None, fset=None, fdel=None, doc=None):
         self._fget = fget
         self._fset = fset
@@ -68,4 +70,4 @@ class cachedproperty:
     
     @classmethod    
     def _get_object_cache(cls, obj):
-        return obj.__dict__.setdefault('_box_functools_cached_properties', {})
+        return obj.__dict__.setdefault(cls.attribute_name, {})

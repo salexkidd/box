@@ -6,9 +6,11 @@ class setup(Decorator):
     
     #Public
     
+    attribute_name = '_box_sphinx_setup'
+    
     def __call__(self, method):
         self._method = method
-        method._box_sphinx_setup = self
+        setattr(method, self.attribute_name, self)
         return method
         
     def invoke(self, app):
