@@ -1,6 +1,7 @@
 import os
 import inspect
 from ..findtools import find_objects
+from .include import include
 
 class SettingsMetaclass(type):
     """Metaclass adds extensions functionality to Settings.
@@ -73,9 +74,11 @@ class Settings(dict, metaclass=SettingsMetaclass):
         items = {}
         for name in dir(self):
             if not name.startswith('_'):
-                value = getattr(self, name)
-                if not callable(value):
-                    items[name] = value
+                attr = getattr(self, name)
+                if callable(attr):
+                    if not getattr(attr, include.attribute_name, False):
+                        continue
+                items[name] = attr
         return items
     
     @classmethod    
