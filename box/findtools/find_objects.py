@@ -12,7 +12,7 @@ class find_objects(map_reduce):
     :param str/re objname: objname filter
     :param type objtype: objtype filter    
     :param list files: list of filepathes where to find
-    :param str basedir: base directory to files
+    :param str basedir: base directory to find
     
     :returns mixed: map_reduce result    
     

@@ -10,7 +10,7 @@ class find_strings(map_reduce):
     
     :param str/re string: string filter
     :param list files: list of filepathes where to find
-    :param str basedir: base directory to files
+    :param str basedir: base directory to find
     
     :returns mixed: map_reduce result
     
