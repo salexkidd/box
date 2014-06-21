@@ -1,5 +1,6 @@
 import re
 import unittest
+from functools import partial
 from unittest.mock import Mock, call
 from box.findtools.find_objects import find_objects
 
@@ -8,23 +9,12 @@ class find_objects_Test(unittest.TestCase):
     #Public
     
     def setUp(self):
-        files = ['file1', 'file2']
-        self.find = self._make_mock_find(files)
+        self.find = self._make_mock_find()
+        self.pfind = partial(self.find, files=['file1', 'file2'])
         
     def test(self):
-        objects = list(self.find(
-            filename='filename', 
-            filepath='filepath',             
-            basedir='basedir', 
-            maxdepth='maxdepth',
-            onwalkerror='onwalkerror'))
+        objects = list(self.pfind(basedir='basedir'))
         self.assertTrue(objects)
-        self.find._find_files.assert_called_with(
-            filename='filename',
-            filepath='filepath',              
-            basedir='basedir', 
-            maxdepth='maxdepth',
-            onwalkerror='onwalkerror')
         self.find._loader_class.assert_has_calls(
             [call('basedir/file1', 'basedir/file1'), 
              call('basedir/file2', 'basedir/file2')])
@@ -33,37 +23,36 @@ class find_objects_Test(unittest.TestCase):
              call('basedir/file2')])
         
     def test_with_objname(self):
-        objects = list(self.find(objname='call'))
+        objects = list(self.pfind(objname='call'))
         self.assertEqual(objects, [call, call])
         
     def test_with_objname_is_regex(self):
-        objects = list(self.find(objname=re.compile('call')))
+        objects = list(self.pfind(objname=re.compile('call')))
         self.assertEqual(objects, [call, call])        
         
     def test_with_objtype(self):
-        objects = list(self.find(objtype=type(call)))
+        objects = list(self.pfind(objtype=type(call)))
         self.assertEqual(objects, [call, call])
         
     def test_with_objtype_is_list(self):
-        objects = list(self.find(objtype=[type(call)]))
+        objects = list(self.pfind(objtype=[type(call)]))
         self.assertEqual(objects, [call, call])             
         
     def test_with_mapper(self):
         mapper = lambda emitter: emitter.emit(emitter.objtype)
-        objects = list(self.find(objname='call', mappers=[mapper]))
+        objects = list(self.pfind(objname='call', mappers=[mapper]))
         self.assertEqual(objects, [type(call), type(call)])
         
     def test_with_reducer_and_fallback(self):
         reducer = lambda values: 1/0
-        objects = self.find(reducers=[reducer], fallback='fallback')
+        objects = self.pfind(reducers=[reducer], fallback='fallback')
         self.assertEqual(objects, 'fallback')
         
     #Protected
 
-    def _make_mock_find(self, files):
+    def _make_mock_find(self):
         class mock_find(find_objects):
             #Protected
             _loader_class = Mock(return_value=Mock(
                 load_module=Mock(return_value=unittest.mock)))
-            _find_files = Mock(return_value=files)
         return mock_find

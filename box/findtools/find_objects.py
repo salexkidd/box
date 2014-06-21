@@ -11,13 +11,10 @@ class find_objects(map_reduce):
     
     :param str/re objname: objname filter
     :param type objtype: objtype filter    
-    :param str/glob/re filename: filename filter
-    :param str/glob/re filepath: filepath filter
-    :param str basedir: base directory to find
-    :param int maxdepth: maximal find depth relatively to basedir
-    :param callable onwalkerror: error handler for os.walk
+    :param list files: list of filepathes where to find
+    :param str basedir: base directory to files
     
-    :returns generator: found objects generator    
+    :returns mixed: map_reduce result    
     
     Function also accepts :class:`box.itertools.map_reduce` kwargs.
     """
@@ -27,16 +24,11 @@ class find_objects(map_reduce):
     default_emitter = property(lambda self: FindObjectsEmitter)
        
     def __init__(self, objname=None, objtype=None, *, 
-                 filename=None, filepath=None,  
-                 basedir=None, maxdepth=None,
-                 onwalkerror=None, **kwargs):
+                 files=[], basedir=None, **kwargs):
         self._objname = objname
         self._objtype = objtype
-        self._filename = filename        
-        self._filepath = filepath
+        self._files = files
         self._basedir = basedir
-        self._maxdepth = maxdepth       
-        self._onwalkerror = onwalkerror
         super().__init__(**kwargs)            
     
     #Protected
@@ -47,7 +39,7 @@ class find_objects(map_reduce):
     
     @property
     def _extension_values(self):
-        for filepath in self._filepathes:
+        for filepath in self._files:
             #Loads as a module every file from find_files 
             full_filepath = enhanced_join(self._basedir, filepath)
             loader = self._loader_class(full_filepath, full_filepath)
@@ -62,17 +54,7 @@ class find_objects(map_reduce):
     @property
     def _extension_mappers(self):
         return [ObjnameMapper(self._objname),
-                ObjtypeMapper(self._objtype)] 
-     
-    @property             
-    def _filepathes(self):
-        files = self._find_files(
-            filename=self._filename,
-            filepath=self._filepath,             
-            basedir=self._basedir, 
-            maxdepth=self._maxdepth,
-            onwalkerror = self._onwalkerror)
-        return files
+                ObjtypeMapper(self._objtype)]
     
     
 class FindObjectsEmitter(FindFilesEmitter): 
