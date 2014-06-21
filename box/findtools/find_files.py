@@ -18,7 +18,7 @@ class find_files(map_reduce):
     :param int maxdepth: maximal find depth relatively to basedir
     :param callable onwalkerror: error handler for os.walk
     
-    :returns generator: found files generator
+    :returns mixed: map_reduce result
     
     Function also accepts :class:`box.itertools.map_reduce` kwargs.
     """
