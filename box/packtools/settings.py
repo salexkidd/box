@@ -1,6 +1,6 @@
 import os
 import inspect
-from ..findtools import find_objects
+from ..findtools import find_files, find_objects 
 from .include import include
 
 class SettingsMetaclass(type):
@@ -106,10 +106,12 @@ class Settings(dict, metaclass=SettingsMetaclass):
     def _find_extension_class(cls, extension):
         return find_objects(
             objtype=cls.__class__,
-            filepath=extension,
             mappers=[lambda emitter: emitter.skip(
                 inspect.getmodule(emitter.object) != emitter.module)],
-            getfirst=True)
+            getfirst=True,
+            files=find_files(
+                filepath=extension,
+            ))
     
     @classmethod
     def _create_extension_class(cls, extension):
