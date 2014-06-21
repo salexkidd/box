@@ -2,20 +2,17 @@ from functools import partial
 from ..itertools import map_reduce
 from ..os import enhanced_join
 from ..types import RegexCompiledPatternType
-from .find_files import find_files, FindFilesEmitter
+from .find_files import FindFilesEmitter
 from .not_found import NotFound
   
 class find_strings(map_reduce):
     """Find strings in files using map_reduce framework.
     
     :param str/re string: string filter
-    :param str/glob/re filename: filename filter
-    :param str/glob/re filepath: filepath filter
-    :param str basedir: base directory to find
-    :param int maxdepth: maximal find depth relatively to basedir
-    :param callable onwalkerror: error handler for os.walk
+    :param list files: list of filepathes where to find
+    :param str basedir: base directory to files
     
-    :returns generator: found strings generator
+    :returns mixed: map_reduce result
     
     Function also accepts :class:`box.itertools.map_reduce` kwargs.
     """
@@ -24,31 +21,25 @@ class find_strings(map_reduce):
     
     default_emitter = property(lambda self: FindStringsEmitter)
     
-    def __init__(self, string=None, *,
-                 filename=None, filepath=None,  
-                 basedir=None, maxdepth=None,
-                 onwalkerror=None, **kwargs):
+    def __init__(self, string=None, *, 
+                 files=[], basedir=None, **kwargs):
         self._string = string
-        self._filename = filename
-        self._filepath = filepath        
+        self._files = files
         self._basedir = basedir
-        self._maxdepth = maxdepth
-        self._onwalkerror = onwalkerror
         super().__init__(**kwargs) 
     
     #Protected
         
-    _getfirst_exception = NotFound        
+    _getfirst_exception = NotFound
     _open = staticmethod(open)
-    _find_files = staticmethod(find_files)
     
     @property
     def _extension_values(self):
-        for filepath in self._filepathes:
+        for filepath in self._files:
             #Reads every file from find_files
-            partial_emitter = partial(self._emitter, 
-                basedir=self._basedir, filepath=filepath)
             full_filepath = enhanced_join(self._basedir, filepath)
+            partial_emitter = partial(self._emitter, 
+                filepath=filepath, basedir=self._basedir)
             with self._open(full_filepath) as fileobj:
                 filetext = fileobj.read()
                 if isinstance(self._string, RegexCompiledPatternType):
@@ -73,16 +64,6 @@ class find_strings(map_reduce):
                     #Search string is None - no search
                     #Emits whole file
                     yield partial_emitter(filetext)
-                    
-    @property
-    def _filepathes(self):
-        files = self._find_files(
-            filename=self._filename,
-            filepath=self._filepath,
-            basedir=self._basedir, 
-            maxdepth=self._maxdepth,
-            onwalkerror = self._onwalkerror)
-        return files
     
 
 class FindStringsEmitter(FindFilesEmitter): pass     

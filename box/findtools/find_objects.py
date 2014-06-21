@@ -57,7 +57,7 @@ class find_objects(map_reduce):
                 obj = getattr(module, objname)
                 yield self._emitter(obj, 
                     object=obj, objname=objname, module=module,
-                    basedir=self._basedir, filepath=filepath)
+                    filepath=filepath, basedir=self._basedir)
 
     @property
     def _extension_mappers(self):

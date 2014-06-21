@@ -1,5 +1,6 @@
 import re
 import unittest
+from functools import partial
 from unittest.mock import Mock, call
 from box.findtools.find_strings import find_strings
 
@@ -8,53 +9,42 @@ class find_strings_Test(unittest.TestCase):
     #Public
     
     def setUp(self):
-        files = ['file1', 'file2']
-        self.find = self._make_mock_find(files)
+        self.find = self._make_mock_find()
+        self.pfind = partial(self.find, files = ['file1', 'file2'])
         
     def test(self):
-        strings = list(self.find(
-            filename='filename',
-            filepath='filepath',
-            basedir='basedir', 
-            maxdepth='maxdepth',
-            onwalkerror='onwalkerror'))
-        self.assertEqual(strings, ['data', 'data'])
-        self.find._find_files.assert_called_with(
-            filename='filename',
-            filepath='filepath',            
-            basedir='basedir', 
-            maxdepth='maxdepth',
-            onwalkerror='onwalkerror')    
+        strings = list(self.pfind(basedir='basedir'))
+        self.assertEqual(strings, ['data', 'data'])    
         self.find._open.assert_has_calls(
             [call('basedir/file1'), 
              call('basedir/file2')])
     
     def test_with_string(self):
-        strings = list(self.find('data'))
+        strings = list(self.pfind('data'))
         self.assertEqual(strings, ['data', 'data'])
     
     def test_with_string_is_regex(self):
-        strings = list(self.find(re.compile('data')))
+        strings = list(self.pfind(re.compile('data')))
         self.assertEqual(strings, ['data', 'data'])  
     
     def test_with_string_is_regex_with_groups(self):
-        strings = list(self.find(re.compile('(d|t)(a)')))
+        strings = list(self.pfind(re.compile('(d|t)(a)')))
         self.assertEqual(strings, ['d', 'a', 't', 'a', 'd', 'a', 't', 'a'])       
         
     def test_with_mapper(self):
         mapper = (lambda emitter: 
             emitter.value(emitter.filepath+':'+emitter.value()))
-        strings = list(self.find('data', mappers=[mapper]))
+        strings = list(self.pfind('data', mappers=[mapper]))
         self.assertEqual(strings, ['file1:data', 'file2:data'])
     
     def test_with_reducer_and_fallback(self):
         reducer = lambda values: 1/0
-        strings = self.find(reducers=[reducer], fallback='fallback')
+        strings = self.pfind(reducers=[reducer], fallback='fallback')
         self.assertEqual(strings, 'fallback')          
     
     #Protected
 
-    def _make_mock_find(self, files):
+    def _make_mock_find(self):
         class mock_find(find_strings):
             #Protected
             #Function mock_open has different behaviour in Python 3.3/3.4:
@@ -65,5 +55,4 @@ class find_strings_Test(unittest.TestCase):
                 __exit__=Mock(),
                 __enter__=Mock(return_value=Mock(
                     read=Mock(return_value='data')))))
-            _find_files = Mock(return_value=files)
         return mock_find

@@ -51,7 +51,7 @@ class find_files(map_reduce):
             file = filepath
             if self._join:
                 file = enhanced_join(self._basedir, filepath)
-            yield self._emitter(file, basedir=self._basedir, filepath=filepath)  
+            yield self._emitter(file, filepath=filepath, basedir=self._basedir)  
 
     @property        
     def _extension_mappers(self):
