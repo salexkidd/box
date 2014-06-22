@@ -1,4 +1,5 @@
 from importlib.machinery import SourceFileLoader
+from ..dependency import inject
 from ..itertools import map_reduce
 from ..os import enhanced_join
 from .find_files import find_files, FindFilesEmitter
@@ -21,7 +22,7 @@ class find_objects(map_reduce):
     
     #Public  
     
-    default_emitter = property(lambda self: FindObjectsEmitter)
+    default_emitter = inject('box.findtools.find_objects.FindObjectsEmitter')
        
     def __init__(self, objname=None, objtype=None, *, 
                  files=[], basedir=None, **kwargs):

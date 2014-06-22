@@ -5,6 +5,4 @@ def inject(name, package=None):
     
     .. seealso:: :func:`box.importlib.import_object`
     """
-    obj = import_object(name, package=package)
-    prop = property(lambda self: obj)
-    return prop
+    return property(lambda self: import_object(name, package=package))

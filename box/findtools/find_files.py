@@ -1,4 +1,5 @@
 import os
+from ..dependency import inject
 from ..glob import filtered_iglob
 from ..itertools import map_reduce, Emitter
 from ..os import balanced_walk, enhanced_join
@@ -25,7 +26,7 @@ class find_files(map_reduce):
 
     #Public
     
-    default_emitter = property(lambda self: FindFilesEmitter)
+    default_emitter = inject('box.findtools.find_files.FindFilesEmitter')
 
     def __init__(self, filename=None, filepath=None, *,
                  basedir=None, join=False, maxdepth=None, 

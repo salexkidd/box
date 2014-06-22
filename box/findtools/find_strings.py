@@ -1,4 +1,5 @@
 from functools import partial
+from ..dependency import inject
 from ..itertools import map_reduce
 from ..os import enhanced_join
 from ..types import RegexCompiledPatternType
@@ -19,7 +20,7 @@ class find_strings(map_reduce):
     
     #Public
     
-    default_emitter = property(lambda self: FindStringsEmitter)
+    default_emitter = inject('box.findtools.find_strings.FindStringsEmitter')    
     
     def __init__(self, string=None, *, 
                  files=[], basedir=None, **kwargs):
