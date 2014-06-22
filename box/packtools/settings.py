@@ -104,14 +104,14 @@ class Settings(dict, metaclass=SettingsMetaclass):
     
     @classmethod    
     def _find_extension_class(cls, extension):
-        return find_objects(
+        files = find_files(filepath=extension)
+        objects = find_objects(
             objtype=cls.__class__,
+            files=files,
             mappers=[lambda emitter: emitter.skip(
                 inspect.getmodule(emitter.object) != emitter.module)],
-            getfirst=True,
-            files=find_files(
-                filepath=extension,
-            ))
+            getfirst=True)
+        return objects
     
     @classmethod
     def _create_extension_class(cls, extension):

@@ -9,19 +9,18 @@ from box.findtools.find_strings import find_strings
 class find_strings_Test(unittest.TestCase):
     
     def setUp(self):
-        self.pfind_files = partial(find_files, 
-            basedir=self._basedir, join=True)
+        self.pfind_files = partial(find_files, basedir=self._basedir, join=True)
 
     #Public
 
     def test_find(self):
-        strings = list(find_strings(re.compile('string\d'),
-            files=self.pfind_files(filename='file1')))        
+        files = list(self.pfind_files(filename='file1'))
+        strings = list(find_strings(re.compile('string\d'), files=files))        
         self.assertEqual(strings, ['string1', 'string3'])
         
     def test_find_with_maxdepth_is_1(self):
-        strings = list(find_strings(re.compile('string\d'),
-            files=self.pfind_files(filename='file1', maxdepth=1)))
+        files = list(self.pfind_files(filename='file1', maxdepth=1))
+        strings = list(find_strings(re.compile('string\d'), files=files))
         self.assertEqual(strings, ['string1'])
         
     #Protected    
