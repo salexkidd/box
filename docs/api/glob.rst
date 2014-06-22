@@ -1,8 +1,10 @@
+========
 box.glob
 ========
 
 Functionality relevant to standard glob module.
 
+------
 Public
 ------
 

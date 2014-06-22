@@ -1,8 +1,10 @@
+========
 box.copy
 ========
 
 Functionality relevant to standard copy module.
 
+------
 Public
 ------
 

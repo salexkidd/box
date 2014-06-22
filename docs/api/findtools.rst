@@ -1,9 +1,11 @@
+=============
 box.findtools
 =============
 
 Module provides finding functionality based on map_reduce concept
 and python generators. 
 
+------
 Public
 ------
 
@@ -22,6 +24,7 @@ There are three main functions to find files, strings and python objects.
 
 .. autoclass:: box.findtools.NotFound
 
+--------
 Internal
 --------
 

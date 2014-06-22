@@ -1,8 +1,10 @@
+======
 box.io
 ======
 
 Module provides some input/output functionality.
 
+------
 Public
 ------
 

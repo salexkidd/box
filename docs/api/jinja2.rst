@@ -1,3 +1,4 @@
+==========
 box.jinja2
 ==========
 
@@ -6,6 +7,7 @@ Module extends popular templating package jinja2.
 .. warning:: Jinja2 is not in box dependencies list. You have
      to install it to use this module.
 
+------
 Public
 ------
 
@@ -18,6 +20,7 @@ They support object as context (lazy name/attribute instead of key/value).
 .. autoclass:: box.jinja2.render_file
 .. autoclass:: box.jinja2.render_dir
 
+--------
 Internal
 --------
 

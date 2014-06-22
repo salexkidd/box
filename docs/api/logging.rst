@@ -1,8 +1,10 @@
+===========
 box.logging
 ===========
 
 Module provides some functionality relevent to logging.
 
+------
 Public
 ------
 

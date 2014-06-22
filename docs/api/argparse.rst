@@ -1,8 +1,10 @@
+============
 box.argparse
 ============
 
 Module is a wrapper around standard argparse module.
 
+------
 Public
 ------
 
@@ -12,6 +14,7 @@ Module’s public interface.
 .. autoclass:: box.argparse.Command
 .. autoclass:: box.argparse.Settings
 
+--------
 Internal
 --------
 

@@ -1,8 +1,10 @@
+=============
 box.itertools
 =============
 
 Module adds some functionality to standard itertools module.
 
+------
 Public
 ------
 
@@ -12,6 +14,7 @@ Module's public interface.
 .. autoclass:: box.itertools.Emitter
 .. autoclass:: box.itertools.NotEmitted
 
+--------
 Internal
 --------
 
