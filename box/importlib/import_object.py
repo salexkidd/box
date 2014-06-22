@@ -7,7 +7,7 @@ def import_object(name, *, module=None, package=None):
       object name in "[module.]module.]attr" form
       
     :param str module:
-      if argument is passed name will be processed as just an attribute
+      anchor point from which to resolve attribute
     
     :param str package: 
       argument is required when performing a relative import. 
@@ -30,13 +30,14 @@ def import_object(name, *, module=None, package=None):
       <function box.importlib.import_object.import_object>
     """
     if isinstance(name, str):
-        if module == None:
-            try:
-                module, name = name.rsplit('.', 1)
-            except ValueError:
-                raise ValueError('Name is in a bad form.') from None
-        module = importlib.import_module(module, package=package)
-        attribute = getattr(module, name)
+        if module != None:
+            name = '.'.join([module, name])
+        try:
+            module, name = name.rsplit('.', 1)
+        except ValueError:
+            raise ValueError('Name is in a bad form.') from None
+        imported_module = importlib.import_module(module, package=package)
+        imported_object = getattr(imported_module, name)
     else:
-        attribute = name
-    return attribute
+        imported_object = name
+    return imported_object
