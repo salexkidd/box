@@ -26,7 +26,7 @@ class find_files(map_reduce):
 
     #Public
     
-    default_emitter = inject('box.findtools.find_files.FindFilesEmitter')
+    default_emitter = inject('FindFilesEmitter', module=__name__)
 
     def __init__(self, filename=None, filepath=None, *,
                  basedir=None, join=False, maxdepth=None, 

@@ -20,7 +20,7 @@ class find_strings(map_reduce):
     
     #Public
     
-    default_emitter = inject('box.findtools.find_strings.FindStringsEmitter')    
+    default_emitter = inject('FindStringsEmitter', module=__name__)    
     
     def __init__(self, string=None, *, 
                  files=[], basedir=None, **kwargs):

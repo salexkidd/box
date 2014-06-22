@@ -22,7 +22,7 @@ class find_objects(map_reduce):
     
     #Public  
     
-    default_emitter = inject('box.findtools.find_objects.FindObjectsEmitter')
+    default_emitter = inject('FindObjectsEmitter', module=__name__)
        
     def __init__(self, objname=None, objtype=None, *, 
                  files=[], basedir=None, **kwargs):
