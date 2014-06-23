@@ -79,7 +79,7 @@ class find_objects(map_reduce):
             #We have ready files
             return self._files
         else:                   
-            #We have find files
+            #We have to find files
             files = self._find_files(
                 filename=self._filename,
                 filepath=self._filepath,
