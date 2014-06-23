@@ -6,13 +6,14 @@ from ..types import RegexCompiledPatternType
 from .find_files import FindFilesEmitter, find_files
 from .not_found import NotFound
   
+#TODO: finilize error handling
 class find_strings(map_reduce):
     """Find strings in files using map_reduce framework.
     
     :param str/re string: string filter
     :param str basedir: base directory to find
     :param list files: list of filepathes where to find
-    :param callable onopenerror: error handler for open
+    :param callable onopenerror: error handler for open [NOT IMPLEMENTED]
     
     Arguments for find_files if files == None:
     

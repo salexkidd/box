@@ -1,6 +1,7 @@
 import os
 from .enhanced_join import enhanced_join
 
+#TODO: finilize error handling
 def balanced_walk(dirpath=None, *,
                   basedir=None, mode=None, sorter=None, onerror=None):
     """Recursevly yield (dirpathes, filepathes) tuple 
@@ -10,7 +11,7 @@ def balanced_walk(dirpath=None, *,
     :param str[files/dirs] mode: special yielding mode
     :param str basedir: all pathes are relative to basedir
     :param function(pathes) sorter: function to sort pathes
-    :param function(os.error) onerror: function to handle os.errors
+    :param function(os.error) onerror: function to handle os.errors [NOT STABLE]
     
     :returns generator: (dirpathes, filepathes) generator
     

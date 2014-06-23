@@ -9,6 +9,7 @@ from .maxdepth import MaxdepthMapper
 from .filename import FilenameMapper
 from .filepath import FilepathMapper
 
+#TODO: finilize error handling
 class find_files(map_reduce):
     """Find files using map_reduce framework.
     
@@ -17,7 +18,7 @@ class find_files(map_reduce):
     :param str basedir: base directory to find
     :param bool join: if True joins resulted filepath with basedir
     :param int maxdepth: maximal find depth relatively to basedir
-    :param callable onwalkerror: error handler for os.walk
+    :param callable onwalkerror: error handler for os.walk [NOT STABLE]
     
     :returns mixed: map_reduce result
     

@@ -7,6 +7,7 @@ from .not_found import NotFound
 from .objname import ObjnameMapper
 from .objtype import ObjtypeMapper
  
+#TODO: finilize error handling
 class find_objects(map_reduce):
     """Find objects in files using map_reduce framework.
     
@@ -14,7 +15,7 @@ class find_objects(map_reduce):
     :param type objtype: objtype filter    
     :param str basedir: base directory to find
     :param list files: list of filepathes where to find
-    :param callable onimporterror: error handler for import
+    :param callable onimporterror: error handler for import [NOT IMPLEMENTED]
     
     Arguments for find_files if files == None:
     

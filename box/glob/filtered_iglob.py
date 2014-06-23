@@ -2,6 +2,7 @@ import os
 import glob
 from ..os import enhanced_join
 
+#TODO: finilize error handling
 def filtered_iglob(pattern, *, 
                    basedir=None, mode=None, sorter=None):
     """Yield the pathes matching a pattern.
