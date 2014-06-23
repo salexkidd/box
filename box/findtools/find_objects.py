@@ -76,7 +76,7 @@ class find_objects(map_reduce):
     def _filepathes(self):
         if self._files != None:
             #We have ready files
-            yield from self._files
+            return self._files
         else:                   
             #We have find files
             files = self._find_files(

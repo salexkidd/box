@@ -1,7 +1,7 @@
 import re
 import unittest
 from functools import partial
-from unittest.mock import Mock, call
+from unittest.mock import Mock, call, patch
 from box.findtools.find_strings import find_strings
 
 class find_strings_Test(unittest.TestCase):
@@ -18,6 +18,23 @@ class find_strings_Test(unittest.TestCase):
         self.find._open.assert_has_calls(
             [call('basedir/file1'), 
              call('basedir/file2')])
+    
+    @patch.object(find_strings, '_find_files')    
+    def test_without_files(self, find_files):
+        find_files.return_value = ['file1', 'file2']
+        strings = list(self.find(
+            basedir='basedir',
+            filename='filename',
+            filepath='filepath',
+            maxdepth='maxdepth',
+            onwalkerror='onwalkerror'))
+        self.assertEqual(strings, ['data', 'data'])
+        find_files.assert_called_with(
+            basedir='basedir',
+            filename='filename',
+            filepath='filepath',
+            maxdepth='maxdepth',
+            onwalkerror='onwalkerror')
     
     def test_with_string(self):
         strings = list(self.pfind('data'))

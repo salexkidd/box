@@ -1,7 +1,7 @@
 import re
 import unittest
 from functools import partial
-from unittest.mock import Mock, call
+from unittest.mock import Mock, call, patch
 from box.findtools.find_objects import find_objects
 
 class find_objects_Test(unittest.TestCase):
@@ -21,6 +21,23 @@ class find_objects_Test(unittest.TestCase):
         self.find._loader_class.return_value.load_module.assert_has_calls(
             [call('basedir/file1'), 
              call('basedir/file2')])
+        
+    @patch.object(find_objects, '_find_files')    
+    def test_without_files(self, find_files):
+        find_files.return_value = ['file1', 'file2']
+        objects = list(self.find(
+            basedir='basedir',
+            filename='filename',
+            filepath='filepath',
+            maxdepth='maxdepth',
+            onwalkerror='onwalkerror'))
+        self.assertTrue(objects)
+        find_files.assert_called_with(
+            basedir='basedir',
+            filename='filename',
+            filepath='filepath',
+            maxdepth='maxdepth',
+            onwalkerror='onwalkerror')        
         
     def test_with_objname(self):
         objects = list(self.pfind(objname='call'))
