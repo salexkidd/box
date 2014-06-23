@@ -3,15 +3,23 @@ from ..dependency import inject
 from ..itertools import map_reduce
 from ..os import enhanced_join
 from ..types import RegexCompiledPatternType
-from .find_files import FindFilesEmitter
+from .find_files import FindFilesEmitter, find_files
 from .not_found import NotFound
   
 class find_strings(map_reduce):
     """Find strings in files using map_reduce framework.
     
     :param str/re string: string filter
-    :param list files: list of filepathes where to find
     :param str basedir: base directory to find
+    :param list files: list of filepathes where to find
+    :param callable onopenerror: error handler for open
+    
+    Arguments for find_files if files == None:
+    
+    :param str/glob/re filename: filename filter
+    :param str/glob/re filepath: filepath filter
+    :param int maxdepth: maximal find depth relatively to basedir
+    :param callable onwalkerror: error handler for os.walk
     
     :returns mixed: map_reduce result
     
@@ -23,20 +31,28 @@ class find_strings(map_reduce):
     default_emitter = inject('FindStringsEmitter', module=__name__)    
     
     def __init__(self, string=None, *, 
-                 files=[], basedir=None, **kwargs):
+                 basedir=None, files=None, onopenerror=None, 
+                 filename=None, filepath=None, maxdepth=None, onwalkerror=None,
+                 **kwargs):
         self._string = string
-        self._files = files
         self._basedir = basedir
+        self._files = files
+        self._onopenerror = onopenerror
+        self._filename = filename
+        self._filepath = filepath
+        self._maxdepth = maxdepth
+        self._onwalkerror = onwalkerror
         super().__init__(**kwargs) 
     
     #Protected
         
     _getfirst_exception = NotFound
+    _find_files = staticmethod(find_files)
     _open = staticmethod(open)
     
     @property
     def _extension_values(self):
-        for filepath in self._files:
+        for filepath in self._filepathes:
             #Reads every file from find_files
             full_filepath = enhanced_join(self._basedir, filepath)
             partial_emitter = partial(self._emitter, 
@@ -65,6 +81,21 @@ class find_strings(map_reduce):
                     #Search string is None - no search
                     #Emits whole file
                     yield partial_emitter(filetext)
-    
+                    
+    @property
+    def _filepathes(self):
+        if self._files != None:
+            #We have ready files
+            yield from self._files
+        else:                   
+            #We have find files
+            files = self._find_files(
+                filename=self._filename,
+                filepath=self._filepath,
+                basedir=self._basedir,
+                maxdepth=self._maxdepth,
+                onwalkerror=self._onwalkerror)
+            return files
+
 
 class FindStringsEmitter(FindFilesEmitter): pass     

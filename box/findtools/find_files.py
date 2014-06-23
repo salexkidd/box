@@ -29,8 +29,8 @@ class find_files(map_reduce):
     default_emitter = inject('FindFilesEmitter', module=__name__)
 
     def __init__(self, filename=None, filepath=None, *,
-                 basedir=None, join=False, maxdepth=None, 
-                 onwalkerror=None, **kwargs):
+                 basedir=None, join=False, maxdepth=None, onwalkerror=None, 
+                 **kwargs):
         self._filename = filename
         self._filepath = filepath
         self._basedir = basedir
