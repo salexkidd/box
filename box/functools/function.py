@@ -12,6 +12,7 @@ class FunctionMetaclass(ABCMeta):
         result = function.__call__()
         return result
     
+    #TODO: add inherited check if False
     def __instancecheck__(self, instance):
         return issubclass(instance, self)
 
