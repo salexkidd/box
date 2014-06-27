@@ -4,9 +4,9 @@ import fnmatch
 from ..glob import filtered_iglob
 from ..os import balanced_walk
 from ..types import RegexCompiledPatternType
-from .condition import Condition
+from .constraint import PatternConstraint
 
-class FilepathCondition(Condition):
+class FilepathConstraint(PatternConstraint):
     
     #Public
     
@@ -31,7 +31,7 @@ class FilepathCondition(Condition):
     _glob = staticmethod(filtered_iglob)
     _walk = staticmethod(balanced_walk)    
     
-    def _effective_match(self, pattern, value):
+    def _match(self, pattern, value):
         if isinstance(pattern, RegexCompiledPatternType):
             if re.search(pattern, value):
                 return True
@@ -47,12 +47,12 @@ class FilepathMapper:
     
     #Public
     
-    def __init__(self, condition):
-        self._condition = condition
+    def __init__(self, constraint):
+        self._constraint = constraint
     
     def __bool__(self):
-        return bool(self._condition)
+        return bool(self._constraint)
     
     def __call__(self, emitter):
-        if not self._condition.match(emitter.filepath):
+        if not self._constraint.check(emitter.filepath):
             emitter.skip()             

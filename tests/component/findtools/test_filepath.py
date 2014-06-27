@@ -1,7 +1,7 @@
 import re
 import unittest
 from unittest.mock import Mock
-from box.findtools.filepath import FilepathCondition, FilepathMapper
+from box.findtools.filepath import FilepathConstraint, FilepathMapper
 
 class FilepathMapperTest_not_skip(unittest.TestCase):
 
@@ -11,14 +11,14 @@ class FilepathMapperTest_not_skip(unittest.TestCase):
         self.emitter = Mock(filepath='filepath')
     
     def test___call__(self):
-        condition = FilepathCondition('f*')
-        mapper = FilepathMapper(condition)
+        constraint = FilepathConstraint('f*')
+        mapper = FilepathMapper(constraint)
         mapper(self.emitter)
         self.assertFalse(self.emitter.skip.called)
           
     def test___call___with_filepath_is_regex(self):
-        condition = FilepathCondition(re.compile('f.*'))
-        mapper = FilepathMapper(condition)
+        constraint = FilepathConstraint(re.compile('f.*'))
+        mapper = FilepathMapper(constraint)
         mapper(self.emitter)
         self.assertFalse(self.emitter.skip.called)
         
@@ -28,13 +28,13 @@ class FilepathMapperTest_skip(FilepathMapperTest_not_skip):
     #Public   
     
     def test___call__(self):
-        condition = FilepathCondition('x*')
-        mapper = FilepathMapper(condition)
+        constraint = FilepathConstraint('x*')
+        mapper = FilepathMapper(constraint)
         mapper(self.emitter)
         self.assertTrue(self.emitter.skip.called)
             
     def test___call___with_filepath_is_regex(self):
-        condition = FilepathCondition(re.compile('x.*'))
-        mapper = FilepathMapper(condition)
+        constraint = FilepathConstraint(re.compile('x.*'))
+        mapper = FilepathMapper(constraint)
         mapper(self.emitter)
         self.assertTrue(self.emitter.skip.called)        

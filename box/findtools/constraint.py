@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
-class Condition(metaclass=ABCMeta):
+class Constraint(metaclass=ABCMeta):
 
     #Public
 
@@ -17,17 +17,26 @@ class Condition(metaclass=ABCMeta):
                 format(include=self._include,
                        exclude=self._exclude))
     
-    def match(self, value):
+    @abstractmethod
+    def check(self, value):
+        pass #pragma: no cover
+    
+    
+class PatternConstraint(Constraint, metaclass=ABCMeta):
+    
+    #Publilc
+    
+    def check(self, value):
         if self._include != None:
-            if self._effective_match(self._include, value):
+            if self._match(self._include, value):
                 return True
         if self._exclude:
-            if not self._effective_match(self._exclude, value):
+            if not self._match(self._exclude, value):
                 return True
         return False
     
     #Protected
     
     @abstractmethod
-    def _effective_match(self, pattern, value):
-        pass #pragma: no cover
+    def _match(self, pattern, value):
+        pass #pragma: no cover    

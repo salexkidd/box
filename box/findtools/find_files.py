@@ -4,8 +4,8 @@ from ..itertools import map_reduce, Emitter
 from ..os import enhanced_join
 from .not_found import NotFound
 from .maxdepth import MaxdepthMapper
-from .filename import FilenameCondition, FilenameMapper
-from .filepath import FilepathCondition, FilepathMapper
+from .filename import FilenameConstraint, FilenameMapper
+from .filepath import FilepathConstraint, FilepathMapper
 
 #TODO: finilize error handling
 class find_files(map_reduce):
@@ -32,8 +32,8 @@ class find_files(map_reduce):
                  filepath=None, notfilepath=None,
                  basedir=None, join=False, maxdepth=None, onwalkerror=None, 
                  **kwargs):
-        self._filename = FilenameCondition(filename, notfilename)
-        self._filepath = FilepathCondition(filepath, notfilepath, 
+        self._filename = FilenameConstraint(filename, notfilename)
+        self._filepath = FilepathConstraint(filepath, notfilepath, 
             basedir=basedir)
         self._basedir = basedir
         self._join = join
