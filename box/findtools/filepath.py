@@ -10,7 +10,7 @@ class FilepathCondition(Condition):
     
     #Public
     
-    def __init__(self, include=None, exclude=None, basedir=None):
+    def __init__(self, include=None, exclude=None, *, basedir=None):
         self._basedir = basedir
         super().__init__(include, exclude)
     

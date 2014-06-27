@@ -33,7 +33,8 @@ class find_files(map_reduce):
                  basedir=None, join=False, maxdepth=None, onwalkerror=None, 
                  **kwargs):
         self._filename = FilenameCondition(filename, notfilename)
-        self._filepath = FilepathCondition(filepath, notfilepath, basedir)
+        self._filepath = FilepathCondition(filepath, notfilepath, 
+            basedir=basedir)
         self._basedir = basedir
         self._join = join
         self._maxdepth = maxdepth
