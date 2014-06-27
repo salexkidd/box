@@ -1,6 +1,7 @@
 import re
 import unittest
-from unittest.mock import Mock
+import inspect
+from unittest.mock import Mock, patch
 from box.findtools.find_files import find_files
 
 class find_files_Test(unittest.TestCase):
@@ -8,86 +9,72 @@ class find_files_Test(unittest.TestCase):
     #Public
     
     def setUp(self):
-        filepathes = [
+        self.filepathes = [
             'file1', 'file2', 'dir/file1', 'dir/file2', 'dir/subdir/file3']
-        self.find = self._make_mock_find(filepathes)
+        self.FilepathCondition = getattr(
+            inspect.getmodule(find_files),
+            'FilepathCondition')
+        self.patcher = patch.object(
+            self.FilepathCondition, 'walk', 
+            Mock(return_value=self.filepathes))
+        self.patcher.start()
+        self.addCleanup(patch.stopall) 
         
-    def test_glob(self):
-        files = list(self.find(
+    def test(self):
+        files = list(find_files(
             filepath='file*',
-            basedir='basedir'))
-        self.assertEqual(len(files), 2)
-        self.find._glob.assert_called_with(
-            'file*',
             basedir='basedir',
-            sorter=sorted,
-            mode='files')
-        
-    def test_walk(self):
-        files = list(self.find(
+            onwalkerror='onerror'))
+        self.assertEqual(files, ['file1', 'file2'])
+        self.FilepathCondition.walk.assert_called_with(
             basedir='basedir',
-            onwalkerror='onwalkerror'))
-        self.assertEqual(len(files), 5)
-        self.find._walk.assert_called_with(
-            basedir='basedir',
-            sorter=sorted,
-            mode='files',
-            onerror='onwalkerror')
+            onerror='onerror')
      
     def test_with_filename(self):
-        files = list(self.find(filename='file3'))
+        files = list(find_files(filename='file3'))
         self.assertEqual(files, ['dir/subdir/file3'])        
         
     def test_with_filename_is_regex(self):
         filename = re.compile('file1+')
-        files = list(self.find(filename=filename, maxdepth=1))
+        files = list(find_files(filename=filename, maxdepth=1))
         self.assertEqual(files, ['file1'])     
     
     def test_with_filepath(self):
-        files = list(self.find(filepath='file*'))
+        files = list(find_files(filepath='file*'))
         self.assertEqual(files, ['file1', 'file2']) 
          
     def test_with_filepath_is_regex(self):
         filepath = re.compile('.*2$')
-        files = list(self.find(filepath=filepath))
+        files = list(find_files(filepath=filepath))
         self.assertEqual(files, ['file2', 'dir/file2']) 
     
     def test_with_basedir(self):
-        files = list(self.find(filename='file3', basedir='basedir'))
+        files = list(find_files(filename='file3', basedir='basedir'))
         self.assertEqual(files, ['dir/subdir/file3'])
         
     def test_with_basedir_and_join(self):
-        files = list(self.find(filename='file3', basedir='basedir', join=True))
+        files = list(find_files(filename='file3', basedir='basedir', join=True))
         self.assertEqual(files, ['basedir/dir/subdir/file3'])        
         
     def test_with_maxdepth_is_1(self):
-        files = list(self.find(filename='file1', maxdepth=1))
+        files = list(find_files(filename='file1', maxdepth=1))
         self.assertEqual(files, ['file1'])
         
     def test_with_maxdepth_is_2(self):
-        files = list(self.find(filename='file1', maxdepth=2))
+        files = list(find_files(filename='file1', maxdepth=2))
         self.assertEqual(files, ['file1', 'dir/file1'])
         
     def test_with_mapper(self):
         mapper = lambda emitter: emitter.value(emitter.value()+'!')
-        files = list(self.find(filename='file1', mappers=[mapper]))
+        files = list(find_files(filename='file1', mappers=[mapper]))
         self.assertEqual(files, ['file1!', 'dir/file1!'])         
           
     def test_with_reducer(self):
         reducer=lambda files: list(files)[0]
-        files = self.find(filename='file1', maxdepth=1, reducers=[reducer])
+        files = find_files(filename='file1', maxdepth=1, reducers=[reducer])
         self.assertEqual(files, 'file1')
     
     def test_with_reducer_and_fallback(self):
         reducer = lambda values: 1/0
-        files = self.find(reducers=[reducer], fallback='fallback')
-        self.assertEqual(files, 'fallback')                     
-    
-    #Protected
-    
-    def _make_mock_find(self, filepathes):
-        class mock_find(find_files):
-            #Protected
-            _glob = Mock(return_value=filepathes[:2])            
-            _walk = Mock(return_value=filepathes)
-        return mock_find
+        files = find_files(reducers=[reducer], fallback='fallback')
+        self.assertEqual(files, 'fallback')

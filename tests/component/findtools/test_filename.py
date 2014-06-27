@@ -1,9 +1,9 @@
 import re
 import unittest
 from unittest.mock import Mock
-from box.findtools.filename import FilenameMapper
+from box.findtools.filename import FilenameCondition, FilenameMapper
 
-class FilenameMapperTest_match(unittest.TestCase):
+class FilenameMapperTest_not_skip(unittest.TestCase):
 
     #Public
     
@@ -11,26 +11,30 @@ class FilenameMapperTest_match(unittest.TestCase):
         self.emitter = Mock(filename='filename')
     
     def test___call__(self):
-        mapper = FilenameMapper('f*')
+        condition = FilenameCondition('f*')
+        mapper = FilenameMapper(condition)
         mapper(self.emitter)
         self.assertFalse(self.emitter.skip.called)
           
     def test___call___with_filename_is_regex(self):
-        mapper = FilenameMapper(re.compile('f.*'))
+        condition = FilenameCondition(re.compile('f.*'))
+        mapper = FilenameMapper(condition)
         mapper(self.emitter)
         self.assertFalse(self.emitter.skip.called)
 
 
-class FilenameMapperTest_not_match(FilenameMapperTest_match):
+class FilenameMapperTest_skip(FilenameMapperTest_not_skip):
 
     #Public
     
     def test___call__(self):
-        mapper = FilenameMapper('x*')
+        condition = FilenameCondition('x*')
+        mapper = FilenameMapper(condition)
         mapper(self.emitter)
         self.assertTrue(self.emitter.skip.called)
           
     def test___call___with_filename_is_regex(self):
-        mapper = FilenameMapper(re.compile('x.*'))
+        condition = FilenameCondition(re.compile('x.*'))        
+        mapper = FilenameMapper(condition)
         mapper(self.emitter)
         self.assertTrue(self.emitter.skip.called)

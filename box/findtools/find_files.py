@@ -1,13 +1,11 @@
 import os
 from ..dependency import inject
-from ..glob import filtered_iglob
 from ..itertools import map_reduce, Emitter
-from ..os import balanced_walk, enhanced_join
-from ..types import RegexCompiledPatternType
+from ..os import enhanced_join
 from .not_found import NotFound
 from .maxdepth import MaxdepthMapper
-from .filename import FilenameMapper
-from .filepath import FilepathMapper
+from .filename import FilenameCondition, FilenameMapper
+from .filepath import FilepathCondition, FilepathMapper
 
 #TODO: finilize error handling
 class find_files(map_reduce):
@@ -29,11 +27,13 @@ class find_files(map_reduce):
     
     default_emitter = inject('FindFilesEmitter', module=__name__)
 
-    def __init__(self, filename=None, filepath=None, *,
+    def __init__(self, *, 
+                 filename=None, notfilename=None, 
+                 filepath=None, notfilepath=None,
                  basedir=None, join=False, maxdepth=None, onwalkerror=None, 
                  **kwargs):
-        self._filename = filename
-        self._filepath = filepath
+        self._filename = FilenameCondition(filename, notfilename)
+        self._filepath = FilepathCondition(filepath, notfilepath, basedir)
         self._basedir = basedir
         self._join = join
         self._maxdepth = maxdepth
@@ -41,11 +41,9 @@ class find_files(map_reduce):
         super().__init__(**kwargs)
             
     #Protected
-            
-    _getfirst_exception = NotFound
-    _glob = staticmethod(filtered_iglob)
-    _walk = staticmethod(balanced_walk)
     
+    _getfirst_exception = NotFound
+            
     @property
     def _extension_values(self):
         for filepath in self._filepathes:
@@ -63,16 +61,9 @@ class find_files(map_reduce):
     
     @property
     def _filepathes(self):
-        if (self._filepath == None or
-            isinstance(self._filepath, RegexCompiledPatternType)):
-            #We have to walk
-            filepathes = self._walk(
-                basedir=self._basedir, sorter=sorted, mode='files',
-                onerror=self._onwalkerror)
-        else:
-            #We have a glob pattern
-            filepathes = self._glob(self._filepath, 
-                basedir=self._basedir, sorter=sorted, mode='files')                       
+        filepathes = self._filepath.walk(
+            basedir=self._basedir, 
+            onerror=self._onwalkerror)                      
         return filepathes
     
 
