@@ -31,28 +31,13 @@ class FilepathConstraint(PatternConstraint):
     _glob = staticmethod(filtered_iglob)
     _walk = staticmethod(balanced_walk)    
     
-    def _match(self, pattern, value):
+    def _match(self, pattern, emitter):
         if isinstance(pattern, RegexCompiledPatternType):
-            if re.search(pattern, value):
+            if re.search(pattern, emitter.filepath):
                 return True
         else:
             if os.path.isabs(pattern):
                 pattern = os.path.relpath(pattern, start=self._basedir)
-            if fnmatch.fnmatch(value, pattern):
+            if fnmatch.fnmatch(emitter.filepath, pattern):
                 return True
-        return False
-    
-
-class FilepathMapper:
-    
-    #Public
-    
-    def __init__(self, constraint):
-        self._constraint = constraint
-    
-    def __bool__(self):
-        return bool(self._constraint)
-    
-    def __call__(self, emitter):
-        if not self._constraint.check(emitter.filepath):
-            emitter.skip()             
+        return False            

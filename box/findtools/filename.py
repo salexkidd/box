@@ -7,26 +7,11 @@ class FilenameConstraint(PatternConstraint):
                 
     #Protected
     
-    def _match(self, pattern, value):
+    def _match(self, pattern, emitter):
         if isinstance(pattern, RegexCompiledPatternType):
-            if re.search(pattern, value):
+            if re.search(pattern, emitter.filename):
                 return True
         else:
-            if fnmatch.fnmatch(value, pattern):
+            if fnmatch.fnmatch(emitter.filename, pattern):
                 return True
         return False
-
-
-class FilenameMapper:
-    
-    #Public
-    
-    def __init__(self, constraint):
-        self._constraint = constraint
-    
-    def __bool__(self):
-        return bool(self._constraint)
-    
-    def __call__(self, emitter):
-        if not self._constraint.check(emitter.filename):
-            emitter.skip()

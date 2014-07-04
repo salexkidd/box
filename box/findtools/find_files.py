@@ -4,8 +4,8 @@ from ..itertools import map_reduce, Emitter
 from ..os import enhanced_join
 from .not_found import NotFound
 from .maxdepth import MaxdepthMapper
-from .filename import FilenameConstraint, FilenameMapper
-from .filepath import FilepathConstraint, FilepathMapper
+from .filename import FilenameConstraint
+from .filepath import FilepathConstraint
 
 #TODO: finilize error handling
 class find_files(map_reduce):
@@ -57,8 +57,8 @@ class find_files(map_reduce):
     @property        
     def _extension_mappers(self):
         return [MaxdepthMapper(self._maxdepth),
-                FilenameMapper(self._filename),
-                FilepathMapper(self._filepath)]
+                self._filename,
+                self._filepath]
     
     @property
     def _filepathes(self):

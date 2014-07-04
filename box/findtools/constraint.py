@@ -4,6 +4,15 @@ class Constraint(metaclass=ABCMeta):
 
     #Public
 
+    @abstractmethod
+    def __call__(self, emitter):
+        pass #pragma: no cover
+    
+    
+class CompositeConstraint(Constraint, metaclass=ABCMeta):
+    
+    #Public
+    
     def __init__(self, include=None, exclude=None):
         self._include = include
         self._exclude = exclude
@@ -17,26 +26,21 @@ class Constraint(metaclass=ABCMeta):
                 format(include=self._include,
                        exclude=self._exclude))
     
-    @abstractmethod
-    def check(self, value):
-        pass #pragma: no cover
     
-    
-class PatternConstraint(Constraint, metaclass=ABCMeta):
+class PatternConstraint(CompositeConstraint, metaclass=ABCMeta):
     
     #Publilc
     
-    def check(self, value):
+    def __call__(self, emitter):
         if self._include != None:
-            if self._match(self._include, value):
-                return True
+            if not self._match(self._include, emitter):
+                emitter.skip()
         if self._exclude:
-            if not self._match(self._exclude, value):
-                return True
-        return False
-    
-    #Protected
-    
+            if self._match(self._exclude, emitter):
+                emitter.skip()
+        
+    #Protected    
+        
     @abstractmethod
-    def _match(self, pattern, value):
+    def _match(self, pattern, emitter):
         pass #pragma: no cover    
