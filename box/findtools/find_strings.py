@@ -17,8 +17,10 @@ class find_strings(map_reduce):
     
     Arguments for find_files if files == None:
     
-    :param str/glob/re filename: filename filter
-    :param str/glob/re filepath: filepath filter
+    :param str/glob/re filename: include filenames
+    :param str/glob/re notfilename: exclude filenames
+    :param str/glob/re filepath: include filepathes
+    :param str/glob/re notfilepath: exclude filepathes
     :param int maxdepth: maximal find depth relatively to basedir
     :param callable onwalkerror: error handler for os.walk
     
@@ -33,14 +35,18 @@ class find_strings(map_reduce):
     
     def __init__(self, string=None, *, 
                  basedir=None, files=None, onopenerror=None, 
-                 filename=None, filepath=None, maxdepth=None, onwalkerror=None,
+                 filename=None, notfilename=None, 
+                 filepath=None, notfilepath=None,
+                 maxdepth=None, onwalkerror=None,
                  **kwargs):
         self._string = string
         self._basedir = basedir
         self._files = files
         self._onopenerror = onopenerror
         self._filename = filename
+        self._notfilename = notfilename
         self._filepath = filepath
+        self._notfilepath = notfilepath
         self._maxdepth = maxdepth
         self._onwalkerror = onwalkerror
         super().__init__(**kwargs) 
@@ -92,7 +98,9 @@ class find_strings(map_reduce):
             #We have find files
             files = self._find_files(
                 filename=self._filename,
+                notfilename=self._notfilename,
                 filepath=self._filepath,
+                notfilepath=self._notfilepath,
                 basedir=self._basedir,
                 maxdepth=self._maxdepth,
                 onwalkerror=self._onwalkerror)

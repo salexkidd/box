@@ -25,14 +25,18 @@ class find_strings_Test(unittest.TestCase):
         strings = list(self.find(
             basedir='basedir',
             filename='filename',
+            notfilename='notfilename',
             filepath='filepath',
+            notfilepath='notfilepath',
             maxdepth='maxdepth',
             onwalkerror='onwalkerror'))
         self.assertEqual(strings, ['data', 'data'])
         find_files.assert_called_with(
             basedir='basedir',
             filename='filename',
+            notfilename='notfilename',
             filepath='filepath',
+            notfilepath='notfilepath',
             maxdepth='maxdepth',
             onwalkerror='onwalkerror')
     
