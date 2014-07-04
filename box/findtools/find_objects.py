@@ -4,7 +4,7 @@ from ..itertools import map_reduce
 from ..os import enhanced_join
 from .find_files import find_files, FindFilesEmitter
 from .not_found import NotFound
-from .objname import ObjnameMapper
+from .objname import ObjnameConstraint
 from .objtype import ObjtypeMapper
  
 #TODO: finilize error handling
@@ -41,7 +41,7 @@ class find_objects(map_reduce):
                  filepath=None, notfilepath=None,
                  maxdepth=None, onwalkerror=None,
                  **kwargs):
-        self._objname = objname
+        self._objname = ObjnameConstraint(objname)
         self._objtype = objtype
         self._basedir = basedir
         self._files = files
@@ -76,7 +76,7 @@ class find_objects(map_reduce):
 
     @property
     def _extension_mappers(self):
-        return [ObjnameMapper(self._objname),
+        return [self._objname,
                 ObjtypeMapper(self._objtype)]
                     
     @property

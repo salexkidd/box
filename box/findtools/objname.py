@@ -1,6 +1,7 @@
 from ..types import RegexCompiledPatternType
+from .constraint import Constraint
 
-class ObjnameMapper:
+class ObjnameConstraint(Constraint):
     
     #Public
     
