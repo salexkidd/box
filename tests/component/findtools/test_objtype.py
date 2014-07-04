@@ -1,8 +1,8 @@
 import unittest
 from unittest.mock import Mock
-from box.findtools.objtype import ObjtypeMapper
+from box.findtools.objtype import ObjtypeConstraint
 
-class ObjtypeMapperTest_match(unittest.TestCase):
+class ObjtypeConstraintTest_match(unittest.TestCase):
 
     #Public
     
@@ -10,26 +10,26 @@ class ObjtypeMapperTest_match(unittest.TestCase):
         self.emitter = Mock(object=ZeroDivisionError())
     
     def test___call__(self):
-        mapper = ObjtypeMapper(ArithmeticError)
-        mapper(self.emitter)
+        constraint = ObjtypeConstraint(ArithmeticError)
+        constraint(self.emitter)
         self.assertFalse(self.emitter.skip.called)
           
     def test___call___with_objtype_is_list(self):
-        mapper = ObjtypeMapper([ArithmeticError, BufferError])
-        mapper(self.emitter)
+        constraint = ObjtypeConstraint([ArithmeticError, BufferError])
+        constraint(self.emitter)
         self.assertFalse(self.emitter.skip.called)
 
 
-class ObjtypeMapperTest_not_match(ObjtypeMapperTest_match):
+class ObjtypeConstraintTest_not_match(ObjtypeConstraintTest_match):
 
     #Public
     
     def test___call__(self):
-        mapper = ObjtypeMapper(AssertionError)
-        mapper(self.emitter)
+        constraint = ObjtypeConstraint(AssertionError)
+        constraint(self.emitter)
         self.assertTrue(self.emitter.skip.called)
           
     def test___call___with_objtype_is_list(self):
-        mapper = ObjtypeMapper([AssertionError, AttributeError])
-        mapper(self.emitter)
+        constraint = ObjtypeConstraint([AssertionError, AttributeError])
+        constraint(self.emitter)
         self.assertTrue(self.emitter.skip.called)

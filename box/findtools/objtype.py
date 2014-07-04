@@ -1,4 +1,6 @@
-class ObjtypeMapper:
+from .constraint import Constraint
+
+class ObjtypeConstraint(Constraint):
     
     #Public
     
