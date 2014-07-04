@@ -28,14 +28,18 @@ class find_objects_Test(unittest.TestCase):
         objects = list(self.find(
             basedir='basedir',
             filename='filename',
+            notfilename='notfilename',
             filepath='filepath',
+            notfilepath='notfilepath',
             maxdepth='maxdepth',
             onwalkerror='onwalkerror'))
         self.assertTrue(objects)
         find_files.assert_called_with(
             basedir='basedir',
             filename='filename',
+            notfilename='notfilename',
             filepath='filepath',
+            notfilepath='notfilepath',
             maxdepth='maxdepth',
             onwalkerror='onwalkerror')        
         

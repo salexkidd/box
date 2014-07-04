@@ -19,8 +19,10 @@ class find_objects(map_reduce):
     
     Arguments for find_files if files == None:
     
-    :param str/glob/re filename: filename filter
-    :param str/glob/re filepath: filepath filter
+    :param str/glob/re filename: include filenames
+    :param str/glob/re notfilename: exclude filenames
+    :param str/glob/re filepath: include filepathes
+    :param str/glob/re notfilepath: exclude filepathes
     :param int maxdepth: maximal find depth relatively to basedir
     :param callable onwalkerror: error handler for os.walk
     
@@ -35,7 +37,9 @@ class find_objects(map_reduce):
        
     def __init__(self, objname=None, objtype=None, *, 
                  basedir=None, files=None, onimporterror=None, 
-                 filename=None, filepath=None, maxdepth=None, onwalkerror=None,
+                 filename=None, notfilename=None, 
+                 filepath=None, notfilepath=None,
+                 maxdepth=None, onwalkerror=None,
                  **kwargs):
         self._objname = objname
         self._objtype = objtype
@@ -43,7 +47,9 @@ class find_objects(map_reduce):
         self._files = files
         self._onimporterror = onimporterror
         self._filename = filename
+        self._notfilename = notfilename
         self._filepath = filepath
+        self._notfilepath = notfilepath
         self._maxdepth = maxdepth
         self._onwalkerror = onwalkerror
         super().__init__(**kwargs)            
@@ -82,7 +88,9 @@ class find_objects(map_reduce):
             #We have to find files
             files = self._find_files(
                 filename=self._filename,
+                notfilename=self._notfilename,
                 filepath=self._filepath,
+                notfilepath=self._notfilepath,
                 basedir=self._basedir,
                 maxdepth=self._maxdepth,
                 onwalkerror=self._onwalkerror)
