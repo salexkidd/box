@@ -3,7 +3,7 @@ from ..dependency import inject
 from ..itertools import map_reduce, Emitter
 from ..os import enhanced_join
 from .not_found import NotFound
-from .maxdepth import MaxdepthMapper
+from .maxdepth import MaxdepthConstraint
 from .filename import FilenameConstraint
 from .filepath import FilepathConstraint
 
@@ -37,7 +37,7 @@ class find_files(map_reduce):
             basedir=basedir)
         self._basedir = basedir
         self._join = join
-        self._maxdepth = maxdepth
+        self._maxdepth = MaxdepthConstraint(maxdepth)
         self._onwalkerror = onwalkerror
         super().__init__(**kwargs)
             
@@ -56,7 +56,7 @@ class find_files(map_reduce):
 
     @property        
     def _extension_mappers(self):
-        return [MaxdepthMapper(self._maxdepth),
+        return [self._maxdepth,
                 self._filename,
                 self._filepath]
     
