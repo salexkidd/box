@@ -48,7 +48,7 @@ class find_objects_Test(unittest.TestCase):
         self.assertEqual(objects, [call, call])
         
     def test_with_objname_is_regex(self):
-        objects = list(self.pfind(objname=re.compile('call')))
+        objects = list(self.pfind(objname=re.compile('^call')))
         self.assertEqual(objects, [call, call])        
         
     def test_with_objtype(self):

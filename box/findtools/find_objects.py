@@ -11,8 +11,10 @@ from .objtype import ObjtypeConstraint
 class find_objects(map_reduce):
     """Find objects in files using map_reduce framework.
     
-    :param str/re objname: objname filter
-    :param type objtype: objtype filter    
+    :param str/re objname: include objname
+    :param str/re notobjname: exclude objname
+    :param type objtype: include objtype
+    :param type notobjtype: exclude objtype    
     :param str basedir: base directory to find
     :param list files: list of filepathes where to find
     :param callable onimporterror: error handler for import [NOT IMPLEMENTED]
@@ -35,14 +37,16 @@ class find_objects(map_reduce):
     
     default_emitter = inject('FindObjectsEmitter', module=__name__)
        
-    def __init__(self, objname=None, objtype=None, *, 
+    def __init__(self, *,
+                 objname=None, notobjname=None,
+                 objtype=None, notobjtype=None,
                  basedir=None, files=None, onimporterror=None, 
                  filename=None, notfilename=None, 
                  filepath=None, notfilepath=None,
                  maxdepth=None, onwalkerror=None,
                  **kwargs):
-        self._objname = ObjnameConstraint(objname)
-        self._objtype = ObjtypeConstraint(objtype)
+        self._objname = ObjnameConstraint(objname, notobjname)
+        self._objtype = ObjtypeConstraint(objtype, notobjtype)
         self._basedir = basedir
         self._files = files
         self._onimporterror = onimporterror
