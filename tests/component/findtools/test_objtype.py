@@ -2,7 +2,7 @@ import unittest
 from unittest.mock import Mock
 from box.findtools.objtype import ObjtypeConstraint
 
-class ObjtypeConstraintTest_match(unittest.TestCase):
+class ObjtypeConstraintTest_not_skip(unittest.TestCase):
 
     #Public
     
@@ -20,7 +20,7 @@ class ObjtypeConstraintTest_match(unittest.TestCase):
         self.assertFalse(self.emitter.skip.called)
 
 
-class ObjtypeConstraintTest_not_match(ObjtypeConstraintTest_match):
+class ObjtypeConstraintTest_skip(ObjtypeConstraintTest_not_skip):
 
     #Public
     

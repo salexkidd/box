@@ -1,16 +1,13 @@
-from .constraint import Constraint
+from .constraint import PatternConstraint
 
-class ObjtypeConstraint(Constraint):
+class ObjtypeConstraint(PatternConstraint):
     
-    #Public
-    
-    def __init__(self, objtype):
-        self._objtype = objtype
+    #Protected
         
-    def __call__(self, emitter):
-        if self._objtype:
-            types = self._objtype
-            if isinstance(types, type):
-                types = [types]
-            if not isinstance(emitter.object, tuple(types)):
-                emitter.skip()
+    def _match(self, pattern, emitter):
+        types = pattern
+        if isinstance(types, type):
+            types = [types]
+        if isinstance(emitter.object, tuple(types)):
+            return True
+        return False

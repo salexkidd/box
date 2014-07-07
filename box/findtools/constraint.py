@@ -35,7 +35,7 @@ class PatternConstraint(CompositeConstraint, metaclass=ABCMeta):
         if self._include != None:
             if not self._match(self._include, emitter):
                 emitter.skip()
-        if self._exclude:
+        if self._exclude != None:
             if self._match(self._exclude, emitter):
                 emitter.skip()
         
