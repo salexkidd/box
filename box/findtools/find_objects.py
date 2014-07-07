@@ -80,8 +80,12 @@ class find_objects(map_reduce):
 
     @property
     def _extension_mappers(self):
-        return [self._objname,
-                self._objtype]
+        mappers = []
+        if self._objname:
+            mappers.append(self._objname)
+        if self._objtype:
+            mappers.append(self._objtype)
+        return mappers        
                     
     @property
     def _filepathes(self):

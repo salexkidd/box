@@ -58,9 +58,14 @@ class find_files(map_reduce):
 
     @property        
     def _extension_mappers(self):
-        return [self._maxdepth,
-                self._filename,
-                self._filepath]
+        mappers = []
+        if self._maxdepth:
+            mappers.append(self._maxdepth)
+        if self._filename:
+            mappers.append(self._filename)
+        if self._filepath:
+            mappers.append(self._filepath)            
+        return mappers
     
     @property
     def _filepathes(self):

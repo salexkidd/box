@@ -47,8 +47,6 @@ class map_reduce(Function):
             if not isinstance(emitter, self._emitter):
                 emitter = self._emitter(emitter)
             for mapper in self._mappers:
-                if not mapper:
-                    continue
                 mapper(emitter)
                 if emitter.skipped:
                     break
