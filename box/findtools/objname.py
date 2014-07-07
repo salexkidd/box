@@ -1,18 +1,16 @@
+import re
 from ..types import RegexCompiledPatternType
-from .constraint import Constraint
+from .constraint import PatternConstraint
 
-class ObjnameConstraint(Constraint):
+class ObjnameConstraint(PatternConstraint):
     
-    #Public
+    #Protected
     
-    def __init__(self, objname):
-        self._objname = objname
-        
-    def __call__(self, emitter):
-        if self._objname:
-            if isinstance(self._objname, RegexCompiledPatternType):
-                if not self._objname.match(emitter.objname):
-                    emitter.skip()             
-            else:
-                if emitter.objname != self._objname:
-                    emitter.skip()                       
+    def _match(self, pattern, emitter):
+        if isinstance(pattern, RegexCompiledPatternType):
+            if re.search(pattern, emitter.objname):
+                return True
+        else:
+            if pattern == emitter.objname:
+                return True
+        return False           
