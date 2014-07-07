@@ -33,5 +33,5 @@ Module’s internal implementation.
 .. autoclass:: box.findtools.filename.FilenameConstraint
 .. autoclass:: box.findtools.filepath.FilepathConstraint
 .. autoclass:: box.findtools.maxdepth.MaxdepthConstraint
-.. autoclass:: box.findtools.objname.ObjnameMapper
-.. autoclass:: box.findtools.objtype.ObjtypeMapper
+.. autoclass:: box.findtools.objname.ObjnameConstraint
+.. autoclass:: box.findtools.objtype.ObjtypeConstraint
