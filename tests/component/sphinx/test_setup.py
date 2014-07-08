@@ -1,5 +1,5 @@
 import unittest
-from box.sphinx.setup import setup
+#from box.sphinx.setup import setup
 
 class setup_Test(unittest.TestCase):
 
