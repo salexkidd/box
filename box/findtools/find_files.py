@@ -10,10 +10,10 @@ from .filepath import FilepathConstraint
 class find_files(map_reduce):
     """Find files using map_reduce framework.
     
-    :param str/glob/re filename: include filenames
-    :param str/glob/re notfilename: exclude filenames
-    :param str/glob/re filepath: include filepathes
-    :param str/glob/re notfilepath: exclude filepathes
+    :param str/glob/re filename: include filenames pattern
+    :param str/glob/re notfilename: exclude filenames pattern
+    :param str/glob/re filepath: include filepathes pattern
+    :param str/glob/re notfilepath: exclude filepathes pattern
     :param str basedir: base directory to find
     :param bool join: if True joins resulted filepath with basedir
     :param int maxdepth: maximal find depth relatively to basedir
@@ -47,7 +47,7 @@ class find_files(map_reduce):
     @property
     def _system_values(self):
         for filepath in self._filepath.inner_filepathes:
-            #Emits every file from walk
+            #Emits every inner file
             file = filepath
             if self._join:
                 file = enhanced_join(self._basedir, filepath)
