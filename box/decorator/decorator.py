@@ -17,7 +17,10 @@ class DecoratorMetaclass(ABCMeta):
             return decorator
     
     def __instancecheck__(self, instance):
-        return issubclass(instance, self)        
+        result = issubclass(instance, self)
+        if not result:
+            result = super().__instancecheck__(instance)
+        return result
         
         
 class Decorator(metaclass=DecoratorMetaclass):
