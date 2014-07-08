@@ -10,6 +10,13 @@ class FunctionTest(unittest.TestCase):
 
     def test(self):
         self.assertEqual(self.function('arg'), 'arg')
+        
+    def test_isinstance(self):
+        self.assertIsInstance(self.function, Function)
+        self.assertIsInstance(self.function, type(Function))
+        #Python doesn't call __instancecheck__ on most of isinstance
+        #calls but we have to test instance check inheritance
+        self.assertFalse(self.function.__instancecheck__(Exception))
     
     #Protected
     
