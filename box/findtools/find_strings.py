@@ -11,9 +11,9 @@ class find_strings(map_reduce):
     
     :param str/re string: string filter
     :param str basedir: base directory to find
-    :param list files: list of filepathes where to find
+    :param list filepathes: list of filepathes where to find
     
-    Arguments for find_files if files == None:
+    Arguments for find_files if filepathes == None:
     
     :param str/glob/re filename: include filenames
     :param str/glob/re notfilename: exclude filenames
@@ -31,14 +31,14 @@ class find_strings(map_reduce):
     default_emitter = inject('FindStringsEmitter', module=__name__)    
     
     def __init__(self, string=None, *, 
-                 basedir=None, files=None, 
+                 basedir=None, filepathes=None, 
                  filename=None, notfilename=None, 
                  filepath=None, notfilepath=None,
                  maxdepth=None,
                  **kwargs):
         self._string = string
         self._basedir = basedir
-        self._files = files
+        self._filepathes = filepathes
         self._filename = filename
         self._notfilename = notfilename
         self._filepath = filepath
@@ -54,7 +54,7 @@ class find_strings(map_reduce):
     
     @property
     def _system_values(self):
-        for filepath in self._effective_files:
+        for filepath in self._effective_filepathes:
             #Reads every file from find_files
             full_filepath = enhanced_join(self._basedir, filepath)
             partial_emitter = partial(self._emitter, 
@@ -85,20 +85,20 @@ class find_strings(map_reduce):
                     yield partial_emitter(filetext)
                     
     @property
-    def _effective_files(self):
-        if self._files != None:
-            #We have ready files
-            return self._files
+    def _effective_filepathes(self):
+        if self._filepathes != None:
+            #We have ready filepathes
+            return self._filepathes
         else:                   
-            #We have find files
-            files = self._find_files(
+            #We have find filepathes
+            filepathes = self._find_files(
                 filename=self._filename,
                 notfilename=self._notfilename,
                 filepath=self._filepath,
                 notfilepath=self._notfilepath,
                 basedir=self._basedir,
                 maxdepth=self._maxdepth)
-            return files
+            return filepathes
 
 
 class FindStringsEmitter(FindFilesEmitter): pass     

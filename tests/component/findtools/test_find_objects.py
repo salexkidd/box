@@ -10,7 +10,7 @@ class find_objects_Test(unittest.TestCase):
     
     def setUp(self):
         self.find = self._make_mock_find()
-        self.pfind = partial(self.find, files=['file1', 'file2'])
+        self.pfind = partial(self.find, filepathes=['file1', 'file2'])
         
     def test(self):
         objects = list(self.pfind(basedir='basedir'))
