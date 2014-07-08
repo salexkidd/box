@@ -6,16 +6,24 @@ class DecoratorTest(unittest.TestCase):
     #Public
     
     def setUp(self):
-        decorator1 = self._make_mock_decorator1()
-        decorator2 = self._make_mock_decorator2()
-        client_class = self._make_client_class(decorator1, decorator2)
-        self.client = client_class()
+        self.decorator1 = self._make_mock_decorator1()
+        self.decorator2 = self._make_mock_decorator2()
+        self.client_class = self._make_client_class(
+            self.decorator1, self.decorator2)
+        self.client = self.client_class()
 
     def test_1_step(self):
         self.assertEqual(self.client.method1(), 'method')
 
     def test_2_steps(self):
         self.assertEqual(self.client.method2(), 'param')
+        
+    def test_isinstance(self):
+        self.assertIsInstance(self.decorator1, Decorator)
+        self.assertIsInstance(self.decorator1, type(Decorator))
+        #Python doesn't call __instancecheck__ on most of isinstance
+        #calls but we have to test instance check inheritance
+        self.assertFalse(self.decorator1.__instancecheck__(Exception))        
     
     #Protected
     
