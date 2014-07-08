@@ -17,7 +17,7 @@ class find_objects(map_reduce):
     :param str basedir: base directory to find
     :param list filepathes: list of filepathes where to find
     
-    Arguments for find_files if files == None:
+    Arguments for find_files if filepathes == None:
     
     :param str/glob/re filename: include filenames
     :param str/glob/re notfilename: exclude filenames
@@ -85,10 +85,10 @@ class find_objects(map_reduce):
     @property
     def _effective_filepathes(self):
         if self._filepathes != None:
-            #We have ready files
+            #We have ready filepathes
             return self._filepathes
         else:                   
-            #We have to find files
+            #We have to find filepathes
             filepathes = self._find_files(
                 filename=self._filename,
                 notfilename=self._notfilename,

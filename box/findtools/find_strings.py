@@ -90,7 +90,7 @@ class find_strings(map_reduce):
             #We have ready filepathes
             return self._filepathes
         else:                   
-            #We have find filepathes
+            #We have to find filepathes
             filepathes = self._find_files(
                 filename=self._filename,
                 notfilename=self._notfilename,
