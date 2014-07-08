@@ -7,8 +7,8 @@ class include_Test(unittest.TestCase):
     #Public
     
     def setUp(self):
-        self.callable = Mock()
-        self.callable= include(self.callable)
+        self.method = Mock()
+        self.method = include(self.method)
 
     def test(self):
-        self.assertTrue(getattr(self.callable, include.attribute_name))
+        self.assertTrue(getattr(self.method, include.attribute_name))

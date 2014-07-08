@@ -8,7 +8,9 @@ class setup_Test(unittest.TestCase):
     
     def setUp(self):
         self.method = Mock()
-        sphinx_setup(self.method)
+        self.method = sphinx_setup(self.method)
 
     def test(self):
-        sphinx_setup
+        setup = getattr(self.method, sphinx_setup.attribute_name)
+        setup.invoke('obj', 'app')
+        self.method.assert_called_with('obj', 'app')
