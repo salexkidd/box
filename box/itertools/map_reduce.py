@@ -37,9 +37,9 @@ class map_reduce(Function):
 
     #Protected
 
-    _extension_values = []
-    _extension_mappers = []
-    _extension_reducers = []
+    _system_values = []
+    _system_mappers = []
+    _system_reducers = []
     _getfirst_exception = NotEmitted
     
     def _map(self, values):
@@ -86,31 +86,16 @@ class map_reduce(Function):
     def _values(self):
         return chain(
             self._system_values,
-            self._extension_values,
             self._user_values)
     
     @property        
     def _mappers(self):
         return chain(
             self._system_mappers,                
-            self._extension_mappers,
             self._user_mappers)    
     
     @property        
     def _reducers(self):
         return chain(
             self._system_reducers,
-            self._extension_reducers,
             self._user_reducers)
-    
-    @property
-    def _system_values(self):
-        return []
-        
-    @property
-    def _system_mappers(self):
-        return []
-    
-    @property
-    def _system_reducers(self):
-        return []

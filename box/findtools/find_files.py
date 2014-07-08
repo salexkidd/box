@@ -48,7 +48,7 @@ class find_files(map_reduce):
     _getfirst_exception = NotFound
             
     @property
-    def _extension_values(self):
+    def _system_values(self):
         for filepath in self._filepathes:
             #Emits every file from walk
             file = filepath
@@ -57,7 +57,7 @@ class find_files(map_reduce):
             yield self._emitter(file, filepath=filepath, basedir=self._basedir)  
 
     @property        
-    def _extension_mappers(self):
+    def _system_mappers(self):
         mappers = []
         if self._maxdepth:
             mappers.append(self._maxdepth)

@@ -65,7 +65,7 @@ class find_objects(map_reduce):
     _find_files = staticmethod(find_files)
     
     @property
-    def _extension_values(self):
+    def _system_values(self):
         for filepath in self._filepathes:
             #Loads as a module every file from find_files 
             full_filepath = enhanced_join(self._basedir, filepath)
@@ -79,7 +79,7 @@ class find_objects(map_reduce):
                     filepath=filepath, basedir=self._basedir)
 
     @property
-    def _extension_mappers(self):
+    def _system_mappers(self):
         mappers = []
         if self._objname:
             mappers.append(self._objname)

@@ -58,7 +58,7 @@ class find_strings(map_reduce):
     _open = staticmethod(open)
     
     @property
-    def _extension_values(self):
+    def _system_values(self):
         for filepath in self._filepathes:
             #Reads every file from find_files
             full_filepath = enhanced_join(self._basedir, filepath)
