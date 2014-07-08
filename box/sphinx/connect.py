@@ -1,4 +1,4 @@
-from functools import partial
+import functools
 from .setup import setup
 
 class connect(setup):
@@ -13,4 +13,4 @@ class connect(setup):
         self._event = event
         
     def invoke(self, obj, app):
-        app.connect(self._event, partial(self._method, obj))
+        app.connect(self._event, functools.partial(self._method, obj))
