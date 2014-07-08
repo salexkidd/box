@@ -1,7 +1,7 @@
 from itertools import chain
 from ..functools import Function
 from .emitter import Emitter
-from .getfirst import GetfirstMapper, GetfirstReducer
+from .not_emitted import NotEmitted
 
 class map_reduce(Function):
     """Process iterable values using map_resuce framework.
@@ -40,7 +40,7 @@ class map_reduce(Function):
     _extension_values = []
     _extension_mappers = []
     _extension_reducers = []
-    _getfirst_exception = None
+    _getfirst_exception = NotEmitted
     
     def _map(self, values):
         for emitter in values:
@@ -64,6 +64,11 @@ class map_reduce(Function):
     def _reduce(self, values):
         try:
             result = values
+            if self._getfirst:
+                try:
+                    result = next(result)
+                except StopIteration:
+                    raise self._getfirst_exception()
             for reducer in self._reducers:
                 result = reducer(result)
             return result
@@ -104,11 +109,8 @@ class map_reduce(Function):
         
     @property
     def _system_mappers(self):
-        return [GetfirstMapper(
-            self._getfirst)]
+        return []
     
     @property
     def _system_reducers(self):
-        return [GetfirstReducer(
-            self._getfirst, 
-            self._getfirst_exception)]
+        return []
