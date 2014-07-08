@@ -28,8 +28,7 @@ class find_strings_Test(unittest.TestCase):
             notfilename='notfilename',
             filepath='filepath',
             notfilepath='notfilepath',
-            maxdepth='maxdepth',
-            onwalkerror='onwalkerror'))
+            maxdepth='maxdepth'))
         self.assertEqual(strings, ['data', 'data'])
         find_files.assert_called_with(
             basedir='basedir',
@@ -37,8 +36,7 @@ class find_strings_Test(unittest.TestCase):
             notfilename='notfilename',
             filepath='filepath',
             notfilepath='notfilepath',
-            maxdepth='maxdepth',
-            onwalkerror='onwalkerror')
+            maxdepth='maxdepth')
     
     def test_with_string(self):
         strings = list(self.pfind('data'))

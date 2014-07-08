@@ -31,8 +31,7 @@ class find_objects_Test(unittest.TestCase):
             notfilename='notfilename',
             filepath='filepath',
             notfilepath='notfilepath',
-            maxdepth='maxdepth',
-            onwalkerror='onwalkerror'))
+            maxdepth='maxdepth'))
         self.assertTrue(objects)
         find_files.assert_called_with(
             basedir='basedir',
@@ -40,8 +39,7 @@ class find_objects_Test(unittest.TestCase):
             notfilename='notfilename',
             filepath='filepath',
             notfilepath='notfilepath',
-            maxdepth='maxdepth',
-            onwalkerror='onwalkerror')        
+            maxdepth='maxdepth')        
         
     def test_with_objname(self):
         objects = list(self.pfind(objname='call'))

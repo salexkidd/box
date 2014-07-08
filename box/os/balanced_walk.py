@@ -1,9 +1,8 @@
 import os
 from .enhanced_join import enhanced_join
 
-#TODO: finilize error handling
-def balanced_walk(dirpath=None, *,
-                  basedir=None, mode=None, sorter=None, onerror=None):
+def balanced_walk(dirpath=None, *, 
+                  basedir=None, mode=None, sorter=None):
     """Recursevly yield (dirpathes, filepathes) tuple 
     level by level from top to bottom of directory tree.
 
@@ -11,7 +10,6 @@ def balanced_walk(dirpath=None, *,
     :param str[files/dirs] mode: special yielding mode
     :param str basedir: all pathes are relative to basedir
     :param function(pathes) sorter: function to sort pathes
-    :param function(os.error) onerror: function to handle os.errors [NOT STABLE]
     
     :returns generator: (dirpathes, filepathes) generator
     
@@ -23,21 +21,16 @@ def balanced_walk(dirpath=None, *,
     inner_filepathes = []
     inner_dirpathes = []
     for dirpath in dirpathes:
-        try:
-            full_dirpath = enhanced_join(basedir, dirpath, fallback='.')
-            for name in os.listdir(full_dirpath):
-                path = enhanced_join(dirpath, name)
-                full_path = enhanced_join(basedir, path)
-                if os.path.islink(full_path):
-                    continue
-                elif os.path.isfile(full_path):
-                    inner_filepathes.append(path)            
-                elif os.path.isdir(full_path):
-                    inner_dirpathes.append(path)
-        except os.error as exception:
-            if onerror is not None:
-                onerror(exception)
-            return
+        full_dirpath = enhanced_join(basedir, dirpath, fallback='.')
+        for name in os.listdir(full_dirpath):
+            path = enhanced_join(dirpath, name)
+            full_path = enhanced_join(basedir, path)
+            if os.path.islink(full_path):
+                continue
+            elif os.path.isfile(full_path):
+                inner_filepathes.append(path)            
+            elif os.path.isdir(full_path):
+                inner_dirpathes.append(path)
     if sorter != None:
         inner_filepathes = sorter(inner_filepathes)
         inner_dirpathes = sorter(inner_dirpathes)
@@ -52,5 +45,4 @@ def balanced_walk(dirpath=None, *,
             inner_dirpathes,
             basedir=basedir,
             mode=mode,            
-            sorter=sorter,
-            onerror=onerror)
+            sorter=sorter)

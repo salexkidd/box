@@ -94,17 +94,7 @@ class balanced_walk_Test(unittest.TestCase):
             #Dirpathes
             'dir1', 
             'dir2', 
-            'dir1/subdir1'])               
-        
-    def test_onerror_is_none_with_error(self):
-        files = list(self.pwalk('error'))
-        self.assertEqual(files, [])
-        
-    def test_onerror_is_callable_with_error(self):
-        onerror = Mock()
-        files = list(self.pwalk('error', onerror=onerror))
-        self.assertEqual(files, [])
-        onerror.assert_called_with(self.error)
+            'dir1/subdir1'])
         
     #Protected
     

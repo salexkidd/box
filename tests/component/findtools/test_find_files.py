@@ -1,6 +1,6 @@
 import re
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 from box.findtools.find_files import find_files, FilepathConstraint
 
 class find_files_Test(unittest.TestCase):
@@ -11,19 +11,15 @@ class find_files_Test(unittest.TestCase):
         self.filepathes = [
             'file1', 'file2', 'dir/file1', 'dir/file2', 'dir/subdir/file3']
         self.patcher = patch.object(
-            FilepathConstraint, 'walk', Mock(return_value=self.filepathes))
+            FilepathConstraint, 'inner_filepathes', self.filepathes)
         self.patcher.start()
         self.addCleanup(patch.stopall) 
         
     def test(self):
         files = list(find_files(
             filepath='file*',
-            basedir='basedir',
-            onwalkerror='onerror'))
+            basedir='basedir'))
         self.assertEqual(files, ['file1', 'file2'])
-        FilepathConstraint.walk.assert_called_with(
-            basedir='basedir',
-            onerror='onerror')
      
     def test_with_filename(self):
         files = list(find_files(filename='file3'))

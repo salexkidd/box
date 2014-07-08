@@ -1,6 +1,7 @@
 import os
 import re
 import fnmatch
+from box.functools import cachedproperty
 from ..glob import filtered_iglob
 from ..os import balanced_walk
 from ..types import RegexCompiledPatternType
@@ -14,16 +15,17 @@ class FilepathConstraint(PatternConstraint):
         self._basedir = basedir
         super().__init__(include, exclude)
     
-    def walk(self, basedir=None, onerror=None):
+    @cachedproperty
+    def inner_filepathes(self):
         if (self._include == None or
             isinstance(self._include, RegexCompiledPatternType)):
             #We have to walk
             filepathes = self._walk(
-                basedir=basedir, sorter=sorted, mode='files', onerror=onerror)
+                basedir=self._basedir, sorter=sorted, mode='files')
         else:
             #We have a glob pattern
             filepathes = self._glob(self._include, 
-                basedir=basedir, sorter=sorted, mode='files')                       
+                basedir=self._basedir, sorter=sorted, mode='files')                       
         return filepathes
                 
     #Protected

@@ -7,7 +7,6 @@ from .not_found import NotFound
 from .objname import ObjnameConstraint
 from .objtype import ObjtypeConstraint
  
-#TODO: finilize error handling
 class find_objects(map_reduce):
     """Find objects in files using map_reduce framework.
     
@@ -17,7 +16,6 @@ class find_objects(map_reduce):
     :param type notobjtype: exclude objtype    
     :param str basedir: base directory to find
     :param list files: list of filepathes where to find
-    :param callable onimporterror: error handler for import [NOT IMPLEMENTED]
     
     Arguments for find_files if files == None:
     
@@ -26,7 +24,6 @@ class find_objects(map_reduce):
     :param str/glob/re filepath: include filepathes
     :param str/glob/re notfilepath: exclude filepathes
     :param int maxdepth: maximal find depth relatively to basedir
-    :param callable onwalkerror: error handler for os.walk
     
     :returns mixed: map_reduce result    
     
@@ -40,22 +37,20 @@ class find_objects(map_reduce):
     def __init__(self, *,
                  objname=None, notobjname=None,
                  objtype=None, notobjtype=None,
-                 basedir=None, files=None, onimporterror=None, 
+                 basedir=None, files=None, 
                  filename=None, notfilename=None, 
                  filepath=None, notfilepath=None,
-                 maxdepth=None, onwalkerror=None,
+                 maxdepth=None,
                  **kwargs):
         self._objname = ObjnameConstraint(objname, notobjname)
         self._objtype = ObjtypeConstraint(objtype, notobjtype)
         self._basedir = basedir
         self._files = files
-        self._onimporterror = onimporterror
         self._filename = filename
         self._notfilename = notfilename
         self._filepath = filepath
         self._notfilepath = notfilepath
         self._maxdepth = maxdepth
-        self._onwalkerror = onwalkerror
         super().__init__(**kwargs)            
     
     #Protected
@@ -66,7 +61,7 @@ class find_objects(map_reduce):
     
     @property
     def _system_values(self):
-        for filepath in self._filepathes:
+        for filepath in self._effective_files:
             #Loads as a module every file from find_files 
             full_filepath = enhanced_join(self._basedir, filepath)
             loader = self._loader_class(full_filepath, full_filepath)
@@ -88,7 +83,7 @@ class find_objects(map_reduce):
         return mappers        
                     
     @property
-    def _filepathes(self):
+    def _effective_files(self):
         if self._files != None:
             #We have ready files
             return self._files
@@ -100,8 +95,7 @@ class find_objects(map_reduce):
                 filepath=self._filepath,
                 notfilepath=self._notfilepath,
                 basedir=self._basedir,
-                maxdepth=self._maxdepth,
-                onwalkerror=self._onwalkerror)
+                maxdepth=self._maxdepth)
             return files
     
     

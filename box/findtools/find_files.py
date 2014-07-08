@@ -7,7 +7,6 @@ from .maxdepth import MaxdepthConstraint
 from .filename import FilenameConstraint
 from .filepath import FilepathConstraint
 
-#TODO: finilize error handling
 class find_files(map_reduce):
     """Find files using map_reduce framework.
     
@@ -18,7 +17,6 @@ class find_files(map_reduce):
     :param str basedir: base directory to find
     :param bool join: if True joins resulted filepath with basedir
     :param int maxdepth: maximal find depth relatively to basedir
-    :param callable onwalkerror: error handler for os.walk [NOT STABLE]
     
     :returns mixed: map_reduce result
     
@@ -32,7 +30,7 @@ class find_files(map_reduce):
     def __init__(self, *, 
                  filename=None, notfilename=None, 
                  filepath=None, notfilepath=None,
-                 basedir=None, join=False, maxdepth=None, onwalkerror=None, 
+                 basedir=None, join=False, maxdepth=None,
                  **kwargs):
         self._filename = FilenameConstraint(filename, notfilename)
         self._filepath = FilepathConstraint(filepath, notfilepath, 
@@ -40,7 +38,6 @@ class find_files(map_reduce):
         self._basedir = basedir
         self._join = join
         self._maxdepth = MaxdepthConstraint(maxdepth)
-        self._onwalkerror = onwalkerror
         super().__init__(**kwargs)
             
     #Protected
@@ -49,7 +46,7 @@ class find_files(map_reduce):
             
     @property
     def _system_values(self):
-        for filepath in self._filepathes:
+        for filepath in self._filepath.inner_filepathes:
             #Emits every file from walk
             file = filepath
             if self._join:
@@ -64,15 +61,8 @@ class find_files(map_reduce):
         if self._filename:
             mappers.append(self._filename)
         if self._filepath:
-            mappers.append(self._filepath)            
+            mappers.append(self._filepath)    
         return mappers
-    
-    @property
-    def _filepathes(self):
-        filepathes = self._filepath.walk(
-            basedir=self._basedir, 
-            onerror=self._onwalkerror)                      
-        return filepathes
     
 
 class FindFilesEmitter(Emitter):
