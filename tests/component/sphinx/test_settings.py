@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock, patch
-from box.sphinx.settings import Settings, setup as settings_setup
+from box.sphinx.settings import Settings, setup as sphinx_setup
 
 class SettingsTest(unittest.TestCase):
 
@@ -61,5 +61,5 @@ class SettingsTest(unittest.TestCase):
             master_doc = 'master_doc'
             project = 'project'
             version = 'version'
-            setup_method = settings_setup(method)
+            setup_method = sphinx_setup(method)
         return MockSettings
