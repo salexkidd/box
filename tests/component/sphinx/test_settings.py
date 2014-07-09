@@ -7,14 +7,15 @@ class SettingsTest(unittest.TestCase):
     #Public
     
     def setUp(self):
+        sphinx_config = Mock(attr1='value1', spec=['attr1'])
+        import_object = patch('box.sphinx.settings.import_object').start()
+        import_object.return_value = Mock(return_value=sphinx_config)
+        self.addCleanup(patch.stopall)
         self.method = Mock()
         self.Settings = self._make_mock_settings_class(self.method)
         self.settings = self.Settings()
 
-    @patch('box.sphinx.settings.import_object')
-    def test___getattr__(self, import_object):
-        sphinx_config = Mock(attr1='value1', spec=['attr1'])
-        import_object.return_value = Mock(return_value=sphinx_config)
+    def test___getattr__(self):
         self.assertEqual(self.settings.attr1, 'value1')
         self.assertRaises(AttributeError, getattr, self.settings, 'attr2')
         
