@@ -1,13 +1,14 @@
 import unittest
 from unittest.mock import Mock, patch
-from box.sphinx.settings import Settings
+from box.sphinx.settings import Settings, setup as settings_setup
 
 class SettingsTest(unittest.TestCase):
 
     #Public
     
     def setUp(self):
-        self.Settings = self._make_mock_settings_class()
+        self.method = Mock()
+        self.Settings = self._make_mock_settings_class(self.method)
         self.settings = self.Settings()
 
     @patch('box.sphinx.settings.import_object')
@@ -44,15 +45,20 @@ class SettingsTest(unittest.TestCase):
               'author', 
               'project', 
               'One line description of project.', 
-              'Miscellaneous')])           
+              'Miscellaneous')])
+        
+    def test_setup(self):
+        self.settings.setup('app')
+        self.method.assert_called_with(self.settings, 'app')
     
     #Protected
     
-    def _make_mock_settings_class(self):
+    def _make_mock_settings_class(self, method):
         class MockSettings(Settings):
             #Public
             author = 'author'
             master_doc = 'master_doc'
             project = 'project'
             version = 'version'
+            setup_method = settings_setup(method)
         return MockSettings
