@@ -56,7 +56,7 @@ class find_strings(map_reduce):
     @cachedproperty
     def _system_values(self):
         for filepath in self._effective_filepathes:
-            #Reads every file from find_files
+            #Reads every file in filepathes
             full_filepath = enhanced_join(self._basedir, filepath)
             partial_emitter = partial(self._emitter, 
                 filepath=filepath, basedir=self._basedir)

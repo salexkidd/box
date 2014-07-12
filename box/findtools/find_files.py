@@ -2,7 +2,9 @@ import os
 from ..dependency import inject
 from ..functools import cachedproperty
 from ..itertools import map_reduce, Emitter
-from ..os import enhanced_join
+from ..glob import filtered_iglob
+from ..os import balanced_walk, enhanced_join
+from ..types import RegexCompiledPatternType
 from .not_found import NotFound
 from .maxdepth import MaxdepthConstraint
 from .filename import FilenameConstraint
@@ -33,22 +35,25 @@ class find_files(map_reduce):
                  filepath=None, notfilepath=None,
                  basedir=None, join=False, maxdepth=None,
                  **kwargs):
-        self._filename = FilenameConstraint(filename, notfilename)
-        self._filepath = FilepathConstraint(filepath, notfilepath, 
-            basedir=basedir)
+        self._filename = filename
+        self._notfilename = notfilename
+        self._filepath = filepath
+        self._notfilepath = notfilepath
         self._basedir = basedir
         self._join = join
-        self._maxdepth = MaxdepthConstraint(maxdepth)
+        self._maxdepth = maxdepth
         super().__init__(**kwargs)
             
     #Protected
     
     _getfirst_exception = NotFound
+    _glob = staticmethod(filtered_iglob)
+    _walk = staticmethod(balanced_walk)    
             
     @cachedproperty
     def _system_values(self):
-        for filepath in self._filepath.inner_filepathes:
-            #Emits every inner file
+        for filepath in self._filepathes:
+            #Emits every file in filepathes
             file = filepath
             if self._join:
                 file = enhanced_join(self._basedir, filepath)
@@ -57,13 +62,30 @@ class find_files(map_reduce):
     @cachedproperty        
     def _system_mappers(self):
         mappers = []
-        if self._maxdepth:
-            mappers.append(self._maxdepth)
-        if self._filename:
-            mappers.append(self._filename)
-        if self._filepath:
-            mappers.append(self._filepath)    
+        maxdepth = MaxdepthConstraint(self._maxdepth)
+        if maxdepth:
+            mappers.append(maxdepth)
+        filename = FilenameConstraint(self._filename, self._notfilename)
+        if filename:
+            mappers.append(filename)
+        filepath = FilepathConstraint(self._filepath, self._notfilepath, 
+            basedir=self._basedir)
+        if filepath:
+            mappers.append(filepath)    
         return mappers
+    
+    @cachedproperty
+    def _filepathes(self):
+        if (self._filepath == None or
+            isinstance(self._filepath, RegexCompiledPatternType)):
+            #We have to walk
+            filepathes = self._walk(
+                basedir=self._basedir, sorter=sorted, mode='files')
+        else:
+            #We have a glob pattern
+            filepathes = self._glob(self._filepath, 
+                basedir=self._basedir, sorter=sorted, mode='files')                       
+        return filepathes
     
 
 class FindFilesEmitter(Emitter):

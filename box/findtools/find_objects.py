@@ -63,7 +63,7 @@ class find_objects(map_reduce):
     @cachedproperty
     def _system_values(self):
         for filepath in self._effective_filepathes:
-            #Loads as a module every file from find_files 
+            #Loads as a module every file in filepathes 
             full_filepath = enhanced_join(self._basedir, filepath)
             loader = self._loader_class(full_filepath, full_filepath)
             module = loader.load_module(full_filepath)
