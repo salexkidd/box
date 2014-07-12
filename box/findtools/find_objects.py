@@ -43,8 +43,10 @@ class find_objects(map_reduce):
                  filepath=None, notfilepath=None,
                  maxdepth=None,
                  **kwargs):
-        self._objname = ObjnameConstraint(objname, notobjname)
-        self._objtype = ObjtypeConstraint(objtype, notobjtype)
+        self._objname = objname
+        self._notobjname = notobjname
+        self._objtype = objtype
+        self._notobjtype = notobjtype
         self._basedir = basedir
         self._filepathes = filepathes
         self._filename = filename
@@ -77,10 +79,12 @@ class find_objects(map_reduce):
     @cachedproperty
     def _system_mappers(self):
         mappers = []
-        if self._objname:
-            mappers.append(self._objname)
-        if self._objtype:
-            mappers.append(self._objtype)
+        objname = ObjnameConstraint(self._objname, self._notobjname)
+        if objname:
+            mappers.append(objname)
+        objtype = ObjtypeConstraint(self._objtype, self._notobjtype)
+        if objtype:
+            mappers.append(objtype)
         return mappers        
                     
     @cachedproperty
