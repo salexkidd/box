@@ -1,5 +1,6 @@
 import os
 from ..dependency import inject
+from ..functools import cachedproperty
 from ..itertools import map_reduce, Emitter
 from ..os import enhanced_join
 from .not_found import NotFound
@@ -44,7 +45,7 @@ class find_files(map_reduce):
     
     _getfirst_exception = NotFound
             
-    @property
+    @cachedproperty
     def _system_values(self):
         for filepath in self._filepath.inner_filepathes:
             #Emits every inner file
@@ -53,7 +54,7 @@ class find_files(map_reduce):
                 file = enhanced_join(self._basedir, filepath)
             yield self._emitter(file, filepath=filepath, basedir=self._basedir)  
 
-    @property        
+    @cachedproperty        
     def _system_mappers(self):
         mappers = []
         if self._maxdepth:

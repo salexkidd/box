@@ -1,5 +1,6 @@
 from functools import partial
 from ..dependency import inject
+from ..functools import cachedproperty
 from ..itertools import map_reduce
 from ..os import enhanced_join
 from ..types import RegexCompiledPatternType
@@ -52,7 +53,7 @@ class find_strings(map_reduce):
     _find_files = staticmethod(find_files)
     _open = staticmethod(open)
     
-    @property
+    @cachedproperty
     def _system_values(self):
         for filepath in self._effective_filepathes:
             #Reads every file from find_files
@@ -84,7 +85,7 @@ class find_strings(map_reduce):
                     #Emits whole file
                     yield partial_emitter(filetext)
                     
-    @property
+    @cachedproperty
     def _effective_filepathes(self):
         if self._filepathes != None:
             #We have ready filepathes

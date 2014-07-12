@@ -1,5 +1,6 @@
 from importlib.machinery import SourceFileLoader
 from ..dependency import inject
+from ..functools import cachedproperty
 from ..itertools import map_reduce
 from ..os import enhanced_join
 from .find_files import find_files, FindFilesEmitter
@@ -59,7 +60,7 @@ class find_objects(map_reduce):
     _loader_class = SourceFileLoader
     _find_files = staticmethod(find_files)
     
-    @property
+    @cachedproperty
     def _system_values(self):
         for filepath in self._effective_filepathes:
             #Loads as a module every file from find_files 
@@ -73,7 +74,7 @@ class find_objects(map_reduce):
                     object=obj, objname=objname, module=module,
                     filepath=filepath, basedir=self._basedir)
 
-    @property
+    @cachedproperty
     def _system_mappers(self):
         mappers = []
         if self._objname:
@@ -82,7 +83,7 @@ class find_objects(map_reduce):
             mappers.append(self._objtype)
         return mappers        
                     
-    @property
+    @cachedproperty
     def _effective_filepathes(self):
         if self._filepathes != None:
             #We have ready filepathes
