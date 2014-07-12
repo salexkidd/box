@@ -21,14 +21,14 @@ class map_reduce(Function):
     def __init__(self, values=[], *, 
                  mappers=[], reducers=[], emitter=None, 
                  getfirst=False, fallback=None):
+        if emitter == None:
+            emitter = self.default_emitter
         self._user_values = values
         self._user_mappers = mappers
         self._user_reducers = reducers
         self._emitter = emitter
         self._getfirst = getfirst        
         self._fallback = fallback
-        if not self._emitter:
-            self._emitter = self.default_emitter
     
     def __call__(self):
         mapped_values = self._map(self._values)
