@@ -25,10 +25,34 @@ class DecoratorMetaclass(ABCMeta):
         
 class Decorator(metaclass=DecoratorMetaclass):
     """Base abstract class for unified 1-2 step decorators.
+    
+    If Decorator implementation doesn't override __init__ method
+    it works as decorator without arguments:: 
+    
+      class decorator(Decorator):
+          def __call__(self, function):
+              return function
+              
+      @decorator
+      def function(self):
+          pass
+              
+    Otherwise it accepts arguments and calls __init__ with it::
+    
+      class decorator(Decorator):
+          def __init__(self, param):
+              self._param = param
+          def __call__(self, function):
+              print(self._param)
+              return function
+              
+      @decorator('param')
+      def function(self):
+          pass              
     """
     
     #Public
     
     @abstractmethod
-    def __call__(self, obj):
+    def __call__(self, function):
         pass #pragma: no cover        

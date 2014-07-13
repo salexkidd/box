@@ -8,6 +8,6 @@ class include(Decorator):
     
     attribute_name = '_box_packtools_include'
 
-    def __call__(self, obj):
-        setattr(obj, self.attribute_name, True)
-        return obj
+    def __call__(self, method):
+        setattr(method, self.attribute_name, True)
+        return method
