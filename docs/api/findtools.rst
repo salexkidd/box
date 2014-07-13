@@ -30,6 +30,9 @@ Internal
 
 Module’s internal implementation.
 
+.. autoclass:: box.findtools.constraint.Constraint
+.. autoclass:: box.findtools.constraint.CompositeConstraint
+.. autoclass:: box.findtools.constraint.PatternConstraint
 .. autoclass:: box.findtools.filename.FilenameConstraint
 .. autoclass:: box.findtools.filepath.FilepathConstraint
 .. autoclass:: box.findtools.maxdepth.MaxdepthConstraint
