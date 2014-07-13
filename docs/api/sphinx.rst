@@ -14,3 +14,5 @@ Public
 Module’s public interface.
 
 .. autoclass:: box.sphinx.Settings
+.. autoclass:: box.sphinx.setup
+.. autoclass:: box.sphinx.connect
