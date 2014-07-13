@@ -105,6 +105,16 @@ class find_objects(map_reduce):
     
     
 class FindObjectsEmitter(FindFilesEmitter): 
+    """Emitter representation for find_objects.
+    
+    Additional attributes:
+    
+    - object
+    - objname
+    - module
+    - filepath
+    - basedir
+    """    
 
     #Public
     

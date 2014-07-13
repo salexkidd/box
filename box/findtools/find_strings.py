@@ -102,4 +102,15 @@ class find_strings(map_reduce):
             return filepathes
 
 
-class FindStringsEmitter(FindFilesEmitter): pass     
+class FindStringsEmitter(FindFilesEmitter): 
+    """Emitter representation for find_strings.
+    
+    Additional attributes:
+    
+    - filepath
+    - basedir    
+    """      
+    
+    #Public
+    
+    pass   

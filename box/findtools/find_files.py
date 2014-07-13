@@ -89,6 +89,13 @@ class find_files(map_reduce):
     
 
 class FindFilesEmitter(Emitter):
+    """Emitter representation for find_files.
+    
+    Additional attributes:
+    
+    - filepath
+    - basedir
+    """
 
     #Public
 
