@@ -2,7 +2,7 @@
 box.logging
 ===========
 
-Module provides some functionality relevent to logging.
+Module provides some functionality relevant to logging module.
 
 ------
 Public

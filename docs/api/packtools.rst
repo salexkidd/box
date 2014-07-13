@@ -16,6 +16,7 @@ Module’s public interface.
      :members: _extensions
  
 .. autoclass:: box.packtools.Version
+.. autoclass:: box.packtools.include
 
 --------
 Internal

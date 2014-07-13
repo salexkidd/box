@@ -2,6 +2,8 @@ from ..collections import merge_dicts
 from ..argparse import Settings
 
 class Settings(Settings):
+    """Settings to program using logging.
+    """
         
     #Argparse
     
