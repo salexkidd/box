@@ -10,4 +10,4 @@ def check_module(name, package=None):
     except ImportError:
         return False
     else:
-        return True 
+        return True
