@@ -11,9 +11,9 @@ class rich_input(Function):
     you can use in function call. Also all of them you can redefine in
     inherited class.
     """
-    
-    #Public
-    
+
+    # Public
+
     prompt = 'Input'
     """Default prompt.
     """
@@ -37,11 +37,11 @@ class rich_input(Function):
     """
     hint_borders = '()'
     """Borders around hint.
-    """    
+    """
     hint_separator = '/'
     """Separator to separate available options.
     """
-    hint_on_default = staticmethod(lambda option: '['+option+']')
+    hint_on_default = staticmethod(lambda option: '[' + option + ']')
     """Function called on default value in available options.
     """
     input = staticmethod(input)
@@ -49,14 +49,14 @@ class rich_input(Function):
     """
     print = staticmethod(print)
     """Base print function. For example you can use pprint.pprint.
-    """    
-    
+    """
+
     def __init__(self, prompt=None, **kwargs):
         if prompt != None:
             self.prompt = prompt
         for key, value in kwargs.items():
             setattr(self, key, value)
-        
+
     def __call__(self):
         for _ in range(0, self.attempts):
             result = self.input(self.rendered_prompt)
@@ -65,7 +65,7 @@ class rich_input(Function):
             if self.options:
                 if result not in self.options:
                     self.print(self.rendered_error)
-                    continue 
+                    continue
             return result
         else:
             raise ValueError(
@@ -73,19 +73,19 @@ class rich_input(Function):
                 'where options are "{options}"'.format(
                     attempts=self.attempts,
                     options=self.options))
-    
+
     @property
     def rendered_prompt(self):
         """Exactly what will be printed to user as prompt.
         """
         return self.templated_prompt.format(**self.context)
-    
+
     @property
     def rendered_error(self):
         """Exactly what will be printed to user as error.
-        """        
+        """
         return self.templated_error.format(**self.context)
-    
+
     @property
     def templated_prompt(self):
         """Prompt template.
@@ -97,14 +97,14 @@ class rich_input(Function):
         elif self.default:
             hint = ('{hint_indent}{hint_left_border}'
                     '{formatted_default}{hint_right_border}')
-        return '{prompt}'+hint+'{separator}'
+        return '{prompt}' + hint + '{separator}'
 
     @property
     def templated_error(self):
         """Error template.
-        """        
+        """
         return '{error}'
-    
+
     @property
     def context(self):
         """Context to make rendered_* from templated_*. 
@@ -114,13 +114,13 @@ class rich_input(Function):
             if (name.startswith('rendered') or
                 name.startswith('templated') or
                 name.startswith('context')):
-                continue            
+                continue
             attr = getattr(self, name)
             if callable(attr):
                 continue
             context[name] = attr
         return context
-    
+
     @property
     def formatted_options(self):
         """Options as a string.
@@ -134,24 +134,24 @@ class rich_input(Function):
                 elements.append(option)
             options = self.hint_separator.join(elements)
         return options
-    
+
     @property
     def formatted_default(self):
         """Default as a string.
-        """        
+        """
         default = ''
         if self.default:
             default = self.default
         return default
-    
-    @property    
+
+    @property
     def hint_left_border(self):
         """Left border for hint.
         """
-        return self.hint_borders[:int(len(self.hint_borders)/2)]
-    
-    @property    
+        return self.hint_borders[:int(len(self.hint_borders) / 2)]
+
+    @property
     def hint_right_border(self):
         """Right border for hint.
-        """        
-        return self.hint_borders[int(len(self.hint_borders)/2):]
+        """
+        return self.hint_borders[int(len(self.hint_borders) / 2):]
