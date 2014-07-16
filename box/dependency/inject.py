@@ -18,5 +18,5 @@ def inject(name, *, module=None, package=None):
     
     .. seealso:: :func:`box.importlib.import_object`
     """
-    return property(lambda self: 
+    return property(lambda self:
         import_object(name, module=module, package=package))
