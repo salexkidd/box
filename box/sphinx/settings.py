@@ -25,72 +25,72 @@ class Settings(Settings):
       locals().update(Settings())
     """
 
-    #Public
+    # Public
 
     def __getattr__(self, name):
         try:
             return getattr(self._defaults, name)
         except AttributeError:
             raise AttributeError(name)
-    
-    #Project
-    
-    @property    
+
+    # Project
+
+    @property
     def release(self):
         return self.version
-    
-    #LaTeX
-    
-    @property     
+
+    # LaTeX
+
+    @property
     def latex_documents(self):
         return [(
-            self.master_doc, 
-            self.project+'.tex', 
-            self.project+' Documentation', 
-            self.author, 
+            self.master_doc,
+            self.project + '.tex',
+            self.project + ' Documentation',
+            self.author,
             'manual')]
-    
-    #Manual
-     
-    @property          
+
+    # Manual
+
+    @property
     def man_pages(self):
         return [(
-            self.master_doc, 
-            self.project, 
-            self.project+' Documentation', 
-            [self.author], 
+            self.master_doc,
+            self.project,
+            self.project + ' Documentation',
+            [self.author],
             1)]
-    
-    #Texinfo
-        
-    @property          
-    def texinfo_documents(self): 
+
+    # Texinfo
+
+    @property
+    def texinfo_documents(self):
         return [(
-            self.master_doc,  
-            self.project, 
-            self.project+' Documentation',
+            self.master_doc,
+            self.project,
+            self.project + ' Documentation',
             self.author,
-            self.project, 
+            self.project,
             'One line description of project.',
             'Miscellaneous')]
-        
-    #Setup
+
+    # Setup
 
     @property
     def setup(self):
         @include
         def esetup(app):
-            #Sphinx doesn't work with bound method
+            # Sphinx doesn't work with bound method
             for name in sorted(dir(self)):
                 attr = getattr(self, name)
                 item = getattr(attr, setup.attribute_name, None)
                 if item != None:
                     item.invoke(self, app)
         return esetup
-        
-    #Protected
-    
+
+    # Protected
+
     @cachedproperty
     def _defaults(self):
         Config = import_object('sphinx.config.Config')
-        return Config(None, None, {}, None)       
+        return Config(None, None, {}, None)

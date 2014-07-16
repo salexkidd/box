@@ -6,11 +6,11 @@ class connect(setup):
     
     :param str event: sphinx event
     """
-    
-    #Public
-    
+
+    # Public
+
     def __init__(self, event):
         self._event = event
-        
+
     def invoke(self, obj, app):
         app.connect(self._event, functools.partial(self._method, obj))
