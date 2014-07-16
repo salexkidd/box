@@ -121,7 +121,7 @@ class Settings(dict, metaclass=SettingsMetaclass):
             file.write(
             'from box.packtools import Settings\n\n'
             'class Settings(Settings):\n\n'
-            '    #Public\n\n'
+            '    # Public\n\n'
             '    pass')
 
     @classmethod

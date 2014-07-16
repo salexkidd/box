@@ -15,10 +15,10 @@ class Settings(Settings):
 
       class Settings(Settings):
 
-          #Documentation:
-          #http://sphinx-doc.org/config.html
+          # Documentation:
+          # http://sphinx-doc.org/config.html
 
-          #Project
+          # Project
 
           project = 'box'
 
