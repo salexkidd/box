@@ -1,7 +1,7 @@
-class NotEmitted(Exception): 
+class NotEmitted(Exception):
     """Exception to be raised if nothing is emitted.
-    """    
-    
-    #Public
-    
+    """
+
+    # Public
+
     pass

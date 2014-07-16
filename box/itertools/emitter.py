@@ -7,7 +7,7 @@ class Emitter:
     :param dict context: items will be available as emitter's attributes
     """
 
-    #Public
+    # Public
 
     def __init__(self, value, **context):
         self._value = value
@@ -16,13 +16,13 @@ class Emitter:
         self._skipped = False
         self._stopped = False
         self._stopped_if_not_skipped = False
-            
+
     def __getattr__(self, name):
         try:
             return self._context[name]
         except KeyError:
             raise AttributeError(name)
-    
+
     def value(self, value=DEFAULT, condition=True):
         """Get/set value to emit.
         
@@ -37,7 +37,7 @@ class Emitter:
             if condition:
                 self._value = value
             return self
-                
+
     def emit(self, value, condition=True):
         """Emit value.
         
@@ -51,7 +51,7 @@ class Emitter:
         if condition:
             self._emitted.append(value)
         return self
-            
+
     def skip(self, condition=True):
         """Skip iteration.
         
@@ -62,7 +62,7 @@ class Emitter:
         if condition:
             self._skipped = True
         return self
-           
+
     def stop(self, condition=True, *, if_not_skipped=False):
         """Stop iteration.
         
@@ -70,26 +70,26 @@ class Emitter:
         :param bool if_not_skipped: stop only if not skipped
         
         Map cycle will be stopped on this iteration.
-        """        
+        """
         if condition:
             if if_not_skipped:
                 self._stopped_if_not_skipped = True
             else:
                 self._stopped = True
         return self
-    
+
     @property
     def emitted(self):
         """Emitted values.
         """
         return self._emitted
-    
+
     @property
     def skipped(self):
         """Skipped flag.
         """
         return self._skipped
-    
+
     @property
     def stopped(self):
         """Stopped flag.
