@@ -19,33 +19,33 @@ class Command:
       >>> command.arguments
       ['arg']
     """
-    
-    #Public
-    
+
+    # Public
+
     def __init__(self, argv, config, exception=None, **kwargs):
         self._argv = argv
         self._config = copy(config)
         self._config.update(kwargs)
         self._exception = exception
-        
+
     def __getattr__(self, name):
         if not name.startswith('_'):
             return getattr(self._namespace, name)
         else:
             raise AttributeError(name)
-        
-    @property    
+
+    @property
     def program_help(self):
         return self._parser.format_help().strip()
-        
-    #Protected
-    
+
+    # Protected
+
     _parser_class = Parser
 
     @cachedproperty
     def _namespace(self):
         return self._parser.parse_args(self._argv[1:])
-       
+
     @cachedproperty
     def _parser(self):
         parser = self._parser_class(
@@ -54,20 +54,20 @@ class Command:
             argument = copy(argument)
             try:
                 try:
-                    args = [argument.pop('name'),]
+                    args = [argument.pop('name')]
                 except KeyError:
                     args = argument.pop('flags')
-                parser.add_argument(*args, **argument)   
+                parser.add_argument(*args, **argument)
             except:
                 raise ValueError(
                     'Bad argparse argument "{argument}"'.
                     format(argument=argument))
         return parser
-    
+
     @property
     def _parser_arguments(self):
         return self._config.get('arguments', [])
-    
+
     @property
     def _parser_config(self):
         config = copy(self._config)

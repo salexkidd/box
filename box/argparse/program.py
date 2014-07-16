@@ -26,26 +26,26 @@ class Program(metaclass=ABCMeta):
       >>> program()
       ['arg']
     """
-    
-    #Public
-        
+
+    # Public
+
     def __init__(self, argv):
         self._argv = argv
-        
+
     @abstractmethod
     def __call__(self):
-        pass #pragma: no cover
-    
-    #Protected
-    
+        pass  # pragma: no cover
+
+    # Protected
+
     _command_class = Command
     _settings_class = Settings
-      
+
     @cachedproperty
     def _command(self):
         return self._command_class(
             self._argv, config=self._settings.argparse)
-    
-    @cachedproperty    
+
+    @cachedproperty
     def _settings(self):
         return self._settings_class()

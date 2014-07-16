@@ -5,15 +5,15 @@ from ..packtools import Settings
 class Settings(Settings):
     """Settings with argparse config.
     """
-    
-    #Public
-    
+
+    # Public
+
     @property
     def argparse(self):
         return {}
-        
-    #Protected
-    
+
+    # Protected
+
     def _inherit_argparse(self, current_class, extension):
-        base = getattr(super(current_class, self), 'argparse', {}) 
+        base = getattr(super(current_class, self), 'argparse', {})
         return merge_dicts(base, extension, resolvers={list: operator.add})
