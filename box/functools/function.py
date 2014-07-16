@@ -3,15 +3,15 @@ from abc import ABCMeta, abstractmethod
 class FunctionMetaclass(ABCMeta):
     """Metaclass making normal class acting like a function.
     """
-    
-    #Public
-    
+
+    # Public
+
     def __call__(self, *args, **kwargs):
         function = object.__new__(self)
         function.__init__(*args, **kwargs)
         result = function.__call__()
         return result
-    
+
     def __instancecheck__(self, instance):
         result = issubclass(instance, self)
         if not result:
@@ -39,8 +39,8 @@ class Function(metaclass=FunctionMetaclass):
       'Hello World!'
     """
 
-    #Public
-    
-    @abstractmethod    
+    # Public
+
+    @abstractmethod
     def __call__(self):
-        pass #pragma: no cover
+        pass  # pragma: no cover
