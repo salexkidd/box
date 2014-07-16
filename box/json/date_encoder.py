@@ -14,19 +14,19 @@ class DateEncoder(JSONEncoder):
       >>> json.dumps({'date': date}, cls=DateEncoder)
       '{"date": "1970-01-01"}'
     """
-    
-    #Public
-    
+
+    # Public
+
     def default(self, obj):
         if isinstance(obj, self._date_types):
             return obj.isoformat()
         else:
             return super().default(obj)
-    
-    #Protected
-    
+
+    # Protected
+
     _date_types = (
-        datetime.datetime, 
-        datetime.date, 
+        datetime.datetime,
+        datetime.date,
         datetime.time,
     )
