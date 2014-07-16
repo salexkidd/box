@@ -6,18 +6,18 @@ class ManagedDict(dict):
     __setitem__ and __delitem__. This feature gives full control 
     over dict changes by client.
     """
-    
-    #Public
-    
+
+    # Public
+
     def clear(self):
         for key in self.keys():
             del self[key]
-    
+
     def pop(self, key, default=None):
         value = self.get(key, default)
         del self[key]
         return value
-    
+
     def popitem(self):
         if self:
             (key, value) = list(self.items())[-1]
@@ -25,13 +25,13 @@ class ManagedDict(dict):
             return (key, value)
         else:
             return super().popitem()
-    
+
     def setdefault(self, key, default=None):
         value = self.get(key, default)
         if key not in self:
             self[key] = value
         return value
-    
+
     def update(self, other=None, **kwargs):
         if other != None:
             if hasattr(other, 'keys'):
