@@ -5,16 +5,16 @@ from .parser import Parser
 
 class Command:
     """Console command representation.
-    
+
     :param list argv: program's arguments like sys.argv
     :param dict config: command configuration for argparse
     :param type exception: exception class to raise instead of exit
     :param dict kwargs: key=value command configuration pairs
-    
+
     Command provides access to command line arguments by attribute names::
-    
+
       >>> from box.argparse import Command
-      >>> config = {'arguments': [{'name': 'arguments', 'nargs':'*'}]}    
+      >>> config = {'arguments': [{'name': 'arguments', 'nargs':'*'}]}
       >>> command = Command(['program', 'arg'], config=config)
       >>> command.arguments
       ['arg']

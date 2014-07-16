@@ -12,7 +12,7 @@ from .filepath import FilepathConstraint
 
 class find_files(map_reduce):
     """Find files using map_reduce framework.
-    
+
     :param str/glob/re filename: include filenames pattern
     :param str/glob/re notfilename: exclude filenames pattern
     :param str/glob/re filepath: include filepathes pattern
@@ -20,9 +20,9 @@ class find_files(map_reduce):
     :param str basedir: base directory to find
     :param bool join: if True joins resulted filepath with basedir
     :param int maxdepth: maximal find depth relatively to basedir
-    
+
     :returns mixed: map_reduce result
-    
+
     Function also accepts :class:`box.itertools.map_reduce` kwargs.
     """
 
@@ -90,9 +90,9 @@ class find_files(map_reduce):
 
 class FindFilesEmitter(Emitter):
     """Emitter representation for find_files.
-    
+
     Additional attributes:
-    
+
     - filepath
     - basedir
     """

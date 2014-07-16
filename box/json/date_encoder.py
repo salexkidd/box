@@ -3,10 +3,10 @@ from json import JSONEncoder
 
 class DateEncoder(JSONEncoder):
     """Json encoder with support of datatime values.
-    
+
     If encoder meets datetime.datetime, datetime.date or datetime.time
     in python objects to dump it will be encoded by **isoformat** method::
-    
+
       >>> import json
       >>> import datetime
       >>> from box.json import DateEncoder

@@ -21,14 +21,14 @@ class FunctionMetaclass(ABCMeta):
 
 class Function(metaclass=FunctionMetaclass):
     """Base abstract class for 2 step functions.
-    
+
     Designed for complicated functions when more convenient to work with state.
-    
-    On __init__ step your class gets arguments and can save they as attributes. 
-    Then on __call__ step your class returns result of function call. 
-    
+
+    On __init__ step your class gets arguments and can save they as attributes.
+    Then on __call__ step your class returns result of function call.
+
     Inherit from this class to make your class acting like a function::
-    
+
       >>> from box.functools import Function
       >>> class hello(Function):
       ...   def __init__(self, person):

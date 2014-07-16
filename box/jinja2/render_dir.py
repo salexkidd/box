@@ -4,13 +4,13 @@ from .render_string import render_string
 
 class render_dir(Function):
     """Render a directory using context.
-    
+
     :param str source: directory to be rendered
     :param dict/obj context: rendering context
     :param dict env_params: parameters to pass to render_string
-    
+
     Directory rendering means that every name from os.listdir
-    will be processed by render_string and then renamed accordingly.    
+    will be processed by render_string and then renamed accordingly.
     """
 
     # Public

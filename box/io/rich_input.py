@@ -2,10 +2,10 @@ from ..functools import Function
 
 class rich_input(Function):
     """Read a string from standard input.
-    
+
     :param str prompt: default prompt
     :param dict kwargs: key=value parameter pairs
-    
+
     When you called function with any kwarg it overrides class attributes
     and changes function behaviour. See parameter list below. All of them
     you can use in function call. Also all of them you can redefine in
@@ -107,7 +107,7 @@ class rich_input(Function):
 
     @property
     def context(self):
-        """Context to make rendered_* from templated_*. 
+        """Context to make rendered_* from templated_*.
         """
         context = {}
         for name in dir(self):

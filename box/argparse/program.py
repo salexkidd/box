@@ -5,16 +5,16 @@ from .settings import Settings
 
 class Program(metaclass=ABCMeta):
     """Abstract console program representation.
-    
+
     :param list argv: sys.argv like list of arguments
-    
+
     Client have to implement __call__ method and can adjust
     _command(_class) and _settings(_class) attributes using
-    compatible with module's :class:`box.argparse.Command`, 
+    compatible with module's :class:`box.argparse.Command`,
     :class:`box.argparse.Settings` replacements.
-    
+
     Usage exmaple::
-    
+
       >>> from box.argparse import Program, Settings
       >>> class Settings(Settings):
       ...   argparse = {'arguments': [{'name': 'arguments', 'nargs':'*'}]}

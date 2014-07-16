@@ -1,6 +1,6 @@
 class ObjectContext(dict):
     """Adapter between standard mapping context and object.
-    
+
     :param object obj: object to adapt
     :param dict kwargs: standard dict items
     """

@@ -2,11 +2,11 @@ from ..copy import enhanced_copy
 
 def merge_dicts(dict1, dict2, *, resolvers={}):
     """Recursively merge dicts and return new one.
-    
+
     :param dict dict1: left dict to merge
     :param dict dict2: right dict to merge
     :param dict resolvers: resolvers by type
-    
+
     :returns dict: merged dict
     """
     resolvers.setdefault(dict, merge_dicts)

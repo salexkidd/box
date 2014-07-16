@@ -5,23 +5,23 @@ from .setup import setup
 
 class Settings(Settings):
     """Sphinx conf.py representation.
-    
-    Just put code like this in conf.py module and use inheritance from 
-    default sphinx settings and other class benefits. It gives a opportunity 
-    to not operate with big config file filled by standard settings and 
+
+    Just put code like this in conf.py module and use inheritance from
+    default sphinx settings and other class benefits. It gives a opportunity
+    to not operate with big config file filled by standard settings and
     see only important things::
-    
+
       from box.sphinx import Settings
 
       class Settings(Settings):
-        
+
           #Documentation:
           #http://sphinx-doc.org/config.html
-          
+
           #Project
-    
+
           project = 'box'
-        
+
       locals().update(Settings())
     """
 

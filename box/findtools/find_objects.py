@@ -10,24 +10,24 @@ from .objtype import ObjtypeConstraint
 
 class find_objects(map_reduce):
     """Find objects in files using map_reduce framework.
-    
+
     :param str/re objname: include objnames pattern
     :param str/re notobjname: exclude objnames pattern
     :param type objtype: include objtypes pattern
-    :param type notobjtype: exclude objtypes pattern  
+    :param type notobjtype: exclude objtypes pattern
     :param str basedir: base directory to find
     :param list filepathes: list of filepathes where to find
-    
+
     Arguments for find_files if filepathes == None:
-    
+
     :param str/glob/re filename: include filenames pattern
     :param str/glob/re notfilename: exclude filenames pattern
     :param str/glob/re filepath: include filepathes pattern
     :param str/glob/re notfilepath: exclude filepathes pattern
     :param int maxdepth: maximal find depth relatively to basedir
-    
-    :returns mixed: map_reduce result    
-    
+
+    :returns mixed: map_reduce result
+
     Function also accepts :class:`box.itertools.map_reduce` kwargs.
     """
 
@@ -106,9 +106,9 @@ class find_objects(map_reduce):
 
 class FindObjectsEmitter(FindFilesEmitter):
     """Emitter representation for find_objects.
-    
+
     Additional attributes:
-    
+
     - object
     - objname
     - module

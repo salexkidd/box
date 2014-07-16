@@ -9,21 +9,21 @@ from .not_found import NotFound
 
 class find_strings(map_reduce):
     """Find strings in files using map_reduce framework.
-    
+
     :param str/re string: include string pattern
     :param str basedir: base directory to find
     :param list filepathes: list of filepathes where to find
-    
+
     Arguments for find_files if filepathes == None:
-    
+
     :param str/glob/re filename: include filenames pattern
     :param str/glob/re notfilename: exclude filenames pattern
     :param str/glob/re filepath: include filepathes pattern
     :param str/glob/re notfilepath: exclude filepathes pattern
     :param int maxdepth: maximal find depth relatively to basedir
-    
+
     :returns mixed: map_reduce result
-    
+
     Function also accepts :class:`box.itertools.map_reduce` kwargs.
     """
 
@@ -104,11 +104,11 @@ class find_strings(map_reduce):
 
 class FindStringsEmitter(FindFilesEmitter):
     """Emitter representation for find_strings.
-    
+
     Additional attributes:
-    
+
     - filepath
-    - basedir    
+    - basedir
     """
 
     # Public

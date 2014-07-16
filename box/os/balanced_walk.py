@@ -3,16 +3,16 @@ from .enhanced_join import enhanced_join
 
 def balanced_walk(dirpath=None, *,
                   basedir=None, mode=None, sorter=None):
-    """Recursevly yield (dirpathes, filepathes) tuple 
+    """Recursevly yield (dirpathes, filepathes) tuple
     level by level from top to bottom of directory tree.
 
     :param str dirpath: directory path or list of pathes
     :param str[files/dirs] mode: special yielding mode
     :param str basedir: all pathes are relative to basedir
     :param function(pathes) sorter: function to sort pathes
-    
+
     :returns generator: (dirpathes, filepathes) generator
-    
+
     Function doesn't support symbolic links.
     """
     dirpathes = dirpath

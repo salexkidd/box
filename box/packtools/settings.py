@@ -19,12 +19,12 @@ class SettingsMetaclass(type):
 
 class Settings(dict, metaclass=SettingsMetaclass):
     """Settings representation.
-    
+
     :param dict settings: dict to override settings values
     :param dict kwargs: key=value pairs to override settings values
-    
-    Following example will show common workflow and extensions:: 
-    
+
+    Following example will show common workflow and extensions::
+
       >>> from box.packtools import Settings
       >>> class Settings(Settings):
       ...   attr1 = 'value1'
@@ -34,11 +34,11 @@ class Settings(dict, metaclass=SettingsMetaclass):
       >>> s = Settings(attr1='new1')
       >>> s
       {'attr1': 'new1', 'attr2': 'new2'}
-    
+
     In the example above program also checks path_to_user_settings:
-    
-    - if file exists and contain Settings subclass program will use it 
-    - if file doesn't exist program will create stub Settings file      
+
+    - if file exists and contain Settings subclass program will use it
+    - if file doesn't exist program will create stub Settings file
     """
 
     # Public
@@ -62,9 +62,9 @@ class Settings(dict, metaclass=SettingsMetaclass):
 
     _extensions = []
     """List of extensions.
-    
+
     Members should be following types:
-    
+
     - if element is a dict it just override settings values
     - if element is a string it should be a filepath to another Settings
     """

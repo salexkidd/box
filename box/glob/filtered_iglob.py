@@ -5,14 +5,14 @@ from ..os import enhanced_join
 def filtered_iglob(pattern, *,
                    basedir=None, mode=None, sorter=None):
     """Yield the pathes matching a pattern.
-    
+
     :param str pattern: glob path pattern
     :param str basedir: all pathes are relative to basedir
     :param str[files/dirs] mode: filtering mode
     :param function(pathes) sorter: function to sort pathes
-    
+
     :returns object: paths generator
-    
+
     Function doesn't support symbolic links.
     """
     full_pattern = enhanced_join(basedir, pattern)

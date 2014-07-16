@@ -2,7 +2,7 @@ import importlib
 
 def check_module(name, package=None):
     """Check module is available for importing.
-    
+
     Arguments the same importlib.import_module has.
     """
     try:
