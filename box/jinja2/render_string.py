@@ -18,58 +18,58 @@ class render_string(Function):
     
     If target is given function will not return any value.   
     """
-    
-    #Public
-    
-    def __init__(self, source, context={}, *, 
+
+    # Public
+
+    def __init__(self, source, context={}, *,
                  target=None, loader=None, **env_params):
         self._source = source
         self._context = context
         self._target = target
         self._loader = loader
         self._env_params = env_params
-    
+
     def __call__(self):
         content = self._render()
         if self._target:
             self._write(content)
         else:
             return content
-            
-    #Protected
-    
+
+    # Protected
+
     def _render(self):
         with patch('jinja2.runtime.new_context', self._new_context):
             return self._template.render(self._context)
-    
+
     def _write(self, content):
         dirname = os.path.dirname(self._target)
         if dirname:
             os.makedirs(dirname, exist_ok=True)
         with open(self._target, 'w') as file:
             file.write(content)
-                
+
     @cachedproperty
     def _template(self):
         environment = self._environment_class(
             loader=self._loader, **self._env_params)
         return environment.from_string(self._source)
-    
+
     @cachedproperty
     def _environment_class(self):
         from jinja2 import Environment
         class Environment(Environment):
-            #Public
+            # Public
             template_class = self._template_class
         return Environment
-    
+
     @cachedproperty
     def _template_class(self):
         from jinja2 import Template
         from jinja2.utils import concat
         new_context = self._new_context
         class Template(Template):
-            #Public
+            # Public
             def render(self, context):
                 try:
                     context = self.new_context(context)
@@ -81,22 +81,22 @@ class render_string(Function):
                 return new_context(
                     self.environment, self.name, self.blocks,
                     vrs, shared, self.globals, locs)
-        return Template     
-    
+        return Template
+
     @staticmethod
-    def _new_context(environment, template_name, blocks, 
+    def _new_context(environment, template_name, blocks,
                      vrs=None, shared=None, globs=None, locs=None):
         from jinja2.runtime import Context, missing
         if vrs is None:
             vrs = {}
         parent = vrs
-        if not isinstance(vrs, dict):   
-            parent = ObjectContext(vrs)        
+        if not isinstance(vrs, dict):
+            parent = ObjectContext(vrs)
         if not shared:
             parent = enhanced_copy(parent)
             for key, value in (globs or {}).items():
                 if key not in parent:
-                    #dict.setdefault doesn't work for ObjectContext
+                    # dict.setdefault doesn't work for ObjectContext
                     parent[key] = value
         if locs:
             if shared:
@@ -104,4 +104,4 @@ class render_string(Function):
             for key, value in locs.items():
                 if key[:2] == 'l_' and value is not missing:
                     parent[key[2:]] = value
-        return Context(environment, parent, template_name, blocks)  
+        return Context(environment, parent, template_name, blocks)

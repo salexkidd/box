@@ -12,14 +12,14 @@ class render_dir(Function):
     Directory rendering means that every name from os.listdir
     will be processed by render_string and then renamed accordingly.    
     """
-    
-    #Public
-    
+
+    # Public
+
     def __init__(self, source, context={}, **env_params):
         self._source = source
         self._context = context
         self._env_params = env_params
-    
+
     def __call__(self):
         for name in os.listdir(self._source):
             try:

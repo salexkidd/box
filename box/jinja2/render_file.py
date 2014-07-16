@@ -1,5 +1,5 @@
 import os
-from ..functools import cachedproperty 
+from ..functools import cachedproperty
 from .render_string import render_string
 
 class render_file(render_string):
@@ -9,9 +9,9 @@ class render_file(render_string):
     
     .. seealso:: Full documentation: :class:`box.jinja2.render_string`    
     """
-    
-    #Protected
-                
+
+    # Protected
+
     @cachedproperty
     def _template(self):
         source = self._source
@@ -20,9 +20,9 @@ class render_file(render_string):
             dirpath, source = os.path.split(self._source)
             loader = self._file_system_loader_class(dirpath)
         environment = self._environment_class(
-            loader=loader, **self._env_params)        
+            loader=loader, **self._env_params)
         return environment.get_template(source)
-    
+
     @property
     def _file_system_loader_class(self):
         from jinja2 import FileSystemLoader

@@ -4,19 +4,19 @@ class ObjectContext(dict):
     :param object obj: object to adapt
     :param dict kwargs: standard dict items
     """
-    
-    #Public
-    
+
+    # Public
+
     def __init__(self, obj, **kwargs):
         self._object = obj
         self.update(**kwargs)
-        
+
     def __contains__(self, key):
         if super().__contains__(key):
             return True
         else:
-            return hasattr(self._object, key) 
-        
+            return hasattr(self._object, key)
+
     def __getitem__(self, key):
         try:
             return super().__getitem__(key)
@@ -25,7 +25,7 @@ class ObjectContext(dict):
                 return getattr(self._object, key)
             except AttributeError:
                 raise KeyError(key)
-            
+
     def __copy__(self):
         context = type(self)(self._object)
         context.update(self)
