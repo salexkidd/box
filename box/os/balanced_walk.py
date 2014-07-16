@@ -1,7 +1,7 @@
 import os
 from .enhanced_join import enhanced_join
 
-def balanced_walk(dirpath=None, *, 
+def balanced_walk(dirpath=None, *,
                   basedir=None, mode=None, sorter=None):
     """Recursevly yield (dirpathes, filepathes) tuple 
     level by level from top to bottom of directory tree.
@@ -28,7 +28,7 @@ def balanced_walk(dirpath=None, *,
             if os.path.islink(full_path):
                 continue
             elif os.path.isfile(full_path):
-                inner_filepathes.append(path)            
+                inner_filepathes.append(path)
             elif os.path.isdir(full_path):
                 inner_dirpathes.append(path)
     if sorter != None:
@@ -44,5 +44,5 @@ def balanced_walk(dirpath=None, *,
         yield from balanced_walk(
             inner_dirpathes,
             basedir=basedir,
-            mode=mode,            
+            mode=mode,
             sorter=sorter)
