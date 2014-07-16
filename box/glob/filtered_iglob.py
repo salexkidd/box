@@ -2,7 +2,7 @@ import os
 import glob
 from ..os import enhanced_join
 
-def filtered_iglob(pattern, *, 
+def filtered_iglob(pattern, *,
                    basedir=None, mode=None, sorter=None):
     """Yield the pathes matching a pattern.
     
@@ -23,11 +23,11 @@ def filtered_iglob(pattern, *,
         path = os.path.relpath(full_path, start=basedir)
         if os.path.islink(full_path):
             continue
-        if mode == 'files': 
+        if mode == 'files':
             if os.path.isfile(full_path):
                 yield path
-        elif mode == 'dirs': 
+        elif mode == 'dirs':
             if os.path.isdir(full_path):
                 yield path
         else:
-            yield path      
+            yield path
