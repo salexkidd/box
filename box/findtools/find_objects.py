@@ -7,7 +7,7 @@ from .find_files import find_files, FindFilesEmitter
 from .not_found import NotFound
 from .objname import ObjnameConstraint
 from .objtype import ObjtypeConstraint
- 
+
 class find_objects(map_reduce):
     """Find objects in files using map_reduce framework.
     
@@ -30,16 +30,16 @@ class find_objects(map_reduce):
     
     Function also accepts :class:`box.itertools.map_reduce` kwargs.
     """
-    
-    #Public  
-    
+
+    # Public
+
     default_emitter = inject('FindObjectsEmitter', module=__name__)
-       
+
     def __init__(self, *,
                  objname=None, notobjname=None,
                  objtype=None, notobjtype=None,
-                 basedir=None, filepathes=None, 
-                 filename=None, notfilename=None, 
+                 basedir=None, filepathes=None,
+                 filename=None, notfilename=None,
                  filepath=None, notfilepath=None,
                  maxdepth=None,
                  **kwargs):
@@ -54,25 +54,25 @@ class find_objects(map_reduce):
         self._filepath = filepath
         self._notfilepath = notfilepath
         self._maxdepth = maxdepth
-        super().__init__(**kwargs)            
-    
-    #Protected
-    
-    _getfirst_exception = NotFound    
+        super().__init__(**kwargs)
+
+    # Protected
+
+    _getfirst_exception = NotFound
     _loader_class = SourceFileLoader
     _find_files = staticmethod(find_files)
-    
+
     @cachedproperty
     def _system_values(self):
         for filepath in self._effective_filepathes:
-            #Loads as a module every file in filepathes 
+            # Loads as a module every file in filepathes
             full_filepath = enhanced_join(self._basedir, filepath)
             loader = self._loader_class(full_filepath, full_filepath)
             module = loader.load_module(full_filepath)
             for objname in dir(module):
-                #Emits every object in module
+                # Emits every object in module
                 obj = getattr(module, objname)
-                yield self._emitter(obj, 
+                yield self._emitter(obj,
                     object=obj, objname=objname, module=module,
                     filepath=filepath, basedir=self._basedir)
 
@@ -85,15 +85,15 @@ class find_objects(map_reduce):
         objtype = ObjtypeConstraint(self._objtype, self._notobjtype)
         if objtype:
             mappers.append(objtype)
-        return mappers        
-                    
+        return mappers
+
     @cachedproperty
     def _effective_filepathes(self):
         if self._filepathes != None:
-            #We have ready filepathes
+            # We have ready filepathes
             return self._filepathes
-        else:                   
-            #We have to find filepathes
+        else:
+            # We have to find filepathes
             filepathes = self._find_files(
                 filename=self._filename,
                 notfilename=self._notfilename,
@@ -102,9 +102,9 @@ class find_objects(map_reduce):
                 basedir=self._basedir,
                 maxdepth=self._maxdepth)
             return filepathes
-    
-    
-class FindObjectsEmitter(FindFilesEmitter): 
+
+
+class FindObjectsEmitter(FindFilesEmitter):
     """Emitter representation for find_objects.
     
     Additional attributes:
@@ -114,10 +114,10 @@ class FindObjectsEmitter(FindFilesEmitter):
     - module
     - filepath
     - basedir
-    """    
+    """
 
-    #Public
-    
+    # Public
+
     @property
     def objtype(self):
-        return type(self.object)    
+        return type(self.object)

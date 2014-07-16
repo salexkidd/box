@@ -26,12 +26,12 @@ class find_files(map_reduce):
     Function also accepts :class:`box.itertools.map_reduce` kwargs.
     """
 
-    #Public
-    
+    # Public
+
     default_emitter = inject('FindFilesEmitter', module=__name__)
 
-    def __init__(self, *, 
-                 filename=None, notfilename=None, 
+    def __init__(self, *,
+                 filename=None, notfilename=None,
                  filepath=None, notfilepath=None,
                  basedir=None, join=False, maxdepth=None,
                  **kwargs):
@@ -43,23 +43,23 @@ class find_files(map_reduce):
         self._join = join
         self._maxdepth = maxdepth
         super().__init__(**kwargs)
-            
-    #Protected
-    
+
+    # Protected
+
     _getfirst_exception = NotFound
     _glob = staticmethod(filtered_iglob)
-    _walk = staticmethod(balanced_walk)    
-            
+    _walk = staticmethod(balanced_walk)
+
     @cachedproperty
     def _system_values(self):
         for filepath in self._filepathes:
-            #Emits every file in filepathes
+            # Emits every file in filepathes
             file = filepath
             if self._join:
                 file = enhanced_join(self._basedir, filepath)
-            yield self._emitter(file, filepath=filepath, basedir=self._basedir)  
+            yield self._emitter(file, filepath=filepath, basedir=self._basedir)
 
-    @cachedproperty        
+    @cachedproperty
     def _system_mappers(self):
         mappers = []
         maxdepth = MaxdepthConstraint(self._maxdepth)
@@ -68,25 +68,25 @@ class find_files(map_reduce):
         filename = FilenameConstraint(self._filename, self._notfilename)
         if filename:
             mappers.append(filename)
-        filepath = FilepathConstraint(self._filepath, self._notfilepath, 
+        filepath = FilepathConstraint(self._filepath, self._notfilepath,
             basedir=self._basedir)
         if filepath:
-            mappers.append(filepath)    
+            mappers.append(filepath)
         return mappers
-    
+
     @cachedproperty
     def _filepathes(self):
         if (self._filepath == None or
             isinstance(self._filepath, RegexCompiledPatternType)):
-            #We have to walk
+            # We have to walk
             filepathes = self._walk(
                 basedir=self._basedir, sorter=sorted, mode='files')
         else:
-            #We have a glob pattern
-            filepathes = self._glob(self._filepath, 
-                basedir=self._basedir, sorter=sorted, mode='files')                       
+            # We have a glob pattern
+            filepathes = self._glob(self._filepath,
+                basedir=self._basedir, sorter=sorted, mode='files')
         return filepathes
-    
+
 
 class FindFilesEmitter(Emitter):
     """Emitter representation for find_files.
@@ -97,8 +97,8 @@ class FindFilesEmitter(Emitter):
     - basedir
     """
 
-    #Public
+    # Public
 
     @property
     def filename(self):
-        return os.path.basename(self.filepath)    
+        return os.path.basename(self.filepath)

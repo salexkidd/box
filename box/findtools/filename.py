@@ -4,9 +4,9 @@ from ..types import RegexCompiledPatternType
 from .constraint import PatternConstraint
 
 class FilenameConstraint(PatternConstraint):
-                
-    #Protected
-    
+
+    # Protected
+
     def _match(self, pattern, emitter):
         if isinstance(pattern, RegexCompiledPatternType):
             if re.search(pattern, emitter.filename):

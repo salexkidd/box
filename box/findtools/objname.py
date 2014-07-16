@@ -3,9 +3,9 @@ from ..types import RegexCompiledPatternType
 from .constraint import PatternConstraint
 
 class ObjnameConstraint(PatternConstraint):
-    
-    #Protected
-    
+
+    # Protected
+
     def _match(self, pattern, emitter):
         if isinstance(pattern, RegexCompiledPatternType):
             if re.search(pattern, emitter.objname):
@@ -13,4 +13,4 @@ class ObjnameConstraint(PatternConstraint):
         else:
             if pattern == emitter.objname:
                 return True
-        return False           
+        return False

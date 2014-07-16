@@ -1,9 +1,9 @@
 from .constraint import PatternConstraint
 
 class ObjtypeConstraint(PatternConstraint):
-    
-    #Protected
-        
+
+    # Protected
+
     def _match(self, pattern, emitter):
         types = pattern
         if isinstance(types, type):
