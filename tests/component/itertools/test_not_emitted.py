@@ -3,12 +3,12 @@ from box.itertools.not_emitted import NotEmitted
 
 class NotEmittedTest(unittest.TestCase):
 
-    #Public
+    # Public
 
     def test(self):
         self.assertRaises(NotEmitted, self._raise)
-    
-    #Protected
-    
+
+    # Protected
+
     def _raise(self):
         raise NotEmitted()

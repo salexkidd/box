@@ -4,13 +4,13 @@ from box.sphinx.connect import functools, connect as sphinx_connect
 
 class connect_Test(unittest.TestCase):
 
-    #Public
-    
+    # Public
+
     def setUp(self):
         self.method = Mock()
         self.method = sphinx_connect('event')(self.method)
-     
-    @patch.object(functools, 'partial')   
+
+    @patch.object(functools, 'partial')
     def test(self, partial):
         app = Mock()
         connect = getattr(self.method, sphinx_connect.attribute_name)

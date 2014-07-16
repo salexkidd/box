@@ -4,8 +4,8 @@ from box.sphinx.setup import setup as sphinx_setup
 
 class setup_Test(unittest.TestCase):
 
-    #Public
-    
+    # Public
+
     def setUp(self):
         self.method = Mock()
         self.method = sphinx_setup(self.method)

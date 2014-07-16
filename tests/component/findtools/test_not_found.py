@@ -3,12 +3,12 @@ from box.findtools.not_found import NotFound
 
 class NotFoundTest(unittest.TestCase):
 
-    #Public
+    # Public
 
     def test(self):
         self.assertRaises(NotFound, self._raise)
-    
-    #Protected
-    
+
+    # Protected
+
     def _raise(self):
         raise NotFound()

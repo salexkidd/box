@@ -4,19 +4,19 @@ from box.dependency.inject import inject
 
 class inject_Test(unittest.TestCase):
 
-    #Public
-    
+    # Public
+
     def setUp(self):
         self.Client = self._make_client_class()
         self.client = self.Client()
 
     def test(self):
         self.assertEqual(self.client.injection, Mock)
-    
-    #Protected
-    
+
+    # Protected
+
     def _make_client_class(self):
         class Client:
-            #Public
+            # Public
             injection = inject('unittest.mock.Mock')
         return Client

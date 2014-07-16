@@ -5,16 +5,16 @@ from box.findtools.filename import FilenameConstraint
 
 class FilenameConstraintTest_not_skip(unittest.TestCase):
 
-    #Public
-    
+    # Public
+
     def setUp(self):
         self.emitter = Mock(filename='filename')
-    
+
     def test___call__(self):
         constraint = FilenameConstraint('f*')
         constraint(self.emitter)
         self.assertFalse(self.emitter.skip.called)
-          
+
     def test___call___with_filename_is_regex(self):
         constraint = FilenameConstraint(re.compile('f.*'))
         constraint(self.emitter)
@@ -23,14 +23,14 @@ class FilenameConstraintTest_not_skip(unittest.TestCase):
 
 class FilenameConstraintTest_skip(FilenameConstraintTest_not_skip):
 
-    #Public
-    
+    # Public
+
     def test___call__(self):
         constraint = FilenameConstraint('x*')
         constraint(self.emitter)
         self.assertTrue(self.emitter.skip.called)
-          
+
     def test___call___with_filename_is_regex(self):
-        constraint = FilenameConstraint(re.compile('x.*'))        
+        constraint = FilenameConstraint(re.compile('x.*'))
         constraint(self.emitter)
         self.assertTrue(self.emitter.skip.called)

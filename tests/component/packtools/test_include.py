@@ -4,8 +4,8 @@ from box.packtools.include import include
 
 class include_Test(unittest.TestCase):
 
-    #Public
-    
+    # Public
+
     def setUp(self):
         self.method = Mock()
         self.method = include(self.method)

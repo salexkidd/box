@@ -5,30 +5,30 @@ from box.glob import filtered_iglob
 
 class balanced_walk_Test(unittest.TestCase):
 
-    #Public
-    
+    # Public
+
     def setUp(self):
-        self.pglob = partial(filtered_iglob, 
+        self.pglob = partial(filtered_iglob,
             basedir=self._basedir, sorter=sorted)
 
-    def test(self):        
+    def test(self):
         pathes = list(self.pglob('*'))
         self.assertEqual(pathes, ['dir', 'file'])
-        
-    def test_subdir(self):        
+
+    def test_subdir(self):
         pathes = list(self.pglob('dir/*'))
-        self.assertEqual(pathes, ['dir/file'])        
-        
+        self.assertEqual(pathes, ['dir/file'])
+
     def test_with_mode_is_files(self):
         pathes = list(self.pglob('*', mode='files'))
         self.assertEqual(pathes, ['file'])
-        
+
     def test_with_mode_is_dirs(self):
         pathes = list(self.pglob('*', mode='dirs'))
-        self.assertEqual(pathes, ['dir'])             
-        
-    #Protected
-    
+        self.assertEqual(pathes, ['dir'])
+
+    # Protected
+
     @property
     def _basedir(self):
-        return os.path.join(os.path.dirname(__file__), 'fixtures')   
+        return os.path.join(os.path.dirname(__file__), 'fixtures')

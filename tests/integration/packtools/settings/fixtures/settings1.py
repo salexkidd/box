@@ -2,6 +2,6 @@ from box.packtools import Settings
 
 class Settings(Settings):
 
-    #Public
+    # Public
 
     attr2 = 'value2'

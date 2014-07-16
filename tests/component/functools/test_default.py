@@ -3,7 +3,7 @@ from box.functools.default import DEFAULT
 
 class DEFAULTTest(unittest.TestCase):
 
-    #Public
+    # Public
 
     def test(self):
         self.assertTrue(DEFAULT)
