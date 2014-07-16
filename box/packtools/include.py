@@ -4,8 +4,8 @@ class include(Decorator):
     """Decorate callable object to be included in settings.
     """
 
-    #Public
-    
+    # Public
+
     attribute_name = '_box_packtools_include'
 
     def __call__(self, method):
