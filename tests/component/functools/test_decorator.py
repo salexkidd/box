@@ -1,5 +1,5 @@
 import unittest
-from box.decorator.decorator import Decorator
+from box.functools.decorator import Decorator
 
 class DecoratorTest(unittest.TestCase):
 

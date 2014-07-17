@@ -19,6 +19,8 @@ Module’s public interface.
    
      Deafult value to use instead of None.
      
+.. autoclass:: box.functools.Decorator     
+     
 --------
 Internal
 --------
@@ -26,3 +28,4 @@ Internal
 Module's internal implementation.
 
 .. autoclass:: box.functools.function.FunctionMetaclass
+.. autoclass:: box.functools.decorator.DecoratorMetaclass
