@@ -1,6 +1,6 @@
 from functools import partial
-from ..dependency import inject
 from ..functools import cachedproperty
+from ..importlib import inject
 from ..itertools import map_reduce
 from ..os import enhanced_join
 from ..types import RegexCompiledPatternType

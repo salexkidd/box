@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock
-from box.dependency.inject import inject
+from box.importlib.inject import inject
 
 class inject_Test(unittest.TestCase):
 

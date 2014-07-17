@@ -1,6 +1,6 @@
 import os
-from ..dependency import inject
 from ..functools import cachedproperty
+from ..importlib import inject
 from ..itertools import map_reduce, Emitter
 from ..glob import filtered_iglob
 from ..os import balanced_walk, enhanced_join

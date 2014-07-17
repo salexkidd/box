@@ -1,6 +1,6 @@
 from importlib.machinery import SourceFileLoader
-from ..dependency import inject
 from ..functools import cachedproperty
+from ..importlib import inject
 from ..itertools import map_reduce
 from ..os import enhanced_join
 from .find_files import find_files, FindFilesEmitter

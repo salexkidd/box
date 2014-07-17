@@ -1,4 +1,4 @@
-from ..importlib import import_object
+from .import_object import import_object
 
 def inject(name, *, module=None, package=None):
     """Return imported object wrapped in property.
