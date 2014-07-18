@@ -6,9 +6,4 @@ class NotFoundTest(unittest.TestCase):
     # Public
 
     def test(self):
-        self.assertRaises(NotFound, self._raise)
-
-    # Protected
-
-    def _raise(self):
-        raise NotFound()
+        self.assertTrue(issubclass(NotFound, Exception))

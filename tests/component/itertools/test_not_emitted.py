@@ -6,9 +6,4 @@ class NotEmittedTest(unittest.TestCase):
     # Public
 
     def test(self):
-        self.assertRaises(NotEmitted, self._raise)
-
-    # Protected
-
-    def _raise(self):
-        raise NotEmitted()
+        self.assertTrue(issubclass(NotEmitted, Exception))
