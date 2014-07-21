@@ -22,7 +22,7 @@ class Command:
 
     # Public
 
-    def __init__(self, argv, config, exception=None, **kwargs):
+    def __init__(self, argv, *, config, exception=None, **kwargs):
         self._argv = argv
         self._config = copy(config)
         self._config.update(kwargs)
