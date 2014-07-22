@@ -34,6 +34,7 @@ class find_objects(map_reduce):
     # Public
 
     default_emitter = inject('FindObjectsEmitter', module=__name__)
+    default_getfirst_exception = NotFound
 
     def __init__(self, *,
                  objname=None, notobjname=None,
@@ -42,7 +43,12 @@ class find_objects(map_reduce):
                  filename=None, notfilename=None,
                  filepath=None, notfilepath=None,
                  maxdepth=None,
-                 **kwargs):
+                 mappers=[], reducers=[], emitter=None,
+                 getfirst=False, getfirst_exception=None, fallback=None):
+        if emitter == None:
+            emitter = self.default_emitter
+        if getfirst_exception == None:
+            getfirst_exception = self.default_getfirst_exception
         self._objname = objname
         self._notobjname = notobjname
         self._objtype = objtype
@@ -54,16 +60,32 @@ class find_objects(map_reduce):
         self._filepath = filepath
         self._notfilepath = notfilepath
         self._maxdepth = maxdepth
-        super().__init__(**kwargs)
+        self._mappers = mappers
+        self._reducers = reducers
+        self._emitter = emitter
+        self._getfirst = getfirst
+        self._getfirst_exception = getfirst_exception
+        self._fallback = fallback
+
+    def __call__(self):
+        files = self._map_reduce(
+            self._values,
+            mappers=self._effective_mappers,
+            reducers=self._reducers,
+            emitter=self._emitter,
+            getfirst=self._getfirst,
+            getfirst_exception=self._getfirst_exception,
+            fallback=self._fallback)
+        return files
 
     # Protected
 
-    _getfirst_exception = NotFound
-    _loader_class = SourceFileLoader
     _find_files = staticmethod(find_files)
+    _loader_class = SourceFileLoader
+    _map_reduce = map_reduce
 
     @cachedproperty
-    def _system_values(self):
+    def _values(self):
         for filepath in self._effective_filepathes:
             # Loads as a module every file in filepathes
             full_filepath = enhanced_join(self._basedir, filepath)
@@ -77,7 +99,7 @@ class find_objects(map_reduce):
                     filepath=filepath, basedir=self._basedir)
 
     @cachedproperty
-    def _system_mappers(self):
+    def _effective_mappers(self):
         mappers = []
         objname = ObjnameConstraint(self._objname, self._notobjname)
         if objname:
@@ -85,6 +107,7 @@ class find_objects(map_reduce):
         objtype = ObjtypeConstraint(self._objtype, self._notobjtype)
         if objtype:
             mappers.append(objtype)
+        mappers += self._mappers
         return mappers
 
     @cachedproperty

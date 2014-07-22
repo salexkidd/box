@@ -1,4 +1,3 @@
-from itertools import chain
 from ..functools import Function
 from .emitter import Emitter
 from .not_emitted import NotEmitted
@@ -17,17 +16,21 @@ class map_reduce(Function):
     """
 
     default_emitter = Emitter
+    default_getfirst_exception = NotEmitted
 
     def __init__(self, values=[], *,
                  mappers=[], reducers=[], emitter=None,
-                 getfirst=False, fallback=None):
+                 getfirst=False, getfirst_exception=None, fallback=None):
         if emitter == None:
             emitter = self.default_emitter
-        self._user_values = values
-        self._user_mappers = mappers
-        self._user_reducers = reducers
+        if getfirst_exception == None:
+            getfirst_exception = self.default_getfirst_exception
+        self._values = values
+        self._mappers = mappers
+        self._reducers = reducers
         self._emitter = emitter
         self._getfirst = getfirst
+        self._getfirst_exception = getfirst_exception
         self._fallback = fallback
 
     def __call__(self):
@@ -36,11 +39,6 @@ class map_reduce(Function):
         return reduced_values
 
     # Protected
-
-    _system_values = []
-    _system_mappers = []
-    _system_reducers = []
-    _getfirst_exception = NotEmitted
 
     def _map(self, values):
         for emitter in values:
@@ -81,21 +79,3 @@ class map_reduce(Function):
                 return self._fallback
             else:
                 raise
-
-    @property
-    def _values(self):
-        return chain(
-            self._system_values,
-            self._user_values)
-
-    @property
-    def _mappers(self):
-        return chain(
-            self._system_mappers,
-            self._user_mappers)
-
-    @property
-    def _reducers(self):
-        return chain(
-            self._system_reducers,
-            self._user_reducers)

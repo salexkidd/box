@@ -1,5 +1,5 @@
 import os
-from ..functools import cachedproperty
+from ..functools import Function, cachedproperty
 from ..importlib import inject
 from ..itertools import map_reduce, Emitter
 from ..glob import filtered_iglob
@@ -10,7 +10,7 @@ from .maxdepth import MaxdepthConstraint
 from .filename import FilenameConstraint
 from .filepath import FilepathConstraint
 
-class find_files(map_reduce):
+class find_files(Function):
     """Find files using map_reduce framework.
 
     :param str/glob/re filename: include filenames pattern
@@ -21,7 +21,7 @@ class find_files(map_reduce):
     :param bool join: if True joins resulted filepath with basedir
     :param int maxdepth: maximal find depth relatively to basedir
 
-    :returns mixed: map_reduce result
+    :returns mixed: map_reduced files
 
     Function also accepts :class:`box.itertools.map_reduce` kwargs.
     """
@@ -29,12 +29,18 @@ class find_files(map_reduce):
     # Public
 
     default_emitter = inject('FindFilesEmitter', module=__name__)
+    default_getfirst_exception = NotFound
 
     def __init__(self, *,
                  filename=None, notfilename=None,
                  filepath=None, notfilepath=None,
                  basedir=None, join=False, maxdepth=None,
-                 **kwargs):
+                 mappers=[], reducers=[], emitter=None,
+                 getfirst=False, getfirst_exception=None, fallback=None):
+        if emitter == None:
+            emitter = self.default_emitter
+        if getfirst_exception == None:
+            getfirst_exception = self.default_getfirst_exception
         self._filename = filename
         self._notfilename = notfilename
         self._filepath = filepath
@@ -42,16 +48,32 @@ class find_files(map_reduce):
         self._basedir = basedir
         self._join = join
         self._maxdepth = maxdepth
-        super().__init__(**kwargs)
+        self._mappers = mappers
+        self._reducers = reducers
+        self._emitter = emitter
+        self._getfirst = getfirst
+        self._getfirst_exception = getfirst_exception
+        self._fallback = fallback
+
+    def __call__(self):
+        files = self._map_reduce(
+            self._values,
+            mappers=self._effective_mappers,
+            reducers=self._reducers,
+            emitter=self._emitter,
+            getfirst=self._getfirst,
+            getfirst_exception=self._getfirst_exception,
+            fallback=self._fallback)
+        return files
 
     # Protected
 
-    _getfirst_exception = NotFound
+    _map_reduce = map_reduce
     _glob = staticmethod(filtered_iglob)
     _walk = staticmethod(balanced_walk)
 
     @cachedproperty
-    def _system_values(self):
+    def _values(self):
         for filepath in self._filepathes:
             # Emits every file in filepathes
             file = filepath
@@ -60,7 +82,7 @@ class find_files(map_reduce):
             yield self._emitter(file, filepath=filepath, basedir=self._basedir)
 
     @cachedproperty
-    def _system_mappers(self):
+    def _effective_mappers(self):
         mappers = []
         maxdepth = MaxdepthConstraint(self._maxdepth)
         if maxdepth:
@@ -72,6 +94,7 @@ class find_files(map_reduce):
             basedir=self._basedir)
         if filepath:
             mappers.append(filepath)
+        mappers += self._mappers
         return mappers
 
     @cachedproperty

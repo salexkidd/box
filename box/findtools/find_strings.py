@@ -1,5 +1,5 @@
 from functools import partial
-from ..functools import cachedproperty
+from ..functools import Function, cachedproperty
 from ..importlib import inject
 from ..itertools import map_reduce
 from ..os import enhanced_join
@@ -7,7 +7,7 @@ from ..types import RegexCompiledPatternType
 from .find_files import FindFilesEmitter, find_files
 from .not_found import NotFound
 
-class find_strings(map_reduce):
+class find_strings(Function):
     """Find strings in files using map_reduce framework.
 
     :param str/re string: include string pattern
@@ -30,13 +30,19 @@ class find_strings(map_reduce):
     # Public
 
     default_emitter = inject('FindStringsEmitter', module=__name__)
+    default_getfirst_exception = NotFound
 
     def __init__(self, string=None, *,
                  basedir=None, filepathes=None,
                  filename=None, notfilename=None,
                  filepath=None, notfilepath=None,
                  maxdepth=None,
-                 **kwargs):
+                 mappers=[], reducers=[], emitter=None,
+                 getfirst=False, getfirst_exception=None, fallback=None):
+        if emitter == None:
+            emitter = self.default_emitter
+        if getfirst_exception == None:
+            getfirst_exception = self.default_getfirst_exception
         self._string = string
         self._basedir = basedir
         self._filepathes = filepathes
@@ -45,16 +51,32 @@ class find_strings(map_reduce):
         self._filepath = filepath
         self._notfilepath = notfilepath
         self._maxdepth = maxdepth
-        super().__init__(**kwargs)
+        self._mappers = mappers
+        self._reducers = reducers
+        self._emitter = emitter
+        self._getfirst = getfirst
+        self._getfirst_exception = getfirst_exception
+        self._fallback = fallback
+
+    def __call__(self):
+        files = self._map_reduce(
+            self._values,
+            mappers=self._mappers,
+            reducers=self._reducers,
+            emitter=self._emitter,
+            getfirst=self._getfirst,
+            getfirst_exception=self._getfirst_exception,
+            fallback=self._fallback)
+        return files
 
     # Protected
 
-    _getfirst_exception = NotFound
     _find_files = staticmethod(find_files)
+    _map_reduce = map_reduce
     _open = staticmethod(open)
 
     @cachedproperty
-    def _system_values(self):
+    def _values(self):
         for filepath in self._effective_filepathes:
             # Reads every file in filepathes
             full_filepath = enhanced_join(self._basedir, filepath)
