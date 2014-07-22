@@ -59,7 +59,7 @@ class find_strings(Function):
         self._fallback = fallback
 
     def __call__(self):
-        files = self._map_reduce(
+        strings = self._map_reduce(
             self._values,
             mappers=self._mappers,
             reducers=self._reducers,
@@ -67,7 +67,7 @@ class find_strings(Function):
             getfirst=self._getfirst,
             getfirst_exception=self._getfirst_exception,
             fallback=self._fallback)
-        return files
+        return strings
 
     # Protected
 

@@ -68,7 +68,7 @@ class find_objects(map_reduce):
         self._fallback = fallback
 
     def __call__(self):
-        files = self._map_reduce(
+        objects = self._map_reduce(
             self._values,
             mappers=self._effective_mappers,
             reducers=self._reducers,
@@ -76,7 +76,7 @@ class find_objects(map_reduce):
             getfirst=self._getfirst,
             getfirst_exception=self._getfirst_exception,
             fallback=self._fallback)
-        return files
+        return objects
 
     # Protected
 
