@@ -1,4 +1,4 @@
-from ..functools import DEFAULT
+from ..functools import Null
 
 class Emitter:
     """Emitter representation for map_reduce.
@@ -23,7 +23,7 @@ class Emitter:
         except KeyError:
             raise AttributeError(name)
 
-    def value(self, value=DEFAULT, condition=True):
+    def value(self, value=Null, condition=True):
         """Get/set value to emit.
 
         :param mixed value: value to set if passed
@@ -31,7 +31,7 @@ class Emitter:
 
         Use emitter.value(value) to emit only one value.
         """
-        if value == DEFAULT:
+        if value == Null:
             return self._value
         else:
             if condition:

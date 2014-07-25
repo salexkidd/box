@@ -15,10 +15,6 @@ Module’s public interface.
      
      Property with caching.
 
-.. data:: box.functools.DEFAULT
-   
-     Deafult value to use instead of None.
-     
 .. autoclass:: box.functools.Decorator
 .. autoclass:: box.functools.Null      
      
