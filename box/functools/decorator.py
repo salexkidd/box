@@ -1,20 +1,21 @@
 from abc import ABCMeta, abstractmethod
 
 class DecoratorMetaclass(ABCMeta):
-    """Metaclass to unify 1-2 step decorators implimentation.
+    """Metaclass to unify simple and composite decorators implimentation.
     """
 
     # Public
 
     def __call__(self, *args, **kwargs):
         decorator = object.__new__(self)
-        if getattr(self, '__init__') is object.__init__:
-            # Init is not provided - 1 step
-            return decorator.__call__(*args, **kwargs)
-        else:
-            # Init is provided - 2 steps
+        if decorator.is_composite(*args, **kwargs):
+            # Composite decorator
             decorator.__init__(*args, **kwargs)
             return decorator
+        else:
+            # Simple decorator
+            result = decorator.__call__(*args, **kwargs)
+            return result
 
     def __instancecheck__(self, instance):
         result = issubclass(instance, self)
@@ -24,31 +25,34 @@ class DecoratorMetaclass(ABCMeta):
 
 
 class Decorator(metaclass=DecoratorMetaclass):
-    """Base abstract class for unified 1-2 step decorators.
+    """Base abstract class for unified simple and composite decorators.
 
-    If Decorator implementation doesn't override __init__ method
-    it works as decorator without arguments::
+    Let see the difference between simple and composite decorators:
 
-      class decorator(Decorator):
-          def __call__(self, function):
-              return function
+    - By default if Decorator implementation doesn't override __init__ method
+      it works as simple decorator without arguments::
 
-      @decorator
-      def function(self):
-          pass
+        class decorator(Decorator):
+            def __call__(self, function):
+                return function
 
-    Otherwise it accepts arguments and calls __init__ with it::
+        @decorator
+        def function(self):
+            pass
 
-      class decorator(Decorator):
-          def __init__(self, param):
-              self._param = param
-          def __call__(self, function):
-              print(self._param)
-              return function
+    - Otherwise it works as composite decorator, accepts arguments
+      and calls __init__ with the given arguments::
 
-      @decorator('param')
-      def function(self):
-          pass
+        class decorator(Decorator):
+            def __init__(self, param):
+                self._param = param
+            def __call__(self, function):
+                print(self._param)
+                return function
+
+        @decorator('param')
+        def function(self):
+            pass
     """
 
     # Public
@@ -56,3 +60,10 @@ class Decorator(metaclass=DecoratorMetaclass):
     @abstractmethod
     def __call__(self, function):
         pass  # pragma: no cover
+
+    def is_composite(self, *args, **kwargs):
+        """Check decorator is composite for the given arguments.
+
+        Overriding this method you can define type of your decorator.
+        """
+        return not (getattr(type(self), '__init__') is object.__init__)

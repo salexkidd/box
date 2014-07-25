@@ -6,51 +6,51 @@ class DecoratorTest(unittest.TestCase):
     # Public
 
     def setUp(self):
-        self.decorator1 = self._make_mock_decorator1()
-        self.decorator2 = self._make_mock_decorator2()
+        self.simple = self._make_mock_simple()
+        self.composite = self._make_mock_composite()
         self.client_class = self._make_client_class(
-            self.decorator1, self.decorator2)
+            self.simple, self.composite)
         self.client = self.client_class()
 
-    def test_1_step(self):
+    def test_simple(self):
         self.assertEqual(self.client.method1(), 'method')
 
-    def test_2_steps(self):
+    def test_composite(self):
         self.assertEqual(self.client.method2(), 'param')
 
     def test_isinstance(self):
-        self.assertIsInstance(self.decorator1, Decorator)
-        self.assertIsInstance(self.decorator1, type(Decorator))
+        self.assertIsInstance(self.simple, Decorator)
+        self.assertIsInstance(self.simple, type(Decorator))
         # Python doesn't call __instancecheck__ on most of isinstance
         # calls but we have to test instance check inheritance
-        self.assertFalse(self.decorator1.__instancecheck__(Exception))
+        self.assertFalse(self.simple.__instancecheck__(Exception))
 
     # Protected
 
-    def _make_mock_decorator1(self):
-        class decorator1(Decorator):
+    def _make_mock_simple(self):
+        class simple(Decorator):
             # Public
             def __call__(self, method):
                 return method
-        return decorator1
+        return simple
 
-    def _make_mock_decorator2(self):
-        class decorator2(Decorator):
+    def _make_mock_composite(self):
+        class composite(Decorator):
             # Public
             def __init__(self, param):
                 self._param = param
             def __call__(self, method):
                 method.param = self._param
                 return method
-        return decorator2
+        return composite
 
-    def _make_client_class(self, decorator1, decorator2):
+    def _make_client_class(self, simple, composite):
         class Client:
             # Public
-            @decorator1
+            @simple
             def method1(self):
                 return 'method'
-            @decorator2('param')
+            @composite('param')
             def method2(self):
                 return self.method2.param
         return Client
