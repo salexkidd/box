@@ -1,6 +1,8 @@
 from abc import ABCMeta
 
 class NullMetaclass(ABCMeta):
+    """Metaclass making Null class acting like Null.
+    """
 
     # Public
 
