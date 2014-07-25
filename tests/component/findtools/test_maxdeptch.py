@@ -3,7 +3,7 @@ import unittest
 from unittest.mock import Mock
 from box.findtools.maxdepth import MaxdepthConstraint
 
-class MaxdepthConstraintTest_match(unittest.TestCase):
+class MaxdepthConstraintTest(unittest.TestCase):
 
     # Public
 
@@ -17,12 +17,7 @@ class MaxdepthConstraintTest_match(unittest.TestCase):
         self.assertFalse(self.emitter.skip.called)
         self.assertFalse(self.emitter.stop.called)
 
-
-class MaxdepthConstraintTest_not_match(MaxdepthConstraintTest_match):
-
-    # Public
-
-    def test___call__(self):
+    def test___call___skip(self):
         constraint = MaxdepthConstraint(1)
         constraint(self.emitter)
         self.assertTrue(self.emitter.skip.called)
