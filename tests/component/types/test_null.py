@@ -1,5 +1,5 @@
 import unittest
-from box.functools.null import Null
+from box.types.null import Null
 
 class NullTest(unittest.TestCase):
 
@@ -10,6 +10,3 @@ class NullTest(unittest.TestCase):
 
     def test_repr(self):
         self.assertEqual(repr(Null), 'Null')
-
-    def test_isinstance(self):
-        self.assertTrue(isinstance(Null, Null))

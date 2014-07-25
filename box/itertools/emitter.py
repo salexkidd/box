@@ -1,4 +1,4 @@
-from ..functools import Null
+from ..types import Null
 
 class Emitter:
     """Emitter representation for map_reduce.
