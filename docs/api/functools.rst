@@ -19,7 +19,8 @@ Module’s public interface.
    
      Deafult value to use instead of None.
      
-.. autoclass:: box.functools.Decorator     
+.. autoclass:: box.functools.Decorator
+.. autoclass:: box.functools.Null      
      
 --------
 Internal
