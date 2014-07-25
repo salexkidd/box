@@ -4,7 +4,7 @@ from ..os import enhanced_join
 
 def filtered_iglob(pattern, *,
                    basedir=None, mode=None, sorter=None):
-    """Yield the pathes matching a pattern.
+    """Yield the pathes matching the pattern.
 
     :param str pattern: glob path pattern
     :param str basedir: all pathes are relative to basedir
