@@ -2,7 +2,7 @@ import os
 from ..functools import Function, cachedproperty
 from ..importlib import inject
 from ..itertools import map_reduce, Emitter
-from ..glob import filtered_iglob
+from ..glob import enhanced_iglob
 from ..os import balanced_walk, enhanced_join
 from ..types import RegexCompiledPatternType
 from .not_found import NotFound
@@ -69,7 +69,7 @@ class find_files(Function):
     # Protected
 
     _map_reduce = map_reduce
-    _glob = staticmethod(filtered_iglob)
+    _glob = staticmethod(enhanced_iglob)
     _walk = staticmethod(balanced_walk)
 
     @cachedproperty

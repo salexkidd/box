@@ -1,14 +1,14 @@
 import os
 import unittest
 from functools import partial
-from box.glob import filtered_iglob
+from box.glob import enhanced_iglob
 
 class balanced_walk_Test(unittest.TestCase):
 
     # Public
 
     def setUp(self):
-        self.pglob = partial(filtered_iglob,
+        self.pglob = partial(enhanced_iglob,
             basedir=self._basedir, sorter=sorted)
 
     def test(self):

@@ -2,9 +2,9 @@ import re
 import unittest
 from unittest.mock import patch
 from functools import partial
-from box.glob.filtered_iglob import filtered_iglob
+from box.glob.enhanced_iglob import enhanced_iglob
 
-class filtered_iglob_Test(unittest.TestCase):
+class enhanced_iglob_Test(unittest.TestCase):
 
     # Public
 
@@ -14,7 +14,7 @@ class filtered_iglob_Test(unittest.TestCase):
         patch('os.path.isfile', new=self._mock_isfile).start()
         patch('os.path.isdir', new=self._mock_isdir).start()
         self.addCleanup(patch.stopall)
-        self.pglob = partial(filtered_iglob, sorter=sorted)
+        self.pglob = partial(enhanced_iglob, sorter=sorted)
 
     def test(self):
         pathes = list(self.pglob('*'))

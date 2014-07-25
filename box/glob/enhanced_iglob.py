@@ -2,7 +2,7 @@ import os
 import glob
 from ..os import enhanced_join
 
-def filtered_iglob(pattern, *,
+def enhanced_iglob(pattern, *,
                    basedir=None, mode=None, sorter=None):
     """Yield the pathes matching the pattern.
 

@@ -1,1 +1,1 @@
-from .filtered_iglob import filtered_iglob
+from .enhanced_iglob import enhanced_iglob
