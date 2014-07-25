@@ -43,4 +43,6 @@ class Function(metaclass=FunctionMetaclass):
 
     @abstractmethod
     def __call__(self):
+        """Abstract method to implement.
+        """
         pass  # pragma: no cover

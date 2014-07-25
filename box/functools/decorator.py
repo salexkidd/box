@@ -59,6 +59,8 @@ class Decorator(metaclass=DecoratorMetaclass):
 
     @abstractmethod
     def __call__(self, function):
+        """Abstract method to implement.
+        """
         pass  # pragma: no cover
 
     def is_composite(self, *args, **kwargs):
