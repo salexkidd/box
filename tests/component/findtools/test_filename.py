@@ -3,7 +3,7 @@ import unittest
 from unittest.mock import Mock
 from box.findtools.filename import FilenameConstraint
 
-class FilenameConstraintTest_not_skip(unittest.TestCase):
+class FilenameConstraintTest(unittest.TestCase):
 
     # Public
 
@@ -15,22 +15,17 @@ class FilenameConstraintTest_not_skip(unittest.TestCase):
         constraint(self.emitter)
         self.assertFalse(self.emitter.skip.called)
 
-    def test___call___with_filename_is_regex(self):
-        constraint = FilenameConstraint(re.compile('f.*'))
-        constraint(self.emitter)
-        self.assertFalse(self.emitter.skip.called)
-
-
-class FilenameConstraintTest_skip(FilenameConstraintTest_not_skip):
-
-    # Public
-
-    def test___call__(self):
+    def test___call___skip(self):
         constraint = FilenameConstraint('x*')
         constraint(self.emitter)
         self.assertTrue(self.emitter.skip.called)
 
     def test___call___with_filename_is_regex(self):
+        constraint = FilenameConstraint(re.compile('f.*'))
+        constraint(self.emitter)
+        self.assertFalse(self.emitter.skip.called)
+
+    def test___call___with_filename_is_regex_skip(self):
         constraint = FilenameConstraint(re.compile('x.*'))
         constraint(self.emitter)
         self.assertTrue(self.emitter.skip.called)
