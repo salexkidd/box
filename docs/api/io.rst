@@ -10,4 +10,4 @@ Public
 
 Module’s public interface.
 
-.. autoclass:: box.io.rich_input
+.. autoclass:: box.io.enhanced_input

@@ -1,6 +1,6 @@
 from ..functools import Function
 
-class rich_input(Function):
+class enhanced_input(Function):
     """Read a string from standard input.
 
     :param str prompt: default prompt

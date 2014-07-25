@@ -1,1 +1,1 @@
-from .rich_input import rich_input
+from .enhanced_input import enhanced_input
