@@ -1,7 +1,6 @@
 import os
-from ..types import Null
 
-def enhanced_join(*components, skip_none=True, fallback=Null):
+def enhanced_join(*components, skip_none=True, fallback=None):
     """Enhanced version of os.path.join.
 
     :param str component: path component to join
@@ -14,7 +13,7 @@ def enhanced_join(*components, skip_none=True, fallback=Null):
                 lambda component: component != None, components)
         return os.path.join(*components)
     except Exception:
-        if fallback != Null:
+        if fallback != None:
             return fallback
         else:
             raise
