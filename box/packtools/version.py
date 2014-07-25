@@ -65,10 +65,10 @@ class Version(str):
 
     @property
     def _as_dict(self):
-        result = OrderedDict()
+        items = OrderedDict()
         for key in ['major', 'minor', 'micro', 'level', 'serial']:
-            result[key] = getattr(self, key)
-        return result
+            items[key] = getattr(self, key)
+        return items
 
     @property
     def _as_str(self):
