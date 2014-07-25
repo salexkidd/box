@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 class Version(str):
     """Version representation.
 
@@ -41,10 +43,17 @@ class Version(str):
     """
 
     def __new__(cls, version=None, **kwargs):
-        if not version:
-            version = str.__new__(cls)
-        vars(version).update(kwargs)
-        return str.__new__(cls, version._as_str)
+        ekwargs = kwargs
+        if version != None:
+            ekwargs = version._as_dict
+            ekwargs.update(kwargs)
+        # Buffer version
+        version = str.__new__(cls)
+        vars(version).update(ekwargs)
+        # Actual version
+        version = str.__new__(cls, version._as_str)
+        vars(version).update(ekwargs)
+        return version
 
     @property
     def info(self):
@@ -55,6 +64,13 @@ class Version(str):
     # Protected
 
     @property
+    def _as_dict(self):
+        result = OrderedDict()
+        for key in ['major', 'minor', 'micro', 'level', 'serial']:
+            result[key] = getattr(self, key)
+        return result
+
+    @property
     def _as_str(self):
         items = [self.major, self.minor, self.micro]
         if self.level != 'final':
@@ -63,4 +79,4 @@ class Version(str):
 
     @property
     def _as_tuple(self):
-        return (self.major, self.minor, self.micro, self.level, self.serial)
+        return tuple(self._as_dict.values())
