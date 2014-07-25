@@ -24,7 +24,7 @@ class ObjtypeConstraintTest(unittest.TestCase):
         constraint(self.emitter)
         self.assertFalse(self.emitter.skip.called)
 
-    def test___call___skip_with_objtype_is_list(self):
+    def test___call___with_objtype_is_list_skip(self):
         constraint = ObjtypeConstraint([AssertionError, AttributeError])
         constraint(self.emitter)
         self.assertTrue(self.emitter.skip.called)

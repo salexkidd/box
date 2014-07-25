@@ -25,7 +25,7 @@ class ObjnameConstraintTest(unittest.TestCase):
         mapper(self.emitter)
         self.assertFalse(self.emitter.skip.called)
 
-    def test___call___skip_with_objname_is_regex(self):
+    def test___call___with_objname_is_regex_skip(self):
         constraint = ObjnameConstraint(re.compile('x.*'))
         constraint(self.emitter)
         self.assertTrue(self.emitter.skip.called)
