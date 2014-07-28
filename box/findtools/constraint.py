@@ -18,8 +18,8 @@ class CompositeConstraint(Constraint, metaclass=ABCMeta):
         self._exclude = exclude
 
     def __bool__(self):
-        return (self._include != None or
-                self._exclude != None)
+        return (self._include is not None or
+                self._exclude is not None)
 
     def __repr__(self):
         return ('Include: {include}, exclude: {exclude}'.
@@ -32,10 +32,10 @@ class PatternConstraint(CompositeConstraint, metaclass=ABCMeta):
     # Public
 
     def __call__(self, emitter):
-        if self._include != None:
+        if self._include is not None:
             if not self._match(self._include, emitter):
                 emitter.skip()
-        if self._exclude != None:
+        if self._exclude is not None:
             if self._match(self._exclude, emitter):
                 emitter.skip()
 

@@ -44,7 +44,7 @@ class Version(str):
 
     def __new__(cls, version=None, **kwargs):
         ekwargs = kwargs
-        if version != None:
+        if version is not None:
             ekwargs = version._as_dict
             ekwargs.update(kwargs)
         # Buffer version

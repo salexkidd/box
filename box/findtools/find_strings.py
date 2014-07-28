@@ -14,7 +14,7 @@ class find_strings(Function):
     :param str basedir: base directory to find
     :param list filepathes: list of filepathes where to find
 
-    Arguments for find_files if filepathes == None:
+    Arguments for find_files if filepathes is None:
 
     :param str/glob/re filename: include filenames pattern
     :param str/glob/re notfilename: exclude filenames pattern
@@ -39,9 +39,9 @@ class find_strings(Function):
                  maxdepth=None,
                  mappers=[], reducers=[], emitter=None,
                  getfirst=False, getfirst_exception=None, fallback=None):
-        if emitter == None:
+        if emitter is None:
             emitter = self.default_emitter
-        if getfirst_exception == None:
+        if getfirst_exception is None:
             getfirst_exception = self.default_getfirst_exception
         self._string = string
         self._basedir = basedir
@@ -109,7 +109,7 @@ class find_strings(Function):
 
     @cachedproperty
     def _effective_filepathes(self):
-        if self._filepathes != None:
+        if self._filepathes is not None:
             # We have ready filepathes
             return self._filepathes
         else:

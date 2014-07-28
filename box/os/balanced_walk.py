@@ -31,7 +31,7 @@ def balanced_walk(dirpath=None, *,
                 inner_filepathes.append(path)
             elif os.path.isdir(full_path):
                 inner_dirpathes.append(path)
-    if sorter != None:
+    if sorter is not None:
         inner_filepathes = sorter(inner_filepathes)
         inner_dirpathes = sorter(inner_dirpathes)
     if mode == 'files':

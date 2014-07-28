@@ -16,7 +16,7 @@ def merge_dicts(dict1, dict2, *, resolvers={}):
         if key in dict1:
             resolver1 = resolvers.get(type(dict1[key]), None)
             resolver2 = resolvers.get(type(dict2[key]), None)
-            if resolver1 == resolver2 != None:
+            if resolver1 == resolver2 is not None:
                 value = resolver1(dict1[key], dict2[key])
         result[key] = value
     return result

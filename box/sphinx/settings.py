@@ -84,7 +84,7 @@ class Settings(Settings):
             for name in sorted(dir(self)):
                 attr = getattr(self, name)
                 item = getattr(attr, setup.attribute_name, None)
-                if item != None:
+                if item is not None:
                     item.invoke(self, app)
         return esetup
 

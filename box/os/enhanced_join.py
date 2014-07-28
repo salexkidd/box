@@ -10,10 +10,10 @@ def enhanced_join(*components, skip_none=True, fallback=None):
     try:
         if skip_none:
             components = filter(
-                lambda component: component != None, components)
+                lambda component: component is not None, components)
         return os.path.join(*components)
     except Exception:
-        if fallback != None:
+        if fallback is not None:
             return fallback
         else:
             raise

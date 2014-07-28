@@ -30,7 +30,7 @@ def import_object(name, *, module=None, package=None):
       <function box.importlib.import_object.import_object>
     """
     if isinstance(name, str):
-        if module != None:
+        if module is not None:
             name = '.'.join([module, name])
         try:
             module, name = name.rsplit('.', 1)

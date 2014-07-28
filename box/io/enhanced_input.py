@@ -52,7 +52,7 @@ class enhanced_input(Function):
     """
 
     def __init__(self, prompt=None, **kwargs):
-        if prompt != None:
+        if prompt is not None:
             self.prompt = prompt
         for key, value in kwargs.items():
             setattr(self, key, value)

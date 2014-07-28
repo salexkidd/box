@@ -37,9 +37,9 @@ class find_files(Function):
                  basedir=None, join=False, maxdepth=None,
                  mappers=[], reducers=[], emitter=None,
                  getfirst=False, getfirst_exception=None, fallback=None):
-        if emitter == None:
+        if emitter is None:
             emitter = self.default_emitter
-        if getfirst_exception == None:
+        if getfirst_exception is None:
             getfirst_exception = self.default_getfirst_exception
         self._filename = filename
         self._notfilename = notfilename
@@ -99,7 +99,7 @@ class find_files(Function):
 
     @cachedproperty
     def _filepathes(self):
-        if (self._filepath == None or
+        if (self._filepath is None or
             isinstance(self._filepath, RegexCompiledPatternType)):
             # We have to walk
             filepathes = self._walk(

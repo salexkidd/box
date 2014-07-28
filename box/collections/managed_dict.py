@@ -33,7 +33,7 @@ class ManagedDict(dict):
         return value
 
     def update(self, other=None, **kwargs):
-        if other != None:
+        if other is not None:
             if hasattr(other, 'keys'):
                 for key in other:
                     self[key] = other[key]

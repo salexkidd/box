@@ -21,9 +21,9 @@ class map_reduce(Function):
     def __init__(self, values=[], *,
                  mappers=[], reducers=[], emitter=None,
                  getfirst=False, getfirst_exception=None, fallback=None):
-        if emitter == None:
+        if emitter is None:
             emitter = self.default_emitter
-        if getfirst_exception == None:
+        if getfirst_exception is None:
             getfirst_exception = self.default_getfirst_exception
         self._values = values
         self._mappers = mappers
@@ -75,7 +75,7 @@ class map_reduce(Function):
                 raise self._fallback
             elif callable(self._fallback):
                 return self._fallback(exception)
-            elif self._fallback != None:
+            elif self._fallback is not None:
                 return self._fallback
             else:
                 raise

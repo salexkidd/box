@@ -17,7 +17,7 @@ def enhanced_iglob(pattern, *,
     """
     full_pattern = enhanced_join(basedir, pattern)
     full_pathes = glob.iglob(full_pattern)
-    if sorter != None:
+    if sorter is not None:
         full_pathes = sorter(full_pathes)
     for full_path in full_pathes:
         path = os.path.relpath(full_path, start=basedir)
