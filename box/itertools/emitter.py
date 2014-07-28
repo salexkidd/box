@@ -31,7 +31,7 @@ class Emitter:
 
         Use emitter.value(value) to emit only one value.
         """
-        if value == Null:
+        if value is Null:
             return self._value
         else:
             if condition:
