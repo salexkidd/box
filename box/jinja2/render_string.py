@@ -22,8 +22,10 @@ class render_string(Function):
 
     # Public
 
-    def __init__(self, source, context={}, *,
+    def __init__(self, source, context=None, *,
                  target=None, loader=None, **env_params):
+        if context is None:
+            context = {}
         self._source = source
         self._context = context
         self._target = target

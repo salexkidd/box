@@ -19,9 +19,11 @@ class map_reduce(Function):
     default_emitter = Emitter
     default_getfirst_exception = NotEmitted
 
-    def __init__(self, values=[], *,
+    def __init__(self, values=None, *,
                  mappers=[], reducers=[], emitter=None,
                  getfirst=False, getfirst_exception=None, fallback=None):
+        if values is None:
+            values = []
         if emitter is None:
             emitter = self.default_emitter
         if getfirst_exception is None:

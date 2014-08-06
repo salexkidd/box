@@ -16,7 +16,9 @@ class render_dir(Function):
 
     # Public
 
-    def __init__(self, source, context={}, **env_params):
+    def __init__(self, source, context=None, **env_params):
+        if context is None:
+            context = {}
         self._source = source
         self._context = context
         self._env_params = env_params
