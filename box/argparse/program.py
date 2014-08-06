@@ -9,9 +9,9 @@ class Program(metaclass=ABCMeta):
     :param list argv: sys.argv like list of arguments
 
     Client have to implement __call__ method and can adjust
-    _command(_class) and _settings(_class) attributes using
+    _Command and _Settings attributes using replacements
     compatible with module's :class:`box.argparse.Command`,
-    :class:`box.argparse.Settings` replacements.
+    :class:`box.argparse.Settings`.
 
     Usage exmaple::
 
@@ -21,7 +21,7 @@ class Program(metaclass=ABCMeta):
       >>> class Program(Program):
       ...   def __call__(self):
       ...     print(self._command.arguments)
-      ...   _settings_class = Settings
+      ...   _Settings = Settings
       >>> program = Program(['program', 'arg'])
       >>> program()
       ['arg']
@@ -38,14 +38,14 @@ class Program(metaclass=ABCMeta):
 
     # Protected
 
-    _command_class = Command
-    _settings_class = Settings
+    _Command = Command
+    _Settings = Settings
 
     @cachedproperty
     def _command(self):
-        return self._command_class(
+        return self._Command(
             self._argv, config=self._settings.argparse)
 
     @cachedproperty
     def _settings(self):
-        return self._settings_class()
+        return self._Settings()

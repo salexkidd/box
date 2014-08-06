@@ -6,8 +6,8 @@ class SettingsTest(unittest.TestCase):
     # Public
 
     def setUp(self):
-        MockSettings = self._make_mock_settings_class()
-        self.settings = MockSettings()
+        self.Settings = self._make_mock_settings_class()
+        self.settings = self.Settings()
 
     def test(self):
         self.assertEqual(self.settings, {'name1': 'value1'})

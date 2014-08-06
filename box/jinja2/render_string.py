@@ -51,20 +51,20 @@ class render_string(Function):
 
     @cachedproperty
     def _template(self):
-        environment = self._environment_class(
+        environment = self._Environment(
             loader=self._loader, **self._env_params)
         return environment.from_string(self._source)
 
     @cachedproperty
-    def _environment_class(self):
+    def _Environment(self):
         from jinja2 import Environment
         class Environment(Environment):
             # Public
-            template_class = self._template_class
+            template_class = self._Template
         return Environment
 
     @cachedproperty
-    def _template_class(self):
+    def _Template(self):
         from jinja2 import Template
         from jinja2.utils import concat
         new_context = self._new_context

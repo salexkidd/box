@@ -38,7 +38,7 @@ class ProgramTest(unittest.TestCase):
         class MockProgram(Program):
             # Protected
             _execute = Mock()
-            _command_class = Mock(return_value=Mock(
+            _Command = Mock(return_value=Mock(
                 debug='debug',
                 verbose='verbose',
                 quiet='quiet'))

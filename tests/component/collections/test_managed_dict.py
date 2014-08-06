@@ -7,8 +7,8 @@ class ManagedDictTest(unittest.TestCase):
     # Public
 
     def setUp(self):
-        self.MockManagedDict = self._make_mock_managed_dict_class()
-        self.dict = self.MockManagedDict({'key1': 'value1'})
+        self.ManagedDict = self._make_mock_managed_dict_class()
+        self.dict = self.ManagedDict({'key1': 'value1'})
 
     def test_clear(self):
         self.dict.clear()
@@ -23,7 +23,7 @@ class ManagedDictTest(unittest.TestCase):
         self.dict.__delitem__.assert_called_once_with('key1')
 
     def test_popitem_with_empty_dict(self):
-        self.dict = self.MockManagedDict()
+        self.dict = self.ManagedDict()
         self.assertRaises(KeyError, self.dict.popitem)
 
     def test_setdefault(self):

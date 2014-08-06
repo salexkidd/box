@@ -6,19 +6,18 @@ class ProgramTest(unittest.TestCase):
 
     # Public
 
-
     def setUp(self):
         self.argv = ['prog', 'argument']
         self.Program = self._make_mock_program_class()
         self.program = self.Program(self.argv)
 
-    @patch('box.argparse.program.Program._command_class')
-    @patch('box.argparse.program.Program._settings_class')
-    def test__command(self, settings_class, command_class):
-        self.assertEqual(self.program._command, command_class.return_value)
-        settings_class.assert_called_with()
-        command_class.assert_called_with(
-            self.argv, config=settings_class.return_value.argparse)
+    @patch('box.argparse.program.Program._Command')
+    @patch('box.argparse.program.Program._Settings')
+    def test__command(self, Settings, Command):
+        self.assertEqual(self.program._command, Command.return_value)
+        Settings.assert_called_with()
+        Command.assert_called_with(
+            self.argv, config=Settings.return_value.argparse)
 
     # Protected
 

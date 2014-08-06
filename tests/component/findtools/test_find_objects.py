@@ -15,10 +15,10 @@ class find_objects_Test(unittest.TestCase):
     def test(self):
         objects = list(self.pfind(basedir='basedir'))
         self.assertTrue(objects)
-        self.find._loader_class.assert_has_calls(
+        self.find._Loader.assert_has_calls(
             [call('basedir/file1', 'basedir/file1'),
              call('basedir/file2', 'basedir/file2')])
-        self.find._loader_class.return_value.load_module.assert_has_calls(
+        self.find._Loader.return_value.load_module.assert_has_calls(
             [call('basedir/file1'),
              call('basedir/file2')])
 
@@ -72,6 +72,6 @@ class find_objects_Test(unittest.TestCase):
     def _make_mock_find(self):
         class mock_find(find_objects):
             # Protected
-            _loader_class = Mock(return_value=Mock(
+            _Loader = Mock(return_value=Mock(
                 load_module=Mock(return_value=unittest.mock)))
         return mock_find

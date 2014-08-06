@@ -90,8 +90,8 @@ class Settings(dict, metaclass=SettingsMetaclass):
                 if isinstance(extension, str):
                     if os.path.isfile(extension):
                         # Extension's settings file already exists
-                        extension_class = cls._find_extension_class(extension)
-                        extension = extension_class()
+                        Extension = cls._find_extension_class(extension)
+                        extension = Extension()
                     else:
                         # Extension's settings file has to be created
                         cls._create_extension_class(extension)

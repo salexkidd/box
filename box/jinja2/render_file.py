@@ -18,12 +18,12 @@ class render_file(render_string):
         loader = self._loader
         if not loader:
             dirpath, source = os.path.split(self._source)
-            loader = self._file_system_loader_class(dirpath)
-        environment = self._environment_class(
+            loader = self._FileSystemLoader(dirpath)
+        environment = self._Environment(
             loader=loader, **self._env_params)
         return environment.get_template(source)
 
     @property
-    def _file_system_loader_class(self):
+    def _FileSystemLoader(self):
         from jinja2 import FileSystemLoader
         return FileSystemLoader

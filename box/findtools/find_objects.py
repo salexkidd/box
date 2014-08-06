@@ -81,7 +81,7 @@ class find_objects(map_reduce):
     # Protected
 
     _find_files = staticmethod(find_files)
-    _loader_class = SourceFileLoader
+    _Loader = SourceFileLoader
     _map_reduce = map_reduce
 
     @cachedproperty
@@ -89,7 +89,7 @@ class find_objects(map_reduce):
         for filepath in self._effective_filepathes:
             # Loads as a module every file in filepathes
             full_filepath = enhanced_join(self._basedir, filepath)
-            loader = self._loader_class(full_filepath, full_filepath)
+            loader = self._Loader(full_filepath, full_filepath)
             module = loader.load_module(full_filepath)
             for objname in dir(module):
                 # Emits every object in module

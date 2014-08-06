@@ -7,8 +7,8 @@ class cachedpropertyTest(unittest.TestCase):
     # Public
 
     def setUp(self):
-        self.CachedpropertyConsumer = self._make_cachedproperty_consumer_class()
-        self.consumer = self.CachedpropertyConsumer()
+        self.Consumer = self._make_consumer_class()
+        self.consumer = self.Consumer()
         self.consumer.default_property_value = 'old_value'
 
     def test___get__(self):
@@ -56,8 +56,8 @@ class cachedpropertyTest(unittest.TestCase):
 
     # Protected
 
-    def _make_cachedproperty_consumer_class(self):
-        class CachedpropertyConsumer:
+    def _make_consumer_class(self):
+        class Consumer:
             # Public
             def __init__(self):
                 self.default_property_value = {}
@@ -72,4 +72,4 @@ class cachedpropertyTest(unittest.TestCase):
             def property(self):
                 cachedproperty.reset(self, 'property')
             no_property = cachedproperty()
-        return CachedpropertyConsumer
+        return Consumer

@@ -40,7 +40,7 @@ class Command:
 
     # Protected
 
-    _parser_class = Parser
+    _Parser = Parser
 
     @cachedproperty
     def _namespace(self):
@@ -48,7 +48,7 @@ class Command:
 
     @cachedproperty
     def _parser(self):
-        parser = self._parser_class(
+        parser = self._Parser(
             exception=self._exception, **self._parser_config)
         for argument in self._parser_arguments:
             argument = copy(argument)

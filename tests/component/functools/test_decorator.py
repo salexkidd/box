@@ -8,9 +8,8 @@ class DecoratorTest(unittest.TestCase):
     def setUp(self):
         self.simple = self._make_mock_simple()
         self.composite = self._make_mock_composite()
-        self.client_class = self._make_client_class(
-            self.simple, self.composite)
-        self.client = self.client_class()
+        self.Client = self._make_client_class(self.simple, self.composite)
+        self.client = self.Client()
 
     def test_simple(self):
         self.assertEqual(self.client.method1(), 'method')

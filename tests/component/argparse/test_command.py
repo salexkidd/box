@@ -31,12 +31,12 @@ class CommandTest(unittest.TestCase):
 
     def test__namespace(self):
         self.assertEqual(self.command._namespace, 'namespace')
-        self.command._parser_class.return_value.parse_args(['argument'])
+        self.command._Parser.return_value.parse_args(['argument'])
 
     def test__parser(self):
         self.assertEqual(self.command._parser,
-                         self.command._parser_class.return_value)
-        self.command._parser_class.return_value.add_argument.assert_has_calls([
+                         self.command._Parser.return_value)
+        self.command._Parser.return_value.add_argument.assert_has_calls([
             call('name', kwarg='kwarg'),
             call('flag', kwarg='kwarg')])
 
@@ -56,7 +56,7 @@ class CommandTest(unittest.TestCase):
     def _make_mock_command_class(self):
         class MockCommand(Command):
             # Protected
-            _parser_class = Mock(return_value=Mock(
+            _Parser = Mock(return_value=Mock(
                 add_argument=Mock(),
                 parse_args=Mock(return_value='namespace'),
                 format_help=Mock(return_value=Mock(

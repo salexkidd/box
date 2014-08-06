@@ -28,7 +28,7 @@ class Program(Program, metaclass=ABCMeta):
 
     # Protected
 
-    _settings_class = Settings
+    _Settings = Settings
 
     @abstractmethod
     def _execute(self):
