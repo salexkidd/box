@@ -1,6 +1,7 @@
 import datetime
 from json import JSONEncoder
 
+
 class DateEncoder(JSONEncoder):
     """Json encoder with support of datatime values.
 

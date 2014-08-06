@@ -2,6 +2,7 @@ from ..functools import Function
 from .emitter import Emitter
 from .not_emitted import NotEmitted
 
+
 class map_reduce(Function):
     """Process iterable values using map_resuce framework.
 

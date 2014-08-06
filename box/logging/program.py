@@ -4,6 +4,7 @@ from abc import ABCMeta, abstractmethod
 from ..argparse import Program
 from .settings import Settings
 
+
 class Program(Program, metaclass=ABCMeta):
     """Program using logging.
     """

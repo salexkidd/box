@@ -3,6 +3,7 @@ import fnmatch
 from ..types import RegexCompiledPatternType
 from .constraint import PatternConstraint
 
+
 class FilenameConstraint(PatternConstraint):
 
     # Protected

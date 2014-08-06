@@ -3,6 +3,7 @@ from copy import copy
 from ..functools import cachedproperty
 from .parser import Parser
 
+
 class Command:
     """Console command representation.
 

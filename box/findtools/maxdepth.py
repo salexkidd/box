@@ -1,6 +1,7 @@
 import os
 from .constraint import Constraint
 
+
 class MaxdepthConstraint(Constraint):
 
     # Public

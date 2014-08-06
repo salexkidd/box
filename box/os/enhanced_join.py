@@ -1,5 +1,6 @@
 import os
 
+
 def enhanced_join(*components, skip_none=True, fallback=None):
     """Enhanced version of os.path.join.
 

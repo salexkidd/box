@@ -10,6 +10,7 @@ from .maxdepth import MaxdepthConstraint
 from .filename import FilenameConstraint
 from .filepath import FilepathConstraint
 
+
 class find_files(Function):
     """Find files using map_reduce framework.
 

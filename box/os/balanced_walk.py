@@ -1,6 +1,7 @@
 import os
 from .enhanced_join import enhanced_join
 
+
 def balanced_walk(dirpath=None, *,
                   basedir=None, mode=None, sorter=None):
     """Recursevly yield (dirpathes, filepathes) tuple

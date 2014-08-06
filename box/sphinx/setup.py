@@ -1,5 +1,6 @@
 from ..functools import Decorator
 
+
 class setup(Decorator):
     """Decorate method to be added to sphinx setup.
     """

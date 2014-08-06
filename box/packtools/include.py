@@ -1,5 +1,6 @@
 from ..functools import Decorator
 
+
 class include(Decorator):
     """Decorate callable object to be included in settings.
     """

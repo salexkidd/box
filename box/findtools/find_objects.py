@@ -8,6 +8,7 @@ from .not_found import NotFound
 from .objname import ObjnameConstraint
 from .objtype import ObjtypeConstraint
 
+
 class find_objects(map_reduce):
     """Find objects in files using map_reduce framework.
 

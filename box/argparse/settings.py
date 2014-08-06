@@ -2,6 +2,7 @@ import operator
 from ..collections import merge_dicts
 from ..packtools import Settings
 
+
 class Settings(Settings):
     """Settings with argparse config.
     """

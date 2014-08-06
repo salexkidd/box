@@ -3,6 +3,7 @@ import inspect
 from ..findtools import find_objects
 from .include import include
 
+
 class SettingsMetaclass(type):
     """Metaclass adds extensions functionality to Settings.
     """

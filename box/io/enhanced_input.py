@@ -1,5 +1,6 @@
 from ..functools import Function
 
+
 class enhanced_input(Function):
     """Read a string from standard input.
 

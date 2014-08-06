@@ -1,5 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
+
 class DecoratorMetaclass(ABCMeta):
     """Metaclass to unify simple and composite decorators implimentation.
     """

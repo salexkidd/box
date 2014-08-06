@@ -1,5 +1,6 @@
 from ..copy import enhanced_copy
 
+
 def merge_dicts(dict1, dict2, *, resolvers={}):
     """Recursively merge dicts and return new one.
 

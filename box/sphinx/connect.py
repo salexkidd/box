@@ -1,6 +1,7 @@
 import functools
 from .setup import setup
 
+
 class connect(setup):
     """Decorate method to be connected to sphinx event.
 

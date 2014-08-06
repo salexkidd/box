@@ -3,6 +3,7 @@ from ..importlib import import_object
 from ..packtools import Settings, include
 from .setup import setup
 
+
 class Settings(Settings):
     """Sphinx conf.py representation.
 

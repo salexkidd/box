@@ -7,6 +7,7 @@ from ..types import RegexCompiledPatternType
 from .find_files import FindFilesEmitter, find_files
 from .not_found import NotFound
 
+
 class find_strings(Function):
     """Find strings in files using map_reduce framework.
 

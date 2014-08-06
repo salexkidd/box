@@ -1,5 +1,6 @@
 from copy import copy as python_copy
 
+
 def enhanced_copy(obj, *args, **kwargs):
     """Shallow copy operation on arbitrary Python objects.
 

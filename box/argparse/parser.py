@@ -1,5 +1,6 @@
 from argparse import ArgumentParser
 
+
 class Parser(ArgumentParser):
 
     # Public

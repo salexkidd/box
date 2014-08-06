@@ -1,5 +1,6 @@
 from .constraint import PatternConstraint
 
+
 class ObjtypeConstraint(PatternConstraint):
 
     # Protected

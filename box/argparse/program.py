@@ -3,6 +3,7 @@ from ..functools import cachedproperty
 from .command import Command
 from .settings import Settings
 
+
 class Program(metaclass=ABCMeta):
     """Abstract console program representation.
 

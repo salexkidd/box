@@ -1,5 +1,6 @@
 import importlib
 
+
 def import_object(name, *, module=None, package=None):
     """Import an object.
 

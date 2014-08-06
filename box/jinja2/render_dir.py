@@ -2,6 +2,7 @@ import os
 from ..functools import Function
 from .render_string import render_string
 
+
 class render_dir(Function):
     """Render a directory using context.
 

@@ -4,6 +4,7 @@ import fnmatch
 from ..types import RegexCompiledPatternType
 from .constraint import PatternConstraint
 
+
 class FilepathConstraint(PatternConstraint):
 
     # Public

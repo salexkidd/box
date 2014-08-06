@@ -2,6 +2,7 @@ import re
 from ..types import RegexCompiledPatternType
 from .constraint import PatternConstraint
 
+
 class ObjnameConstraint(PatternConstraint):
 
     # Protected

@@ -1,5 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
+
 class FunctionMetaclass(ABCMeta):
     """Metaclass making normal class acting like a function.
     """

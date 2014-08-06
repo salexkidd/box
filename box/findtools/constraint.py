@@ -1,5 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
+
 class Constraint(metaclass=ABCMeta):
 
     # Public
