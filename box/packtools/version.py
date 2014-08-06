@@ -22,7 +22,7 @@ class Version(str):
       >>> v.info
       (1, 2, 5, 'final', 0)
 
-    .. seealso:: Python versioning: `sys.version_info <https://docs.python.org/3/library/sys.html#sys.version_info>`_
+    .. seealso:: Python versioning: sys.version_info
     """
 
     # Public
