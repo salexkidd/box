@@ -10,7 +10,7 @@ class Module(ManageModule):
     docs = FindModule(basedir='docs')
     tests = FindModule(basedir='tests')
 
-    # Vars
+    # Attributes
 
     author = 'roll'
     author_email = 'roll@respect31.com'
@@ -28,6 +28,10 @@ class Module(ManageModule):
     license = 'MIT License'
     name = 'box'
     platforms = ['Unix']
-    pypi_password_secure = 'jFRWJAyhP5RA9j8CEpJzwJhwZmbfcxW1HpRO43mMu2/Nh3FW7GdisUovCLOS/khygJvh86vfe6m69+GEVuH/VgUEw8GcdZ41Zcla0ZnBhQrH0PTQel5Fou85foD7yXf42toVY3DV7C/JPk8PK3swSlIJ26n4dVreI7y1xvRmVHk='
+    pypi_password_secure = (
+        'jFRWJAyhP5RA9j8CEpJzwJhwZmbfcxW1HpRO43mMu2/Nh3FW7GdisUovC'
+        'LOS/khygJvh86vfe6m69+GEVuH/VgUEw8GcdZ41Zcla0ZnBhQrH0PTQel'
+        '5Fou85foD7yXf42toVY3DV7C/JPk8PK3swSlIJ26n4dVreI7y1xvRmVHk='
+    )
     tests_require = ['nose', 'jinja2']
     test_suite = 'nose.collector'
