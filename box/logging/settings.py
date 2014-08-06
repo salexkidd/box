@@ -51,8 +51,8 @@ class Settings(Settings):
             },
             'handlers': {
                 'default': {
-                    'level':'DEBUG',
-                    'class':'logging.StreamHandler',
+                    'level': 'DEBUG',
+                    'class': 'logging.StreamHandler',
                     'formatter': 'default',
                 },
             },
