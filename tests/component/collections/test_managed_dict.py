@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock
 from box.collections.managed_dict import ManagedDict
 
+
 class ManagedDictTest(unittest.TestCase):
 
     # Public

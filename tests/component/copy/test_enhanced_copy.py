@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock
 from box.copy import enhanced_copy
 
+
 class copy_Test(unittest.TestCase):
 
     # Public

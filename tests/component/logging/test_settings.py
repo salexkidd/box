@@ -1,6 +1,7 @@
 import unittest
 from box.logging.settings import Settings
 
+
 class SettingsTest(unittest.TestCase):
 
     # Public

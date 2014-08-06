@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock
 from box.findtools.objtype import ObjtypeConstraint
 
+
 class ObjtypeConstraintTest(unittest.TestCase):
 
     # Public

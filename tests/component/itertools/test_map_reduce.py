@@ -1,6 +1,7 @@
 import unittest
 from box.itertools.map_reduce import map_reduce
 
+
 class map_reduce_Test(unittest.TestCase):
 
     # Public

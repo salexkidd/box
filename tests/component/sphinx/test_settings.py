@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock, patch
 from box.sphinx.settings import Settings, setup as sphinx_setup
 
+
 class SettingsTest(unittest.TestCase):
 
     # Public

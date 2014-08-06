@@ -3,6 +3,7 @@ import unittest
 from unittest.mock import Mock
 from box.findtools.filename import FilenameConstraint
 
+
 class FilenameConstraintTest(unittest.TestCase):
 
     # Public

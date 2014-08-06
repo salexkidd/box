@@ -3,6 +3,7 @@ import unittest
 from functools import partial
 from box.glob import enhanced_iglob
 
+
 class balanced_walk_Test(unittest.TestCase):
 
     # Public

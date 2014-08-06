@@ -6,6 +6,7 @@ if check_module('jinja2'):
     from functools import partial
     from box.jinja2 import render_file
 
+
     class render_file_Test(unittest.TestCase):
 
         # Public

@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock, patch
 from box.argparse.program import Program
 
+
 class ProgramTest(unittest.TestCase):
 
     # Public

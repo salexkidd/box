@@ -3,6 +3,7 @@ import unittest
 from functools import partial
 from box.os import balanced_walk
 
+
 # TODO: remove explicit "/" usage
 class balanced_walk_Test(unittest.TestCase):
 

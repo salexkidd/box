@@ -1,6 +1,7 @@
 import unittest
 from box.argparse.settings import Settings
 
+
 class SettingsTest(unittest.TestCase):
 
     # Public

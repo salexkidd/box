@@ -7,6 +7,7 @@ if check_module('jinja2'):
     from unittest.mock import patch
     from box.jinja2 import render_dir
 
+
     class render_dir_Test(unittest.TestCase):
 
         # Public

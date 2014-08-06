@@ -4,6 +4,7 @@ from functools import partial
 # TODO: Nose in shell imports module instead of object
 from box.findtools.find_files import find_files
 
+
 # TODO: remove explicit "/" usage
 class find_files_Test(unittest.TestCase):
 

@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock
 from box.functools.cachedproperty import cachedproperty
 
+
 class cachedpropertyTest(unittest.TestCase):
 
     # Public

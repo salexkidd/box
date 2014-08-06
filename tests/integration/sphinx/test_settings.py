@@ -4,6 +4,7 @@ if check_module('sphinx'):
     import unittest
     from box.sphinx import Settings
 
+
     class SettingsTest(unittest.TestCase):
 
         # Public

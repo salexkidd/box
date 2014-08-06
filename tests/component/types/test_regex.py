@@ -2,6 +2,7 @@ import re
 import unittest
 from box.types.regex import RegexCompiledPatternType
 
+
 class RegexCompiledPatternTypeTest(unittest.TestCase):
 
     # Public

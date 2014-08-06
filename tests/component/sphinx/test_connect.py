@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock, patch
 from box.sphinx.connect import functools, connect as sphinx_connect
 
+
 class connect_Test(unittest.TestCase):
 
     # Public

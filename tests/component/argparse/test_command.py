@@ -3,6 +3,7 @@ from functools import partial
 from unittest.mock import Mock, call
 from box.argparse.command import Command
 
+
 class CommandTest(unittest.TestCase):
 
     # Public

@@ -4,6 +4,7 @@ from functools import partial
 from unittest.mock import Mock, call, patch
 from box.findtools.find_strings import find_strings
 
+
 class find_strings_Test(unittest.TestCase):
 
     # Public

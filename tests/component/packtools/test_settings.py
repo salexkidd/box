@@ -1,6 +1,7 @@
 import unittest
 from box.packtools import Settings
 
+
 class SettingsTest(unittest.TestCase):
 
     # Public

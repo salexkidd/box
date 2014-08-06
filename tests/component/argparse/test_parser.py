@@ -3,6 +3,7 @@ from io import StringIO
 from unittest.mock import patch
 from box.argparse.parser import Parser
 
+
 class ParserTest(unittest.TestCase):
 
     # Public

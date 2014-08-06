@@ -4,6 +4,7 @@ from unittest.mock import patch
 from functools import partial
 from box.glob.enhanced_iglob import enhanced_iglob
 
+
 class enhanced_iglob_Test(unittest.TestCase):
 
     # Public

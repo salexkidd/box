@@ -4,6 +4,7 @@ if check_module('packgram'):
     import box
     from packgram.tests import SetupTest
 
+
     class SetupTest(SetupTest):
 
         # Public

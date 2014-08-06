@@ -1,6 +1,7 @@
 import unittest
 from box.packtools import Version
 
+
 class VersionTest(unittest.TestCase):
 
     # Public

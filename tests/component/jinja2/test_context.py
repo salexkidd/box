@@ -3,6 +3,7 @@ from unittest.mock import Mock
 from box.copy import enhanced_copy
 from box.jinja2.context import ObjectContext
 
+
 class ObjectContextTest(unittest.TestCase):
 
     # Public

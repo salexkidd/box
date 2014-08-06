@@ -2,6 +2,7 @@ import unittest
 import datetime
 from box.json.date_encoder import DateEncoder
 
+
 class DateEncoderTest(unittest.TestCase):
 
     # Public

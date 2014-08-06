@@ -3,6 +3,7 @@ import unittest
 from unittest.mock import Mock
 from box.findtools.find_files import find_files
 
+
 class find_files_Test(unittest.TestCase):
 
     # Public

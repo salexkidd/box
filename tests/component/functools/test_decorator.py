@@ -1,6 +1,7 @@
 import unittest
 from box.functools.decorator import Decorator
 
+
 class DecoratorTest(unittest.TestCase):
 
     # Public

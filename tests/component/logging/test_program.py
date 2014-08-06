@@ -3,6 +3,7 @@ import unittest
 from unittest.mock import Mock, call, patch
 from box.logging.program import Program
 
+
 class ProgramTest(unittest.TestCase):
 
     # Public

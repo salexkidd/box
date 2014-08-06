@@ -3,6 +3,7 @@ import unittest
 from unittest.mock import Mock, ANY
 from box.packtools import Settings
 
+
 class SettingsTest(unittest.TestCase):
 
     # Public

@@ -5,6 +5,7 @@ from functools import partial
 from unittest.mock import patch
 from box.os.balanced_walk import balanced_walk
 
+
 # TODO: remove explicit "/" usage
 class balanced_walk_Test(unittest.TestCase):
 

@@ -3,6 +3,7 @@ from functools import partial
 from unittest.mock import Mock
 from box.io.enhanced_input import enhanced_input
 
+
 class enhanced_input_Test(unittest.TestCase):
 
     # Public

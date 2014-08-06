@@ -3,6 +3,7 @@ import unittest
 from unittest.mock import Mock
 from box.findtools.objname import ObjnameConstraint
 
+
 class ObjnameConstraintTest(unittest.TestCase):
 
     # Public

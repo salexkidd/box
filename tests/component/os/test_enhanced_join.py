@@ -3,6 +3,7 @@ import unittest
 from unittest.mock import patch
 from box.os.enhanced_join import enhanced_join
 
+
 class enhanced_join_Test(unittest.TestCase):
 
     # Public

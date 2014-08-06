@@ -1,6 +1,7 @@
 import unittest
 from box.types.null import Null
 
+
 class NullTest(unittest.TestCase):
 
     # Public

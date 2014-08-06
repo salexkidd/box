@@ -7,6 +7,7 @@ if check_module('jinja2'):
     from unittest.mock import Mock, patch
     from box.jinja2 import render_string
 
+
     class render_string_Test(unittest.TestCase):
 
         # Public

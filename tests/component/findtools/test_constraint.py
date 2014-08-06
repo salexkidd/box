@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock
 from box.findtools.constraint import PatternConstraint
 
+
 class PatternConstraintTest(unittest.TestCase):
 
     # Public

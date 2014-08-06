@@ -4,6 +4,7 @@ from functools import partial
 from unittest.mock import Mock, call, patch
 from box.findtools.find_objects import find_objects
 
+
 class find_objects_Test(unittest.TestCase):
 
     # Public

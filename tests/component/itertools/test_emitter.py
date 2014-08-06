@@ -1,6 +1,7 @@
 import unittest
 from box.itertools.map_reduce import Emitter
 
+
 class EmitterTest(unittest.TestCase):
 
     # Public

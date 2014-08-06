@@ -1,6 +1,7 @@
 import unittest
 from box.functools.function import Function
 
+
 class FunctionTest(unittest.TestCase):
 
     # Public
