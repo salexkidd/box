@@ -81,8 +81,8 @@ class find_strings(Function):
         for filepath in self._effective_filepathes:
             # Reads every file in filepathes
             full_filepath = enhanced_join(self._basedir, filepath)
-            partial_emitter = partial(self._emitter,
-                filepath=filepath, basedir=self._basedir)
+            partial_emitter = partial(
+                self._emitter, filepath=filepath, basedir=self._basedir)
             with self._open(full_filepath) as fileobj:
                 filetext = fileobj.read()
                 if isinstance(self._string, RegexCompiledPatternType):

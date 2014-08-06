@@ -91,8 +91,8 @@ class find_files(Function):
         filename = FilenameConstraint(self._filename, self._notfilename)
         if filename:
             mappers.append(filename)
-        filepath = FilepathConstraint(self._filepath, self._notfilepath,
-            basedir=self._basedir)
+        filepath = FilepathConstraint(
+            self._filepath, self._notfilepath, basedir=self._basedir)
         if filepath:
             mappers.append(filepath)
         mappers += self._mappers
@@ -107,7 +107,8 @@ class find_files(Function):
                 basedir=self._basedir, sorter=sorted, mode='files')
         else:
             # We have a glob pattern
-            filepathes = self._glob(self._filepath,
+            filepathes = self._glob(
+                self._filepath,
                 basedir=self._basedir, sorter=sorted, mode='files')
         return filepathes
 
