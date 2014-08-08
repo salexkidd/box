@@ -14,13 +14,9 @@ from .filepath import FilepathConstraint
 class find_files(Function):
     """Find files using map_reduce framework.
 
-    :param str/glob/re filename: include filenames pattern
-    :param str/glob/re notfilename: exclude filenames pattern
-    :param str/glob/re filepath: include filepathes pattern
-    :param str/glob/re notfilepath: exclude filepathes pattern
+    :param list filters: find filters
     :param str basedir: base directory to find
     :param bool join: if True joins resulted filepath with basedir
-    :param int maxdepth: maximal find depth relatively to basedir
 
     :returns mixed: map_reduced files
 
@@ -32,23 +28,17 @@ class find_files(Function):
     default_emitter = inject('FindFilesEmitter', module=__name__)
     default_getfirst_exception = NotFound
 
-    def __init__(self, *,
-                 filename=None, notfilename=None,
-                 filepath=None, notfilepath=None,
-                 basedir=None, join=False, maxdepth=None,
+    def __init__(self, *filters,
+                 basedir=None, join=False,
                  mappers=[], reducers=[], emitter=None,
                  getfirst=False, getfirst_exception=None, fallback=None):
         if emitter is None:
             emitter = self.default_emitter
         if getfirst_exception is None:
             getfirst_exception = self.default_getfirst_exception
-        self._filename = filename
-        self._notfilename = notfilename
-        self._filepath = filepath
-        self._notfilepath = notfilepath
+        self._filters = filters
         self._basedir = basedir
         self._join = join
-        self._maxdepth = maxdepth
         self._mappers = mappers
         self._reducers = reducers
         self._emitter = emitter
@@ -80,23 +70,30 @@ class find_files(Function):
             file = filepath
             if self._join:
                 file = enhanced_join(self._basedir, filepath)
-            yield self._emitter(file, filepath=filepath, basedir=self._basedir)
+            yield self._emitter(
+                file, filepath=filepath, basedir=self._basedir)
 
     @cachedproperty
     def _effective_mappers(self):
         mappers = []
-        maxdepth = MaxdepthConstraint(self._maxdepth)
-        if maxdepth:
-            mappers.append(maxdepth)
-        filename = FilenameConstraint(self._filename, self._notfilename)
-        if filename:
-            mappers.append(filename)
-        filepath = FilepathConstraint(
-            self._filepath, self._notfilepath, basedir=self._basedir)
-        if filepath:
-            mappers.append(filepath)
+        for constraint in self._constraints:
+            if constraint:
+                mappers.append(constraint)
         mappers += self._mappers
         return mappers
+
+    @cachedproperty
+    def _constraints(self):
+        # Init constraints
+        constraints = [
+            MaxdepthConstraint(),
+            FilenameConstraint(),
+            FilepathConstraint(self._basedir)]
+        # Extend constraints
+        for name, value in self._filters:
+            for constraint in constraints:
+                constraint.extend(name, value)
+        return constraints
 
     @cachedproperty
     def _filepathes(self):
