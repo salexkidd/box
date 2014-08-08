@@ -12,20 +12,9 @@ from .objtype import ObjtypeConstraint
 class find_objects(map_reduce):
     """Find objects in files using map_reduce framework.
 
-    :param str/re objname: include objnames pattern
-    :param str/re notobjname: exclude objnames pattern
-    :param type objtype: include objtypes pattern
-    :param type notobjtype: exclude objtypes pattern
+    :param list filters: find filters
     :param str basedir: base directory to find
     :param list filepathes: list of filepathes where to find
-
-    Arguments for find_files if filepathes is None:
-
-    :param str/glob/re filename: include filenames pattern
-    :param str/glob/re notfilename: exclude filenames pattern
-    :param str/glob/re filepath: include filepathes pattern
-    :param str/glob/re notfilepath: exclude filepathes pattern
-    :param int maxdepth: maximal find depth relatively to basedir
 
     :returns mixed: map_reduce result
 
@@ -37,30 +26,17 @@ class find_objects(map_reduce):
     default_emitter = inject('FindObjectsEmitter', module=__name__)
     default_getfirst_exception = NotFound
 
-    def __init__(self, *,
-                 objname=None, notobjname=None,
-                 objtype=None, notobjtype=None,
+    def __init__(self, *filters,
                  basedir=None, filepathes=None,
-                 filename=None, notfilename=None,
-                 filepath=None, notfilepath=None,
-                 maxdepth=None,
                  mappers=[], reducers=[], emitter=None,
                  getfirst=False, getfirst_exception=None, fallback=None):
         if emitter is None:
             emitter = self.default_emitter
         if getfirst_exception is None:
             getfirst_exception = self.default_getfirst_exception
-        self._objname = objname
-        self._notobjname = notobjname
-        self._objtype = objtype
-        self._notobjtype = notobjtype
+        self._filters = filters
         self._basedir = basedir
         self._filepathes = filepathes
-        self._filename = filename
-        self._notfilename = notfilename
-        self._filepath = filepath
-        self._notfilepath = notfilepath
-        self._maxdepth = maxdepth
         self._mappers = mappers
         self._reducers = reducers
         self._emitter = emitter
@@ -102,29 +78,34 @@ class find_objects(map_reduce):
     @cachedproperty
     def _effective_mappers(self):
         mappers = []
-        objname = ObjnameConstraint(self._objname, self._notobjname)
-        if objname:
-            mappers.append(objname)
-        objtype = ObjtypeConstraint(self._objtype, self._notobjtype)
-        if objtype:
-            mappers.append(objtype)
+        for constraint in self._constraints:
+            if constraint:
+                mappers.append(constraint)
         mappers += self._mappers
         return mappers
 
     @cachedproperty
+    def _constraints(self):
+        # Init constraints
+        constraints = [
+            ObjnameConstraint(),
+            ObjtypeConstraint()]
+        # Extend constraints
+        for name, value in self._filters:
+            for constraint in constraints:
+                constraint.extend(name, value)
+        return constraints
+
+    @cachedproperty
     def _effective_filepathes(self):
         if self._filepathes is not None:
-            # We have ready filepathes
+            # We have filepathes
             return self._filepathes
         else:
             # We have to find filepathes
             filepathes = self._find_files(
-                filename=self._filename,
-                notfilename=self._notfilename,
-                filepath=self._filepath,
-                notfilepath=self._notfilepath,
-                basedir=self._basedir,
-                maxdepth=self._maxdepth)
+                *self._filters,
+                basedir=self._basedir)
             return filepathes
 
 

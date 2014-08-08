@@ -111,7 +111,7 @@ class find_strings(Function):
     @cachedproperty
     def _effective_filepathes(self):
         if self._filepathes is not None:
-            # We have ready filepathes
+            # We have filepathes
             return self._filepathes
         else:
             # We have to find filepathes
