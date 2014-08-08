@@ -9,18 +9,25 @@ class Constraint(metaclass=ABCMeta):
     def __call__(self, emitter):
         pass  # pragma: no cover
 
+    @abstractmethod
+    def __bool__(self):
+        pass  # pragma: no cover
+
+    @abstractmethod
+    def extend(self, name, value):
+        pass  # pragma: no cover
+
 
 class CompositeConstraint(Constraint, metaclass=ABCMeta):
 
     # Public
 
-    def __init__(self, include=None, exclude=None):
-        self._include = include
-        self._exclude = exclude
+    def __init__(self):
+        self._include = []
+        self._exclude = []
 
     def __bool__(self):
-        return (self._include is not None or
-                self._exclude is not None)
+        return (self._include or self._exclude)
 
     def __repr__(self):
         return ('Include: {include}, exclude: {exclude}'.
@@ -33,15 +40,15 @@ class PatternConstraint(CompositeConstraint, metaclass=ABCMeta):
     # Public
 
     def __call__(self, emitter):
-        if self._include is not None:
-            if not self._match(self._include, emitter):
+        for pattern in self._include:
+            if not self._match(emitter, pattern):
                 emitter.skip()
-        if self._exclude is not None:
-            if self._match(self._exclude, emitter):
+        for pattern in self._exclude:
+            if self._match(emitter, pattern):
                 emitter.skip()
 
     # Protected
 
     @abstractmethod
-    def _match(self, pattern, emitter):
+    def _match(self, emitter, pattern):
         pass  # pragma: no cover
