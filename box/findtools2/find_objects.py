@@ -15,10 +15,9 @@ class find_objects(map_reduce):
     :param list filters: find filters
     :param str basedir: base directory to find
     :param list filepathes: list of filepathes where to find
+    :param dict params: map_reduce params
 
     :returns mixed: map_reduce result
-
-    Function also accepts :class:`box.itertools.map_reduce` kwargs.
     """
 
     # Public
@@ -27,46 +26,35 @@ class find_objects(map_reduce):
     default_getfirst_exception = NotFound
 
     def __init__(self, *filters,
-                 basedir=None, filepathes=None,
-                 mappers=[], reducers=[], emitter=None,
-                 getfirst=False, getfirst_exception=None, fallback=None):
-        if emitter is None:
-            emitter = self.default_emitter
-        if getfirst_exception is None:
-            getfirst_exception = self.default_getfirst_exception
+                 basedir=None, filepathes=None, **params):
+        params.setdefault('emitter', self.default_emitter)
+        params.setdefault(
+            'getfirst_exception',
+            self.default_getfirst_exception)
         self._filters = filters
         self._basedir = basedir
         self._filepathes = filepathes
-        self._mappers = mappers
-        self._reducers = reducers
-        self._emitter = emitter
-        self._getfirst = getfirst
-        self._getfirst_exception = getfirst_exception
-        self._fallback = fallback
+        self._params = params
+        self._init_constraints()
 
     def __call__(self):
         objects = self._map_reduce(
             self._values,
-            mappers=self._effective_mappers,
-            reducers=self._reducers,
-            emitter=self._emitter,
-            getfirst=self._getfirst,
-            getfirst_exception=self._getfirst_exception,
-            fallback=self._fallback)
+            mappers=self._effective_mappers, **self._params)
         return objects
 
     # Protected
 
     _find_files = staticmethod(find_files)
-    _Loader = SourceFileLoader
     _map_reduce = map_reduce
+    _SourceFileLoader = SourceFileLoader
 
     @cachedproperty
     def _values(self):
         for filepath in self._effective_filepathes:
             # Loads as a module every file in filepathes
             full_filepath = enhanced_join(self._basedir, filepath)
-            loader = self._Loader(full_filepath, full_filepath)
+            loader = self._SourceFileLoader(full_filepath, full_filepath)
             module = loader.load_module(full_filepath)
             for objname in dir(module):
                 # Emits every object in module
@@ -85,28 +73,26 @@ class find_objects(map_reduce):
         return mappers
 
     @cachedproperty
-    def _constraints(self):
-        # Init constraints
-        constraints = [
-            ObjnameConstraint(),
-            ObjtypeConstraint()]
-        # Extend constraints
-        for name, value in self._filters:
-            for constraint in constraints:
-                constraint.extend(name, value)
-        return constraints
-
-    @cachedproperty
     def _effective_filepathes(self):
-        if self._filepathes is not None:
-            # We have filepathes
-            return self._filepathes
-        else:
-            # We have to find filepathes
+        filepathes = self._filepathes
+        if filepathes is None:
+            # We have to find
             filepathes = self._find_files(
                 *self._filters,
                 basedir=self._basedir)
-            return filepathes
+        return filepathes
+
+    @cachedproperty
+    def _constraints(self):
+        constraints = [
+            ObjnameConstraint(),
+            ObjtypeConstraint()]
+        return constraints
+
+    def _init_constraints(self):
+        for name, value in self._filters:
+            for constraint in self._constraints:
+                constraint.extend(name, value)
 
 
 class FindObjectsEmitter(FindFilesEmitter):

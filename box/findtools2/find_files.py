@@ -27,12 +27,15 @@ class find_files(Function):
     default_emitter = inject('FindFilesEmitter', module=__name__)
     default_getfirst_exception = NotFound
 
-    def __init__(self, *filters, basedir=None, join=False, **params):
+    def __init__(self, *filters,
+                 basedir=None, filepath=None, join=False, **params):
         params.setdefault('emitter', self.default_emitter)
         params.setdefault(
-            'getfirst_exception', self.default_getfirst_exception)
+            'getfirst_exception',
+            self.default_getfirst_exception)
         self._filters = filters
         self._basedir = basedir
+        self._filepath = filepath
         self._join = join
         self._params = params
         self._init_constraints()
@@ -40,8 +43,7 @@ class find_files(Function):
     def __call__(self):
         files = self._map_reduce(
             self._values,
-            mappers=self._effective_mappers,
-            **self._params)
+            mappers=self._effective_mappers, **self._params)
         return files
 
     # Protected
