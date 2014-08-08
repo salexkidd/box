@@ -1,10 +1,10 @@
 import os
+from itertools import chain
 from ..functools import Function, cachedproperty
 from ..importlib import inject
 from ..itertools import map_reduce, Emitter
 from ..glob import enhanced_iglob
 from ..os import balanced_walk, enhanced_join
-from ..types import RegexCompiledPatternType
 from .not_found import NotFound
 from .maxdepth import MaxdepthConstraint
 from .filename import FilenameConstraint
@@ -16,6 +16,7 @@ class find_files(Function):
 
     :param list filters: find filters
     :param str basedir: base directory to find
+    :param list filepathes: list of filepathes or globs where to find
     :param bool join: if True joins resulted filepath with basedir
     :param dict params: map_reduce params
 
@@ -28,14 +29,14 @@ class find_files(Function):
     default_getfirst_exception = NotFound
 
     def __init__(self, *filters,
-                 basedir=None, filepath=None, join=False, **params):
+                 basedir=None, filepathes=None, join=False, **params):
         params.setdefault('emitter', self.default_emitter)
         params.setdefault(
             'getfirst_exception',
             self.default_getfirst_exception)
         self._filters = filters
         self._basedir = basedir
-        self._filepath = filepath
+        self._filepathes = filepathes
         self._join = join
         self._params = params
         self._init_constraints()
@@ -73,16 +74,23 @@ class find_files(Function):
 
     @cachedproperty
     def _filepathes(self):
-        if (self._filepath is None or
-            isinstance(self._filepath, RegexCompiledPatternType)):
-            # We have to walk
-            filepathes = self._walk(
-                basedir=self._basedir, sorter=sorted, mode='files')
+        if self._filepathes is not None:
+            # We have pathes or globs
+            chunks = []
+            for filepath in self._filepathes:
+                chunk = self._glob(
+                    filepath,
+                    basedir=self._basedir,
+                    sorter=sorted,
+                    mode='files')
+                chunks.append(chunk)
+            filepathes = chain(*chunks)
         else:
-            # We have a glob pattern
-            filepathes = self._glob(
-                self._filepath,
-                basedir=self._basedir, sorter=sorted, mode='files')
+            # We have to walk fully
+            filepathes = self._walk(
+                basedir=self._basedir,
+                sorter=sorted,
+                mode='files')
         return filepathes
 
     @cachedproperty

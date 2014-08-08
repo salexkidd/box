@@ -14,7 +14,7 @@ class find_objects(map_reduce):
 
     :param list filters: find filters
     :param str basedir: base directory to find
-    :param list filepathes: list of filepathes where to find
+    :param list filepathes: list of filepathes or globs where to find
     :param dict params: map_reduce params
 
     :returns mixed: map_reduce result
@@ -74,13 +74,12 @@ class find_objects(map_reduce):
 
     @cachedproperty
     def _effective_filepathes(self):
-        filepathes = self._filepathes
-        if filepathes is None:
-            # We have to find
-            filepathes = self._find_files(
-                *self._filters,
-                basedir=self._basedir)
+        filepathes = self._find_files(
+            *self._filters,
+            basedir=self._basedir,
+            filepathes=self._filepathes)
         return filepathes
+
 
     @cachedproperty
     def _constraints(self):
