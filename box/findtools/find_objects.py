@@ -59,7 +59,7 @@ class find_objects(map_reduce):
             for objname in dir(module):
                 # Emits every object in module
                 obj = getattr(module, objname)
-                yield self._emitter(
+                yield self._params['emitter'](
                     obj, object=obj, objname=objname, module=module,
                     filepath=filepath, basedir=self._basedir)
 
