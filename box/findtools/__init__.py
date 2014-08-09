@@ -1,4 +1,6 @@
 from .constraint import Constraint, CompositeConstraint, PatternConstraint
+from .emitter import (FindEmitter, FindFilesEmitter, FindStringsEmitter,
+                      FindObjectsEmitter)
 from .find import find, FindEmitter
 from .find_files import find_files, FindFilesEmitter
 from .find_objects import find_objects, FindObjectsEmitter

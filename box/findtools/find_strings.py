@@ -1,10 +1,10 @@
 from functools import partial
 from ..functools import cachedproperty
-from ..importlib import inject
 from ..os import enhanced_join
 from ..types import RegexCompiledPatternType
+from .emitter import FindStringsEmitter
 from .find import find
-from .find_files import FindFilesEmitter, find_files
+from .find_files import find_files
 
 
 class find_strings(find):
@@ -21,7 +21,7 @@ class find_strings(find):
 
     # Public
 
-    default_emitter = inject('FindStringsEmitter', module=__name__)
+    default_emitter = FindStringsEmitter
 
     def __init__(self, *, string=None,
                  basedir=None, filepathes=None, **find_params):
@@ -74,17 +74,3 @@ class find_strings(find):
             filepathes=self._filepathes,
             filters=self._effective_filters)
         return filepathes
-
-
-class FindStringsEmitter(FindFilesEmitter):
-    """Emitter representation for find_strings.
-
-    Additional attributes:
-
-    - filepath
-    - basedir
-    """
-
-    # Public
-
-    pass

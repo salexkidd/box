@@ -1,13 +1,12 @@
-import os
 from itertools import chain
 from ..functools import cachedproperty
-from ..importlib import inject
 from ..glob import enhanced_iglob
 from ..os import balanced_walk, enhanced_join
+from .emitter import FindFilesEmitter
 from .maxdepth import MaxdepthConstraint
 from .filename import FilenameConstraint
 from .filepath import FilepathConstraint
-from .find import find, FindEmitter
+from .find import find
 
 
 class find_files(find):
@@ -24,7 +23,7 @@ class find_files(find):
 
     # Public
 
-    default_emitter = inject('FindFilesEmitter', module=__name__)
+    default_emitter = FindFilesEmitter
 
     def __init__(self, *, join=False,
                  basedir=None, filepathes=None, **find_params):
@@ -75,18 +74,3 @@ class find_files(find):
                 basedir=self._basedir, sorter=sorted, mode='files')
         return filepathes
 
-
-class FindFilesEmitter(FindEmitter):
-    """Emitter representation for find_files.
-
-    Additional attributes:
-
-    - filepath
-    - basedir
-    """
-
-    # Public
-
-    @property
-    def filename(self):
-        return os.path.basename(self.filepath)

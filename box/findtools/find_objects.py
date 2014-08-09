@@ -1,9 +1,9 @@
 from importlib.machinery import SourceFileLoader
 from ..functools import cachedproperty
-from ..importlib import inject
 from ..os import enhanced_join
+from .emitter import FindObjectsEmitter
 from .find import find
-from .find_files import find_files, FindFilesEmitter
+from .find_files import find_files
 from .objname import ObjnameConstraint
 from .objtype import ObjtypeConstraint
 
@@ -21,7 +21,7 @@ class find_objects(find):
 
     # Public
 
-    default_emitter = inject('FindObjectsEmitter', module=__name__)
+    default_emitter = FindObjectsEmitter
 
     def __init__(self, *,
                  basedir=None, filepathes=None, **find_params):
@@ -49,14 +49,6 @@ class find_objects(find):
                     filepath=filepath, basedir=self._basedir)
 
     @cachedproperty
-    def _effective_filepathes(self):
-        filepathes = self._find_files(
-            basedir=self._basedir,
-            filepathes=self._filepathes,
-            filters=self._filters)
-        return filepathes
-
-    @cachedproperty
     def _effective_constraints(self):
         constraints = [
             ObjnameConstraint(),
@@ -64,21 +56,10 @@ class find_objects(find):
         constraints += super()._effective_constraints
         return constraints
 
-
-class FindObjectsEmitter(FindFilesEmitter):
-    """Emitter representation for find_objects.
-
-    Additional attributes:
-
-    - object
-    - objname
-    - module
-    - filepath
-    - basedir
-    """
-
-    # Public
-
-    @property
-    def objtype(self):
-        return type(self.object)
+    @cachedproperty
+    def _effective_filepathes(self):
+        filepathes = self._find_files(
+            basedir=self._basedir,
+            filepathes=self._filepathes,
+            filters=self._filters)
+        return filepathes

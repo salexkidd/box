@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from ..functools import Function
-from ..importlib import inject
-from ..itertools import map_reduce, Emitter
+from ..itertools import map_reduce
+from .emitter import FindEmitter
 from .not_found import NotFound
 
 
@@ -11,7 +11,7 @@ class find(Function, metaclass=ABCMeta):
 
     # Public
 
-    default_emitter = inject('FindEmitter', module=__name__)
+    default_emitter = FindEmitter
     default_getfirst_exception = NotFound
 
     def __init__(self, *,
@@ -86,12 +86,3 @@ class find(Function, metaclass=ABCMeta):
             for name, value in effective_filter.items():
                 for constraint in self._effective_constraints:
                     constraint.extend(name, value)
-
-
-class FindEmitter(Emitter):
-    """Emitter representation for find framework.
-    """
-
-    # Public
-
-    pass
