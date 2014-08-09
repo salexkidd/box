@@ -9,13 +9,11 @@ class Constraint(metaclass=ABCMeta):
     def __call__(self, emitter):
         pass  # pragma: no cover
 
-    @abstractmethod
     def __bool__(self):
-        pass  # pragma: no cover
+        return True
 
-    @abstractmethod
     def extend(self, name, value):
-        pass  # pragma: no cover
+        pass
 
 
 class CompositeConstraint(Constraint, metaclass=ABCMeta):
