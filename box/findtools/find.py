@@ -1,15 +1,8 @@
-import os
 from abc import ABCMeta, abstractmethod
-from itertools import chain
 from ..functools import Function, cachedproperty
 from ..importlib import inject
 from ..itertools import map_reduce, Emitter
-from ..glob import enhanced_iglob
-from ..os import balanced_walk, enhanced_join
 from .not_found import NotFound
-from .maxdepth import MaxdepthConstraint
-from .filename import FilenameConstraint
-from .filepath import FilepathConstraint
 
 
 class find(Function, metaclass=ABCMeta):
@@ -23,12 +16,16 @@ class find(Function, metaclass=ABCMeta):
 
     def __init__(self, *,
                  filters=None, constraints=None,
-                 mappers=[], reducers=[], emitter=None,
+                 mappers=None, reducers=None, emitter=None,
                  getfirst=False, getfirst_exception=None, fallback=None):
         if filters is None:
             filters = []
         if constraints is None:
             constraints = []
+        if mappers is None:
+            mappers = []
+        if reducers is None:
+            reducers = []
         if emitter is None:
             emitter = self.default_emitter
         if getfirst_exception is None:
@@ -41,69 +38,39 @@ class find(Function, metaclass=ABCMeta):
         self._getfirst = getfirst
         self._getfirst_exception = getfirst_exception
         self._fallback = fallback
+        self._init_constraints()
 
     def __call__(self):
         files = self._map_reduce(
             self._values,
             mappers=self._effective_mappers,
-            **self._params)
+            reducers=self._effective_reducers,
+            emitter=self._emitter,
+            getfirst=self._getfirst,
+            getfirst_exception=self._getfirst_exception,
+            fallback=self._fallback)
         return files
 
     # Protected
 
     _map_reduce = map_reduce
-    _glob = staticmethod(enhanced_iglob)
-    _walk = staticmethod(balanced_walk)
 
-    @cachedproperty
+    @property
+    @abstractmethod
     def _values(self):
-        for filepath in self._effective_filepathes:
-            # Emits every file in filepathes
-            file = filepath
-            if self._join:
-                file = enhanced_join(self._basedir, filepath)
-            yield self._params['emitter'](
-                file, filepath=filepath, basedir=self._basedir)
+        pass  # pragma: no cover
 
-    @cachedproperty
+    @property
     def _effective_mappers(self):
-        mappers = []
-        for constraint in self._effective_constraints:
-            if constraint:
-                mappers.append(constraint)
-        mappers += self._params.pop('mappers', [])
-        return mappers
+        return self._mappers
 
-    @cachedproperty
-    def _effective_filepathes(self):
-        if self._filepathes is not None:
-            # We have pathes or globs
-            # TODO: fix it's not LAZY load
-            chunks = []
-            for filepath in self._filepathes:
-                chunk = self._glob(
-                    filepath,
-                    basedir=self._basedir,
-                    sorter=sorted,
-                    mode='files')
-                chunks.append(chunk)
-            filepathes = chain(*chunks)
-        else:
-            # We have to walk fully
-            filepathes = self._walk(
-                basedir=self._basedir,
-                sorter=sorted,
-                mode='files')
-        return filepathes
+    @property
+    def _effective_reducers(self):
+        return self._reducers
 
     @cachedproperty
     def _effective_constraints(self):
-        constraints = [
-            MaxdepthConstraint(),
-            FilenameConstraint(),
-            FilepathConstraint(self._basedir)]
-        constraints += self._constraints
-        return constraints
+        return self._constraints
 
     def _init_constraints(self):
         for filter_item in self._filters:
