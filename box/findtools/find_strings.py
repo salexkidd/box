@@ -25,7 +25,7 @@ class find_strings(Function):
     default_emitter = inject('FindStringsEmitter', module=__name__)
     default_getfirst_exception = NotFound
 
-    def __init__(self, string=None, *filters,
+    def __init__(self, *filters, string=None,
                  basedir=None, filepathes=None, **params):
         params.setdefault('emitter', self.default_emitter)
         params.setdefault(
