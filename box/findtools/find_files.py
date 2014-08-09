@@ -1,10 +1,10 @@
 import os
+from itertools import chain
 from ..functools import Function, cachedproperty
 from ..importlib import inject
 from ..itertools import map_reduce, Emitter
 from ..glob import enhanced_iglob
 from ..os import balanced_walk, enhanced_join
-from ..types import RegexCompiledPatternType
 from .not_found import NotFound
 from .maxdepth import MaxdepthConstraint
 from .filename import FilenameConstraint
@@ -14,17 +14,13 @@ from .filepath import FilepathConstraint
 class find_files(Function):
     """Find files using map_reduce framework.
 
-    :param str/glob/re filename: include filenames pattern
-    :param str/glob/re notfilename: exclude filenames pattern
-    :param str/glob/re filepath: include filepathes pattern
-    :param str/glob/re notfilepath: exclude filepathes pattern
+    :param list filters: find filters
     :param str basedir: base directory to find
+    :param list filepathes: list of filepathes or globs where to find
     :param bool join: if True joins resulted filepath with basedir
-    :param int maxdepth: maximal find depth relatively to basedir
+    :param dict params: map_reduce params
 
     :returns mixed: map_reduced files
-
-    Function also accepts :class:`box.itertools.map_reduce` kwargs.
     """
 
     # Public
@@ -32,39 +28,23 @@ class find_files(Function):
     default_emitter = inject('FindFilesEmitter', module=__name__)
     default_getfirst_exception = NotFound
 
-    def __init__(self, *,
-                 filename=None, notfilename=None,
-                 filepath=None, notfilepath=None,
-                 basedir=None, join=False, maxdepth=None,
-                 mappers=[], reducers=[], emitter=None,
-                 getfirst=False, getfirst_exception=None, fallback=None):
-        if emitter is None:
-            emitter = self.default_emitter
-        if getfirst_exception is None:
-            getfirst_exception = self.default_getfirst_exception
-        self._filename = filename
-        self._notfilename = notfilename
-        self._filepath = filepath
-        self._notfilepath = notfilepath
+    def __init__(self, *filters,
+                 basedir=None, filepathes=None, join=False, **params):
+        params.setdefault('emitter', self.default_emitter)
+        params.setdefault(
+            'getfirst_exception',
+            self.default_getfirst_exception)
+        self._filters = filters
         self._basedir = basedir
+        self._filepathes = filepathes
         self._join = join
-        self._maxdepth = maxdepth
-        self._mappers = mappers
-        self._reducers = reducers
-        self._emitter = emitter
-        self._getfirst = getfirst
-        self._getfirst_exception = getfirst_exception
-        self._fallback = fallback
+        self._params = params
+        self._init_constraints()
 
     def __call__(self):
         files = self._map_reduce(
             self._values,
-            mappers=self._effective_mappers,
-            reducers=self._reducers,
-            emitter=self._emitter,
-            getfirst=self._getfirst,
-            getfirst_exception=self._getfirst_exception,
-            fallback=self._fallback)
+            mappers=self._effective_mappers, **self._params)
         return files
 
     # Protected
@@ -80,37 +60,51 @@ class find_files(Function):
             file = filepath
             if self._join:
                 file = enhanced_join(self._basedir, filepath)
-            yield self._emitter(file, filepath=filepath, basedir=self._basedir)
+            yield self._emitter(
+                file, filepath=filepath, basedir=self._basedir)
 
     @cachedproperty
     def _effective_mappers(self):
         mappers = []
-        maxdepth = MaxdepthConstraint(self._maxdepth)
-        if maxdepth:
-            mappers.append(maxdepth)
-        filename = FilenameConstraint(self._filename, self._notfilename)
-        if filename:
-            mappers.append(filename)
-        filepath = FilepathConstraint(
-            self._filepath, self._notfilepath, basedir=self._basedir)
-        if filepath:
-            mappers.append(filepath)
+        for constraint in self._constraints:
+            if constraint:
+                mappers.append(constraint)
         mappers += self._mappers
         return mappers
 
     @cachedproperty
     def _filepathes(self):
-        if (self._filepath is None or
-            isinstance(self._filepath, RegexCompiledPatternType)):
-            # We have to walk
-            filepathes = self._walk(
-                basedir=self._basedir, sorter=sorted, mode='files')
+        if self._filepathes is not None:
+            # We have pathes or globs
+            chunks = []
+            for filepath in self._filepathes:
+                chunk = self._glob(
+                    filepath,
+                    basedir=self._basedir,
+                    sorter=sorted,
+                    mode='files')
+                chunks.append(chunk)
+            filepathes = chain(*chunks)
         else:
-            # We have a glob pattern
-            filepathes = self._glob(
-                self._filepath,
-                basedir=self._basedir, sorter=sorted, mode='files')
+            # We have to walk fully
+            filepathes = self._walk(
+                basedir=self._basedir,
+                sorter=sorted,
+                mode='files')
         return filepathes
+
+    @cachedproperty
+    def _constraints(self):
+        constraints = [
+            MaxdepthConstraint(),
+            FilenameConstraint(),
+            FilepathConstraint(self._basedir)]
+        return constraints
+
+    def _init_constraints(self):
+        for name, value in self._filters:
+            for constraint in self._constraints:
+                constraint.extend(name, value)
 
 
 class FindFilesEmitter(Emitter):

@@ -12,20 +12,12 @@ class find_strings(Function):
     """Find strings in files using map_reduce framework.
 
     :param str/re string: include string pattern
+    :param list filters: find filters
     :param str basedir: base directory to find
-    :param list filepathes: list of filepathes where to find
-
-    Arguments for find_files if filepathes is None:
-
-    :param str/glob/re filename: include filenames pattern
-    :param str/glob/re notfilename: exclude filenames pattern
-    :param str/glob/re filepath: include filepathes pattern
-    :param str/glob/re notfilepath: exclude filepathes pattern
-    :param int maxdepth: maximal find depth relatively to basedir
+    :param list filepathes: list of filepathes or globs where to find
+    :param dict params: map_reduce params
 
     :returns mixed: map_reduce result
-
-    Function also accepts :class:`box.itertools.map_reduce` kwargs.
     """
 
     # Public
@@ -33,42 +25,23 @@ class find_strings(Function):
     default_emitter = inject('FindStringsEmitter', module=__name__)
     default_getfirst_exception = NotFound
 
-    def __init__(self, string=None, *,
-                 basedir=None, filepathes=None,
-                 filename=None, notfilename=None,
-                 filepath=None, notfilepath=None,
-                 maxdepth=None,
-                 mappers=[], reducers=[], emitter=None,
-                 getfirst=False, getfirst_exception=None, fallback=None):
-        if emitter is None:
-            emitter = self.default_emitter
-        if getfirst_exception is None:
-            getfirst_exception = self.default_getfirst_exception
+    def __init__(self, string=None, *filters,
+                 basedir=None, filepathes=None, **params):
+        params.setdefault('emitter', self.default_emitter)
+        params.setdefault(
+            'getfirst_exception',
+            self.default_getfirst_exception)
         self._string = string
+        self._filters = filters
         self._basedir = basedir
         self._filepathes = filepathes
-        self._filename = filename
-        self._notfilename = notfilename
-        self._filepath = filepath
-        self._notfilepath = notfilepath
-        self._maxdepth = maxdepth
-        self._mappers = mappers
-        self._reducers = reducers
-        self._emitter = emitter
-        self._getfirst = getfirst
-        self._getfirst_exception = getfirst_exception
-        self._fallback = fallback
+        self._params = params
 
     def __call__(self):
-        strings = self._map_reduce(
+        objects = self._map_reduce(
             self._values,
-            mappers=self._mappers,
-            reducers=self._reducers,
-            emitter=self._emitter,
-            getfirst=self._getfirst,
-            getfirst_exception=self._getfirst_exception,
-            fallback=self._fallback)
-        return strings
+            mappers=self._effective_mappers, **self._params)
+        return objects
 
     # Protected
 
@@ -110,19 +83,11 @@ class find_strings(Function):
 
     @cachedproperty
     def _effective_filepathes(self):
-        if self._filepathes is not None:
-            # We have ready filepathes
-            return self._filepathes
-        else:
-            # We have to find filepathes
-            filepathes = self._find_files(
-                filename=self._filename,
-                notfilename=self._notfilename,
-                filepath=self._filepath,
-                notfilepath=self._notfilepath,
-                basedir=self._basedir,
-                maxdepth=self._maxdepth)
-            return filepathes
+        filepathes = self._find_files(
+            *self._filters,
+            basedir=self._basedir,
+            filepathes=self._filepathes)
+        return filepathes
 
 
 class FindStringsEmitter(FindFilesEmitter):

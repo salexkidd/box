@@ -9,13 +9,19 @@ class FilepathConstraint(PatternConstraint):
 
     # Public
 
-    def __init__(self, include=None, exclude=None, *, basedir=None):
+    def __init__(self, basedir=None):
         self._basedir = basedir
-        super().__init__(include, exclude)
+        super().__init__()
+
+    def extend(self, name, value):
+        if name == 'filepath':
+            self._include.append(value)
+        if name == 'notfilepath':
+            self._exclude.append(value)
 
     # Protected
 
-    def _match(self, pattern, emitter):
+    def _match(self, emitter, pattern):
         if isinstance(pattern, RegexCompiledPatternType):
             if re.search(pattern, emitter.filepath):
                 return True
