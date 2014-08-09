@@ -76,6 +76,7 @@ class find_files(Function):
     def _effective_filepathes(self):
         if self._filepathes is not None:
             # We have pathes or globs
+            # TODO: fix it's not LAZY load
             chunks = []
             for filepath in self._filepathes:
                 chunk = self._glob(
