@@ -1,17 +1,16 @@
 import os
 from itertools import chain
-from ..functools import Function, cachedproperty
+from ..functools import cachedproperty
 from ..importlib import inject
-from ..itertools import map_reduce, Emitter
 from ..glob import enhanced_iglob
 from ..os import balanced_walk, enhanced_join
-from .not_found import NotFound
 from .maxdepth import MaxdepthConstraint
 from .filename import FilenameConstraint
 from .filepath import FilepathConstraint
+from .find import find, FindEmitter
 
 
-class find_files(Function):
+class find_files(find):
     """Find files using map_reduce framework.
 
     :param list filters: find filters
@@ -26,36 +25,16 @@ class find_files(Function):
     # Public
 
     default_emitter = inject('FindFilesEmitter', module=__name__)
-    default_getfirst_exception = NotFound
 
     def __init__(self, *, join=False,
-                 basedir=None, filepathes=None,
-                 filters=None, constraints=None,
-                 **params):
-        params.setdefault('emitter', self.default_emitter)
-        params.setdefault(
-            'getfirst_exception',
-            self.default_getfirst_exception)
-        if filters is None:
-            filters = []
-        if constraints is None:
-            constraints = []
+                 basedir=None, filepathes=None, **find_params):
+        self._join = join
         self._basedir = basedir
         self._filepathes = filepathes
-        self._join = join
-        self._filters = filters
-        self._constraints = constraints
-        self._params = params
-        self._init_constraints()
-
-    def __call__(self):
-        files = self._map_reduce(
-            self._values, mappers=self._effective_mappers, **self._params)
-        return files
+        super().__init__(**find_params)
 
     # Protected
 
-    _map_reduce = map_reduce
     _glob = staticmethod(enhanced_iglob)
     _walk = staticmethod(balanced_walk)
 
@@ -66,17 +45,17 @@ class find_files(Function):
             file = filepath
             if self._join:
                 file = enhanced_join(self._basedir, filepath)
-            yield self._params['emitter'](
+            yield self._emitter(
                 file, filepath=filepath, basedir=self._basedir)
 
     @cachedproperty
-    def _effective_mappers(self):
-        mappers = []
-        for constraint in self._effective_constraints:
-            if constraint:
-                mappers.append(constraint)
-        mappers += self._params.pop('mappers', [])
-        return mappers
+    def _effective_constraints(self):
+        constraints = [
+            MaxdepthConstraint(),
+            FilenameConstraint(),
+            FilepathConstraint(self._basedir)]
+        constraints += super()._effective_constraints
+        return constraints
 
     @cachedproperty
     def _effective_filepathes(self):
@@ -87,36 +66,17 @@ class find_files(Function):
             for filepath in self._filepathes:
                 chunk = self._glob(
                     filepath,
-                    basedir=self._basedir,
-                    sorter=sorted,
-                    mode='files')
+                    basedir=self._basedir, sorter=sorted, mode='files')
                 chunks.append(chunk)
             filepathes = chain(*chunks)
         else:
             # We have to walk fully
             filepathes = self._walk(
-                basedir=self._basedir,
-                sorter=sorted,
-                mode='files')
+                basedir=self._basedir, sorter=sorted, mode='files')
         return filepathes
 
-    @cachedproperty
-    def _effective_constraints(self):
-        constraints = [
-            MaxdepthConstraint(),
-            FilenameConstraint(),
-            FilepathConstraint(self._basedir)]
-        constraints += self._constraints
-        return constraints
 
-    def _init_constraints(self):
-        for filter_item in self._filters:
-            for name, value in filter_item.items():
-                for constraint in self._effective_constraints:
-                    constraint.extend(name, value)
-
-
-class FindFilesEmitter(Emitter):
+class FindFilesEmitter(FindEmitter):
     """Emitter representation for find_files.
 
     Additional attributes:

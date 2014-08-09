@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from ..functools import Function, cachedproperty
+from ..functools import Function
 from ..importlib import inject
 from ..itertools import map_reduce, Emitter
 from .not_found import NotFound
@@ -29,7 +29,7 @@ class find(Function, metaclass=ABCMeta):
         if emitter is None:
             emitter = self.default_emitter
         if getfirst_exception is None:
-            emitter = self.default_getfirst_exception
+            getfirst_exception = self.default_getfirst_exception
         self._filters = filters
         self._constraints = constraints
         self._mappers = mappers
@@ -41,7 +41,7 @@ class find(Function, metaclass=ABCMeta):
         self._init_constraints()
 
     def __call__(self):
-        files = self._map_reduce(
+        result = self._map_reduce(
             self._values,
             mappers=self._effective_mappers,
             reducers=self._effective_reducers,
@@ -49,7 +49,7 @@ class find(Function, metaclass=ABCMeta):
             getfirst=self._getfirst,
             getfirst_exception=self._getfirst_exception,
             fallback=self._fallback)
-        return files
+        return result
 
     # Protected
 
@@ -62,19 +62,28 @@ class find(Function, metaclass=ABCMeta):
 
     @property
     def _effective_mappers(self):
-        return self._mappers
+        mappers = []
+        for constraint in self._effective_constraints:
+            if constraint:
+                mappers.append(constraint)
+        mappers += self._mappers
+        return mappers
 
     @property
     def _effective_reducers(self):
         return self._reducers
 
-    @cachedproperty
+    @property
+    def _effective_filters(self):
+        return self._filters
+
+    @property
     def _effective_constraints(self):
         return self._constraints
 
     def _init_constraints(self):
-        for filter_item in self._filters:
-            for name, value in filter_item.items():
+        for effective_filter in self._effective_filters:
+            for name, value in effective_filter.items():
                 for constraint in self._effective_constraints:
                     constraint.extend(name, value)
 
