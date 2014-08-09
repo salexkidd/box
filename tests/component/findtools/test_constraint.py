@@ -48,7 +48,6 @@ class PatternConstraintTest(unittest.TestCase):
                     self._include.append(value)
                 if name == 'exclude':
                     self._exclude.append(value)
-            # Protected
-            def _match(self, emitter, pattern):
+            def match(self, emitter, pattern):
                 return getattr(emitter, pattern)
         return MockConstraint

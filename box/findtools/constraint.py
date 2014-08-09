@@ -39,14 +39,12 @@ class PatternConstraint(CompositeConstraint, metaclass=ABCMeta):
 
     def __call__(self, emitter):
         for pattern in self._include:
-            if not self._match(emitter, pattern):
+            if not self.match(emitter, pattern):
                 emitter.skip()
         for pattern in self._exclude:
-            if self._match(emitter, pattern):
+            if self.match(emitter, pattern):
                 emitter.skip()
 
-    # Protected
-
     @abstractmethod
-    def _match(self, emitter, pattern):
+    def match(self, emitter, pattern):
         pass  # pragma: no cover
