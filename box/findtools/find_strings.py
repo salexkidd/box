@@ -1,14 +1,13 @@
 from functools import partial
-from ..functools import Function, cachedproperty
+from ..functools import cachedproperty
 from ..importlib import inject
-from ..itertools import map_reduce
 from ..os import enhanced_join
 from ..types import RegexCompiledPatternType
+from .find import find
 from .find_files import FindFilesEmitter, find_files
-from .not_found import NotFound
 
 
-class find_strings(Function):
+class find_strings(find):
     """Find strings in files using map_reduce framework.
 
     :param str/re string: include string pattern
@@ -23,35 +22,17 @@ class find_strings(Function):
     # Public
 
     default_emitter = inject('FindStringsEmitter', module=__name__)
-    default_getfirst_exception = NotFound
 
     def __init__(self, *, string=None,
-                 basedir=None, filepathes=None,
-                 filters=None, constraints=None,
-                 **params):
-        params.setdefault('emitter', self.default_emitter)
-        params.setdefault(
-            'getfirst_exception',
-            self.default_getfirst_exception)
-        if filters is None:
-            filters = []
-        if constraints is None:
-            constraints = []
+                 basedir=None, filepathes=None, **find_params):
         self._string = string
         self._basedir = basedir
         self._filepathes = filepathes
-        self._filters = filters
-        self._constraints = constraints
-        self._params = params
-
-    def __call__(self):
-        objects = self._map_reduce(self._values, **self._params)
-        return objects
+        super().__init__(**find_params)
 
     # Protected
 
     _find_files = staticmethod(find_files)
-    _map_reduce = map_reduce
     _open = staticmethod(open)
 
     @cachedproperty
@@ -60,8 +41,7 @@ class find_strings(Function):
             # Reads every file in filepathes
             full_filepath = enhanced_join(self._basedir, filepath)
             partial_emitter = partial(
-                self._params['emitter'],
-                filepath=filepath, basedir=self._basedir)
+                self._emitter, filepath=filepath, basedir=self._basedir)
             with self._open(full_filepath) as fileobj:
                 filetext = fileobj.read()
                 if isinstance(self._string, RegexCompiledPatternType):
@@ -92,7 +72,7 @@ class find_strings(Function):
         filepathes = self._find_files(
             basedir=self._basedir,
             filepathes=self._filepathes,
-            filters=self._filters)
+            filters=self._effective_filters)
         return filepathes
 
 
