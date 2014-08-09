@@ -106,8 +106,8 @@ class Settings(dict, metaclass=SettingsMetaclass):
     @classmethod
     def _find_extension_class(cls, extension):
         objects = find_objects(
-            {'objtype': cls.__class__},
             filepathes=[extension],
+            filters=[{'objtype': cls.__class__}],
             mappers=[lambda emitter: emitter.skip(
                 inspect.getmodule(emitter.object) != emitter.module)],
             getfirst=True)

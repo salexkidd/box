@@ -21,14 +21,14 @@ class find_strings_Test(unittest.TestCase):
 
     def test_find_with_filename(self):
         strings = self.pfind(
-            {'filename': 'file1'},
-            string=re.compile('string\d'))
+            string=re.compile('string\d'),
+            filters=[{'filename': 'file1'}])
         self.assertEqual(strings, ['string1', 'string3'])
 
     def test_find_with_filename_and_maxdepth(self):
         strings = self.pfind(
-            {'filename': 'file1'}, {'maxdepth': 1},
-            string=re.compile('string\d'))
+            string=re.compile('string\d'),
+            filters=[{'filename': 'file1'}, {'maxdepth': 1}])
         self.assertEqual(strings, ['string1'])
 
     # Protected

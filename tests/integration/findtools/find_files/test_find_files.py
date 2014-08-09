@@ -24,7 +24,7 @@ class find_files_Test(unittest.TestCase):
              'dir1/subdir1/file1'])
 
     def test_find_with_filename(self):
-        files = self.pfind({'filename': 'file1'})
+        files = self.pfind(filters=[{'filename': 'file1'}])
         self.assertEqual(files,
             ['file1',
              'dir1/file1',
@@ -32,7 +32,7 @@ class find_files_Test(unittest.TestCase):
              'dir1/subdir1/file1'])
 
     def test_find_with_filename_and_with_maxdepth(self):
-        files = self.pfind({'filename': 'file1'}, {'maxdepth': 2})
+        files = self.pfind(filters=[{'filename': 'file1'}, {'maxdepth': 2}])
         self.assertEqual(files,
             ['file1',
              'dir1/file1',

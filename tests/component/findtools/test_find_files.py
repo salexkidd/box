@@ -21,61 +21,57 @@ class find_files_Test(unittest.TestCase):
 
     def test_with_filename(self):
         files = self.pfind(
-            {'filename': 'file3'})
+            filters=[{'filename': 'file3'}])
         self.assertEqual(files, ['dir/subdir/file3'])
 
     def test_with_filename_is_regex(self):
         files = self.pfind(
-            {'filename': re.compile('file1+')},
-            {'maxdepth': 1})
+            filters=[{'filename': re.compile('file1+')}, {'maxdepth': 1}])
         self.assertEqual(files, ['file1'])
 
     def test_with_filepath(self):
         files = self.pfind(
-            {'filepath': 'file*'})
+            filters=[{'filepath': 'file*'}])
         self.assertEqual(files, ['file1', 'file2'])
 
     def test_with_filepath_is_regex(self):
         files = self.pfind(
-            {'filepath': re.compile('.*2$')})
+            filters=[{'filepath': re.compile('.*2$')}])
         self.assertEqual(files, ['file2', 'dir/file2'])
 
     def test_with_basedir(self):
         files = self.pfind(
-            {'filename': 'file3'},
-            basedir='basedir')
+            basedir='basedir',
+            filters=[{'filename': 'file3'}])
         self.assertEqual(files, ['dir/subdir/file3'])
 
     def test_with_basedir_and_join(self):
         files = self.pfind(
-            {'filename': 'file3'},
-            join=True, basedir='basedir',)
+            join=True, basedir='basedir',
+            filters=[{'filename': 'file3'}])
         self.assertEqual(files, ['basedir/dir/subdir/file3'])
 
     def test_with_maxdepth_is_1(self):
         files = self.pfind(
-            {'filename': 'file1'},
-            {'maxdepth': 1})
+            filters=[{'filename': 'file1'}, {'maxdepth': 1}])
         self.assertEqual(files, ['file1'])
 
     def test_with_maxdepth_is_2(self):
         files = self.pfind(
-            {'filename': 'file1'},
-            {'maxdepth': 2})
+            filters=[{'filename': 'file1'}, {'maxdepth': 2}])
         self.assertEqual(files, ['file1', 'dir/file1'])
 
     def test_with_mapper(self):
         mapper = lambda emitter: emitter.value(emitter.value() + '!')
         files = self.pfind(
-            {'filename': 'file1'},
+            filters=[{'filename': 'file1'}],
             mappers=[mapper])
         self.assertEqual(files, ['file1!', 'dir/file1!'])
 
     def test_with_reducer(self):
         reducer = lambda files: list(files)[0]
         files = self.pfind(
-            {'filename': 'file1'},
-            {'maxdepth': 1},
+            filters=[{'filename': 'file1'}, {'maxdepth': 1}],
             reducers=[reducer])
         self.assertEqual(files, 'file1')
 

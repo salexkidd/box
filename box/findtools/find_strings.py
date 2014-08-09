@@ -25,16 +25,23 @@ class find_strings(Function):
     default_emitter = inject('FindStringsEmitter', module=__name__)
     default_getfirst_exception = NotFound
 
-    def __init__(self, *filters, string=None,
-                 basedir=None, filepathes=None, **params):
+    def __init__(self, *, string=None,
+                 basedir=None, filepathes=None,
+                 filters=None, constraints=None,
+                 **params):
         params.setdefault('emitter', self.default_emitter)
         params.setdefault(
             'getfirst_exception',
             self.default_getfirst_exception)
+        if filters is None:
+            filters = []
+        if constraints is None:
+            constraints = []
         self._string = string
-        self._filters = filters
         self._basedir = basedir
         self._filepathes = filepathes
+        self._filters = filters
+        self._constraints = constraints
         self._params = params
 
     def __call__(self):
@@ -83,9 +90,9 @@ class find_strings(Function):
     @cachedproperty
     def _effective_filepathes(self):
         filepathes = self._find_files(
-            *self._filters,
             basedir=self._basedir,
-            filepathes=self._filepathes)
+            filepathes=self._filepathes,
+            filters=self._filters)
         return filepathes
 
 

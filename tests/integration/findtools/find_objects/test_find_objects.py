@@ -16,15 +16,15 @@ class find_objects_Test(unittest.TestCase):
 
     def test_find_with_objname_and_filename(self):
         objects = self.pfind(
-            {'objname': re.compile('attr\d')},
-            {'filename': 'module1.py'})
+            filters=[{'objname': re.compile('attr\d')},
+                     {'filename': 'module1.py'}])
         self.assertEqual(objects, ['attr1', 'attr3'])
 
     def test_find_with_objname_and_filename_and_maxdepth(self):
         objects = self.pfind(
-            {'objname': re.compile('attr\d')},
-            {'filename': 'module1.py'},
-            {'maxdepth': 1})
+            filters=[{'objname': re.compile('attr\d')},
+                     {'filename': 'module1.py'},
+                     {'maxdepth': 1}])
         self.assertEqual(objects, ['attr1'])
 
     # Protected

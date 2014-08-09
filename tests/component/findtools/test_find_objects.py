@@ -27,24 +27,26 @@ class find_objects_Test(unittest.TestCase):
              call('basedir/file2')])
 
     def test_with_objname(self):
-        objects = self.pfind({'objname': 'call'})
+        objects = self.pfind(filters=[{'objname': 'call'}])
         self.assertEqual(objects, [call, call])
 
     def test_with_objname_is_regex(self):
-        objects = self.pfind({'objname': re.compile('^call')})
+        objects = self.pfind(filters=[{'objname': re.compile('^call')}])
         self.assertEqual(objects, [call, call])
 
     def test_with_objtype(self):
-        objects = self.pfind({'objtype': type(call)})
+        objects = self.pfind(filters=[{'objtype': type(call)}])
         self.assertEqual(objects, [call, call])
 
     def test_with_objtype_is_list(self):
-        objects = self.pfind({'objtype': [type(call)]})
+        objects = self.pfind(filters=[{'objtype': [type(call)]}])
         self.assertEqual(objects, [call, call])
 
     def test_with_mapper(self):
         mapper = lambda emitter: emitter.emit(emitter.objtype)
-        objects = self.pfind({'objname': 'call'}, mappers=[mapper])
+        objects = self.pfind(
+            filters=[{'objname': 'call'}],
+            mappers=[mapper])
         self.assertEqual(objects, [type(call), type(call)])
 
     def test_with_reducer_and_fallback(self):
