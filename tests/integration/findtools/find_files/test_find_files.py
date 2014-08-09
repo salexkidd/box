@@ -30,7 +30,7 @@ class find_files_Test(unittest.TestCase):
              'dir2/file1',
              'dir1/subdir1/file1'])
 
-    def test_find_with_filename_and_with_maxdepth_is_2(self):
+    def test_find_with_filename_and_with_maxdepth(self):
         files = list(self.pfind({'filename': 'file1'}, {'maxdepth': 2}))
         self.assertEqual(files,
             ['file1',

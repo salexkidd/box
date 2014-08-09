@@ -15,15 +15,20 @@ class find_strings_Test(unittest.TestCase):
 
     def test_find(self):
         strings = list(self.pfind(
-                re.compile('string\d'),
-                filename='file1'))
+            re.compile('string\d')))
+        self.assertEqual(strings, ['string1', 'string2', 'string3'])
+
+    def test_find_with_filename(self):
+        strings = list(self.pfind(
+            re.compile('string\d'),
+            {'filename': 'file1'}))
         self.assertEqual(strings, ['string1', 'string3'])
 
-    def test_find_with_maxdepth_is_1(self):
+    def test_find_with_filename_and_maxdepth(self):
         strings = list(self.pfind(
-                re.compile('string\d'),
-                filename='file1',
-                maxdepth=1))
+            re.compile('string\d'),
+            {'filename': 'file1'},
+            {'maxdepth': 1}))
         self.assertEqual(strings, ['string1'])
 
     # Protected

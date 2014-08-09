@@ -38,9 +38,7 @@ class find_strings(Function):
         self._params = params
 
     def __call__(self):
-        objects = self._map_reduce(
-            self._values,
-            mappers=self._effective_mappers, **self._params)
+        objects = self._map_reduce(self._values, **self._params)
         return objects
 
     # Protected
@@ -55,7 +53,8 @@ class find_strings(Function):
             # Reads every file in filepathes
             full_filepath = enhanced_join(self._basedir, filepath)
             partial_emitter = partial(
-                self._emitter, filepath=filepath, basedir=self._basedir)
+                self._params['emitter'],
+                filepath=filepath, basedir=self._basedir)
             with self._open(full_filepath) as fileobj:
                 filetext = fileobj.read()
                 if isinstance(self._string, RegexCompiledPatternType):
