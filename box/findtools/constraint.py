@@ -27,7 +27,7 @@ class CompositeConstraint(Constraint, metaclass=ABCMeta):
         self._exclude = []
 
     def __bool__(self):
-        return (self._include or self._exclude)
+        return bool(self._include or self._exclude)
 
     def __repr__(self):
         return ('Include: {include}, exclude: {exclude}'.

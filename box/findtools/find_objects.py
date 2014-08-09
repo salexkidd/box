@@ -69,7 +69,7 @@ class find_objects(map_reduce):
         for constraint in self._constraints:
             if constraint:
                 mappers.append(constraint)
-        mappers += self._mappers
+        mappers += self._params.pop('mappers', [])
         return mappers
 
     @cachedproperty
@@ -80,7 +80,6 @@ class find_objects(map_reduce):
             filepathes=self._filepathes)
         return filepathes
 
-
     @cachedproperty
     def _constraints(self):
         constraints = [
@@ -89,9 +88,10 @@ class find_objects(map_reduce):
         return constraints
 
     def _init_constraints(self):
-        for name, value in self._filters:
-            for constraint in self._constraints:
-                constraint.extend(name, value)
+        for filter_item in self._filters:
+            for name, value in filter_item.items():
+                for constraint in self._constraints:
+                    constraint.extend(name, value)
 
 
 class FindObjectsEmitter(FindFilesEmitter):

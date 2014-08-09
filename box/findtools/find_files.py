@@ -15,9 +15,9 @@ class find_files(Function):
     """Find files using map_reduce framework.
 
     :param list filters: find filters
+    :param bool join: if True joins resulted filepath with basedir
     :param str basedir: base directory to find
     :param list filepathes: list of filepathes or globs where to find
-    :param bool join: if True joins resulted filepath with basedir
     :param dict params: map_reduce params
 
     :returns mixed: map_reduced files
@@ -28,8 +28,8 @@ class find_files(Function):
     default_emitter = inject('FindFilesEmitter', module=__name__)
     default_getfirst_exception = NotFound
 
-    def __init__(self, *filters,
-                 basedir=None, filepathes=None, join=False, **params):
+    def __init__(self, *filters, join=False,
+                 basedir=None, filepathes=None, **params):
         params.setdefault('emitter', self.default_emitter)
         params.setdefault(
             'getfirst_exception',
@@ -55,12 +55,12 @@ class find_files(Function):
 
     @cachedproperty
     def _values(self):
-        for filepath in self._filepathes:
+        for filepath in self._effective_filepathes:
             # Emits every file in filepathes
             file = filepath
             if self._join:
                 file = enhanced_join(self._basedir, filepath)
-            yield self._emitter(
+            yield self._params['emitter'](
                 file, filepath=filepath, basedir=self._basedir)
 
     @cachedproperty
@@ -69,11 +69,11 @@ class find_files(Function):
         for constraint in self._constraints:
             if constraint:
                 mappers.append(constraint)
-        mappers += self._mappers
+        mappers += self._params.pop('mappers', [])
         return mappers
 
     @cachedproperty
-    def _filepathes(self):
+    def _effective_filepathes(self):
         if self._filepathes is not None:
             # We have pathes or globs
             chunks = []
@@ -102,9 +102,10 @@ class find_files(Function):
         return constraints
 
     def _init_constraints(self):
-        for name, value in self._filters:
-            for constraint in self._constraints:
-                constraint.extend(name, value)
+        for filter_item in self._filters:
+            for name, value in filter_item.items():
+                for constraint in self._constraints:
+                    constraint.extend(name, value)
 
 
 class FindFilesEmitter(Emitter):

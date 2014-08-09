@@ -28,6 +28,7 @@ class FilepathConstraint(PatternConstraint):
         else:
             if os.path.isabs(pattern):
                 pattern = os.path.relpath(pattern, start=self._basedir)
+            # TODO: it's not working like glob, bug?
             if fnmatch.fnmatch(emitter.filepath, pattern):
                 return True
         return False
