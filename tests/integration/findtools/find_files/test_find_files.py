@@ -11,10 +11,11 @@ class find_files_Test(unittest.TestCase):
     # Public
 
     def setUp(self):
-        self.pfind = partial(find_files, basedir=self._basedir)
+        self.pfind = partial(
+            find_files, basedir=self._basedir, reducers=[list])
 
     def test_find(self):
-        files = list(self.pfind())
+        files = self.pfind()
         self.assertEqual(files,
             ['file1',
              'file2',
@@ -23,7 +24,7 @@ class find_files_Test(unittest.TestCase):
              'dir1/subdir1/file1'])
 
     def test_find_with_filename(self):
-        files = list(self.pfind({'filename': 'file1'}))
+        files = self.pfind({'filename': 'file1'})
         self.assertEqual(files,
             ['file1',
              'dir1/file1',
@@ -31,19 +32,19 @@ class find_files_Test(unittest.TestCase):
              'dir1/subdir1/file1'])
 
     def test_find_with_filename_and_with_maxdepth(self):
-        files = list(self.pfind({'filename': 'file1'}, {'maxdepth': 2}))
+        files = self.pfind({'filename': 'file1'}, {'maxdepth': 2})
         self.assertEqual(files,
             ['file1',
              'dir1/file1',
              'dir2/file1'])
 
     def test_find_with_filepathes(self):
-        files = list(self.pfind(filepathes=['file1']))
+        files = self.pfind(filepathes=['file1'])
         self.assertEqual(files,
             ['file1'])
 
     def test_find_with_filepath_wildcard(self):
-        files = list(self.pfind(filepathes=['dir*/file*']))
+        files = self.pfind(filepathes=['dir*/file*'])
         self.assertEqual(files,
             ['dir1/file1',
              'dir2/file1', ])

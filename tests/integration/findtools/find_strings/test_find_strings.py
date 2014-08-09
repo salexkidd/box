@@ -9,25 +9,26 @@ from box.findtools.find_strings import find_strings
 class find_strings_Test(unittest.TestCase):
 
     def setUp(self):
-        self.pfind = partial(find_strings, basedir=self._basedir)
+        self.pfind = partial(
+            find_strings, basedir=self._basedir, reducers=[list])
 
     # Public
 
     def test_find(self):
-        strings = list(self.pfind(
-            string=re.compile('string\d')))
+        strings = self.pfind(
+            string=re.compile('string\d'))
         self.assertEqual(strings, ['string1', 'string2', 'string3'])
 
     def test_find_with_filename(self):
-        strings = list(self.pfind(
+        strings = self.pfind(
             {'filename': 'file1'},
-            string=re.compile('string\d')))
+            string=re.compile('string\d'))
         self.assertEqual(strings, ['string1', 'string3'])
 
     def test_find_with_filename_and_maxdepth(self):
-        strings = list(self.pfind(
+        strings = self.pfind(
             {'filename': 'file1'}, {'maxdepth': 1},
-            string=re.compile('string\d')))
+            string=re.compile('string\d'))
         self.assertEqual(strings, ['string1'])
 
     # Protected
