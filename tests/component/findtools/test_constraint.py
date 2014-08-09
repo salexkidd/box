@@ -9,7 +9,9 @@ class PatternConstraintTest(unittest.TestCase):
 
     def setUp(self):
         self.Constraint = self._make_mock_constraint_class()
-        self.constraint = self.Constraint('include', 'exclude')
+        self.constraint = self.Constraint()
+        self.constraint.extend('include', 'include')
+        self.constraint.extend('exclude', 'exclude')
 
     def test___bool__(self):
         self.assertTrue(self.constraint)
@@ -40,7 +42,13 @@ class PatternConstraintTest(unittest.TestCase):
 
     def _make_mock_constraint_class(self):
         class MockConstraint(PatternConstraint):
+            # Public
+            def extend(self, name, value):
+                if name == 'include':
+                    self._include.append(value)
+                if name == 'exclude':
+                    self._exclude.append(value)
             # Protected
-            def _match(self, pattern, emitter):
+            def _match(self, emitter, pattern):
                 return getattr(emitter, pattern)
         return MockConstraint
