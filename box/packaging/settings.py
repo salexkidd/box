@@ -123,7 +123,7 @@ class Settings(dict, metaclass=SettingsMetaclass):
             'from box.packaging import Settings\n\n'
             'class Settings(Settings):\n\n'
             '    # Public\n\n'
-            '    pass')
+            '    pass\n')
 
     @classmethod
     def _handle_extension_error(cls, extensoin, error):
