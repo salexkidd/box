@@ -3,7 +3,7 @@ from packgram import ManageModule
 
 class Module(ManageModule):
 
-    # Vars
+    # Attributes
 
     author = 'roll'
     author_email = 'roll@respect31.com'
