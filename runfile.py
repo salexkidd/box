@@ -15,7 +15,7 @@ class Module(ManageModule):
         'Topic :: System :: Systems Administration',
     ]
     description = 'Box is a library to provide common functionality.'
-    development_requires = ['packgram>=0.10.4', 'sphinx', 'sphinx_rtd_theme']
+    development_requires = ['packgram>=0.12', 'sphinx', 'sphinx_rtd_theme']
     github_user = 'respect31'
     install_requires = []
     license = 'MIT License'
