@@ -45,7 +45,7 @@ class find_files(find):
             if self._join:
                 file = enhanced_join(self._basedir, filepath)
             yield self._emitter(
-                file, filepath=filepath, basedir=self._basedir)
+                file, basedir=self._basedir, filepath=filepath)
 
     @cachedproperty
     def _effective_constraints(self):

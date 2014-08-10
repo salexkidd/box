@@ -13,18 +13,26 @@ class FindEmitter(Emitter):
 
 class FindFilesEmitter(FindEmitter):
     """Emitter representation for find_files.
-
-    Additional attributes:
-
-    - filepath
-    - basedir
     """
 
     # Public
 
+    def __init__(self, file, *, basedir, filepath, **context):
+        self._basedir = basedir
+        self._filepath = filepath
+        super().__init__(file, **context)
+
+    @property
+    def basedir(self):
+        return self._basedir
+
     @property
     def filename(self):
         return os.path.basename(self.filepath)
+
+    @property
+    def filepath(self):
+        return self._filepath
 
 
 class FindStringsEmitter(FindFilesEmitter):
