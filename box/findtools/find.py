@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from ..functools import Function
 from ..itertools import map_reduce
-from .emitter import FindEmitter
+from .emitter import Emitter
 from .not_found import NotFound
 
 
@@ -11,7 +11,7 @@ class find(Function, metaclass=ABCMeta):
 
     # Public
 
-    default_emitter = FindEmitter
+    default_emitter = Emitter
     default_getfirst_exception = NotFound
 
     def __init__(self, *,

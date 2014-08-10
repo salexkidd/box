@@ -2,7 +2,7 @@ from functools import partial
 from ..functools import cachedproperty
 from ..os import enhanced_join
 from ..types import RegexCompiledPatternType
-from .emitter import FindStringsEmitter
+from .emitter import StringEmitter
 from .find import find
 from .find_files import find_files
 
@@ -21,7 +21,7 @@ class find_strings(find):
 
     # Public
 
-    default_emitter = FindStringsEmitter
+    default_emitter = StringEmitter
 
     def __init__(self, *, string=None,
                  basedir=None, filepathes=None, **find_params):

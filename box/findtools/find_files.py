@@ -2,7 +2,7 @@ from itertools import chain
 from ..functools import cachedproperty
 from ..glob import enhanced_iglob
 from ..os import balanced_walk, enhanced_join
-from .emitter import FindFilesEmitter
+from .emitter import FileEmitter
 from .maxdepth import MaxdepthConstraint
 from .filename import FilenameConstraint
 from .filepath import FilepathConstraint
@@ -23,7 +23,7 @@ class find_files(find):
 
     # Public
 
-    default_emitter = FindFilesEmitter
+    default_emitter = FileEmitter
 
     def __init__(self, *, join=False,
                  basedir=None, filepathes=None, **find_params):

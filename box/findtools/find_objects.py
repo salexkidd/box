@@ -1,7 +1,7 @@
 from importlib.machinery import SourceFileLoader
 from ..functools import cachedproperty
 from ..os import enhanced_join
-from .emitter import FindObjectsEmitter
+from .emitter import ObjectEmitter
 from .find import find
 from .find_files import find_files
 from .objname import ObjnameConstraint
@@ -21,7 +21,7 @@ class find_objects(find):
 
     # Public
 
-    default_emitter = FindObjectsEmitter
+    default_emitter = ObjectEmitter
 
     def __init__(self, *,
                  basedir=None, filepathes=None, **find_params):

@@ -2,7 +2,7 @@ import os
 from ..itertools import Emitter
 
 
-class FindEmitter(Emitter):
+class Emitter(Emitter):
     """Emitter representation for find framework.
     """
 
@@ -11,7 +11,7 @@ class FindEmitter(Emitter):
     pass
 
 
-class FindFilesEmitter(FindEmitter):
+class FileEmitter(Emitter):
     """Emitter representation for find_files.
     """
 
@@ -35,7 +35,7 @@ class FindFilesEmitter(FindEmitter):
         return self._filepath
 
 
-class FindStringsEmitter(FindFilesEmitter):
+class StringEmitter(FileEmitter):
     """Emitter representation for find_strings.
     """
 
@@ -44,7 +44,7 @@ class FindStringsEmitter(FindFilesEmitter):
     pass
 
 
-class FindObjectsEmitter(FindFilesEmitter):
+class ObjectEmitter(FileEmitter):
     """Emitter representation for find_objects.
     """
 
