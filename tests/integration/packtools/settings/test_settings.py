@@ -1,7 +1,7 @@
 import os
 import unittest
 from unittest.mock import Mock, ANY
-from box.packtools import Settings
+from box.packaging import Settings
 
 
 class SettingsTest(unittest.TestCase):

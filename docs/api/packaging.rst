@@ -1,5 +1,5 @@
 =============
-box.packtools
+box.packaging
 =============
 
 Module provides two classes for better settings and version managment.
@@ -12,11 +12,11 @@ Public
 
 Module’s public interface.
 
-.. autoclass:: box.packtools.Settings
+.. autoclass:: box.packaging.Settings
      :members: _extensions
  
-.. autoclass:: box.packtools.Version
-.. autoclass:: box.packtools.include
+.. autoclass:: box.packaging.Version
+.. autoclass:: box.packaging.include
 
 --------
 Internal
@@ -24,4 +24,4 @@ Internal
 
 Module’s internal implementation.
      
-.. autoclass:: box.packtools.settings.SettingsMetaclass
+.. autoclass:: box.packaging.settings.SettingsMetaclass

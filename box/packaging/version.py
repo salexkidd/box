@@ -8,7 +8,7 @@ class Version(str):
 
     Usage example::
 
-      >>> from box.packtools import Version
+      >>> from box.packaging import Version
       >>> class Version(Version):
       ...   major = 1
       ...   minor = 2

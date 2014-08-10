@@ -1,4 +1,4 @@
-from box.packtools import Settings
+from box.packaging import Settings
 
 
 class Settings(Settings):
