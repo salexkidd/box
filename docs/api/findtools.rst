@@ -11,28 +11,31 @@ Public
 
 Module’s public interface.
 
-There are base and three main functions to find files, 
-strings and python objects.
+Finders
+-------
 
 .. autoclass:: box.findtools.find
 .. autoclass:: box.findtools.find_files
 .. autoclass:: box.findtools.find_strings
 .. autoclass:: box.findtools.find_objects
 
-Corresponding emitters:
+Emitters
+--------
 
 .. autoclass:: box.findtools.Emitter
 .. autoclass:: box.findtools.FileEmitter
 .. autoclass:: box.findtools.StringEmitter
 .. autoclass:: box.findtools.ObjectEmitter
 
-Base constraints:
+Constraints
+-----------
 
 .. autoclass:: box.findtools.Constraint
 .. autoclass:: box.findtools.CompositeConstraint
 .. autoclass:: box.findtools.PatternConstraint
 
-Not emitted exception:
+Exceptions
+----------
 
 .. autoclass:: box.findtools.NotFound
 
