@@ -26,7 +26,8 @@ class find_files(find):
     default_emitter = FileEmitter
 
     def __init__(self, *, join=False,
-                 basedir=None, filepathes=None, **find_params):
+                 basedir=None, filepathes=None,
+                 **find_params):
         self._join = join
         self._basedir = basedir
         self._filepathes = filepathes

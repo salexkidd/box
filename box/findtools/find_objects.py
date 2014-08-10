@@ -24,7 +24,8 @@ class find_objects(find):
     default_emitter = ObjectEmitter
 
     def __init__(self, *,
-                 basedir=None, filepathes=None, **find_params):
+                 basedir=None, filepathes=None,
+                 **find_params):
         self._basedir = basedir
         self._filepathes = filepathes
         super().__init__(**find_params)

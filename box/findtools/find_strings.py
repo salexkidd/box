@@ -24,7 +24,8 @@ class find_strings(find):
     default_emitter = StringEmitter
 
     def __init__(self, *, string=None,
-                 basedir=None, filepathes=None, **find_params):
+                 basedir=None, filepathes=None,
+                 **find_params):
         self._string = string
         self._basedir = basedir
         self._filepathes = filepathes
