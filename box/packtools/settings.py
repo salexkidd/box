@@ -109,7 +109,7 @@ class Settings(dict, metaclass=SettingsMetaclass):
             filepathes=[extension],
             filters=[{'objtype': cls.__class__}],
             mappers=[lambda emitter: emitter.skip(
-                inspect.getmodule(emitter.object) != emitter.module)],
+                inspect.getmodule(emitter.objself) != emitter.module)],
             getfirst=True)
         return objects
 

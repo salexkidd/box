@@ -9,7 +9,7 @@ class ObjtypeConstraintTest(unittest.TestCase):
 
     def setUp(self):
         self.constraint = ObjtypeConstraint()
-        self.emitter = Mock(object=ZeroDivisionError())
+        self.emitter = Mock(objself=ZeroDivisionError())
 
     def test___call__(self):
         self.constraint.extend('objtype', ArithmeticError)

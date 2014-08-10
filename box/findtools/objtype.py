@@ -15,6 +15,6 @@ class ObjtypeConstraint(PatternConstraint):
         types = pattern
         if isinstance(types, type):
             types = [types]
-        if isinstance(emitter.object, tuple(types)):
+        if isinstance(emitter.objself, tuple(types)):
             return True
         return False

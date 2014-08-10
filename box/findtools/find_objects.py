@@ -43,10 +43,10 @@ class find_objects(find):
             module = loader.load_module(full_filepath)
             for objname in dir(module):
                 # Emits every object in module
-                obj = getattr(module, objname)
+                objself = getattr(module, objname)
                 yield self._emitter(
-                    obj, object=obj, objname=objname, module=module,
-                    filepath=filepath, basedir=self._basedir)
+                    objself, basedir=self._basedir, filepath=filepath,
+                    module=module, objname=objname, objself=objself)
 
     @cachedproperty
     def _effective_constraints(self):

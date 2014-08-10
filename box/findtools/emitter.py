@@ -17,10 +17,10 @@ class FindFilesEmitter(FindEmitter):
 
     # Public
 
-    def __init__(self, file, *, basedir, filepath, **context):
+    def __init__(self, value, *, basedir, filepath, **context):
         self._basedir = basedir
         self._filepath = filepath
-        super().__init__(file, **context)
+        super().__init__(value, **context)
 
     @property
     def basedir(self):
@@ -37,11 +37,6 @@ class FindFilesEmitter(FindEmitter):
 
 class FindStringsEmitter(FindFilesEmitter):
     """Emitter representation for find_strings.
-
-    Additional attributes:
-
-    - filepath
-    - basedir
     """
 
     # Public
@@ -51,18 +46,30 @@ class FindStringsEmitter(FindFilesEmitter):
 
 class FindObjectsEmitter(FindFilesEmitter):
     """Emitter representation for find_objects.
-
-    Additional attributes:
-
-    - object
-    - objname
-    - module
-    - filepath
-    - basedir
     """
 
     # Public
 
+    def __init__(self, value, *,
+                 basedir, filepath,
+                 module, objname, objself, **context):
+        self._module = module
+        self._objname = objname
+        self._objself = objself
+        super().__init__(value, basedir=basedir, filepath=filepath, **context)
+
+    @property
+    def module(self):
+        return self._module
+
+    @property
+    def objname(self):
+        return self._objname
+
+    @property
+    def objself(self):
+        return self._objself
+
     @property
     def objtype(self):
-        return type(self.object)
+        return type(self.objself)
