@@ -13,15 +13,17 @@ class ColoredPrintTest(unittest.TestCase):
 
     def test(self):
         with self.cprint.style(foreground='red', background='white'):
-            self.cprint('test')
+            self.cprint('test1')
             with self.cprint.style(background='green'):
                 self.cprint('test2')
+            self.cprint('test3')
         # Check print call
         self.print.assert_has_calls([
-            call(['\x1b[31;47m']),
-            call('test'),
-            call(['\x1b[42m']),
+            call('\x1b[31;47m'),
+            call('test1'),
+            call('\x1b[42m'),
             call('test2'),
             call('\x1b[m'),
             call('\x1b[31;47m'),
+            call('test3'),
             call('\x1b[m')])

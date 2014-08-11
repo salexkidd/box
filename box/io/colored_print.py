@@ -55,7 +55,7 @@ class ColoredPrint:
     def __enter__(self):
         # Set style
         if self._stack:
-            code = self._stack[-1:]
+            code = self._stack[-1]
             self.print(code)
         return self
 
@@ -88,6 +88,6 @@ class ColoredPrint:
     def _make_code(self, offsets=None):
         if offsets is None:
             offsets = []
-        style_code = self.codes['separator'].join(map(str, offsets))
+        style_code = self.codes['separator'].join(map(str, sorted(offsets)))
         code = self.codes['begin'] + style_code + self.codes['end']
         return code
