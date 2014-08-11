@@ -1,3 +1,5 @@
+from ..collections import merge_dicts
+
 class ColoredPrint:
     """Wrap print function to work with styles.
     """
@@ -8,66 +10,84 @@ class ColoredPrint:
 
     # Codes
 
-    begin_code = '\x1b['
-    separator_code = ';'
-    end_code = 'm'
+    codes = {
+        'begin': '\x1b[',
+        'separator': ';',
+        'end': 'm',
+    }
 
-    # Base offsets
+    # Offsets
 
-    foreground_offset = 30
-    background_offset = 40
-    bright_offset = 30
+    offsets = {
+        'bold': 1,
+        'dark': 2,
+        'underline': 4,
+        'blink': 5,
+        'reverse': 7,
+        'concealed': 8 ,
+        'foreground': 30,
+        'background': 40,
+        'bright': 30,
+    }
 
-    # Color offsets
+    # Colors offsets
 
-    black_offset = 0
-    red_offset = 1
-    green_offset = 2
-    yellow_offset = 3
-    blue_offset = 4
-    magenta_offset = 5
-    cyan_offset = 6
-    white_offset = 7
-    default_offset = 9
-
-    # Formatting offsets
-
-    bold_offset = 1
-    dark_offset = 2
-    underline_offset = 4
-    blink_offset = 5
-    reverse_offset = 7
-    concealed_offset = 8
+    color_offsets = {
+        'black': 0,
+        'red': 1,
+        'green': 2,
+        'yellow': 3,
+        'blue': 4,
+        'magenta': 5,
+        'cyan': 6,
+        'white': 7,
+        'default': 9,
+    }
 
     def __init__(self, **kwargs):
         for key, value in kwargs.items():
+            attr = getattr(self, key, None)
+            if isinstance(attr, dict):
+                value = merge_dicts(attr, value)
             setattr(self, key, value)
         self._stack = []
 
     def __enter__(self):
-        code = self._stack.pop()
-        self.print(code)
+        # Set style
+        if self._stack:
+            code = self._stack[-1:]
+            self.print(code)
         return self
 
     def __exit__(self, cls, value, traceback):
-        # Reset all
-        code = self.begin_code + self.end_code
+        # Reset style
+        code = self._make_code()
         self.print(code)
+        # Recover style
+        self._stack.pop()
+        for code in self._stack:
+            self.print(code)
 
     def __call__(self, *args, **kwargs):
         return self.print(*args, **kwargs)
 
-    def style(self, foreground=None, background=None):
+    def style(self, **kwargs):
         offsets = []
-        if foreground is not None:
-            color_offset = getattr(self, foreground + '_offset')
-            offset = self.foreground_offset + color_offset
+        for key, value in kwargs.items():
+            if value is True:
+                offset = self.offsets[key]
+            elif value:
+                offset = self.offsets[key] + self.color_offsets[value]
             offsets.append(offset)
-        if background is not None:
-            color_offset = getattr(self, background + '_offset')
-            offset = self.background_offset + color_offset
-            offsets.append(offset)
-        style_code = self.separator_code.join(map(str, offsets))
-        code = self.begin_code + style_code + self.end_code
+        code = self._make_code(offsets)
         self._stack.append(code)
         return self
+
+    # Protected
+
+    def _make_code(self, offsets=None):
+        if offsets is None:
+            offsets = []
+        style_code = self.codes['separator'].join(map(str, offsets))
+        code = self.codes['begin'] + style_code + self.codes['end']
+        return code

@@ -18,9 +18,10 @@ class ColoredPrintTest(unittest.TestCase):
                 self.cprint('test2')
         # Check print call
         self.print.assert_has_calls([
-            call('\x1b[31;47m'),
+            call(['\x1b[31;47m']),
             call('test'),
-            call('\x1b[42m'),
+            call(['\x1b[42m']),
             call('test2'),
             call('\x1b[m'),
+            call('\x1b[31;47m'),
             call('\x1b[m')])
