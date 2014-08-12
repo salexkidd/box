@@ -1,6 +1,6 @@
 from ..functools import cachedproperty
 from ..importlib import import_object
-from ..packaging import Settings, include
+from ..package import Settings, include
 from .setup import setup
 
 

@@ -26,7 +26,7 @@ class Settings(dict, metaclass=SettingsMetaclass):
 
     Following example will show common workflow and extensions::
 
-      >>> from box.packaging import Settings
+      >>> from box.package import Settings
       >>> class Settings(Settings):
       ...   attr1 = 'value1'
       ...   attr2 = 'value2'
@@ -120,7 +120,7 @@ class Settings(dict, metaclass=SettingsMetaclass):
             os.makedirs(dirname, exist_ok=True)
         with open(extension, 'w') as file:
             file.write(
-            'from box.packaging import Settings\n\n'
+            'from box.package import Settings\n\n'
             'class Settings(Settings):\n\n'
             '    # Public\n\n'
             '    pass\n')

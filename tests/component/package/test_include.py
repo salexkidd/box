@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock
-from box.packaging.include import include
+from box.package.include import include
 
 
 class include_Test(unittest.TestCase):

@@ -1,6 +1,6 @@
 import operator
 from ..collections import merge_dicts
-from ..packaging import Settings
+from ..package import Settings
 
 
 class Settings(Settings):
