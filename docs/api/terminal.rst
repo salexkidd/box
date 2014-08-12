@@ -10,4 +10,4 @@ Public
 
 Module’s public interface.
 
-.. autoclass:: box.terminal.Format
+.. autoclass:: box.terminal.Formatter
