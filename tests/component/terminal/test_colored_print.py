@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock, call
-from box.io.colored_print import ColoredPrint
+from box.terminal.colored_print import ColoredPrint
 
 
 class ColoredPrintTest(unittest.TestCase):
