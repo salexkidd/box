@@ -49,32 +49,34 @@ class Colorize:
 
     def __init__(self, **params):
         self._make_attributes(**params)
-        self._buffer = None
-        self._stack = []
+        self._offsets_stack = []
+        self._offsets = None
 
     def __call__(self, string=None, **params):
         offsets = self._make_offsets(**params)
         if string is not None:
-            stack_code = ''.join(self._stack)
-            reset_code = self._make_code()
-            result = stack_code
+            stack_code = ''
+            for stack_offsets in self._offsets_stack:
+                stack_code += self._make_code(stack_offsets)
+            place_code = ''
             if offsets:
-                result += self._make_code(offsets)
-            result += string
-            result += reset_code
+                place_code += self._make_code(offsets)
+            reset_code = self._make_code()
+            result = stack_code + place_code + string + reset_code
             return result
         else:
             if offsets:
-                self._buffer = self._make_code(offsets)
+                self._offsets = offsets
             return self
 
     def __enter__(self):
-        if self._buffer is not None:
-            self._stack.append(self._buffer)
+        if self._offsets is not None:
+            self._offsets_stack.append(self._offsets)
+            self._offsets = None
         return self
 
     def __exit__(self, cls, value, traceback):
-        self._stack.pop()
+        self._offsets_stack.pop()
 
     # Protected
 
