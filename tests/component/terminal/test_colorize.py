@@ -11,10 +11,10 @@ class ColorizeTest(unittest.TestCase):
 
     def test(self):
         with self.colorize(foreground='red', background='white'):
-            string1 = self.colorize('*')
+            string1 = self.colorize('string1')
             with self.colorize(background='green'):
-                string2 = self.colorize('*')
-            string3 = self.colorize('*', background='green')
-        self.assertEqual(string1, '\x1b[31;47m*\x1b[m')
-        self.assertEqual(string2, '\x1b[31;47m\x1b[42m*\x1b[m')
-        self.assertEqual(string3, '\x1b[31;47m\x1b[42m*\x1b[m')
+                string2 = self.colorize('string2')
+            string3 = self.colorize('string3', background='green')
+        self.assertEqual(string1, '\x1b[31;47mstring1\x1b[m')
+        self.assertEqual(string2, '\x1b[31;47m\x1b[42mstring2\x1b[m')
+        self.assertEqual(string3, '\x1b[31;47m\x1b[42mstring3\x1b[m')
