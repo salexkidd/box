@@ -1,1 +1,1 @@
-from .colorize import Colorize
+from .format import Format

@@ -1,7 +1,7 @@
 from ..collections import merge_dicts
 
-class Colorize:
-    """Create colorize function.
+class Format:
+    """Create format function.
     """
 
     # Codes

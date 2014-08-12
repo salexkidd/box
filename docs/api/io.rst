@@ -10,5 +10,4 @@ Public
 
 Module’s public interface.
 
-.. autoclass:: box.io.ColoredPrint
 .. autoclass:: box.io.enhanced_input
