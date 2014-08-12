@@ -1,12 +1,8 @@
 from ..collections import merge_dicts
 
-class ColoredPrint:
-    """Wrap print function to work with styles.
+class Colorize:
+    """Create colorize function.
     """
-
-    # Public
-
-    print = staticmethod(print)
 
     # Codes
 
@@ -52,16 +48,25 @@ class ColoredPrint:
     }
 
     def __init__(self, **params):
-        for key in list(params):
-            if key in ['print', 'codes', 'offsets', 'color_offsets']:
-                value = params.pop(key, None)
-                if value is not None:
-                    if isinstance(value, dict):
-                        value = merge_dicts(getattr(self, key), value)
-                setattr(self, key, value)
-        self._params = params
+        self._make_attributes(**params)
         self._buffer = None
         self._stack = []
+
+    def __call__(self, string=None, **params):
+        offsets = self._make_offsets(**params)
+        if string is not None:
+            stack_code = ''.join(self._stack)
+            reset_code = self._make_code()
+            result = stack_code
+            if offsets:
+                result += self._make_code(offsets)
+            result += string
+            result += reset_code
+            return result
+        else:
+            if offsets:
+                self._buffer = self._make_code(offsets)
+            return self
 
     def __enter__(self):
         if self._buffer is not None:
@@ -71,21 +76,20 @@ class ColoredPrint:
     def __exit__(self, cls, value, traceback):
         self._stack.pop()
 
-    def __call__(self, *values, **params):
-        # Decorate values
-        values = list(values)
-        if values:
-            # Apply style
-            for code in reversed(self._stack):
-                values[0] = code + str(values[0])
-            # Reset style
-            code = self._make_code()
-            values[-1] = str(values[-1]) + code
-        # Merge params
-        params = merge_dicts(self._params, params)
-        return self.print(*values, **params)
+    # Protected
 
-    def style(self, **params):
+    def _make_attributes(self, **params):
+        for key, value in params.items():
+            if value is not None:
+                try:
+                    value = merge_dicts(getattr(self, key), value)
+                except Exception:
+                    raise ValueError(
+                        'Bad value "{value}" for key "{key}"'.
+                        format(value=value, key=key))
+            setattr(self, key, value)
+
+    def _make_offsets(self, **params):
         offsets = []
         for key, value in params.items():
             try:
@@ -93,16 +97,12 @@ class ColoredPrint:
                     offset = self.offsets[key] + self.color_offsets[value]
                 elif value:
                     offset = self.offsets[key]
-            except (KeyError, TypeError):
+            except Exception:
                 raise ValueError(
                     'Bad value "{value}" for key "{key}"'.
                     format(value=value, key=key))
             offsets.append(offset)
-        code = self._make_code(offsets)
-        self._buffer = code
-        return self
-
-    # Protected
+        return offsets
 
     def _make_code(self, offsets=None):
         if offsets is None:

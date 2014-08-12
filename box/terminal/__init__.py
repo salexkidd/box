@@ -1,1 +1,1 @@
-from .colored_print import ColoredPrint
+from .colorize import Colorize
