@@ -1,7 +1,7 @@
 from ..collections import merge_dicts
 
-class Format:
-    """Create format function.
+class Formatter:
+    """Console ANSI excape charsets formatter.
     """
 
     # Codes
@@ -52,23 +52,6 @@ class Format:
         self._offsets_stack = []
         self._offsets = None
 
-    def __call__(self, string=None, **params):
-        offsets = self._make_offsets(**params)
-        if string is not None:
-            stack_code = ''
-            for stack_offsets in self._offsets_stack:
-                stack_code += self._make_code(stack_offsets)
-            place_code = ''
-            if offsets:
-                place_code += self._make_code(offsets)
-            reset_code = self._make_code()
-            result = stack_code + place_code + string + reset_code
-            return result
-        else:
-            if offsets:
-                self._offsets = offsets
-            return self
-
     def __enter__(self):
         if self._offsets is not None:
             self._offsets_stack.append(self._offsets)
@@ -77,6 +60,24 @@ class Format:
 
     def __exit__(self, cls, value, traceback):
         self._offsets_stack.pop()
+
+    def format(self, string, **params):
+        offsets = self._make_offsets(**params)
+        stack_code = ''
+        for stack_offsets in self._offsets_stack:
+            stack_code += self._make_code(stack_offsets)
+        place_code = ''
+        if offsets:
+            place_code += self._make_code(offsets)
+        reset_code = self._make_code()
+        result = stack_code + place_code + string + reset_code
+        return result
+
+    def style(self, **params):
+        offsets = self._make_offsets(**params)
+        if offsets:
+            self._offsets = offsets
+        return self
 
     # Protected
 
