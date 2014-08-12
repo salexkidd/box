@@ -2,7 +2,7 @@ import os
 import unittest
 from functools import partial
 # TODO: Nose in shell imports module instead of object
-from box.findtools.find_files import find_files
+from box.find.find_files import find_files
 
 
 # TODO: remove explicit "/" usage

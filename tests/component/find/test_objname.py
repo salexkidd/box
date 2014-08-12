@@ -1,7 +1,7 @@
 import re
 import unittest
 from unittest.mock import Mock
-from box.findtools.objname import ObjnameConstraint
+from box.find.objname import ObjnameConstraint
 
 
 class ObjnameConstraintTest(unittest.TestCase):

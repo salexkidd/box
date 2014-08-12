@@ -1,7 +1,7 @@
 import os
 import unittest
 from unittest.mock import Mock
-from box.findtools.maxdepth import MaxdepthConstraint
+from box.find.maxdepth import MaxdepthConstraint
 
 
 class MaxdepthConstraintTest(unittest.TestCase):

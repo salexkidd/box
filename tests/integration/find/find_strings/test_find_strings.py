@@ -3,7 +3,7 @@ import re
 import unittest
 from functools import partial
 # TODO: Nose in shell imports module instead of object
-from box.findtools.find_strings import find_strings
+from box.find.find_strings import find_strings
 
 
 class find_strings_Test(unittest.TestCase):

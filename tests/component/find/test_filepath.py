@@ -1,7 +1,7 @@
 import re
 import unittest
 from unittest.mock import Mock
-from box.findtools.filepath import FilepathConstraint
+from box.find.filepath import FilepathConstraint
 
 
 class FilepathConstraintTest(unittest.TestCase):

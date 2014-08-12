@@ -2,7 +2,7 @@ import re
 import unittest
 from functools import partial
 from unittest.mock import Mock, call
-from box.findtools.find_strings import find_strings
+from box.find.find_strings import find_strings
 
 
 class find_strings_Test(unittest.TestCase):

@@ -3,7 +3,7 @@ import re
 import unittest
 from functools import partial
 # TODO: Nose in shell imports module instead of object
-from box.findtools.find_objects import find_objects
+from box.find.find_objects import find_objects
 
 
 class find_objects_Test(unittest.TestCase):

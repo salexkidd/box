@@ -1,7 +1,7 @@
 import re
 import unittest
 from unittest.mock import Mock
-from box.findtools.filename import FilenameConstraint
+from box.find.filename import FilenameConstraint
 
 
 class FilenameConstraintTest(unittest.TestCase):

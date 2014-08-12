@@ -2,7 +2,7 @@ import re
 import unittest
 from unittest.mock import Mock
 from functools import partial
-from box.findtools.find_files import find_files
+from box.find.find_files import find_files
 
 
 class find_files_Test(unittest.TestCase):
