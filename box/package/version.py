@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from ..collections import merge_dicts
 
 
 class Version(str):
@@ -46,8 +47,7 @@ class Version(str):
     def __new__(cls, version=None, **kwargs):
         ekwargs = kwargs
         if version is not None:
-            ekwargs = version._as_dict
-            ekwargs.update(kwargs)
+            ekwargs = merge_dicts(version._as_dict, kwargs)
         # Buffer version
         version = str.__new__(cls)
         vars(version).update(ekwargs)
