@@ -1,5 +1,6 @@
 import os
 from copy import copy
+from ..collections import merge_dicts
 from ..functools import cachedproperty
 from .parser import Parser
 
@@ -25,8 +26,7 @@ class Command:
 
     def __init__(self, argv, *, config, exception=None, **kwargs):
         self._argv = argv
-        self._config = copy(config)
-        self._config.update(kwargs)
+        self._config = merge_dicts(config, kwargs)
         self._exception = exception
 
     def __getattr__(self, name):
