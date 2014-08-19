@@ -19,6 +19,7 @@ class FilepathConstraint(PatternConstraint):
         if name == 'notfilepath':
             self._exclude.append(value)
 
+    # TODO: don't work with pattern like './pattern'
     def match(self, emitter, pattern):
         if isinstance(pattern, RegexCompiledPatternType):
             if re.search(pattern, emitter.filepath):
