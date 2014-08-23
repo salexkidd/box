@@ -7,13 +7,17 @@ from .settings import Settings
 class Program(metaclass=ABCMeta):
     """Abstract console program representation.
 
-    :param list argv: sys.argv like list of arguments
+    Client have to implement __call__ method and can adjust _Command and
+    _Settings attributes using replacements compatible with module's
+    :class:`box.argparse.Command`, :class:`box.argparse.Settings`.
 
-    Client have to implement __call__ method and can adjust
-    _Command and _Settings attributes using replacements
-    compatible with module's :class:`box.argparse.Command`,
-    :class:`box.argparse.Settings`.
+    Parameters
+    ----------
+    argv: list
+        Program's arguments like sys.argv.
 
+    Examples
+    --------
     Usage exmaple::
 
       >>> from box.argparse import Program, Settings
