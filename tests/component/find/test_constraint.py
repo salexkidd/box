@@ -1,6 +1,29 @@
 import unittest
 from unittest.mock import Mock
-from box.find.constraint import PatternConstraint
+from box.find.constraint import Constraint, PatternConstraint
+
+class ConstraintTest(unittest.TestCase):
+
+    # Public
+
+    def setUp(self):
+        self.Constraint = self._make_mock_constraint_class()
+        self.constraint = self.Constraint()
+
+    def test___bool__(self):
+        self.assertTrue(self.constraint)
+
+    def test_extend(self):
+        self.assertIsNone(self.constraint.extend('name', 'value'))
+
+    # Protected
+
+    def _make_mock_constraint_class(self):
+        class MockConstraint(Constraint):
+            # Public
+            def __call__(self, emitter):
+                pass
+        return MockConstraint
 
 
 class PatternConstraintTest(unittest.TestCase):
