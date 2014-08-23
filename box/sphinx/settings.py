@@ -7,8 +7,10 @@ from .setup import setup
 class Settings(Settings):
     """Sphinx conf.py representation.
 
+    Examples
+    --------
     Just put code like this in conf.py module and use inheritance from
-    default sphinx settings and other class benefits. It gives a opportunity
+    default sphinx settings and other class benefits. It gives an opportunity
     to not operate with big config file filled by standard settings and
     see only important things::
 
