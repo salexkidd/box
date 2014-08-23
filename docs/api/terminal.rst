@@ -1,6 +1,6 @@
-======
-box.io
-======
+============
+box.terminal
+============
 
 Module provides some terminal functionality.
 
