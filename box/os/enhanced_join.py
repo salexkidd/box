@@ -4,9 +4,19 @@ import os
 def enhanced_join(*components, skip_none=True, fallback=None):
     """Enhanced version of os.path.join.
 
-    :param str component: path component to join
-    :param bool skip_none: skip if None in components
-    :param mixed fallback: if join fails return fallback
+    Parameters
+    ----------
+    component: str
+        Path component to join.
+    kip_none: bool s
+        Skip if None in components.
+    fallback: mixed
+        If join fails return fallback.
+
+    Returns
+    -------
+    str
+        Joined path.
     """
     try:
         if skip_none:
