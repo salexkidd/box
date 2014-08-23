@@ -9,15 +9,25 @@ from .context import ObjectContext
 class render_string(Function):
     """Render a string using context.
 
-    :param str source: string to be rendered
-    :param dict/obj context: rendering context
-    :param str target: filepath to write renered string into
-    :param object loader: jinja2's loader
-    :param dict env_params: parameters to pass to jinja2's Environment
-
-    :returns str/None: rendered string
-
     If target is given function will not return any value.
+
+    Parameters
+    ----------
+    source: str
+        String to be rendered.
+    context: dict/obj
+        Rendering context.
+    target: str
+        Filepath to write renered string into.
+    loader: object
+        Jinja2's loader.
+    env_params: dict
+        Parameters to pass to jinja2's Environment.
+
+    Returns
+    -------
+    str/None
+        Rendered string.
     """
 
     # Public
