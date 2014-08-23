@@ -5,8 +5,13 @@ from ..collections import merge_dicts
 class Version(str):
     """Version representation.
 
-    :param dict kwargs: key=value pairs to override version elements
+    Parameters
+    ----------
+    kwargs: dict
+        Key=value pairs to override version elements.
 
+    Examples
+    --------
     Usage example::
 
       >>> from box.package import Version
