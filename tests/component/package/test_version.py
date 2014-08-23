@@ -12,7 +12,7 @@ class VersionTest(unittest.TestCase):
     def test(self):
         self.assertEqual(self.version, '1.0.0')
 
-    def test_not_final(self):
+    def test_with_level_is_not_final(self):
         self.version = Version(major=1, level='not_final')
         self.assertEqual(self.version, '1.0.0.not_final')
 
