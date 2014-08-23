@@ -12,12 +12,12 @@ class ObjnameConstraintTest(unittest.TestCase):
         self.constraint = ObjnameConstraint()
         self.emitter = Mock(objname='objname')
 
-    def test___call__(self):
+    def test___call___with_objname(self):
         self.constraint.extend('objname', 'objname')
         self.constraint(self.emitter)
         self.assertFalse(self.emitter.skip.called)
 
-    def test___call___skip(self):
+    def test___call___with_objname_skip(self):
         self.constraint.extend('objname', 'x')
         self.constraint(self.emitter)
         self.assertTrue(self.emitter.skip.called)

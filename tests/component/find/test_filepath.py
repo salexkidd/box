@@ -12,12 +12,12 @@ class FilepathConstraintTest(unittest.TestCase):
         self.constraint = FilepathConstraint()
         self.emitter = Mock(filepath='filepath')
 
-    def test___call__(self):
+    def test___call___with_filepath(self):
         self.constraint.extend('filepath', 'f*')
         self.constraint(self.emitter)
         self.assertFalse(self.emitter.skip.called)
 
-    def test___call___skip(self):
+    def test___call___with_filepath_skip(self):
         self.constraint.extend('filepath', 'x*')
         self.constraint(self.emitter)
         self.assertTrue(self.emitter.skip.called)

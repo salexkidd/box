@@ -12,12 +12,12 @@ class FilenameConstraintTest(unittest.TestCase):
         self.constraint = FilenameConstraint()
         self.emitter = Mock(filename='filename')
 
-    def test___call__(self):
+    def test___call___with_filename(self):
         self.constraint.extend('filename', 'f*')
         self.constraint(self.emitter)
         self.assertFalse(self.emitter.skip.called)
 
-    def test___call___skip(self):
+    def test___call___with_filename_skip(self):
         self.constraint.extend('filename', 'x*')
         self.constraint(self.emitter)
         self.assertTrue(self.emitter.skip.called)

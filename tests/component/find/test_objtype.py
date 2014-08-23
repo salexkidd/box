@@ -11,12 +11,12 @@ class ObjtypeConstraintTest(unittest.TestCase):
         self.constraint = ObjtypeConstraint()
         self.emitter = Mock(objself=ZeroDivisionError())
 
-    def test___call__(self):
+    def test___call___with_objtype(self):
         self.constraint.extend('objtype', ArithmeticError)
         self.constraint(self.emitter)
         self.assertFalse(self.emitter.skip.called)
 
-    def test___call___skip(self):
+    def test___call___with_objtype_skip(self):
         self.constraint.extend('objtype', AssertionError)
         self.constraint(self.emitter)
         self.assertTrue(self.emitter.skip.called)
