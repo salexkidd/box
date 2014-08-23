@@ -21,9 +21,15 @@ class SettingsMetaclass(type):
 class Settings(dict, metaclass=SettingsMetaclass):
     """Settings representation.
 
-    :param dict settings: dict to override settings values
-    :param dict kwargs: key=value pairs to override settings values
+    Parameters
+    ----------
+    settings: dict
+        Dict to override settings values.
+    kwargs: dict
+        Key=value pairs to override settings values.
 
+    Examples
+    --------
     Following example will show common workflow and extensions::
 
       >>> from box.package import Settings
