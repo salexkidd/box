@@ -101,7 +101,7 @@ class render_string(Function):
                      vrs=None, shared=None, globs=None, locs=None):
         from jinja2.runtime import Context, missing
         if vrs is None:
-            vrs = {}
+            vrs = {}  # pragma: no cover; TODO: try to remove?
         parent = vrs
         if not isinstance(vrs, dict):
             parent = ObjectContext(vrs)
