@@ -11,12 +11,21 @@ from .objtype import ObjtypeConstraint
 class find_objects(find):
     """Find objects in files using map_reduce framework.
 
-    :param list filters: find filters
-    :param str basedir: base directory to find
-    :param list filepathes: list of filepathes or globs where to find
-    :param dict params: map_reduce params
+    Parameters
+    ----------
+    filters: list
+        Find filters.
+    basedir: str
+        Base directory to find.
+    filepathes: list
+        List of filepathes or globs where to find.
+    params: dict
+        Params of map_reduce.
 
-    :returns mixed: map_reduce result
+    Returns
+    -------
+    mixed
+        Found files after map_reduce.
     """
 
     # Public

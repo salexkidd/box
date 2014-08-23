@@ -10,13 +10,23 @@ from .find_files import find_files
 class find_strings(find):
     """Find strings in files using map_reduce framework.
 
-    :param str/re string: include string pattern
-    :param list filters: find filters
-    :param str basedir: base directory to find
-    :param list filepathes: list of filepathes or globs where to find
-    :param dict params: map_reduce params
+    Parameters
+    ----------
+    string: str/re
+        Include string pattern.
+    filters: list
+        Find filters.
+    basedir: str
+        Base directory to find.
+    filepathes: list
+        List of filepathes or globs where to find.
+    params: dict
+        Params of map_reduce.
 
-    :returns mixed: map_reduce result
+    Returns
+    -------
+    mixed
+        Found files after map_reduce.
     """
 
     # Public
