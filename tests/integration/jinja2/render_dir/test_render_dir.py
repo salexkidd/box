@@ -23,6 +23,11 @@ if check_module('jinja2'):
                 pass
 
         def test(self):
+            render_dir(self._make_path())
+            result = sorted(os.listdir(self._make_path()))
+            self.assertEqual(result, ['{{ dir }}', '{{ file }}'])
+
+        def test_with_context(self):
             render_dir(self._make_path(), {'dir': 'dir', 'file': 'file'})
             result = sorted(os.listdir(self._make_path()))
             self.assertEqual(result, ['dir', 'file'])
