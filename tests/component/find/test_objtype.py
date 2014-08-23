@@ -30,3 +30,13 @@ class ObjtypeConstraintTest(unittest.TestCase):
         self.constraint.extend('objtype', [AssertionError, AttributeError])
         self.constraint(self.emitter)
         self.assertTrue(self.emitter.skip.called)
+
+    def test___call___with_notobjtype(self):
+        self.constraint.extend('notobjtype', AssertionError)
+        self.constraint(self.emitter)
+        self.assertFalse(self.emitter.skip.called)
+
+    def test___call___with_notobjtype_skip(self):
+        self.constraint.extend('notobjtype', ArithmeticError)
+        self.constraint(self.emitter)
+        self.assertTrue(self.emitter.skip.called)
