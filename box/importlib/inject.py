@@ -4,6 +4,8 @@ from .import_object import import_object
 def inject(name, *, module=None, package=None):
     """Return imported object wrapped in property.
 
+    Examples
+    --------
     When you can't import object explicitly it injects object
     as property using "lazy load" principle::
 
