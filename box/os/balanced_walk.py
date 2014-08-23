@@ -7,13 +7,24 @@ def balanced_walk(dirpath=None, *,
     """Recursevly yield (dirpathes, filepathes) tuple
     level by level from top to bottom of directory tree.
 
-    :param str dirpath: directory path or list of pathes
-    :param str[files/dirs] mode: special yielding mode
-    :param str basedir: all pathes are relative to basedir
-    :param function(pathes) sorter: function to sort pathes
+    Parameters
+    ----------
+    dirpath: str
+        Directory path or list of pathes.
+    mode: str[files/dirs]
+        Special yielding mode.
+    basedir: str
+        All pathes are relative to basedir.
+    sorter: function(pathes)
+        Function to sort pathes.
 
-    :returns generator: (dirpathes, filepathes) generator
+    Returns
+    -------
+    generator
+        Generator of (dirpathes, filepathes) tuples.
 
+    Notes
+    -----
     Function doesn't support symbolic links.
     """
     dirpathes = dirpath
