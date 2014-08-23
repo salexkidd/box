@@ -4,8 +4,12 @@ from ..types import Null
 class Emitter:
     """Emitter representation for map_reduce.
 
-    :param mixed value: initial value to emit
-    :param dict context: items will be available as emitter's attributes
+    Parameters
+    ----------
+    value: mixed
+        Initial value to emit.
+    context: dict
+        Items will be available as emitter's attributes.
     """
 
     # Public
@@ -27,10 +31,14 @@ class Emitter:
     def value(self, value=Null, condition=True):
         """Get/set value to emit.
 
-        :param mixed value: value to set if passed
-        :param bool condition: set only if condition is True
-
         Use emitter.value(value) to emit only one value.
+
+        Parameters
+        ----------
+        value: mixed
+            Value to set if passed.
+        condition: bool
+            Set only if condition is True.
         """
         if value is Null:
             return self._value
@@ -42,12 +50,16 @@ class Emitter:
     def emit(self, value, condition=True):
         """Emit value.
 
-        :param mixed value: value to emit
-        :param bool condition: emit only if condition is True
-
         If you need emit more than one emitter.value() you may use
         emitter.emit(value) many times. All values will be emitted
         but **emitter.value() will be ignored**.
+
+        Parameters
+        ----------
+        value: mixed
+            Value to emit.
+        condition: bool
+            Emit only if condition is True.
         """
         if condition:
             self._emitted.append(value)
@@ -56,9 +68,12 @@ class Emitter:
     def skip(self, condition=True):
         """Skip iteration.
 
-        :param bool condition: skip only if condition is True
-
         Nothing will be emitted in this iteration.
+
+        Parameters
+        ----------
+        condition: bool
+            Skip only if condition is True.
         """
         if condition:
             self._skipped = True
@@ -67,10 +82,14 @@ class Emitter:
     def stop(self, condition=True, *, if_not_skipped=False):
         """Stop iteration.
 
-        :param bool condition: stop only if condition is True
-        :param bool if_not_skipped: stop only if not skipped
-
         Map cycle will be stopped on this iteration.
+
+        Parameters
+        ----------
+        condition: bool
+            Stop only if condition is True.
+        if_not_skipped: bool
+            Stop only if not skipped.
         """
         if condition:
             if if_not_skipped:
