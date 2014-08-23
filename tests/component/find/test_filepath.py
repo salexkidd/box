@@ -31,3 +31,13 @@ class FilepathConstraintTest(unittest.TestCase):
         self.constraint.extend('filepath', re.compile('x.*'))
         self.constraint(self.emitter)
         self.assertTrue(self.emitter.skip.called)
+
+    def test___call___with_notfilepath(self):
+        self.constraint.extend('notfilepath', 'x*')
+        self.constraint(self.emitter)
+        self.assertFalse(self.emitter.skip.called)
+
+    def test___call___with_notfilepathh_skip(self):
+        self.constraint.extend('notfilepath', 'f*')
+        self.constraint(self.emitter)
+        self.assertTrue(self.emitter.skip.called)
