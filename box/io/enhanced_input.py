@@ -4,13 +4,18 @@ from ..functools import Function
 class enhanced_input(Function):
     """Read a string from standard input.
 
-    :param str prompt: default prompt
-    :param dict kwargs: key=value parameter pairs
-
     When you called function with any kwarg it overrides class attributes
     and changes function behaviour. See parameter list below. All of them
     you can use in function call. Also all of them you can redefine in
     inherited class.
+
+    Parameters
+    ----------
+    prompt: str
+        Default prompt.
+    kwargs: dict
+        Key=value parameter pairs.
+
     """
 
     # Public
