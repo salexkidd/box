@@ -6,7 +6,10 @@ from .render_string import render_string
 class render_file(render_string):
     """Render a file using context.
 
-    :param str source: filepath to be rendered
+    Parameters
+    ----------
+    source: str
+        Filepath to be rendered.
 
     .. seealso:: Full documentation: :class:`box.jinja2.render_string`
     """
