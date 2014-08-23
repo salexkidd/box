@@ -2,6 +2,7 @@ from argparse import ArgumentParser
 
 
 class Parser(ArgumentParser):
+    """ArgumentParser optionally uses exception instead of exit."""
 
     # Public
 
