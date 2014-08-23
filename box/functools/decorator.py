@@ -28,6 +28,8 @@ class DecoratorMetaclass(ABCMeta):
 class Decorator(metaclass=DecoratorMetaclass):
     """Base abstract class for unified simple and composite decorators.
 
+    Examples
+    --------
     Let see the difference between simple and composite decorators:
 
     - By default if Decorator implementation doesn't override __init__ method
