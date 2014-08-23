@@ -6,7 +6,11 @@ class DateEncoder(JSONEncoder):
     """Json encoder with support of datatime values.
 
     If encoder meets datetime.datetime, datetime.date or datetime.time
-    in python objects to dump it will be encoded by **isoformat** method::
+    in python objects to dump it will be encoded by **isoformat** method.
+
+    Examples
+    --------
+    Usage example::
 
       >>> import json
       >>> import datetime
