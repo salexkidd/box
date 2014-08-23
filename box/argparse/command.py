@@ -8,11 +8,19 @@ from .parser import Parser
 class Command:
     """Console command representation.
 
-    :param list argv: program's arguments like sys.argv
-    :param dict config: command configuration for argparse
-    :param type exception: exception class to raise instead of exit
-    :param dict kwargs: key=value command configuration pairs
+    Parameters
+    ----------
+    argv: list
+        Program's arguments like sys.argv.
+    config: dict
+        Command configuration for argparse.
+    exception: :class:`Exception`
+        Exception class to raise instead of exit.
+    kwargs: dict
+        Pairs of key=value to configure command over config.
 
+    Examples
+    --------
     Command provides access to command line arguments by attribute names::
 
       >>> from box.argparse import Command
