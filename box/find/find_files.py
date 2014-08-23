@@ -12,13 +12,23 @@ from .find import find
 class find_files(find):
     """Find files using map_reduce framework.
 
-    :param list filters: find filters
-    :param bool join: if True joins resulted filepath with basedir
-    :param str basedir: base directory to find
-    :param list filepathes: list of filepathes or globs where to find
-    :param dict params: map_reduce params
+    Parameters
+    ----------
+    filters: list
+        Find filters.
+    join: bool
+        If True joins resulted filepath with basedir.
+    basedir: str
+        Base directory to find.
+    filepathes: list
+        List of filepathes or globs where to find.
+    params: dict
+        Parameters of map_reduce.
 
-    :returns mixed: map_reduced files
+    Returns
+    -------
+    mixed:
+        Found files after map_reduce.
     """
 
     # Public
