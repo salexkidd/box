@@ -4,23 +4,29 @@ import importlib
 def import_object(name, *, module=None, package=None):
     """Import an object.
 
-    :param str/mixed name:
-      object name in "[module.]module.]attr" form
-
-    :param str module:
-      anchor point from which to resolve attribute
-
-    :param str package:
-      argument is required when performing a relative import.
+    Parameters
+    ----------
+    name: str/mixed
+      Object name in "[module.]module.]attr" form.
+    module: str
+      Anchor point from which to resolve attribute.
+    package: str
+      Argument is required when performing a relative import.
       It specifies the package to use as the anchor point from which
-      to resolve the relative import to an absolute import
+      to resolve the relative import to an absolute import.
 
-    :raises ValueError:
-      if name is a string but not in a proper form
+    Returns
+    -------
+    object/mixed
+      Imported object.
 
-    :returns object/mixed:
-      imported object
+    Raises
+    ------
+    ValueError
+      If name is not in a proper form.
 
+    Examples
+    --------
     If name not is a string function returns name without changes.
     It usefull when client may give you pointer to some objects in
     two forms like string or already imported object::
