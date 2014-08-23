@@ -6,12 +6,17 @@ from .render_string import render_string
 class render_dir(Function):
     """Render a directory using context.
 
-    :param str source: directory to be rendered
-    :param dict/obj context: rendering context
-    :param dict env_params: parameters to pass to render_string
-
     Directory rendering means that every name from os.listdir
     will be processed by render_string and then renamed accordingly.
+
+    Parameters
+    ----------
+    source: str
+        Directory to be rendered.
+    context: dict/obj
+        Rendering context.
+    env_params: dict
+        Parameters to pass to render_string.
     """
 
     # Public
