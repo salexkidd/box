@@ -1,15 +1,25 @@
 from ..copy import enhanced_copy
 
 
-def merge_dicts(dict1, dict2, *, resolvers={}):
+def merge_dicts(dict1, dict2, *, resolvers=None):
     """Recursively merge dicts and return new one.
 
-    :param dict dict1: left dict to merge
-    :param dict dict2: right dict to merge
-    :param dict resolvers: resolvers by type
+    Parameters
+    ----------
+    dict1: dict
+        Left dict to merge.
+    dict2: dict
+        Right dict to merge.
+    resolvers: dict
+        Resolvers where key is type.
 
-    :returns dict: merged dict
+    Returns
+    -------
+    dict
+        Merged dict.
     """
+    if resolvers is None:
+        resolvers = {}
     resolvers.setdefault(dict, merge_dicts)
     result = enhanced_copy(dict1)
     for key in dict2:
