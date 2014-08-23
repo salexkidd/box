@@ -7,13 +7,24 @@ def enhanced_iglob(pattern, *,
                    basedir=None, mode=None, sorter=None):
     """Yield the pathes matching the pattern.
 
-    :param str pattern: glob path pattern
-    :param str basedir: all pathes are relative to basedir
-    :param str[files/dirs] mode: filtering mode
-    :param function(pathes) sorter: function to sort pathes
+    Parameters
+    ----------
+    pattern: str
+        Glob path pattern.
+    basedir: str
+        All pathes are relative to basedir.
+    mode: str[files/dirs]
+        Filtering mode.
+    sorter: function(pathes)
+        Function to sort pathes.
 
-    :returns object: paths generator
+    Returns
+    -------
+    generator
+        Paths generator.
 
+    Notes
+    -----
     Function doesn't support symbolic links.
     """
     full_pattern = enhanced_join(basedir, pattern)
