@@ -6,14 +6,25 @@ from .not_emitted import NotEmitted
 class map_reduce(Function):
     """Process iterable values using map_resuce framework.
 
-    :param iterable values: values to process
-    :param list mappers: list of mappers
-    :param list reducers: list of reducers
-    :param type emitter: emitter class
-    :param bool getfirst: return first if True
-    :param mixed fallback: fallback if fails
+    Parameters
+    ----------
+    values: iterable
+        Values to process.
+    mappers: list
+        List of mappers.
+    reducers: list
+        List of reducers.
+    emitter: type
+        Emitter class.
+    getfirst: bool
+        Return first if True.
+    fallback: mixed
+        Fallback if fails.
 
-    :returns mixed: map_reduce result
+    Returns
+    -------
+    mixed
+        Values after map_reduce.
     """
 
     default_emitter = Emitter
