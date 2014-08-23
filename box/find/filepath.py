@@ -26,7 +26,8 @@ class FilepathConstraint(PatternConstraint):
                 return True
         else:
             if os.path.isabs(pattern):
-                pattern = os.path.relpath(pattern, start=self._basedir)
+                # TODO: remove no cover
+                pattern = os.path.relpath(pattern, start=self._basedir)  # pragma: no cover
             # TODO: it's not working like glob, bug?
             if fnmatch.fnmatch(emitter.filepath, pattern):
                 return True
