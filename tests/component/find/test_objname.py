@@ -31,3 +31,13 @@ class ObjnameConstraintTest(unittest.TestCase):
         self.constraint.extend('objname', re.compile('x.*'))
         self.constraint(self.emitter)
         self.assertTrue(self.emitter.skip.called)
+
+    def test___call___with_notobjname(self):
+        self.constraint.extend('notobjname', 'x')
+        self.constraint(self.emitter)
+        self.assertFalse(self.emitter.skip.called)
+
+    def test___call___with_notobjname_skip(self):
+        self.constraint.extend('notobjname', 'objname')
+        self.constraint(self.emitter)
+        self.assertTrue(self.emitter.skip.called)
