@@ -31,3 +31,13 @@ class FilenameConstraintTest(unittest.TestCase):
         self.constraint.extend('filename', re.compile('x.*'))
         self.constraint(self.emitter)
         self.assertTrue(self.emitter.skip.called)
+
+    def test___call___with_notfilename(self):
+        self.constraint.extend('notfilename', 'x*')
+        self.constraint(self.emitter)
+        self.assertFalse(self.emitter.skip.called)
+
+    def test___call___with_notfilename_skip(self):
+        self.constraint.extend('notfilename', 'f*')
+        self.constraint(self.emitter)
+        self.assertTrue(self.emitter.skip.called)
