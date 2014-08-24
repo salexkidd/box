@@ -14,6 +14,7 @@ class Settings(Settings):
     to not operate with big config file filled by standard settings and
     see only important things::
 
+      import sphinx
       from box.sphinx import Settings
 
       class Settings(Settings):
@@ -25,10 +26,14 @@ class Settings(Settings):
 
           project = 'box'
 
-      locals().update(Settings())
+      locals().update(Settings(sphinx=sphinx))
     """
 
     # Public
+
+    def __init__(self, *args, sphinx, **kwargs):
+        self._sphinx = sphinx
+        super().__init__(*args, **kwargs)
 
     def __getattr__(self, name):
         try:
@@ -95,5 +100,7 @@ class Settings(Settings):
 
     @cachedproperty
     def _defaults(self):
-        Config = import_object('sphinx.config.Config')
+        Config = import_object(
+            'sphinx.config.Config',
+            package=self._sphinx.__name__)
         return Config(None, None, {}, None)

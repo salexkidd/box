@@ -14,7 +14,8 @@ class SettingsTest(unittest.TestCase):
         self.addCleanup(patch.stopall)
         self.method = Mock()
         self.Settings = self._make_mock_settings_class(self.method)
-        self.settings = self.Settings()
+        # Passed sphinx module makes no difference
+        self.settings = self.Settings(sphinx=unittest)
 
     def test___getattr__(self):
         self.assertEqual(self.settings.attr1, 'value1')
