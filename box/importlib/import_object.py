@@ -43,6 +43,8 @@ def import_object(name, *, module=None, package=None):
             module, name = name.rsplit('.', 1)
         except ValueError:
             raise ValueError('Name is in a bad form.') from None
+        if not module:
+            module = '.'
         imported_module = importlib.import_module(module, package=package)
         imported_object = getattr(imported_module, name)
     else:
