@@ -1,5 +1,5 @@
+from importlib import import_module
 from ..functools import cachedproperty
-from ..importlib import import_object
 from ..package import Settings, include
 from .setup import setup
 
@@ -100,7 +100,8 @@ class Settings(Settings):
 
     @cachedproperty
     def _defaults(self):
-        Config = import_object(
-            'sphinx.config.Config',
-            package=self._sphinx.__name__)
-        return Config(None, None, {}, None)
+        return self._sphinx_config.Config(None, None, {}, None)
+
+    @property
+    def _sphinx_config(self):
+        return import_module('.config', package=self._sphinx.__name__)
