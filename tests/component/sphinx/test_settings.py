@@ -9,8 +9,8 @@ class SettingsTest(unittest.TestCase):
 
     def setUp(self):
         sphinx_config = Mock(attr1='value1', spec=['attr1'])
-        import_object = patch('box.sphinx.settings.import_object').start()
-        import_object.return_value = Mock(return_value=sphinx_config)
+        import_module = patch('box.sphinx.settings.import_module').start()
+        import_module.return_value.Config = Mock(return_value=sphinx_config)
         self.addCleanup(patch.stopall)
         self.method = Mock()
         self.Settings = self._make_mock_settings_class(self.method)
