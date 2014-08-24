@@ -51,7 +51,6 @@ class Settings(dict, metaclass=SettingsMetaclass):
     # Public
 
     def __init__(self, settings=None, **kwargs):
-        self.clear()
         if settings:
             vars(self).update(settings)
         vars(self).update(kwargs)
@@ -59,11 +58,12 @@ class Settings(dict, metaclass=SettingsMetaclass):
 
     def __setattr__(self, name, value):
         super().__setattr__(name, value)
-        type(self).__init__(self)
+        self.update(self._as_dict)
 
     def __delattr__(self, name):
         super().__delattr__(name)
-        type(self).__init__(self)
+        self.clear()
+        self.update(self._as_dict)
 
     # Protected
 
