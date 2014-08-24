@@ -1,6 +1,7 @@
 import os
 import sys
 from unittest.mock import patch
+from importlib import import_module
 from ..copy import enhanced_copy
 from ..functools import cachedproperty, Function
 from .context import ObjectContext
@@ -33,11 +34,12 @@ class render_string(Function):
     # Public
 
     def __init__(self, source, context=None, *,
-                 target=None, loader=None, **env_params):
+                 jinja2, target=None, loader=None, **env_params):
         if context is None:
             context = {}
         self._source = source
         self._context = context
+        self._jinja2 = jinja2
         self._target = target
         self._loader = loader
         self._env_params = env_params
@@ -52,7 +54,8 @@ class render_string(Function):
     # Protected
 
     def _render(self):
-        with patch('jinja2.runtime.new_context', self._new_context):
+        with patch.object(
+            self._jinja2_runtime, 'new_context', self._new_context):
             return self._template.render(self._context)
 
     def _write(self, content):
@@ -70,18 +73,16 @@ class render_string(Function):
 
     @cachedproperty
     def _Environment(self):
-        from jinja2 import Environment
-        class Environment(Environment):
+        class Environment(self._jinja2.Environment):
             # Public
             template_class = self._Template
         return Environment
 
     @cachedproperty
     def _Template(self):
-        from jinja2 import Template
-        from jinja2.utils import concat
         new_context = self._new_context
-        class Template(Template):
+        concat = self._jinja2_utils.concat
+        class Template(self._jinja2.Template):
             # Public
             def render(self, context):
                 try:
@@ -96,10 +97,8 @@ class render_string(Function):
                     vrs, shared, self.globals, locs)
         return Template
 
-    @staticmethod
-    def _new_context(environment, template_name, blocks,
+    def _new_context(self, environment, template_name, blocks,
                      vrs=None, shared=None, globs=None, locs=None):
-        from jinja2.runtime import Context, missing
         if vrs is None:
             vrs = {}  # pragma: no cover; TODO: try to remove?
         parent = vrs
@@ -115,6 +114,16 @@ class render_string(Function):
             if shared:
                 parent = enhanced_copy(parent)
             for key, value in locs.items():
-                if key[:2] == 'l_' and value is not missing:
+                if (key[:2] == 'l_' and
+                    value is not self._jinja2_runtime.missing):
                     parent[key[2:]] = value
-        return Context(environment, parent, template_name, blocks)
+        return self._jinja2_runtime.Context(
+            environment, parent, template_name, blocks)
+
+    @property
+    def _jinja2_utils(self):
+        return import_module('.utils', package=self._jinja2.__name__)
+
+    @property
+    def _jinja2_runtime(self):
+        return import_module('.runtime', package=self._jinja2.__name__)

@@ -21,18 +21,21 @@ class render_dir(Function):
 
     # Public
 
-    def __init__(self, source, context=None, **env_params):
+    def __init__(self, source, context=None, *,
+                 jinja2, **env_params):
         if context is None:
             context = {}
         self._source = source
         self._context = context
+        self._jinja2 = jinja2
         self._env_params = env_params
 
     def __call__(self):
         for name in os.listdir(self._source):
             try:
                 new_name = render_string(
-                    name, self._context, **self._env_params)
+                    name, self._context,
+                    jinja2=self._jinja2, **self._env_params)
                 if name != new_name:
                     path = os.path.join(self._source, name)
                     new_path = os.path.join(self._source, new_name)

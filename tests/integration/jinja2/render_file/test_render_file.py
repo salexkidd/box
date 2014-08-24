@@ -2,6 +2,7 @@ from box.importlib import check_module
 
 if check_module('jinja2'):
     import os
+    import jinja2
     import unittest
     from functools import partial
     from box.jinja2 import render_file
@@ -15,7 +16,8 @@ if check_module('jinja2'):
             class Context:
                 attr1 = 'value1'
                 attr2 = 'value2'
-            self.prender = partial(render_file, context=Context())
+            self.prender = partial(
+                render_file, context=Context(), jinja2=jinja2)
 
         def test(self):
             self.assertEqual(self.prender(self._make_path('template1')),

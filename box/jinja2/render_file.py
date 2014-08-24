@@ -29,5 +29,4 @@ class render_file(render_string):
 
     @property
     def _FileSystemLoader(self):
-        from jinja2 import FileSystemLoader
-        return FileSystemLoader
+        return self._jinja2.FileSystemLoader
