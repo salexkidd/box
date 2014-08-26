@@ -11,7 +11,9 @@ class ObjtypeConstraint(PatternConstraint):
         if name == 'notobjtype':
             self._exclude.append(value)
 
-    def match(self, emitter, pattern):
+    # Protected
+
+    def _match(self, emitter, pattern):
         types = pattern
         if isinstance(types, type):
             types = [types]

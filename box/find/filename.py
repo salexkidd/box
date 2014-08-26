@@ -14,7 +14,9 @@ class FilenameConstraint(PatternConstraint):
         if name == 'notfilename':
             self._exclude.append(value)
 
-    def match(self, emitter, pattern):
+    # Protected
+
+    def _match(self, emitter, pattern):
         if isinstance(pattern, RegexCompiledPatternType):
             if re.search(pattern, emitter.filename):
                 return True
