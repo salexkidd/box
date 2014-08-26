@@ -9,7 +9,7 @@ class DecoratorMetaclass(ABCMeta):
 
     def __call__(self, *args, **kwargs):
         decorator = object.__new__(self)
-        if decorator.is_composite(*args, **kwargs):
+        if decorator._is_composite(*args, **kwargs):
             # Composite decorator
             decorator.__init__(*args, **kwargs)
             return decorator
@@ -66,7 +66,9 @@ class Decorator(metaclass=DecoratorMetaclass):
         """
         pass  # pragma: no cover
 
-    def is_composite(self, *args, **kwargs):
+    # Protected
+
+    def _is_composite(self, *args, **kwargs):
         """Check decorator is composite for the given arguments.
 
         Overriding this method you can define type of your decorator.
