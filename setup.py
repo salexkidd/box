@@ -5,15 +5,15 @@ from setuptools import find_packages
 
 package = {
 
-	#Main
+    #Main
 
     'name': 'box',
-	'version':'0.36.0',
-	'packages': find_packages(
+    'version':'0.36.0',
+    'packages': find_packages(
         os.path.dirname(__file__) or '.', 
         exclude=['tests*']
     ),
-	'include_package_data': True,
+    'include_package_data': True,
     'install_requires': [],  
     'tests_require': ['nose', 'jinja2'],
     'test_suite': 'nose.collector',
@@ -93,15 +93,15 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.''',  
-    
+THE SOFTWARE.
+''',  
 }
 
 if (not os.environ.get('TRAVIS', None) and  
-	not	os.environ.get('READTHEDOCS', None)):
-	package['entry_points'] = {}
-	package['data_files'] = []
+    not os.environ.get('READTHEDOCS', None)):
+    package['entry_points'] = {}
+    package['data_files'] = []
 
 if __name__ == '__main__':
-	from setuptools import setup
-	setup(**package)
+    from setuptools import setup
+    setup(**package)
