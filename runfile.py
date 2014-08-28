@@ -18,8 +18,8 @@ class Module(ManageModule):
     description = 'Box is a library to provide common functionality.'
     development_requires = ['packgram>=0.12', 'sphinx', 'sphinx_rtd_theme']
     github_user = 'respect31'
-    interpreters = ['3.3', '3.4']
     install_requires = []
+    interpreters = ['3.3', '3.4']
     license = 'MIT License'
     name = 'box'
     platforms = ['Unix']
