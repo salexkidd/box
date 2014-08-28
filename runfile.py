@@ -14,9 +14,11 @@ class Module(ManageModule):
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Topic :: System :: Systems Administration',
     ]
+    copyright = 'Copyright (c) 2014 Respect31 <post@respect31.com>'
     description = 'Box is a library to provide common functionality.'
     development_requires = ['packgram>=0.12', 'sphinx', 'sphinx_rtd_theme']
     github_user = 'respect31'
+    interpreters = ['3.3', '3.4']
     install_requires = []
     license = 'MIT License'
     name = 'box'

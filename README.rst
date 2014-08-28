@@ -20,29 +20,43 @@ Box is a library to provide common functionality.
      :target: https://pypi.python.org/pypi?:action=display&name=box
      :alt: pypi
 
-*Package is under active development. Before version 1 backward-compatibility 
-between minor releases (0.x.0), documentation and changelog are not guaranteed.*
+Application
+-----------
+Package is under active development and is not ready for production use.
+Backward-compatibility between minor releases (0.x.0), documentation and 
+changelog are not guaranteed to be present before stable versions (>=1.0.0).
 
 Requirements
 ------------
-- Python 3.3 and higher
+- Platforms
+
+  - Unix
+- Interpreters
+
+  - Python 3.3
+  - Python 3.4
 
 Installation
 ------------
 - pip install box
 
-Authors
--------
-- roll <roll@respect31.com>
+Contribution
+------------
+- Authors
 
-Maintainers
------------
-- roll <roll@respect31.com>
+  - roll <roll@respect31.com>
+- Maintainers
+
+  - roll <roll@respect31.com>
+
+Changelog
+---------
+- no entries yet
 
 License
 -------
-MIT License
-`````````````
+**MIT License**
+
 Copyright (c) 2014 Respect31 <post@respect31.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
