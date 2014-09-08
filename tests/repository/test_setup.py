@@ -2,7 +2,7 @@ from box.importlib import check_module
 
 if check_module('packgram'):
     import box
-    from packgram.tests import SetupTest
+    from packgram.nose import SetupTest
 
 
     class SetupTest(SetupTest):
