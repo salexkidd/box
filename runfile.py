@@ -1,4 +1,4 @@
-from packgram.project import ProjectModule
+from packgram import ProjectModule
 
 
 class ProjectModule(ProjectModule):
