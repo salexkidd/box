@@ -2,6 +2,7 @@ from importlib import import_module
 from ..functools import cachedproperty
 from ..package import Settings, include
 from .setup import setup
+from .connect import connect
 
 
 class Settings(Settings):
@@ -82,6 +83,20 @@ class Settings(Settings):
             'One line description of project.',
             'Miscellaneous')]
 
+    # Autodoc
+
+    @connect('autodoc-process-docstring')
+    def autodoc_process_docstring(self, app, what, name, obj, options, lines):
+        if what != 'module':
+            for key, value in enumerate(lines):
+                if key >= 1 and value.startswith('---'):
+                    lines[key - 1] = lines[key - 1].join(['**', '**'])
+                    lines[key] = ''
+
+    @connect('autodoc-skip-member')
+    def autodoc_skip_member(self, app, what, name, obj, skip, options):
+        return skip or (name in getattr(self, 'autodoc_skip_members', []))
+
     # Setup
 
     @property
@@ -95,6 +110,7 @@ class Settings(Settings):
                 if item is not None:
                     item.invoke(self, app)
         return esetup
+
 
     # Protected
 
