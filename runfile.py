@@ -24,5 +24,5 @@ class ProjectModule(ProjectModule):
     name = 'box'
     platforms = ['Unix']
     pypi_password_secure = 'jFRWJAyhP5RA9j8CEpJzwJhwZmbfcxW1HpRO43mMu2/Nh3FW7GdisUovCLOS/khygJvh86vfe6m69+GEVuH/VgUEw8GcdZ41Zcla0ZnBhQrH0PTQel5Fou85foD7yXf42toVY3DV7C/JPk8PK3swSlIJ26n4dVreI7y1xvRmVHk='
-    tests_require = ['nose', 'jinja2']
+    tests_require = ['nose', 'coverage']
     test_suite = 'nose.collector'

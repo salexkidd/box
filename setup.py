@@ -1,4 +1,4 @@
-#TO MAKE CHANGES USE "sources" DIRECTORY (see packgram docs).
+#TO MAKE CHANGES USE "meta" DIRECTORY (see packgram docs).
 
 import os
 from setuptools import find_packages
@@ -15,7 +15,7 @@ package = {
     ),
     'include_package_data': True,
     'install_requires': [],  
-    'tests_require': ['nose', 'jinja2'],
+    'tests_require': ['nose', 'coverage'],
     'test_suite': 'nose.collector',
     
     #Description
@@ -30,7 +30,7 @@ package = {
     'maintainer_email': 'roll@respect31.com',
     'platforms': ['Unix'],
     'url': 'https://github.com/respect31/box',
-    'long_description': '''.. TO MAKE CHANGES USE "sources" DIRECTORY (see packgram docs).
+    'long_description': '''.. TO MAKE CHANGES USE "meta" DIRECTORY (see packgram docs).
 
 Box
 =====================
@@ -45,7 +45,7 @@ Box is a library to provide common functionality.
 .. image:: http://img.shields.io/coveralls/respect31/box/master.svg 
      :target: https://coveralls.io/r/respect31/box  
      :alt: coverage
-.. image:: http://img.shields.io/badge/docs-RTD-brightgreen.svg
+.. image:: http://img.shields.io/badge/docs-latest-brightgreen.svg
      :target: http://box.readthedocs.org
      :alt: docs     
 .. image:: http://img.shields.io/pypi/v/box.svg

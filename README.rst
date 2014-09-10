@@ -1,4 +1,4 @@
-.. TO MAKE CHANGES USE "sources" DIRECTORY (see packgram docs).
+.. TO MAKE CHANGES USE "meta" DIRECTORY (see packgram docs).
 
 Box
 =====================
@@ -13,7 +13,7 @@ Box is a library to provide common functionality.
 .. image:: http://img.shields.io/coveralls/respect31/box/master.svg 
      :target: https://coveralls.io/r/respect31/box  
      :alt: coverage
-.. image:: http://img.shields.io/badge/docs-RTD-brightgreen.svg
+.. image:: http://img.shields.io/badge/docs-latest-brightgreen.svg
      :target: http://box.readthedocs.org
      :alt: docs     
 .. image:: http://img.shields.io/pypi/v/box.svg

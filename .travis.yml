@@ -1,4 +1,4 @@
-#TO MAKE CHANGES USE "sources" DIRECTORY (see packgram docs).
+#TO MAKE CHANGES USE "meta" DIRECTORY (see packgram docs).
 
 language: 
   python
@@ -9,7 +9,7 @@ python:
 
 install:
   - pip install coveralls
-  - pip install nose jinja2
+  - pip install nose coverage
 
 script:
   - coverage run --source=box setup.py test
