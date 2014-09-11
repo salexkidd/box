@@ -51,8 +51,9 @@ class SettingsTest(unittest.TestCase):
               'Miscellaneous')])
 
     def test_setup(self):
-        self.settings.setup('app')
-        self.method.assert_called_with(self.settings, 'app')
+        app = Mock()
+        self.settings.setup(app)
+        self.method.assert_called_with(self.settings, app)
 
     # Protected
 
