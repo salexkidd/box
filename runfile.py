@@ -10,8 +10,6 @@ class ProjectModule(ProjectModule):
     classifiers = [
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3',
-        'Topic :: Software Development :: Libraries :: Python Modules',
-        'Topic :: System :: Systems Administration',
     ]
     copyright = 'Copyright (c) 2014 Respect31 <post@respect31.com>'
     description = 'Box is a library to provide common functionality.'
