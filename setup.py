@@ -19,7 +19,7 @@ setup(
     classifiers=[],       
     description='Box is a library to provide common functionality.',
     data_files=data_files,
-    download_url='https://github.com/respect31/box/tarball/0.37.0',
+    download_url='https://github.com/respect31/box/tarball/0.38.0',
     entry_points={},
     license='MIT License',
     maintainer='roll',
@@ -111,4 +111,4 @@ THE SOFTWARE.
 ''',     
     tests_require=['nose', 'coverage'],
     test_suite='nose.collector',
-    version='0.37.0')
+    version='0.38.0')
