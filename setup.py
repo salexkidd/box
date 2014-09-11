@@ -1,36 +1,36 @@
-#TO MAKE CHANGES USE "meta" DIRECTORY (see packgram docs).
+# TO MAKE CHANGES USE "meta" DIRECTORY (see packgram docs).
 
 import os
-from setuptools import find_packages
+from setuptools import setup, find_packages
 
-package = {
+data_files = []
+if data_files:
+    try:
+        if os.geteuid() != 0:
+            data_files.clear()
+    except Exception:
+        pass
 
-    #Main
+packages = find_packages(os.path.dirname(__file__) or '.', exclude=['tests*'])
 
-    'name': 'box',
-    'version':'0.36.0',
-    'packages': find_packages(
-        os.path.dirname(__file__) or '.', 
-        exclude=['tests*']
-    ),
-    'include_package_data': True,
-    'install_requires': [],  
-    'tests_require': ['nose', 'coverage'],
-    'test_suite': 'nose.collector',
-    
-    #Description
-    
-    'author': 'roll',
-    'author_email': 'roll@respect31.com',
-    'classifiers': ['Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],       
-    'description': 'Box is a library to provide common functionality.',
-    'download_url':'https://github.com/respect31/box/tarball/0.36.0',
-    'license': 'MIT License',
-    'maintainer': 'roll',
-    'maintainer_email': 'roll@respect31.com',
-    'platforms': ['Unix'],
-    'url': 'https://github.com/respect31/box',
-    'long_description': '''.. TO MAKE CHANGES USE "meta" DIRECTORY (see packgram docs).
+setup(
+    author='roll',
+    author_email='roll@respect31.com',
+    classifiers=['License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],       
+    description='Box is a library to provide common functionality.',
+    data_files=data_files,
+    download_url='https://github.com/respect31/box/tarball/0.36.0',
+    entry_points={},
+    license='MIT License',
+    maintainer='roll',
+    maintainer_email='roll@respect31.com',
+    name='box',
+    include_package_data=True,
+    install_requires=[], 
+    packages=packages,
+    platforms=['Unix'],
+    url='https://github.com/respect31/box',
+    long_description='''.. TO MAKE CHANGES USE "meta" DIRECTORY (see packgram docs).
 
 Box
 =====================
@@ -108,14 +108,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-''',  
-}
-
-if (not os.environ.get('TRAVIS', None) and  
-    not os.environ.get('READTHEDOCS', None)):
-    package['entry_points'] = {}
-    package['data_files'] = []
-
-if __name__ == '__main__':
-    from setuptools import setup
-    setup(**package)
+''',     
+    tests_require=['nose', 'coverage'],
+    test_suite='nose.collector',
+    version='0.36.0')
