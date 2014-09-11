@@ -9,7 +9,7 @@ class ProjectModule(ProjectModule):
     author_email = 'roll@respect31.com'
     copyright = 'Copyright (c) 2014 Respect31 <post@respect31.com>'
     description = 'Box is a library to provide common functionality.'
-    development_requires = ['packgram>=0.16']
+    development_requires = ['packgram>=0.17']
     github_user = 'respect31'
     install_requires = []
     interpreters = ['3.3', '3.4']
