@@ -13,15 +13,5 @@ Public
 Module’s public interface.
 
 .. autoclass:: box.package.Settings
-     :members: _extensions
- 
 .. autoclass:: box.package.Version
 .. autoclass:: box.package.include
-
---------
-Internal
---------
-
-Module’s internal implementation.
-     
-.. autoclass:: box.package.settings.SettingsMetaclass
