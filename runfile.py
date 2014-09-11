@@ -7,10 +7,6 @@ class ProjectModule(ProjectModule):
 
     author = 'roll'
     author_email = 'roll@respect31.com'
-    classifiers = [
-        'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 3',
-    ]
     copyright = 'Copyright (c) 2014 Respect31 <post@respect31.com>'
     description = 'Box is a library to provide common functionality.'
     development_requires = ['packgram>=0.15', 'sphinx', 'sphinx_rtd_theme']
