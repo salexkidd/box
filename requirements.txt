@@ -1,7 +1,5 @@
 #TO MAKE CHANGES USE "meta" DIRECTORY (see packgram docs).
 
-packgram>=0.15
-sphinx
-sphinx_rtd_theme
+packgram>=0.16
 nose
 coverage
