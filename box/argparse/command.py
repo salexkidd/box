@@ -5,6 +5,7 @@ from ..functools import cachedproperty
 from .parser import Parser
 
 
+# TODO: fix protected/private
 class Command:
     """Console command representation.
 

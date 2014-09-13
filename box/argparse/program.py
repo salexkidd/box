@@ -4,6 +4,7 @@ from .command import Command
 from .settings import Settings
 
 
+# TODO: fix protected/private
 class Program(metaclass=ABCMeta):
     """Abstract console program representation.
 
