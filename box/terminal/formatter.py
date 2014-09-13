@@ -1,7 +1,7 @@
 from ..collections import merge_dicts
 
 class Formatter:
-    """Console ANSI excape charsets formatter.
+    """Console ANSI escape charsets formatter.
     """
 
     # Codes

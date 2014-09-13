@@ -18,8 +18,6 @@ def inject(name, *, module=None, package=None):
           @property
           def patch(self):
               return import_object('unittest.mock.patch')
-
-    .. seealso:: :func:`box.importlib.import_object`
     """
     return property(
         lambda self: import_object(name, module=module, package=package))
