@@ -80,7 +80,7 @@ class Formatter:
             self.__offsets = offsets
         return self
 
-    # Protected
+    # Private
 
     def __make_attributes(self, **params):
         for key, value in params.items():

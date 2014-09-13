@@ -67,7 +67,7 @@ class Version(str):
         """
         return self.__as_tuple
 
-    # Protected
+    # Private
 
     @property
     def __as_dict(self):

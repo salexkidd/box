@@ -42,7 +42,7 @@ class Settings(dict):
         self.clear()
         self.update(self.__as_dict)
 
-    # Protected
+    # Private
 
     @property
     def __as_dict(self):
