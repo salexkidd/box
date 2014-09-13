@@ -14,7 +14,7 @@ class connect(setup):
     # Public
 
     def __init__(self, event):
-        self._event = event
+        self.__event = event
 
     def invoke(self, obj, app):
-        app.connect(self._event, functools.partial(self._method, obj))
+        app.connect(self.__event, functools.partial(self._method, obj))
