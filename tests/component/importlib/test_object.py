@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock
-from box.importlib.import_object import import_object
+from box.importlib.object import import_object
 
 
 class import_object_Test(unittest.TestCase):

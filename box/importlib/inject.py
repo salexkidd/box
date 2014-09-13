@@ -1,4 +1,4 @@
-from .import_object import import_object
+from .object import import_object
 
 
 def inject(name, *, module=None, package=None):
