@@ -12,10 +12,10 @@ class cachedproperty:
 
     def __get__(self, obj, cls):
         if self._fget:
-            cache = self.__get_object_cache(obj)
-            if self.__name not in cache:
-                cache[self.__name] = self._fget(obj)
-            return cache[self.__name]
+            cache = self._get_object_cache(obj)
+            if self._name not in cache:
+                cache[self._name] = self._fget(obj)
+            return cache[self._name]
         else:
             raise AttributeError('Can\'t get attribute')
 
@@ -54,20 +54,20 @@ class cachedproperty:
 
     @classmethod
     def set(cls, obj, name, value):
-        cache = cls.__get_object_cache(obj)
+        cache = cls._get_object_cache(obj)
         cache[name] = value
 
     @classmethod
     def reset(cls, obj, name):
-        cache = cls.__get_object_cache(obj)
+        cache = cls._get_object_cache(obj)
         cache.pop(name, None)
 
-    # Private
+    # Protected
 
     @property
-    def __name(self):
+    def _name(self):
         return self._fget.__name__
 
     @classmethod
-    def __get_object_cache(cls, obj):
+    def _get_object_cache(cls, obj):
         return obj.__dict__.setdefault(cls.attribute_name, {})
