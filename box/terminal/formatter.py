@@ -1,5 +1,6 @@
 from ..collections import merge_dicts
 
+
 class Formatter:
     """Console ANSI excape charsets formatter.
     """
@@ -48,40 +49,40 @@ class Formatter:
     }
 
     def __init__(self, **params):
-        self._make_attributes(**params)
-        self._offsets_stack = []
-        self._offsets = None
+        self.__make_attributes(**params)
+        self.__offsets_stack = []
+        self.__offsets = None
 
     def __enter__(self):
-        if self._offsets is not None:
-            self._offsets_stack.append(self._offsets)
-            self._offsets = None
+        if self.__offsets is not None:
+            self.__offsets_stack.append(self.__offsets)
+            self.__offsets = None
         return self
 
     def __exit__(self, cls, value, traceback):
-        self._offsets_stack.pop()
+        self.__offsets_stack.pop()
 
     def format(self, string, **params):
-        offsets = self._make_offsets(**params)
+        offsets = self.__make_offsets(**params)
         stack_code = ''
-        for stack_offsets in self._offsets_stack:
-            stack_code += self._make_code(stack_offsets)
+        for stack_offsets in self.__offsets_stack:
+            stack_code += self.__make_code(stack_offsets)
         place_code = ''
         if offsets:
-            place_code += self._make_code(offsets)
-        reset_code = self._make_code()
+            place_code += self.__make_code(offsets)
+        reset_code = self.__make_code()
         result = stack_code + place_code + string + reset_code
         return result
 
     def style(self, **params):
-        offsets = self._make_offsets(**params)
+        offsets = self.__make_offsets(**params)
         if offsets:
-            self._offsets = offsets
+            self.__offsets = offsets
         return self
 
     # Protected
 
-    def _make_attributes(self, **params):
+    def __make_attributes(self, **params):
         for key, value in params.items():
             if value is not None:
                 try:
@@ -92,7 +93,7 @@ class Formatter:
                         format(value=value, key=key))
             setattr(self, key, value)
 
-    def _make_offsets(self, **params):
+    def __make_offsets(self, **params):
         offsets = []
         for key, value in params.items():
             try:
@@ -107,7 +108,7 @@ class Formatter:
             offsets.append(offset)
         return offsets
 
-    def _make_code(self, offsets=None):
+    def __make_code(self, offsets=None):
         if offsets is None:
             offsets = []
         style_code = self.codes['separator'].join(map(str, sorted(offsets)))
