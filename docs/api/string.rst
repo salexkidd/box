@@ -1,6 +1,6 @@
-======
-box.os
-======
+==========
+box.string
+==========
 
 Functionality relevant to standard string module.
 

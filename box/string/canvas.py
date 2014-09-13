@@ -1,4 +1,5 @@
 class Canvas:
+    """Recursively format all kwargs and set its as attributes."""
 
     # Puplic
 
