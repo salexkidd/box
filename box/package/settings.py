@@ -31,21 +31,21 @@ class Settings(dict):
         if settings:
             vars(self).update(settings)
         vars(self).update(kwargs)
-        self.update(self._as_dict)
+        self.update(self.__as_dict)
 
     def __setattr__(self, name, value):
         super().__setattr__(name, value)
-        self.update(self._as_dict)
+        self.update(self.__as_dict)
 
     def __delattr__(self, name):
         super().__delattr__(name)
         self.clear()
-        self.update(self._as_dict)
+        self.update(self.__as_dict)
 
     # Protected
 
     @property
-    def _as_dict(self):
+    def __as_dict(self):
         items = {}
         for name in dir(self):
             if not name.startswith('_'):

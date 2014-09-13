@@ -52,12 +52,12 @@ class Version(str):
     def __new__(cls, version=None, **kwargs):
         ekwargs = kwargs
         if version is not None:
-            ekwargs = merge_dicts(version._as_dict, kwargs)
+            ekwargs = merge_dicts(version.__as_dict, kwargs)
         # Buffer version
         version = str.__new__(cls)
         vars(version).update(ekwargs)
         # Actual version
-        version = str.__new__(cls, version._as_str)
+        version = str.__new__(cls, version.__as_str)
         vars(version).update(ekwargs)
         return version
 
@@ -65,24 +65,24 @@ class Version(str):
     def info(self):
         """Version as a tuple.
         """
-        return self._as_tuple
+        return self.__as_tuple
 
     # Protected
 
     @property
-    def _as_dict(self):
+    def __as_dict(self):
         items = OrderedDict()
         for key in ['major', 'minor', 'micro', 'level', 'serial']:
             items[key] = getattr(self, key)
         return items
 
     @property
-    def _as_str(self):
+    def __as_str(self):
         items = [self.major, self.minor, self.micro]
         if self.level != 'final':
             items.append(self.level)
         return '.'.join(map(str, items))
 
     @property
-    def _as_tuple(self):
-        return tuple(self._as_dict.values())
+    def __as_tuple(self):
+        return tuple(self.__as_dict.values())
