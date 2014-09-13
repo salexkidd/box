@@ -5,6 +5,7 @@ from .setup import setup
 from .connect import connect
 
 
+# TODO: fix protected/private
 class Settings(Settings):
     """Sphinx conf.py representation.
 
