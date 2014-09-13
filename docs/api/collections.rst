@@ -10,5 +10,5 @@ Public
 
 Module’s public interface.
 
-.. autoclass:: box.collections.ManagedDict
-.. autofunction:: box.collections.merge_dicts     
+.. autofunction:: box.collections.merge_dicts
+     
