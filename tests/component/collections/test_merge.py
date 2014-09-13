@@ -1,6 +1,6 @@
 import unittest
 import operator
-from box.collections.merge_dicts import merge_dicts
+from box.collections.merge import merge_dicts
 
 
 class merge_dicts_Test(unittest.TestCase):

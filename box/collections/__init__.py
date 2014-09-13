@@ -1,1 +1,1 @@
-from .merge_dicts import merge_dicts
+from .merge import merge_dicts
