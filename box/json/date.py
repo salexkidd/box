@@ -23,14 +23,14 @@ class DateEncoder(JSONEncoder):
     # Public
 
     def default(self, obj):
-        if isinstance(obj, self._date_types):
+        if isinstance(obj, self.__date_types):
             return obj.isoformat()
         else:
             return super().default(obj)
 
-    # Protected
+    # Private
 
-    _date_types = (
+    __date_types = (
         datetime.datetime,
         datetime.date,
         datetime.time,
