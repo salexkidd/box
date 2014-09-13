@@ -1,5 +1,5 @@
 import unittest
-from box.importlib.check_module import check_module
+from box.importlib.check import check_module
 
 
 class check_module_Test(unittest.TestCase):
