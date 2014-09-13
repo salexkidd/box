@@ -1,6 +1,6 @@
 import unittest
 import datetime
-from box.json.date_encoder import DateEncoder
+from box.json.date import DateEncoder
 
 
 class DateEncoderTest(unittest.TestCase):
