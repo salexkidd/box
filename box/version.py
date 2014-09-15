@@ -1,12 +1,3 @@
-from box.package import Version
+# TO MAKE CHANGES USE "meta" DIRECTORY (see packgram docs).
 
-
-class Version(Version):
-
-    major = 0
-    minor = 40
-    micro = 0
-    level = 'final'
-
-
-version = Version()
+version = '0.40.0'
