@@ -1,31 +1,34 @@
 import unittest
-from box.functools.function import Function
+from importlib import import_module
+component = import_module('box.functools.function')
 
 
 class FunctionTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
-        self.function = self._make_mock_function()
+        self.function = self.make_mock_function()
 
-    def test(self):
-        self.assertEqual(self.function('arg'), 'arg')
+    # Helpers
 
-    def test_isinstance(self):
-        self.assertIsInstance(self.function, Function)
-        self.assertIsInstance(self.function, type(Function))
-        # Python doesn't call __instancecheck__ on most of isinstance
-        # calls but we have to test instance check inheritance
-        self.assertFalse(self.function.__instancecheck__(Exception))
-
-    # Protected
-
-    def _make_mock_function(self):
-        class mock_function(Function):
+    def make_mock_function(self):
+        class mock_function(component.Function):
             # Public
             def __init__(self, arg):
                 self._arg = arg
             def __call__(self):
                 return self._arg
         return mock_function
+
+    # Tests
+
+    def test(self):
+        self.assertEqual(self.function('arg'), 'arg')
+
+    def test_isinstance(self):
+        self.assertIsInstance(self.function, component.Function)
+        self.assertIsInstance(self.function, type(component.Function))
+        # Python doesn't call __instancecheck__ on most of isinstance
+        # calls but we have to test instance check inheritance
+        self.assertFalse(self.function.__instancecheck__(Exception))

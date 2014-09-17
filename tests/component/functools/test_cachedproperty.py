@@ -1,16 +1,39 @@
 import unittest
 from unittest.mock import Mock
-from box.functools.cachedproperty import cachedproperty
+from importlib import import_module
+component = import_module('box.functools.cachedproperty')
 
 
 class cachedpropertyTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
-        self.Consumer = self._make_consumer_class()
+        self.Consumer = self.make_consumer_class()
         self.consumer = self.Consumer()
         self.consumer.default_property_value = 'old_value'
+
+    # Helpers
+
+    def make_consumer_class(self):
+        class Consumer:
+            # Public
+            def __init__(self):
+                self.default_property_value = {}
+            property = component.cachedproperty()
+            @property.getter
+            def property(self):
+                return self.default_property_value
+            @property.setter
+            def property(self, value):
+                component.cachedproperty.set(self, 'property', value)
+            @property.deleter
+            def property(self):
+                component.cachedproperty.reset(self, 'property')
+            no_property = component.cachedproperty()
+        return Consumer
+
+    # Tests
 
     def test___get__(self):
         self.assertEqual(self.consumer.property, 'old_value')
@@ -43,34 +66,14 @@ class cachedpropertyTest(unittest.TestCase):
         )
 
     def test___doc___(self):
-        prop = cachedproperty()
+        prop = component.cachedproperty()
         self.assertEqual(prop.__doc__, None)
 
     def test___doc___with_doc(self):
-        prop = cachedproperty(doc='doc')
+        prop = component.cachedproperty(doc='doc')
         self.assertEqual(prop.__doc__, 'doc')
 
     def test___doc___with_fget(self):
         fget = Mock(__doc__='doc')
-        prop = cachedproperty(fget=fget)
+        prop = component.cachedproperty(fget=fget)
         self.assertEqual(prop.__doc__, 'doc')
-
-    # Protected
-
-    def _make_consumer_class(self):
-        class Consumer:
-            # Public
-            def __init__(self):
-                self.default_property_value = {}
-            property = cachedproperty()
-            @property.getter
-            def property(self):
-                return self.default_property_value
-            @property.setter
-            def property(self, value):
-                cachedproperty.set(self, 'property', value)
-            @property.deleter
-            def property(self):
-                cachedproperty.reset(self, 'property')
-            no_property = cachedproperty()
-        return Consumer
