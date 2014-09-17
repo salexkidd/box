@@ -1,13 +1,16 @@
 import unittest
-from box.terminal.formatter import Formatter
+from importlib import import_module
+component = import_module('box.terminal.formatter')
 
 
 class FormatterTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
-        self.formatter = Formatter()
+        self.formatter = component.Formatter()
+
+    # Tests
 
     def test(self):
         with self.formatter.style(foreground='red', background='white'):
@@ -20,13 +23,13 @@ class FormatterTest(unittest.TestCase):
         self.assertEqual(string3, '\x1b[31;47m\x1b[42mstring3\x1b[m')
 
     def test_with_param(self):
-        self.formatter = Formatter(offsets={'bold': 1000})
+        self.formatter = component.Formatter(offsets={'bold': 1000})
         string = self.formatter.format('string', bold=True)
         self.assertEqual(string, '\x1b[1000mstring\x1b[m')
 
     def test_with_bad_param(self):
         self.assertRaises(
-            ValueError, Formatter, bad_param='bad_param')
+            ValueError, component.Formatter, bad_param='bad_param')
 
     def test_format_with_bad_param(self):
         self.assertRaises(

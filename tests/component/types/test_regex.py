@@ -1,11 +1,13 @@
 import re
 import unittest
-from box.types.regex import RegexCompiledPatternType
+from importlib import import_module
+component = import_module('box.types.regex')
 
 
 class RegexCompiledPatternTypeTest(unittest.TestCase):
 
-    # Public
+    # Tests
 
     def test(self):
-        self.assertEqual(RegexCompiledPatternType, type(re.compile('')))
+        self.assertEqual(
+            component.RegexCompiledPatternType, type(re.compile('')))
