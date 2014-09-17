@@ -1,23 +1,20 @@
 import unittest
-from box.argparse.settings import Settings
+from importlib import import_module
+component = import_module('box.argparse.settings')
 
 
 class SettingsTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
-        self.Settings = self._make_mock_settings_class()
+        self.Settings = self.make_mock_settings_class()
         self.settings = self.Settings()
 
-    def test(self):
-        self.assertEqual(self.settings,
-            {'argparse': {'prog': 'prog2', 'arguments': ['arg1', 'arg2']}})
+    # Helpers
 
-    # Protected
-
-    def _make_mock_settings_class(self):
-        class MockSetting1(Settings):
+    def make_mock_settings_class(self):
+        class MockSetting1(component.Settings):
             # Public
             @property
             def argparse(self):
@@ -30,3 +27,9 @@ class SettingsTest(unittest.TestCase):
                 return self._inherit_argparse(MockSetting2,
                     {'prog': 'prog2', 'arguments': ['arg2']})
         return MockSetting2
+
+    # Tests
+
+    def test(self):
+        self.assertEqual(self.settings,
+            {'argparse': {'prog': 'prog2', 'arguments': ['arg1', 'arg2']}})

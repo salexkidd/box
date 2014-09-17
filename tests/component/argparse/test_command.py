@@ -1,15 +1,16 @@
 import unittest
 from functools import partial
 from unittest.mock import Mock, call
-from box.argparse.command import Command
+from importlib import import_module
+component = import_module('box.argparse.command')
 
 
 class CommandTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
-        self.Command = self._make_mock_command_class()
+        self.Command = self.make_mock_command_class()
         self.argv = ['prog', 'argument']
         self.config = {
             'prog': 'prog',
@@ -19,6 +20,20 @@ class CommandTest(unittest.TestCase):
         self.pcommand = partial(self.Command,
             self.argv, config=self.config)
         self.command = self.pcommand()
+
+    # Helpers
+
+    def make_mock_command_class(self):
+        class MockCommand(component.Command):
+            # Protected
+            _Parser = Mock(return_value=Mock(
+                add_argument=Mock(),
+                parse_args=Mock(return_value='namespace'),
+                format_help=Mock(return_value=Mock(
+                    strip=Mock(return_value='program_help')))))
+        return MockCommand
+
+    # Tests
 
     def test___getattr__(self):
         self.assertEqual(self.command.strip, 'namespace'.strip)
@@ -51,15 +66,3 @@ class CommandTest(unittest.TestCase):
 
     def test__parser_config(self):
         self.assertEqual(self.command._parser_config, {'prog': 'prog'})
-
-    # Protected
-
-    def _make_mock_command_class(self):
-        class MockCommand(Command):
-            # Protected
-            _Parser = Mock(return_value=Mock(
-                add_argument=Mock(),
-                parse_args=Mock(return_value='namespace'),
-                format_help=Mock(return_value=Mock(
-                    strip=Mock(return_value='program_help')))))
-        return MockCommand
