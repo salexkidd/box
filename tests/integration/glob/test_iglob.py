@@ -6,11 +6,19 @@ from box.glob.iglob import enhanced_iglob
 
 class enhanced_iglob_Test(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
         self.pglob = partial(
-            enhanced_iglob, basedir=self._basedir, sorter=sorted)
+            enhanced_iglob, basedir=self.basedir, sorter=sorted)
+
+    # Helpers
+
+    @property
+    def basedir(self):
+        return os.path.join(os.path.dirname(__file__), 'fixtures', 'iglob')
+
+    # Tests
 
     def test(self):
         pathes = list(self.pglob('*'))
@@ -27,9 +35,3 @@ class enhanced_iglob_Test(unittest.TestCase):
     def test_with_mode_is_dirs(self):
         pathes = list(self.pglob('*', mode='dirs'))
         self.assertEqual(pathes, ['dir'])
-
-    # Protected
-
-    @property
-    def _basedir(self):
-        return os.path.join(os.path.dirname(__file__), 'fixtures', 'iglob')

@@ -8,10 +8,12 @@ if check_module('sphinx'):
 
     class SettingsTest(unittest.TestCase):
 
-        # Public
+        # Actions
 
         def setUp(self):
             self.settings = Settings(sphinx=sphinx)
+
+        # Tests
 
         def test_source_suffix(self):
             self.assertEqual(self.settings.source_suffix, '.rst')

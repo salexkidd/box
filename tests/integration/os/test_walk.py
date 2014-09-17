@@ -7,11 +7,19 @@ from box.os.walk import enhanced_walk
 # TODO: remove explicit "/" usage
 class enhanced_walk_Test(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
         self.pwalk = partial(
-            enhanced_walk, basedir=self._basedir, sorter=sorted)
+            enhanced_walk, basedir=self.basedir, sorter=sorted)
+
+    # Helpers
+
+    @property
+    def basedir(self):
+        return os.path.join(os.path.dirname(__file__), 'fixtures', 'walk')
+
+    # Tests
 
     def test(self):
         levels = list(self.pwalk())
@@ -43,9 +51,3 @@ class enhanced_walk_Test(unittest.TestCase):
              [],
              # Filepathes
              ['dir1/subdir1/file1']))
-
-    # Protected
-
-    @property
-    def _basedir(self):
-        return os.path.join(os.path.dirname(__file__), 'fixtures', 'walk')
