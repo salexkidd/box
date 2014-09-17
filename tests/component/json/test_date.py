@@ -1,14 +1,17 @@
 import unittest
 import datetime
-from box.json.date import DateEncoder
+from importlib import import_module
+component = import_module('box.json.date')
 
 
 class DateEncoderTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
-        self.encoder = DateEncoder()
+        self.encoder = component.DateEncoder()
+
+    # Tests
 
     def test_default_with_datetime(self):
         obj = datetime.datetime.today()
