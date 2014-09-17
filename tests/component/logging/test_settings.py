@@ -1,26 +1,20 @@
 import unittest
-from box.logging.settings import Settings
+from importlib import import_module
+component = import_module('box.logging.settings')
 
 
 class SettingsTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
-        self.Settings = self._make_mock_settings_class()
+        self.Settings = self.make_mock_settings_class()
         self.settings = self.Settings()
 
-    def test_argparse(self):
-        self.assertEqual(self.settings.argparse['prog'], 'prog')
+    # Helpers
 
-    def test_logging(self):
-        self.assertEqual(self.settings.logging['handlers']['default']['level'],
-            'WARNING')
-
-    # Protected
-
-    def _make_mock_settings_class(self):
-        class MockSetting(Settings):
+    def make_mock_settings_class(self):
+        class MockSetting(component.Settings):
             # Public
             @property
             def argparse(self):
@@ -31,3 +25,12 @@ class SettingsTest(unittest.TestCase):
                 return self._inherit_logging(MockSetting,
                     {'handlers': {'default': {'level': 'WARNING'}}})
         return MockSetting
+
+    # Tests
+
+    def test_argparse(self):
+        self.assertEqual(self.settings.argparse['prog'], 'prog')
+
+    def test_logging(self):
+        self.assertEqual(self.settings.logging['handlers']['default']['level'],
+            'WARNING')

@@ -3,22 +3,48 @@ import re
 import unittest
 from functools import partial
 from unittest.mock import patch
-from box.os import walk
+from importlib import import_module
+component = import_module('box.os.walk')
 
 
 # TODO: remove explicit "/" usage
 class walk_Test(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
         self.addCleanup(patch.stopall)
-        patch.object(walk.os, 'listdir', new=self._mock_listdir).start()
-        patch.object(walk.os.path, 'islink', new=self._mock_islink).start()
-        patch.object(walk.os.path, 'isfile', new=self._mock_isfile).start()
-        patch.object(walk.os.path, 'isdir', new=self._mock_isdir).start()
+        patch.object(component.os, 'listdir', new=self.mock_listdir).start()
+        patch.object(component.os.path, 'islink', new=self.mock_islink).start()
+        patch.object(component.os.path, 'isfile', new=self.mock_isfile).start()
+        patch.object(component.os.path, 'isdir', new=self.mock_isdir).start()
         self.error = os.error()
-        self.pwalk = partial(walk.enhanced_walk, sorter=sorted)
+        self.pwalk = partial(component.enhanced_walk, sorter=sorted)
+
+    # Helpers
+
+    def mock_listdir(self, path):
+        if path == '.':
+            return ['dir1', 'dir2', 'file1', 'file2', 'link']
+        elif path == 'dir1':
+            return ['subdir1', 'file1', ]
+        elif path == 'dir2':
+            return ['file1', ]
+        elif path == 'dir1/subdir1':
+            return ['file1']
+        elif path == 'error':
+            raise self.error
+
+    def mock_islink(self, path):
+        return bool(re.search('link\d?$', path))
+
+    def mock_isfile(self, path):
+        return bool(re.search('file\d?$', path))
+
+    def mock_isdir(self, path):
+        return bool(re.search('dir\d?$', path))
+
+    # Tests
 
     def test(self):
         levels = list(self.pwalk())
@@ -96,26 +122,3 @@ class walk_Test(unittest.TestCase):
             'dir1',
             'dir2',
             'dir1/subdir1'])
-
-    # Protected
-
-    def _mock_listdir(self, path):
-        if path == '.':
-            return ['dir1', 'dir2', 'file1', 'file2', 'link']
-        elif path == 'dir1':
-            return ['subdir1', 'file1', ]
-        elif path == 'dir2':
-            return ['file1', ]
-        elif path == 'dir1/subdir1':
-            return ['file1']
-        elif path == 'error':
-            raise self.error
-
-    def _mock_islink(self, path):
-        return bool(re.search('link\d?$', path))
-
-    def _mock_isfile(self, path):
-        return bool(re.search('file\d?$', path))
-
-    def _mock_isdir(self, path):
-        return bool(re.search('dir\d?$', path))
