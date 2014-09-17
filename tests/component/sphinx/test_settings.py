@@ -1,11 +1,12 @@
 import unittest
 from unittest.mock import Mock, patch
-from box.sphinx.settings import Settings, setup as sphinx_setup
+from importlib import import_module
+component = import_module('box.sphinx.settings')
 
 
 class SettingsTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
         sphinx_config = Mock(attr1='value1', spec=['attr1'])
@@ -13,9 +14,23 @@ class SettingsTest(unittest.TestCase):
         import_module.return_value.Config = Mock(return_value=sphinx_config)
         self.addCleanup(patch.stopall)
         self.method = Mock()
-        self.Settings = self._make_mock_settings_class(self.method)
+        self.Settings = self.make_mock_settings_class(self.method)
         # Passed sphinx module makes no difference
         self.settings = self.Settings(sphinx=unittest)
+
+    # Helpers
+
+    def make_mock_settings_class(self, method):
+        class MockSettings(component.Settings):
+            # Public
+            author = 'author'
+            master_doc = 'master_doc'
+            project = 'project'
+            version = 'version'
+            setup_method = component.setup(method)
+        return MockSettings
+
+    # Tests
 
     def test___getattr__(self):
         self.assertEqual(self.settings.attr1, 'value1')
@@ -54,15 +69,3 @@ class SettingsTest(unittest.TestCase):
         app = Mock()
         self.settings.setup(app)
         self.method.assert_called_with(self.settings, app)
-
-    # Protected
-
-    def _make_mock_settings_class(self, method):
-        class MockSettings(Settings):
-            # Public
-            author = 'author'
-            master_doc = 'master_doc'
-            project = 'project'
-            version = 'version'
-            setup_method = sphinx_setup(method)
-        return MockSettings

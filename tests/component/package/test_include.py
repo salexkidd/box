@@ -1,15 +1,18 @@
 import unittest
 from unittest.mock import Mock
-from box.package.include import include
+from importlib import import_module
+component = import_module('box.package.include')
 
 
 class include_Test(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
         self.method = Mock()
-        self.method = include(self.method)
+        self.method = component.include(self.method)
+
+    # Tests
 
     def test(self):
-        self.assertTrue(getattr(self.method, include.attribute_name))
+        self.assertTrue(getattr(self.method, component.include.attribute_name))

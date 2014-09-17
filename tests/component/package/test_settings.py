@@ -1,14 +1,25 @@
 import unittest
-from box.package import Settings
+from importlib import import_module
+component = import_module('box.package.settings')
 
 
 class SettingsTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
-        self.Settings = self._make_mock_settings_class()
+        self.Settings = self.make_mock_settings_class()
         self.settings = self.Settings()
+
+    # Helpers
+
+    def make_mock_settings_class(self):
+        class MockSettings(component.Settings):
+            # Public
+            name1 = 'value1'
+        return MockSettings
+
+    # Tests
 
     def test(self):
         self.assertEqual(self.settings, {'name1': 'value1'})
@@ -21,11 +32,3 @@ class SettingsTest(unittest.TestCase):
         self.settings.name2 = 'value2'
         del self.settings.name2
         self.assertEqual(self.settings, {'name1': 'value1'})
-
-    # Protected
-
-    def _make_mock_settings_class(self):
-        class MockSettings(Settings):
-            # Public
-            name1 = 'value1'
-        return MockSettings

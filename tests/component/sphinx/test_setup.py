@@ -1,17 +1,20 @@
 import unittest
 from unittest.mock import Mock
-from box.sphinx.setup import setup as sphinx_setup
+from importlib import import_module
+component = import_module('box.sphinx.setup')
 
 
 class setup_Test(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
         self.method = Mock()
-        self.method = sphinx_setup(self.method)
+        self.method = component.setup(self.method)
+
+    # Helpers
 
     def test(self):
-        setup = getattr(self.method, sphinx_setup.attribute_name)
+        setup = getattr(self.method, component.setup.attribute_name)
         setup.invoke('obj', 'app')
         self.method.assert_called_with('obj', 'app')
