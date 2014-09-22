@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
 
-class FunctionMetaclass(ABCMeta):
+class Metaclass(ABCMeta):
     """Metaclass making normal class acting like a function.
     """
 
@@ -20,7 +20,7 @@ class FunctionMetaclass(ABCMeta):
         return result
 
 
-class Function(metaclass=FunctionMetaclass):
+class Function(metaclass=Metaclass):
     """Base abstract class for 2 step functions.
 
     Designed for complicated functions when more convenient to work with state.

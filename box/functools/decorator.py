@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
 
-class DecoratorMetaclass(ABCMeta):
+class Metaclass(ABCMeta):
     """Metaclass to unify simple and composite decorators implimentation.
     """
 
@@ -25,7 +25,7 @@ class DecoratorMetaclass(ABCMeta):
         return result
 
 
-class Decorator(metaclass=DecoratorMetaclass):
+class Decorator(metaclass=Metaclass):
     """Base abstract class for unified simple and composite decorators.
 
     Examples
