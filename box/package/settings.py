@@ -27,9 +27,7 @@ class Settings(dict):
 
     # Public
 
-    def __init__(self, settings=None, **kwargs):
-        if settings:
-            vars(self).update(settings)
+    def __init__(self, **kwargs):
         vars(self).update(kwargs)
         self.update(self.__as_dict)
 
