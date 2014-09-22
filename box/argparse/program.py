@@ -72,7 +72,9 @@ class Program(metaclass=ABCMeta):
         try:
             return self.__parser.parse_args(self.__argv[1:])
         except SystemExit:
-            raise self.__exception()
+            if self.__exception is not None:
+                raise self.__exception()
+            raise
 
     # TODO: add cachedproperty
     @property
