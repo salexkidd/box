@@ -39,7 +39,7 @@ class Program(metaclass=ABCMeta):
     default_config = {}
 
     def __init__(self, argv=None, *,
-                 config=None, parser=None, exception=None):
+                 config=None, exception=None):
         if argv is None:
             argv = self.default_argv
         if config is None:
