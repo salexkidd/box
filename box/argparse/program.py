@@ -1,7 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from ..functools import cachedproperty
 from .command import Command
-from .settings import Settings
 
 
 # TODO: fix protected/private
@@ -45,13 +44,8 @@ class Program(metaclass=ABCMeta):
     # Protected
 
     _Command = Command
-    _Settings = Settings
 
     @cachedproperty
     def _command(self):
         return self._Command(
-            self._argv, config=self._settings.argparse)
-
-    @cachedproperty
-    def _settings(self):
-        return self._Settings()
+            self._argv, config={})

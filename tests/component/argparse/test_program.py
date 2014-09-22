@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import Mock
 from importlib import import_module
 component = import_module('box.argparse.program')
 
@@ -23,10 +23,4 @@ class ProgramTest(unittest.TestCase):
 
     # Tests
 
-    @patch('box.argparse.program.Program._Command')
-    @patch('box.argparse.program.Program._Settings')
-    def test__command(self, Settings, Command):
-        self.assertEqual(self.program._command, Command.return_value)
-        Settings.assert_called_with()
-        Command.assert_called_with(
-            self.argv, config=Settings.return_value.argparse)
+    pass
