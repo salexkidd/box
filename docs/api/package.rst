@@ -6,5 +6,4 @@ They could be used for different purposes but the most obvious way to use it is
 as package settings and version. That's how box uses it for itself.
 
 .. autoclass:: box.package.Settings
-.. autoclass:: box.package.Version
 .. autoclass:: box.package.include
