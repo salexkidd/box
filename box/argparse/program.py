@@ -3,9 +3,10 @@ import sys
 from copy import copy
 from argparse import ArgumentParser
 from abc import ABCMeta, abstractmethod
+from ..functools import Function
 
 
-class Program(metaclass=ABCMeta):
+class Program(Function, metaclass=ABCMeta):
     """Abstract console program representation.
 
     Client have to implement __call__ method.
@@ -24,24 +25,21 @@ class Program(metaclass=ABCMeta):
     Usage exmaple::
 
       >>> from box.argparse import Program
-      >>> class Program(Program):
+      >>> class program(Program):
       ...   def __call__(self):
-      ...     print(self._command.arguments)
+      ...     print(self.arguments)
       >>> config = {'arguments': [{'name': 'arguments', 'nargs':'*'}]
-      >>> program = Program(['program', 'arg'], config=config)
-      >>> program()
+      >>> program(['program', 'arg'], config=config)
       ['arg']
     """
 
     # Public
 
-    default_argv = sys.argv
     default_config = {}
 
-    def __init__(self, argv=None, *,
-                 config=None, exception=None):
+    def __init__(self, argv=None, *, config=None, exception=None):
         if argv is None:
-            argv = self.default_argv
+            argv = sys.argv
         if config is None:
             config = self.default_config
         self.__argv = argv
