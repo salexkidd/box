@@ -21,19 +21,22 @@ class ProgramTest(unittest.TestCase):
                     {'name': 'arguments', 'nargs': '*'},
                     {'dest': 'flags', 'flags': ['-f'], 'action': 'store_true'}]}
             def __call__(self):
-                return (self.arguments, self.flags)
+                return self
         return program
 
     # Tests
 
     def test(self):
-        result = self.program(['program'])
-        self.assertEqual(result, ([], False))
+        self.program = self.program(['program'])
+        self.assertEqual(self.program.arguments, [])
+        self.assertEqual(self.program.flags, False)
 
     def test_with_arguments(self):
-        result = self.program(['program', 'argument'])
-        self.assertEqual(result, (['argument'], False))
+        self.program = self.program(['program', 'argument'])
+        self.assertEqual(self.program.arguments, ['argument'])
+        self.assertEqual(self.program.flags, False)
 
     def test_with_arguments_and_flags(self):
-        result = self.program(['program', 'argument', '-f'])
-        self.assertEqual(result, (['argument'], True))
+        self.program = self.program(['program', 'argument', '-f'])
+        self.assertEqual(self.program.arguments, ['argument'])
+        self.assertEqual(self.program.flags, True)
