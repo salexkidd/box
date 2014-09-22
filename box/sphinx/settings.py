@@ -1,6 +1,6 @@
 from importlib import import_module
+from ..collections import Settings, include
 from ..functools import cachedproperty
-from ..package import Settings, include
 from .setup import setup
 from .connect import connect
 

@@ -1,6 +1,6 @@
 import unittest
 from importlib import import_module
-component = import_module('box.package.settings')
+component = import_module('box.collections.settings')
 
 
 class SettingsTest(unittest.TestCase):

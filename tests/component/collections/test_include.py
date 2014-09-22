@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import Mock
 from importlib import import_module
-component = import_module('box.package.include')
+component = import_module('box.collections.include')
 
 
 class include_Test(unittest.TestCase):

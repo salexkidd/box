@@ -1,6 +1,5 @@
 import operator
-from ..collections import merge_dicts
-from ..package import Settings
+from ..collections import Settings, merge_dicts
 
 
 class Settings(Settings):

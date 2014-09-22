@@ -7,7 +7,7 @@ class include(Decorator):
 
     # Public
 
-    attribute_name = '_box_package_include'
+    attribute_name = '_box_collections_include'
 
     def __call__(self, method):
         setattr(method, self.attribute_name, True)
