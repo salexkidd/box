@@ -48,8 +48,17 @@ class Program(metaclass=ABCMeta):
         self.__config = config
         self.__exception = exception
 
+    def __getitem__(self, key):
+        try:
+            return getattr(self.__namespace, key)
+        except AttributeError:
+            raise KeyError(key) from None
+
     def __getattr__(self, name):
-        return getattr(self.__namespace, name)
+        try:
+            return self[name]
+        except KeyError:
+            raise AttributeError(name) from None
 
     @abstractmethod
     def __call__(self):
