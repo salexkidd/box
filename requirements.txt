@@ -1,5 +1,5 @@
 #TO MAKE CHANGES USE "meta" DIRECTORY (see packgram docs).
 
-packgram>=0.22
+packgram>=0.23
 nose
 coverage
