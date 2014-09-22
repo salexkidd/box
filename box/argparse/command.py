@@ -34,9 +34,9 @@ class Command:
     # Public
 
     def __init__(self, argv, *, config, exception=None, **kwargs):
-        self._argv = argv
-        self._config = merge_dicts(config, kwargs)
-        self._exception = exception
+        self.__argv = argv
+        self.__config = merge_dicts(config, kwargs)
+        self.__exception = exception
 
     def __getattr__(self, name):
         if not name.startswith('_'):
@@ -46,7 +46,7 @@ class Command:
 
     @property
     def program_help(self):
-        return self._parser.format_help().strip()
+        return self.__parser.format_help().strip()
 
     # Protected
 
@@ -54,13 +54,16 @@ class Command:
 
     @cachedproperty
     def _namespace(self):
-        return self._parser.parse_args(self._argv[1:])
+        return self.__parser.parse_args(self.__argv[1:])
 
+    # Private
+
+    # TODO: add cachedproperty
     @cachedproperty
-    def _parser(self):
+    def __parser(self):
         parser = self._Parser(
-            exception=self._exception, **self._parser_config)
-        for argument in self._parser_arguments:
+            exception=self.__exception, **self.__parser_config)
+        for argument in self.__parser_arguments:
             argument = copy(argument)
             try:
                 try:
@@ -75,12 +78,12 @@ class Command:
         return parser
 
     @property
-    def _parser_arguments(self):
-        return self._config.get('arguments', [])
+    def __parser_arguments(self):
+        return self.__config.get('arguments', [])
 
     @property
-    def _parser_config(self):
-        config = copy(self._config)
+    def __parser_config(self):
+        config = copy(self.__config)
         config.pop('arguments', [])
-        config.setdefault('prog', os.path.basename(self._argv[0]))
+        config.setdefault('prog', os.path.basename(self.__argv[0]))
         return config

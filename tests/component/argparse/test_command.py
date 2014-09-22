@@ -48,21 +48,3 @@ class CommandTest(unittest.TestCase):
     def test__namespace(self):
         self.assertEqual(self.command._namespace, 'namespace')
         self.command._Parser.return_value.parse_args(['argument'])
-
-    def test__parser(self):
-        self.assertEqual(self.command._parser,
-                         self.command._Parser.return_value)
-        self.command._Parser.return_value.add_argument.assert_has_calls([
-            call('name', kwarg='kwarg'),
-            call('flag', kwarg='kwarg')])
-
-    def test__parser_bad_argument(self):
-        command = self.pcommand(config={'arguments': [{}]})
-        self.assertRaises(ValueError, getattr, command, '_parser')
-
-    def test__parser_arguments(self):
-        self.assertEqual(self.command._parser_arguments,
-                         self.config['arguments'])
-
-    def test__parser_config(self):
-        self.assertEqual(self.command._parser_config, {'prog': 'prog'})
