@@ -17,18 +17,23 @@ pip-log.txt
 pip-delete-this-directory.txt
 
 # Project
+tmp/
+
+run
+packgram
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Setup
 build/
 develop-eggs/
 dist/
 eggs/
 sdist/
-tmp/
 *.egg-info/
 *.egg
-
-# Python
-__pycache__/
-*.py[cod]
 
 # Sphinx
 docs/_build
