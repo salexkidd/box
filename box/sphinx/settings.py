@@ -112,7 +112,6 @@ class Settings(Settings):
                     item.invoke(self, app)
         return esetup
 
-
     # Protected
 
     @cachedproperty
