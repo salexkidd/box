@@ -7,7 +7,6 @@ from importlib import import_module
 component = import_module('box.os.walk')
 
 
-# TODO: remove explicit "/" usage
 class walk_Test(unittest.TestCase):
 
     # Actions

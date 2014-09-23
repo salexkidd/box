@@ -4,7 +4,6 @@ from functools import partial
 from box.os.walk import enhanced_walk
 
 
-# TODO: remove explicit "/" usage
 class enhanced_walk_Test(unittest.TestCase):
 
     # Actions

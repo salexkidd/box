@@ -14,7 +14,7 @@ class cachedproperty(property):
             cache[self.__name] = super().__get__(objself, objtype)
         return cache[self.__name]
 
-    # Protected
+    # Private
 
     __name = None
 
