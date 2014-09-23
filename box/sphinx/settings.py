@@ -5,7 +5,6 @@ from .setup import setup
 from .connect import connect
 
 
-# TODO: fix protected/private
 class Settings(Settings):
     """Sphinx conf.py representation.
 
@@ -39,7 +38,7 @@ class Settings(Settings):
 
     def __getattr__(self, name):
         try:
-            return getattr(self._defaults, name)
+            return getattr(self.__defaults, name)
         except AttributeError:
             raise AttributeError(name)
 
@@ -112,12 +111,12 @@ class Settings(Settings):
                     item.invoke(self, app)
         return esetup
 
-    # Protected
+    # Private
 
     @cachedproperty
-    def _defaults(self):
-        return self._sphinx_config.Config(None, None, {}, None)
+    def __defaults(self):
+        return self.__sphinx_config.Config(None, None, {}, None)
 
     @property
-    def _sphinx_config(self):
+    def __sphinx_config(self):
         return import_module('.config', package=self._sphinx.__name__)

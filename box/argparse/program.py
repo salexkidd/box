@@ -3,7 +3,7 @@ import sys
 from copy import copy
 from argparse import ArgumentParser
 from abc import ABCMeta, abstractmethod
-from ..functools import Function
+from ..functools import Function, cachedproperty
 
 
 class Program(Function, metaclass=ABCMeta):
@@ -64,13 +64,11 @@ class Program(Function, metaclass=ABCMeta):
 
     # Private
 
-    # TODO: add cachedproperty
-    @property
+    @cachedproperty
     def __namespace(self):
         return self.__parser.parse_args(self.__argv[1:])
 
-    # TODO: add cachedproperty
-    @property
+    @cachedproperty
     def __parser(self):
         config = copy(self.__config)
         arguments = config.pop('arguments', [])
