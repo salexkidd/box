@@ -67,30 +67,26 @@ class Program(Function, metaclass=ABCMeta):
     # TODO: add cachedproperty
     @property
     def __namespace(self):
-        try:
-            return self.__parser.parse_args(self.__argv[1:])
-        except SystemExit:
-            if self.__exception is not None:
-                raise self.__exception()
-            raise
+        return self.__parser.parse_args(self.__argv[1:])
 
     # TODO: add cachedproperty
     @property
     def __parser(self):
         config = copy(self.__config)
         arguments = config.pop('arguments', [])
-        config.setdefault('prog', os.path.basename(self.__argv[0]))
+        if self.__argv:
+            config.setdefault('prog', os.path.basename(self.__argv[0]))
         parser = ArgumentParser(**config)
+        def error(message):
+            if self.__exception is not None:
+                raise self.__exception(message)
+            ArgumentParser.error(parser, message)
+        parser.error = error
         for argument in arguments:
             argument = copy(argument)
             try:
-                try:
-                    args = [argument.pop('name')]
-                except KeyError:
-                    args = argument.pop('flags')
-                parser.add_argument(*args, **argument)
-            except:
-                raise ValueError(
-                    'Bad argparse argument "{argument}"'.
-                    format(argument=argument))
+                args = [argument.pop('name')]
+            except KeyError:
+                args = argument.pop('flags')
+            parser.add_argument(*args, **argument)
         return parser
