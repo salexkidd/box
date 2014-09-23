@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import Mock
 from importlib import import_module
-component = import_module('box.functools.cachedproperty')
+component = import_module('box.functools.cache')
 
 
 class cachedpropertyTest(unittest.TestCase):
