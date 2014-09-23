@@ -65,6 +65,29 @@ class SettingsTest(unittest.TestCase):
               'One line description of project.',
               'Miscellaneous')])
 
+    def test_autodoc_process_docstring(self):
+        self.lines = ['doc']
+        self.result = self.settings.autodoc_process_docstring(
+            'app', 'what', 'name', 'obj', 'options', self.lines)
+        self.assertEqual(self.lines, ['doc'])
+
+    def test_autodoc_process_docstring_with_header(self):
+        self.lines = ['Returns', '-------']
+        self.result = self.settings.autodoc_process_docstring(
+            'app', 'what', 'name', 'obj', 'options', self.lines)
+        self.assertEqual(self.lines, ['**Returns**', ''])
+
+    def test_autodoc_skip_member(self):
+        self.settings.autodoc_skip_members = ['name']
+        self.result = self.settings.autodoc_skip_member(
+            'app', 'what', 'name', 'obj', False, 'options')
+        self.assertTrue(self.result)
+
+    def test_autodoc_skip_member_not_match(self):
+        self.result = self.settings.autodoc_skip_member(
+            'app', 'what', 'name', 'obj', False, 'options')
+        self.assertFalse(self.result)
+
     def test_setup(self):
         app = Mock()
         self.settings.setup(app)
