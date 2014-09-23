@@ -1,3 +1,4 @@
+import sys
 import unittest
 from unittest.mock import patch
 from importlib import import_module
@@ -42,7 +43,8 @@ class ProgramTest(unittest.TestCase):
         self.assertEqual(self.result.arguments, [])
         self.assertEqual(self.result.flags, False)
 
-    def test_with_bad_flag(self):
+    @patch.object(sys, 'stderr')
+    def test_with_bad_flag(self, stderr):
         self.result = self.program(['program', '--bad-flag'])
         self.assertRaises(SystemExit, getattr, self.result, 'arguments')
 
