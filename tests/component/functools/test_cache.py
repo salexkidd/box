@@ -11,7 +11,7 @@ class cachedpropertyTest(unittest.TestCase):
     def setUp(self):
         self.Consumer = self.make_consumer_class()
         self.consumer = self.Consumer()
-        self.consumer.default_property_value = 'old_value'
+        self.consumer.default_prop_value = 'old_value'
 
     # Helpers
 
@@ -19,56 +19,57 @@ class cachedpropertyTest(unittest.TestCase):
         class Consumer:
             # Public
             def __init__(self):
-                self.default_property_value = {}
-            property = component.cachedproperty()
-            @property.getter
-            def property(self):
-                return self.default_property_value
-            @property.setter
-            def property(self, value):
-                component.cachedproperty.set(self, 'property', value)
-            @property.deleter
-            def property(self):
-                component.cachedproperty.reset(self, 'property')
+                self.default_prop_value = {}
+            prop = component.cachedproperty()
+            @prop.getter
+            def prop(self):
+                return self.default_prop_value
+            @prop.setter
+            def prop(self, value):
+                cache = getattr(self, component.cachedproperty.attribute_name)
+                cache['prop'] = value
+            @prop.deleter
+            def prop(self):
+                cache = getattr(self, component.cachedproperty.attribute_name)
+                del cache['prop']
             no_property = component.cachedproperty()
         return Consumer
 
     # Tests
 
     def test___get__(self):
-        self.assertEqual(self.consumer.property, 'old_value')
-        self.consumer.default_property_value = 'new_value'
-        self.assertEqual(self.consumer.property, 'old_value')
+        self.assertEqual(self.consumer.prop, 'old_value')
+        self.consumer.default_prop_value = 'new_value'
+        self.assertEqual(self.consumer.prop, 'old_value')
 
     def test___get___with_no_property(self):
-        self.assertRaises(AttributeError,
-            getattr, self.consumer, 'no_property')
+        self.assertRaises(
+            AttributeError, getattr, self.consumer, 'no_property')
 
     def test___set__(self):
-        self.assertEqual(self.consumer.property, 'old_value')
-        self.consumer.property = 'new_value'
-        self.assertEqual(self.consumer.property, 'new_value')
+        self.assertEqual(self.consumer.prop, 'old_value')
+        self.consumer.prop = 'new_value'
+        self.assertEqual(self.consumer.prop, 'new_value')
 
     def test___set___with_no_property(self):
-        self.assertRaises(AttributeError,
-            setattr, self.consumer, 'no_property', 'value')
+        self.assertRaises(
+            AttributeError, setattr, self.consumer, 'no_property', 'value')
 
     def test___delete__(self):
-        self.assertEqual(self.consumer.property, 'old_value')
-        self.consumer.property = 'new_value'
-        del self.consumer.property
-        self.assertEqual(self.consumer.property, 'old_value')
+        self.assertEqual(self.consumer.prop, 'old_value')
+        self.consumer.prop = 'new_value'
+        del self.consumer.prop
+        self.assertEqual(self.consumer.prop, 'old_value')
 
     def test___delete___with_no_property(self):
         self.assertRaises(
-            AttributeError, delattr,
-            self.consumer, 'no_property'
-        )
+            AttributeError, delattr, self.consumer, 'no_property')
 
     def test___doc___(self):
         prop = component.cachedproperty()
         self.assertEqual(prop.__doc__, None)
 
+    @unittest.skip
     def test___doc___with_doc(self):
         prop = component.cachedproperty(doc='doc')
         self.assertEqual(prop.__doc__, 'doc')
