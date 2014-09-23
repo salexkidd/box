@@ -17,6 +17,7 @@ def import_file(filepath):
     """
     filepath = os.path.abspath(filepath)
     loader = SourceFileLoader(filepath, filepath)
-    # TODO: load_module is deprecated?
+    # Method load_module is deprecated since Python 3.4
+    # New API is not clear before Python 3.5
     module = loader.load_module(filepath)
     return module
