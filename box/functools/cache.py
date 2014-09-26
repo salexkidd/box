@@ -2,6 +2,7 @@ class cachedproperty(property):
 
     # Public
 
+    # TODO: remove
     attribute_name = '_box_functools_cache'
 
     def __get__(self, objself, objtype):

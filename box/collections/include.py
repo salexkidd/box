@@ -7,6 +7,7 @@ class include(Decorator):
 
     # Public
 
+    # TODO: rename to marker
     attribute_name = '_box_collections_include'
 
     def __call__(self, method):

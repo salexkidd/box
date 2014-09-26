@@ -7,6 +7,7 @@ class setup(Decorator):
 
     # Public
 
+    # TODO: rename to marker
     attribute_name = '_box_sphinx_setup'
 
     def __call__(self, method):
