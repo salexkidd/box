@@ -15,4 +15,10 @@ class setup(Decorator):
         return method
 
     def invoke(self, obj, app):
-        self.__method(obj, app)
+        self._method(obj, app)
+
+    # Protected
+
+    @property
+    def _method(self):
+        return self.__method
