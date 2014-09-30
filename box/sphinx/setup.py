@@ -7,11 +7,11 @@ class setup(Decorator):
 
     # Public
 
-    marker = '_box_sphinx_setup'
+    decorator = '_box_sphinx_setup'
 
     def __call__(self, method):
         self.__method = method
-        setattr(method, self.marker, self)
+        setattr(method, self.decorator, self)
         return method
 
     def invoke(self, obj, app):

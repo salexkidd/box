@@ -17,7 +17,7 @@ class connect_Test(unittest.TestCase):
     @patch.object(component.functools, 'partial')
     def test(self, partial):
         app = Mock()
-        connect = getattr(self.method, component.connect.marker)
+        connect = getattr(self.method, component.connect.decorator)
         connect.invoke('obj', app)
         app.connect.assert_called_with('event', partial.return_value)
         partial.assert_called_with(self.method, 'obj')
