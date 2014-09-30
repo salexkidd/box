@@ -25,13 +25,11 @@ class cachedpropertyTest(unittest.TestCase):
             def prop(self):
                 return self.default_prop_value
             @prop.setter
-            def prop(self, value):
-                cache = getattr(self, component.cachedproperty.attribute_name)
-                cache['prop'] = value
+            def prop(self, cache, name, value):
+                cache[name] = value
             @prop.deleter
-            def prop(self):
-                cache = getattr(self, component.cachedproperty.attribute_name)
-                del cache['prop']
+            def prop(self, cache, name):
+                del cache[name]
             no_property = component.cachedproperty()
         return Consumer
 
