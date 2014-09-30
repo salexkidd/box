@@ -9,13 +9,13 @@ class connect_Test(unittest.TestCase):
     # Actions
 
     def setUp(self):
-        self.method = Mock()
-        self.method = component.connect('event')(self.method)
+        self.function = Mock()
+        self.function = component.connect('event')(self.function)
 
     # Tests
 
     def test(self):
         app = Mock()
-        connect = getattr(self.method, component.connect.decorator)
+        connect = getattr(self.function, component.connect.decorator)
         connect.invoke('function', app)
         app.connect.assert_called_with('event', 'function')

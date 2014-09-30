@@ -9,10 +9,9 @@ class setup(Decorator):
 
     decorator = '_box_sphinx_setup'
 
-    def __call__(self, method):
-        self.__method = method
-        setattr(method, self.decorator, self)
-        return method
+    def __call__(self, function):
+        setattr(function, self.decorator, self)
+        return function
 
     def invoke(self, function, app):
         function(app)

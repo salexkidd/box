@@ -9,13 +9,13 @@ class setup_Test(unittest.TestCase):
     # Actions
 
     def setUp(self):
-        self.method = Mock()
-        self.method = component.setup(self.method)
+        self.function = Mock()
+        self.function = component.setup(self.function)
 
     # Helpers
 
     def test(self):
         function = Mock()
-        setup = getattr(self.method, component.setup.decorator)
+        setup = getattr(self.function, component.setup.decorator)
         setup.invoke(function, 'app')
         function.assert_called_with('app')
