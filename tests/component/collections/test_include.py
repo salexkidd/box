@@ -15,4 +15,4 @@ class include_Test(unittest.TestCase):
     # Tests
 
     def test(self):
-        self.assertTrue(getattr(self.method, component.include.attribute_name))
+        self.assertTrue(getattr(self.method, component.include.marker))

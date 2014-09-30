@@ -49,7 +49,7 @@ class Settings(dict):
             if not name.startswith('_'):
                 attr = getattr(self, name)
                 if callable(attr):
-                    if not getattr(attr, include.attribute_name, False):
+                    if not getattr(attr, include.marker, False):
                         # Callable doesn't use @include decorator - skip
                         continue
                 items[name] = attr
