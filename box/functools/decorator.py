@@ -63,5 +63,5 @@ class Decorator(metaclass=Metaclass):
         """
         try:
             return not inspect.isfunction(args[0])
-        except KeyError:
+        except IndexError:
             return False
