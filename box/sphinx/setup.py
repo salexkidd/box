@@ -14,11 +14,5 @@ class setup(Decorator):
         setattr(method, self.decorator, self)
         return method
 
-    def invoke(self, obj, app):
-        self._method(obj, app)
-
-    # Protected
-
-    @property
-    def _method(self):
-        return self.__method
+    def invoke(self, function, app):
+        function(app)

@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import Mock
 from importlib import import_module
 component = import_module('box.sphinx.connect')
 
@@ -14,10 +14,8 @@ class connect_Test(unittest.TestCase):
 
     # Tests
 
-    @patch.object(component.functools, 'partial')
-    def test(self, partial):
+    def test(self):
         app = Mock()
         connect = getattr(self.method, component.connect.decorator)
-        connect.invoke('obj', app)
-        app.connect.assert_called_with('event', partial.return_value)
-        partial.assert_called_with(self.method, 'obj')
+        connect.invoke('function', app)
+        app.connect.assert_called_with('event', 'function')

@@ -91,4 +91,4 @@ class SettingsTest(unittest.TestCase):
     def test_setup(self):
         app = Mock()
         self.settings.setup(app)
-        self.method.assert_called_with(self.settings, app)
+        self.method.assert_called_with(app)

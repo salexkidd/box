@@ -104,11 +104,13 @@ class Settings(Settings):
         @include
         def esetup(app):
             # Sphinx doesn't work with bound method
-            for name in sorted(dir(self)):
-                attr = getattr(self, name)
-                item = getattr(attr, setup.decorator, None)
-                if item is not None:
-                    item.invoke(self, app)
+            for cls in type(self).mro():
+                for name, value in vars(cls).items():
+                    decorator = getattr(value, setup.decorator, None)
+                    if decorator is None:
+                        continue
+                    function = getattr(self, name)
+                    decorator.invoke(function, app)
         return esetup
 
     # Private

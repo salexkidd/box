@@ -1,4 +1,3 @@
-import functools
 from .setup import setup
 
 
@@ -16,5 +15,5 @@ class connect(setup):
     def __init__(self, event):
         self.__event = event
 
-    def invoke(self, obj, app):
-        app.connect(self.__event, functools.partial(self._method, obj))
+    def invoke(self, function, app):
+        app.connect(self.__event, function)
