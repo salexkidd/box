@@ -9,8 +9,13 @@ class connect_Test(unittest.TestCase):
     # Actions
 
     def setUp(self):
-        self.function = Mock()
         self.function = component.connect('event')(self.function)
+
+    # Helpers
+
+    @staticmethod
+    def function(self):
+        pass
 
     # Tests
 

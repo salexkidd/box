@@ -1,3 +1,4 @@
+import inspect
 from abc import ABCMeta, abstractmethod
 
 
@@ -9,13 +10,14 @@ class Metaclass(ABCMeta):
 
     def __call__(self, *args, **kwargs):
         decorator = object.__new__(self)
-        if decorator._is_composite(*args, **kwargs):
+        if decorator.is_composite(*args, **kwargs):
             # Composite decorator
             decorator.__init__(*args, **kwargs)
             return decorator
         else:
             # Simple decorator
-            result = decorator.__call__(*args, **kwargs)
+            decorator.__init__()
+            result = decorator.__call__(args[0])
             return result
 
     def __instancecheck__(self, instance):
@@ -30,28 +32,18 @@ class Decorator(metaclass=Metaclass):
 
     Examples
     --------
-    Let see the difference between simple and composite decorators:
-
-    - By default if Decorator implementation doesn't override __init__ method
-      it works as simple decorator without arguments::
+    With default is_composite implementation it checks if first positional
+    argument is function or not and acts correspondingly::
 
         class decorator(Decorator):
+            def __init__(self, param=None):
+                self.__param = param
             def __call__(self, function):
                 return function
 
         @decorator
         def function(self):
             pass
-
-    - Otherwise it works as composite decorator, accepts arguments
-      and calls __init__ with the given arguments::
-
-        class decorator(Decorator):
-            def __init__(self, param):
-                self._param = param
-            def __call__(self, function):
-                print(self._param)
-                return function
 
         @decorator('param')
         def function(self):
@@ -66,11 +58,10 @@ class Decorator(metaclass=Metaclass):
         """
         pass  # pragma: no cover
 
-    # Protected
-
-    def _is_composite(self, *args, **kwargs):
-        """Check decorator is composite for the given arguments.
-
-        Overriding this method you can define type of your decorator.
+    def is_composite(self, *args, **kwargs):
+        """Define decorator is composite for the given arguments.
         """
-        return not (getattr(type(self), '__init__') is object.__init__)
+        try:
+            return not inspect.isfunction(args[0])
+        except KeyError:
+            return False

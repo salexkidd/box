@@ -9,10 +9,15 @@ class setup_Test(unittest.TestCase):
     # Actions
 
     def setUp(self):
-        self.function = Mock()
         self.function = component.setup(self.function)
 
     # Helpers
+
+    @staticmethod
+    def function(self):
+        pass
+
+    # Tests
 
     def test(self):
         function = Mock()

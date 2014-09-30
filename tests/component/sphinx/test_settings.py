@@ -13,21 +13,19 @@ class SettingsTest(unittest.TestCase):
         import_module = patch('box.sphinx.settings.import_module').start()
         import_module.return_value.Config = Mock(return_value=sphinx_config)
         self.addCleanup(patch.stopall)
-        self.method = Mock()
-        self.Settings = self.make_mock_settings_class(self.method)
+        self.Settings = self.make_mock_settings_class()
         # Passed sphinx module makes no difference
         self.settings = self.Settings(sphinx=unittest)
 
     # Helpers
 
-    def make_mock_settings_class(self, method):
+    def make_mock_settings_class(self):
         class MockSettings(component.Settings):
             # Public
             author = 'author'
             master_doc = 'master_doc'
             project = 'project'
             version = 'version'
-            setup_method = component.setup(method)
         return MockSettings
 
     # Tests
@@ -87,8 +85,3 @@ class SettingsTest(unittest.TestCase):
         self.result = self.settings.autodoc_skip_member(
             'app', 'what', 'name', 'obj', False, 'options')
         self.assertFalse(self.result)
-
-    def test_setup(self):
-        app = Mock()
-        self.settings.setup(app)
-        self.method.assert_called_with(app)

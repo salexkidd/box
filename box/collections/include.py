@@ -9,6 +9,6 @@ class include(Decorator):
 
     marker = '_box_collections_include'
 
-    def __call__(self, method):
-        setattr(method, self.marker, True)
-        return method
+    def __call__(self, function):
+        setattr(function, self.marker, True)
+        return function

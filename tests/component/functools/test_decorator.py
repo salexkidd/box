@@ -26,9 +26,9 @@ class DecoratorTest(unittest.TestCase):
         class composite(component.Decorator):
             # Public
             def __init__(self, param):
-                self._param = param
+                self.__param = param
             def __call__(self, method):
-                method.param = self._param
+                method.param = self.__param
                 return method
         return composite
 
