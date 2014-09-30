@@ -15,6 +15,6 @@ class setup_Test(unittest.TestCase):
     # Helpers
 
     def test(self):
-        setup = getattr(self.method, component.setup.attribute_name)
+        setup = getattr(self.method, component.setup.marker)
         setup.invoke('obj', 'app')
         self.method.assert_called_with('obj', 'app')

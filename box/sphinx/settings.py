@@ -106,7 +106,7 @@ class Settings(Settings):
             # Sphinx doesn't work with bound method
             for name in sorted(dir(self)):
                 attr = getattr(self, name)
-                item = getattr(attr, setup.attribute_name, None)
+                item = getattr(attr, setup.marker, None)
                 if item is not None:
                     item.invoke(self, app)
         return esetup
